@@ -2,8 +2,11 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>iPasscoder | X3roe</title>
+    
+    <!-- 1. SMART APP BANNER -->
+    <meta name="apple-itunes-app" content="app-id=1642169844">
     
     <!-- Custom Logo (Favicon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
@@ -56,6 +59,7 @@
             color: #fff;
         }
         
+        /* Hide scrollbar for cleaner look but keep functionality */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
@@ -68,7 +72,6 @@
             top: 0; left: 0; right: 0; bottom: 0;
             border-radius: inherit;
             padding: 1px;
-            /* Updated spotlight to Gold */
             background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 215, 0, 0.15), transparent 40%);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -94,64 +97,66 @@
 <body class="antialiased overflow-x-hidden selection:bg-yellow-500 selection:text-black">
 
     <!-- Floating Navbar -->
-    <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-        <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-6 pr-2 py-2 flex items-center gap-6 shadow-2xl animate-fade-in-up">
-            <a href="index.html" class="flex items-center gap-2 group mr-2">
+    <div class="fixed top-4 sm:top-6 left-0 right-0 z-50 flex justify-center px-4">
+        <!-- Added max-w-fit to prevent it stretching too much on mobile -->
+        <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-4 sm:pl-6 pr-2 py-2 flex items-center gap-3 sm:gap-6 shadow-2xl animate-fade-in-up max-w-full overflow-x-auto no-scrollbar">
+            <a href="index.html" class="flex items-center gap-2 group mr-1 sm:mr-2 shrink-0">
                 <i class="ph-bold ph-arrow-left text-white/50 group-hover:text-white transition-colors"></i>
                 <span class="font-bold text-lg tracking-tight text-white/90 group-hover:text-white transition-colors">X3rœ</span>
             </a>
             
-            <div class="h-4 w-px bg-white/10 hidden sm:block"></div>
+            <div class="h-4 w-px bg-white/10 hidden sm:block shrink-0"></div>
             
-            <div class="relative flex items-center p-1">
+            <div class="relative flex items-center p-1 overflow-x-auto">
                 <div id="nav-capsule" class="absolute bg-white rounded-full h-full transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] opacity-0 pointer-events-none z-0"></div>
 
-                <a href="#hero" class="nav-link relative z-10 px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Overview</a>
-                <a href="#features" class="nav-link relative z-10 px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Features</a>
-                <a href="#contact" class="nav-link relative z-10 px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Support</a>
+                <a href="#hero" class="nav-link relative z-10 px-3 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Overview</a>
+                <a href="#features" class="nav-link relative z-10 px-3 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Features</a>
+                <a href="#contact" class="nav-link relative z-10 px-3 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Support</a>
             </div>
         </nav>
     </div>
 
     <!-- Hero Section (White/Grey/Gold Theme) -->
-    <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center pt-32 pb-20 overflow-hidden">
+    <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center pt-24 sm:pt-32 pb-12 sm:pb-20 overflow-hidden">
         <!-- Minimal Ambient Background - GOLD/SILVER -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-[-10%] left-[20%] w-[50vw] h-[50vw] bg-gray-100/5 rounded-full blur-[120px] animate-blob"></div>
-            <div class="absolute bottom-[-10%] right-[20%] w-[50vw] h-[50vw] bg-yellow-600/5 rounded-full blur-[120px] animate-blob" style="animation-delay: 2s"></div>
+            <div class="absolute top-[-10%] left-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-gray-100/5 rounded-full blur-[80px] sm:blur-[120px] animate-blob"></div>
+            <div class="absolute bottom-[-10%] right-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-yellow-600/5 rounded-full blur-[80px] sm:blur-[120px] animate-blob" style="animation-delay: 2s"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             
             <!-- App Icon with Silver/Gold Glow -->
-            <div class="relative mx-auto w-32 h-32 mb-8 reveal active">
+            <div class="relative mx-auto w-24 h-24 sm:w-32 sm:h-32 mb-6 sm:mb-8 reveal active">
                 <div class="absolute inset-0 bg-gradient-to-tr from-white/10 to-yellow-500/30 blur-2xl opacity-40 rounded-full"></div>
-                <div class="relative w-full h-full bg-[#0A0A0A] rounded-[28px] shadow-2xl border border-white/10 overflow-hidden">
+                <div class="relative w-full h-full bg-[#0A0A0A] rounded-[24px] sm:rounded-[28px] shadow-2xl border border-white/10 overflow-hidden">
                     <img src="ipasscoder_icon.png" alt="iPasscoder App Icon" class="w-full h-full object-cover">
                 </div>
             </div>
 
             <div class="reveal active" style="transition-delay: 0.1s;">
-                <h2 class="text-yellow-500 font-semibold tracking-widest uppercase text-xs mb-4 border border-yellow-500/20 inline-block px-3 py-1 rounded-full bg-yellow-500/5">
+                <h2 class="text-yellow-500 font-semibold tracking-widest uppercase text-[10px] sm:text-xs mb-4 border border-yellow-500/20 inline-block px-3 py-1 rounded-full bg-yellow-500/5">
                     Security & Privacy
                 </h2>
-                <h1 class="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-6 leading-tight">
+                <!-- Adjusted font sizes for mobile -->
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter text-white mb-6 leading-tight">
                     Secure.<br>
                     <!-- Gradient: White -> Grey -> Gold -->
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-yellow-500">Powerful. Smart.</span>
                 </h1>
             </div>
             
-            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed reveal active" style="transition-delay: 0.2s;">
+            <p class="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed reveal active px-4" style="transition-delay: 0.2s;">
                 Take control of your digital security with iPasscoder. The modern password manager designed for speed, simplicity, and privacy.
             </p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal active" style="transition-delay: 0.3s;">
-                <a href="https://apps.apple.com/us/app/ipasscoder/id1642169844" target="_blank" class="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-yellow-50 transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal active px-4" style="transition-delay: 0.3s;">
+                <a href="https://apps.apple.com/us/app/ipasscoder/id1642169844" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-yellow-50 transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2">
                     <i class="ph-fill ph-app-store-logo text-xl"></i>
                     Download on App Store
                 </a>
-                <a href="#features" class="px-8 py-4 bg-[#0A0A0A] text-white border border-white/10 font-semibold rounded-full hover:bg-white/5 transition-all flex items-center gap-2">
+                <a href="#features" class="w-full sm:w-auto px-8 py-4 bg-[#0A0A0A] text-white border border-white/10 font-semibold rounded-full hover:bg-white/5 transition-all flex items-center justify-center gap-2">
                     Explore Features
                     <i class="ph-bold ph-arrow-down"></i>
                 </a>
@@ -159,13 +164,13 @@
         </div>
     </section>
 
-    <!-- Visual Mockup Section (Monochrome transition) -->
+    <!-- Visual Mockup Section (Responsive adjustments) -->
     <section class="py-12 border-y border-white/5 overflow-hidden bg-black/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="relative mx-auto max-w-[800px] flex justify-center items-end gap-8 perspective-1000">
+            <div class="relative mx-auto max-w-[800px] flex justify-center items-end gap-4 sm:gap-8 perspective-1000">
                 
-                <!-- Left Phone (Behind) -->
-                <div class="hidden md:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform -rotate-y-12 translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
+                <!-- Left Phone (Hidden on Mobile for cleaner look) -->
+                <div class="hidden lg:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform -rotate-y-12 translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
                     <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative flex flex-col pt-8 border border-white/5">
                         <div class="px-6 mb-4">
                             <div class="text-xs font-bold text-gray-500 uppercase">Generator</div>
@@ -178,15 +183,15 @@
                     </div>
                 </div>
 
-                <!-- Main Phone (Front) -->
-                <div class="w-[300px] h-[600px] bg-[#0A0A0A] rounded-[45px] border-[10px] border-[#1A1A1A] shadow-2xl relative z-10 overflow-hidden reveal">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 h-7 w-28 bg-black rounded-b-2xl z-20"></div>
+                <!-- Main Phone (Front - Scaled for mobile) -->
+                <div class="w-[280px] sm:w-[300px] h-[560px] sm:h-[600px] bg-[#0A0A0A] rounded-[45px] border-[8px] sm:border-[10px] border-[#1A1A1A] shadow-2xl relative z-10 overflow-hidden reveal">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 h-6 sm:h-7 w-24 sm:w-28 bg-black rounded-b-2xl z-20"></div>
                     <div class="w-full h-full bg-black pt-12 flex flex-col">
                         <div class="px-6 mb-6">
-                            <h2 class="text-3xl font-bold text-white">Vault</h2>
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white">Vault</h2>
                             <p class="text-gray-500 text-sm flex items-center gap-1"><i class="ph-fill ph-lock-key-open text-yellow-500"></i> Unlocked</p>
                         </div>
-                        <div class="flex-1 bg-[#0A0A0A] rounded-t-[32px] p-6 space-y-4 border-t border-white/10">
+                        <div class="flex-1 bg-[#0A0A0A] rounded-t-[32px] p-4 sm:p-6 space-y-4 border-t border-white/10">
                             <!-- Items -->
                             <div class="flex items-center gap-4 p-4 bg-black rounded-2xl border border-white/10 hover:border-yellow-500/50 transition-colors cursor-pointer group">
                                 <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-black text-xl group-hover:scale-110 transition-transform">
@@ -210,8 +215,8 @@
                     </div>
                 </div>
 
-                <!-- Right Phone (Behind) -->
-                <div class="hidden md:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform rotate-y-12 -translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
+                <!-- Right Phone (Hidden on Mobile) -->
+                <div class="hidden lg:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform rotate-y-12 -translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
                     <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative pt-10 px-6 border border-white/5">
                         <h3 class="text-2xl font-bold mb-6 text-white">Security</h3>
                         <div class="space-y-4">
@@ -231,22 +236,23 @@
     </section>
 
     <!-- Features Grid - GOLD & WHITE THEME -->
-    <section id="features" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section id="features" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <!-- Ambient Background for Content -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div class="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] bg-white/5 rounded-full blur-[100px]"></div>
             <div class="absolute bottom-[10%] right-[-10%] w-[40vw] h-[40vw] bg-yellow-600/5 rounded-full blur-[100px]"></div>
         </div>
 
-        <div class="text-center mb-16 reveal">
-            <h2 class="text-3xl font-bold text-white">Everything you need.</h2>
-            <p class="text-gray-400 mt-2">Powerful features wrapped in a simple design.</p>
+        <div class="text-center mb-12 sm:mb-16 reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white">Everything you need.</h2>
+            <p class="text-sm sm:text-base text-gray-400 mt-2">Powerful features wrapped in a simple design.</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+        <!-- Grid now is 1 col on mobile, 2 on tablet, 3 on desktop -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 relative z-10">
             
             <!-- Feature 1 -->
-            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+            <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
                 <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-magic-wand"></i>
                 </div>
@@ -255,7 +261,7 @@
             </div>
 
             <!-- Feature 2 -->
-            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+            <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
                 <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-vault"></i>
                 </div>
@@ -264,7 +270,7 @@
             </div>
 
             <!-- Feature 3 -->
-            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+            <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
                 <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-shield-check"></i>
                 </div>
@@ -273,7 +279,7 @@
             </div>
 
              <!-- Feature 4 -->
-             <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+             <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
                 <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-qr-code"></i>
                 </div>
@@ -282,7 +288,7 @@
             </div>
 
             <!-- Feature 5 -->
-            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+            <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
                 <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-face-mask"></i>
                 </div>
@@ -291,7 +297,7 @@
             </div>
 
             <!-- Feature 6 -->
-            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+            <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
                 <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-paint-brush"></i>
                 </div>
@@ -302,16 +308,16 @@
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="py-24 px-6 text-center border-t border-white/10">
+    <footer id="contact" class="py-16 sm:py-24 px-6 text-center border-t border-white/10">
         <div class="max-w-2xl mx-auto reveal" id="footer-cta">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8">Need Support?</h2>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">Need Support?</h2>
             
-            <a href="#" onclick="openModal(); return false;" class="text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">
+            <a href="#" onclick="openModal(); return false;" class="text-lg sm:text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">
                 contact@x3roe.com
             </a>
         </div>
             
-        <div class="mt-16 flex justify-center gap-8 flex-wrap">
+        <div class="mt-12 sm:mt-16 flex justify-center gap-6 sm:gap-8 flex-wrap">
             <a href="index.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Main Portfolio</a>
             <span class="text-gray-700">•</span>
             <a href="ipasscoder-privacy.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Privacy Policy</a>
@@ -319,12 +325,12 @@
             <a href="ipasscoder-terms.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Terms of Use</a>
         </div>
         
-        <p class="mt-12 text-sm text-gray-600">© 2025 Youssef Keram.</p>
+        <p class="mt-12 text-xs sm:text-sm text-gray-600">© 2025 Youssef Keram.</p>
     </footer>
 
     <!-- Contact Modal -->
-    <div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md hidden transition-all duration-300">
-        <div class="bg-[#111] border border-white/10 rounded-3xl w-full max-w-lg p-8 relative shadow-2xl mx-4 transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+    <div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md hidden transition-all duration-300 px-4">
+        <div class="bg-[#111] border border-white/10 rounded-3xl w-full max-w-lg p-6 sm:p-8 relative shadow-2xl transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
             <button onclick="closeModal()" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">
                 <i class="ph-bold ph-x text-xl"></i>
             </button>
@@ -374,7 +380,7 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Navbar Logic with TIGHTER ROOT MARGIN to fix glitch
+        // Navbar Logic with TIGHTER ROOT MARGIN
         const navLinks = document.querySelectorAll('.nav-link');
         const capsule = document.getElementById('nav-capsule');
         const sections = document.querySelectorAll('section[id], footer[id]');
@@ -398,14 +404,11 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
-                    
-                    // IF HERO IS ACTIVE (Overview)
                     if (id === 'hero') {
                         // Find and highlight "Overview" link
                         const overviewLink = document.querySelector('.nav-link[href="#hero"]');
                         if (overviewLink) moveCapsuleToLink(overviewLink);
-                    } 
-                    else {
+                    } else {
                         const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
                         if (activeLink) moveCapsuleToLink(activeLink);
                     }
@@ -424,7 +427,7 @@
             });
         });
 
-        // Contact Modal & Form Logic
+        // Contact Modal Logic
         const modal = document.getElementById('contact-modal');
         const modalContent = document.getElementById('modal-content');
         const contactForm = document.getElementById('contact-form');
@@ -461,7 +464,7 @@
             submitBtn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-xl"></i> Sending...';
             submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
 
-            const FORMSPREE_ENDPOINT = 'https://formspree.io/f/movozokz';
+            const FORMSPREE_ENDPOINT = 'https://formspree.io/f/movozokz'; 
 
             try {
                 try {
