@@ -411,6 +411,8 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const capsule = document.getElementById('nav-capsule');
         const sections = document.querySelectorAll('section[id], footer[id]');
+        let isManualScroll = false; // Flag to prevent conflict
+        let scrollTimeout;
 
         function moveCapsuleToLink(link) {
             capsule.style.opacity = '1';
@@ -420,11 +422,11 @@
             // Reset all colors
             navLinks.forEach(l => {
                 l.classList.remove('text-black');
-                l.classList.add('text-gray-400', 'hover:text-white'); // Added hover:text-white back
+                l.classList.add('text-gray-400', 'hover:text-white');
             });
             
             // Active color
-            link.classList.remove('text-gray-400', 'hover:text-white'); // Removed hover:text-white from active
+            link.classList.remove('text-gray-400', 'hover:text-white');
             link.classList.add('text-black');
         }
 
@@ -435,6 +437,9 @@
         };
 
         const scrollSpy = new IntersectionObserver((entries) => {
+            // If we are manually scrolling via click, ignore observer updates
+            if (isManualScroll) return;
+
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
@@ -444,7 +449,7 @@
                         capsule.style.opacity = '0';
                         navLinks.forEach(l => {
                             l.classList.remove('text-black');
-                            l.classList.add('text-gray-400', 'hover:text-white'); // Added hover:text-white back
+                            l.classList.add('text-gray-400', 'hover:text-white');
                         });
                     } else {
                         const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
@@ -458,10 +463,22 @@
 
         sections.forEach(section => scrollSpy.observe(section));
 
-        // Handle Click Events for immediate response
+        // Handle Click Events
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
+                // 1. Set flag to true to disable observer
+                isManualScroll = true;
+                
+                // 2. Clear any existing timeout
+                clearTimeout(scrollTimeout);
+                
+                // 3. Move capsule immediately
                 moveCapsuleToLink(e.target);
+                
+                // 4. Reset flag after animation/scroll finishes (approx 1s)
+                scrollTimeout = setTimeout(() => {
+                    isManualScroll = false;
+                }, 1000);
             });
         });
     </script>
