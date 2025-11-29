@@ -420,11 +420,11 @@
             // Reset all colors
             navLinks.forEach(l => {
                 l.classList.remove('text-black');
-                l.classList.add('text-gray-400');
+                l.classList.add('text-gray-400', 'hover:text-white'); // Added hover:text-white back
             });
             
             // Active color
-            link.classList.remove('text-gray-400');
+            link.classList.remove('text-gray-400', 'hover:text-white'); // Removed hover:text-white from active
             link.classList.add('text-black');
         }
 
@@ -444,7 +444,7 @@
                         capsule.style.opacity = '0';
                         navLinks.forEach(l => {
                             l.classList.remove('text-black');
-                            l.classList.add('text-gray-400');
+                            l.classList.add('text-gray-400', 'hover:text-white'); // Added hover:text-white back
                         });
                     } else {
                         const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
