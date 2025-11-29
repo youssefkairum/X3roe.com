@@ -473,6 +473,16 @@
             const FORMSPREE_ENDPOINT = 'https://formspree.io/f/movozokz'; 
 
             try {
+                // Fetch User IP (Optional but useful context)
+                try {
+                    const ipRes = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipRes.json();
+                    formData.append('sender_ip', ipData.ip);
+                } catch (err) {
+                    console.warn('Could not fetch IP', err);
+                    formData.append('sender_ip', 'Not available');
+                }
+
                 // 3. Send Data to Formspree
                 const response = await fetch(FORMSPREE_ENDPOINT, {
                     method: 'POST',
