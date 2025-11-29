@@ -68,7 +68,6 @@
             top: 0; left: 0; right: 0; bottom: 0;
             border-radius: inherit;
             padding: 1px;
-            /* Updated spotlight to Gold */
             background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 215, 0, 0.15), transparent 40%);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -113,17 +112,14 @@
         </nav>
     </div>
 
-    <!-- Hero Section (White/Grey/Gold Theme) -->
+    <!-- Hero Section -->
     <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center pt-32 pb-20 overflow-hidden">
-        <!-- Minimal Ambient Background - GOLD/SILVER -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div class="absolute top-[-10%] left-[20%] w-[50vw] h-[50vw] bg-gray-100/5 rounded-full blur-[120px] animate-blob"></div>
             <div class="absolute bottom-[-10%] right-[20%] w-[50vw] h-[50vw] bg-yellow-600/5 rounded-full blur-[120px] animate-blob" style="animation-delay: 2s"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            
-            <!-- App Icon with Silver/Gold Glow -->
             <div class="relative mx-auto w-32 h-32 mb-8 reveal active">
                 <div class="absolute inset-0 bg-gradient-to-tr from-white/10 to-yellow-500/30 blur-2xl opacity-40 rounded-full"></div>
                 <div class="relative w-full h-full bg-[#0A0A0A] rounded-[28px] shadow-2xl border border-white/10 overflow-hidden">
@@ -137,7 +133,6 @@
                 </h2>
                 <h1 class="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-6 leading-tight">
                     Secure.<br>
-                    <!-- Gradient: White -> Grey -> Gold -->
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-yellow-500">Powerful. Smart.</span>
                 </h1>
             </div>
@@ -159,12 +154,11 @@
         </div>
     </section>
 
-    <!-- Visual Mockup Section (Monochrome transition) -->
+    <!-- Visual Mockup Section -->
     <section class="py-12 border-y border-white/5 overflow-hidden bg-black/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="relative mx-auto max-w-[800px] flex justify-center items-end gap-8 perspective-1000">
-                
-                <!-- Left Phone (Behind) -->
+                <!-- Left Phone -->
                 <div class="hidden md:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform -rotate-y-12 translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
                     <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative flex flex-col pt-8 border border-white/5">
                         <div class="px-6 mb-4">
@@ -177,8 +171,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Main Phone (Front) -->
+                <!-- Main Phone -->
                 <div class="w-[300px] h-[600px] bg-[#0A0A0A] rounded-[45px] border-[10px] border-[#1A1A1A] shadow-2xl relative z-10 overflow-hidden reveal">
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 h-7 w-28 bg-black rounded-b-2xl z-20"></div>
                     <div class="w-full h-full bg-black pt-12 flex flex-col">
@@ -187,7 +180,6 @@
                             <p class="text-gray-500 text-sm flex items-center gap-1"><i class="ph-fill ph-lock-key-open text-yellow-500"></i> Unlocked</p>
                         </div>
                         <div class="flex-1 bg-[#0A0A0A] rounded-t-[32px] p-6 space-y-4 border-t border-white/10">
-                            <!-- Items -->
                             <div class="flex items-center gap-4 p-4 bg-black rounded-2xl border border-white/10 hover:border-yellow-500/50 transition-colors cursor-pointer group">
                                 <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-black text-xl group-hover:scale-110 transition-transform">
                                     <i class="ph-fill ph-github-logo"></i>
@@ -209,8 +201,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Right Phone (Behind) -->
+                <!-- Right Phone -->
                 <div class="hidden md:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform rotate-y-12 -translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
                     <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative pt-10 px-6 border border-white/5">
                         <h3 class="text-2xl font-bold mb-6 text-white">Security</h3>
@@ -225,14 +216,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Features Grid - GOLD & WHITE THEME -->
+    <!-- Features Grid -->
     <section id="features" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <!-- Ambient Background for Content -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div class="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] bg-white/5 rounded-full blur-[100px]"></div>
             <div class="absolute bottom-[10%] right-[-10%] w-[40vw] h-[40vw] bg-yellow-600/5 rounded-full blur-[100px]"></div>
@@ -244,59 +233,36 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-            
-            <!-- Feature 1 -->
+            <!-- Features -->
             <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-magic-wand"></i>
-                </div>
+                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-magic-wand"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-yellow-500 transition-colors">Smart Generator</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Instantly create cryptographic strong passwords with custom length and complexity settings.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Instantly create cryptographic strong passwords.</p>
             </div>
-
-            <!-- Feature 2 -->
             <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-vault"></i>
-                </div>
+                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-vault"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-gray-300 transition-colors">Password Vault</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Save, name, search, and organize your passwords—all in one secure encrypted place.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Save, name, search, and organize your passwords.</p>
             </div>
-
-            <!-- Feature 3 -->
             <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-shield-check"></i>
-                </div>
+                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-shield-check"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-yellow-500 transition-colors">Security Audit</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Analyze your saved passwords for strength, reuse, and potential risks to stay ahead of threats.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Analyze strength, reuse, and potential risks.</p>
             </div>
-
-             <!-- Feature 4 -->
              <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-qr-code"></i>
-                </div>
+                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-qr-code"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-gray-300 transition-colors">2FA Authenticator</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Generate and manage two-factor authentication codes directly in the app.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Generate and manage two-factor authentication codes.</p>
             </div>
-
-            <!-- Feature 5 -->
             <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-face-mask"></i>
-                </div>
+                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-face-mask"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-yellow-500 transition-colors">Biometric Protection</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Keep your passwords safe with device-level security using Face ID or Touch ID.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Secure with Face ID or Touch ID.</p>
             </div>
-
-            <!-- Feature 6 -->
             <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-paint-brush"></i>
-                </div>
+                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-paint-brush"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-gray-300 transition-colors">Modern Design</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Enjoy a smooth, intuitive native SwiftUI interface designed for the latest iOS standards.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Smooth, intuitive native SwiftUI interface.</p>
             </div>
         </div>
     </section>
@@ -305,12 +271,8 @@
     <footer id="contact" class="py-24 px-6 text-center border-t border-white/10">
         <div class="max-w-2xl mx-auto reveal" id="footer-cta">
             <h2 class="text-3xl md:text-4xl font-bold mb-8">Need Support?</h2>
-            
-            <a href="#" onclick="openModal(); return false;" class="text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">
-                contact@x3roe.com
-            </a>
+            <a href="#" onclick="openModal(); return false;" class="text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">contact@x3roe.com</a>
         </div>
-            
         <div class="mt-16 flex justify-center gap-8 flex-wrap">
             <a href="index.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Main Portfolio</a>
             <span class="text-gray-700">•</span>
@@ -318,20 +280,17 @@
             <span class="text-gray-700">•</span>
             <a href="ipasscoder-terms.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Terms of Use</a>
         </div>
-        
         <p class="mt-12 text-sm text-gray-600">© 2025 Youssef Keram.</p>
     </footer>
 
-    <!-- Contact Modal (Same Logic as Index) -->
+    <!-- Contact Modal -->
     <div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md hidden transition-all duration-300">
         <div class="bg-[#111] border border-white/10 rounded-3xl w-full max-w-lg p-8 relative shadow-2xl mx-4 transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
             <button onclick="closeModal()" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">
                 <i class="ph-bold ph-x text-xl"></i>
             </button>
-
             <h3 class="text-2xl font-bold mb-2">Get Support</h3>
             <p class="text-gray-400 mb-6 text-sm">Having issues with iPasscoder? Let us know.</p>
-
             <form id="contact-form" class="space-y-4" onsubmit="handleFormSubmit(event)">
                 <div>
                     <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Name</label>
@@ -345,15 +304,12 @@
                     <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Issue Description</label>
                     <textarea name="message" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="Describe the problem..."></textarea>
                 </div>
-                <button type="submit" id="submit-btn" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition-all mt-2 flex justify-center items-center gap-2">
-                    <span>Send Request</span>
-                </button>
+                <button type="submit" id="submit-btn" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition-all mt-2 flex justify-center items-center gap-2"><span>Send Request</span></button>
             </form>
         </div>
     </div>
 
     <script>
-        // Spotlight Effect
         document.querySelectorAll('.spotlight-card').forEach(card => {
             card.onmousemove = e => {
                 const rect = card.getBoundingClientRect();
@@ -364,17 +320,14 @@
             }
         });
 
-        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Navbar Logic
+        // Navbar Logic with TIGHTER ROOT MARGIN to fix glitch
         const navLinks = document.querySelectorAll('.nav-link');
         const capsule = document.getElementById('nav-capsule');
         const sections = document.querySelectorAll('section[id], footer[id]');
@@ -410,7 +363,7 @@
                     }
                 }
             });
-        }, { root: null, rootMargin: "-40% 0px -40% 0px", threshold: 0 });
+        }, { root: null, rootMargin: "-50% 0px -50% 0px", threshold: 0 }); // Fixed flickering
 
         sections.forEach(section => scrollSpy.observe(section));
 
@@ -423,7 +376,6 @@
             });
         });
 
-        // Contact Modal & Form Logic
         const modal = document.getElementById('contact-modal');
         const modalContent = document.getElementById('modal-content');
         const contactForm = document.getElementById('contact-form');
@@ -460,7 +412,7 @@
             submitBtn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-xl"></i> Sending...';
             submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
 
-            const FORMSPREE_ENDPOINT = 'https://formspree.io/f/movozokz'; // Reuse endpoint or new one
+            const FORMSPREE_ENDPOINT = 'https://formspree.io/f/movozokz';
 
             try {
                 try {
@@ -482,9 +434,7 @@
                     localStorage.setItem('ipass_support_sent', 'true');
                     setTimeout(() => {
                         closeModal();
-                        if(footerCta) {
-                            footerCta.innerHTML = '<h2 class="text-3xl font-bold mb-4 text-white">Request Received</h2><p class="text-xl text-gray-400">We will get back to you soon.</p>';
-                        }
+                        if(footerCta) footerCta.innerHTML = '<h2 class="text-3xl font-bold mb-4 text-white">Request Received</h2><p class="text-xl text-gray-400">We will get back to you soon.</p>';
                     }, 1500);
                 } else { throw new Error('Failed'); }
             } catch (error) {
