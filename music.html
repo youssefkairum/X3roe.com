@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Music | X3roe</title>
+    
+    <!-- Custom Logo (Favicon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        ios: {
+                            blue: '#2997FF',
+                            dark: '#000000',
+                            card: '#0A0A0A',
+                            border: '#FFFFFF1A',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 8s ease-in-out infinite',
+                        'blob': 'blob 10s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.1), transparent 40%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+
+    <!-- Floating Navbar -->
+    <div class="fixed top-4 sm:top-6 left-0 right-0 z-50 flex justify-center px-4">
+        <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-4 sm:pl-6 pr-2 py-2 flex items-center gap-3 sm:gap-6 shadow-2xl animate-fade-in-up max-w-full overflow-x-auto no-scrollbar">
+            <a href="index.html" class="flex items-center gap-2 group mr-1 sm:mr-2 shrink-0">
+                <i class="ph-bold ph-arrow-left text-white/50 group-hover:text-white transition-colors"></i>
+                <span class="font-bold text-lg tracking-tight text-white/90 group-hover:text-white transition-colors">X3rœ</span>
+            </a>
+            
+            <div class="h-4 w-px bg-white/10 hidden sm:block shrink-0"></div>
+            
+            <div class="relative flex items-center p-1 overflow-x-auto">
+                <div id="nav-capsule" class="absolute bg-white rounded-full h-full transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] opacity-0 pointer-events-none z-0"></div>
+
+                <a href="#latest" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Latest</a>
+                <a href="#discography" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Discography</a>
+                <a href="#listen" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Listen</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero Section (Latest Release: Afterimage) -->
+    <section id="latest" class="relative min-h-[90vh] flex flex-col justify-center items-center pt-24 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-[-10%] left-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-gray-100/5 rounded-full blur-[120px] animate-blob"></div>
+            <div class="absolute bottom-[-10%] right-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-gray-600/5 rounded-full blur-[120px] animate-blob" style="animation-delay: 2s"></div>
+        </div>
+
+        <div class="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-12 sm:gap-16 items-center z-10">
+            <div class="space-y-6 sm:space-y-8 text-center lg:text-left reveal active">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-gray-300 text-[10px] sm:text-xs font-medium uppercase tracking-wider backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                    New Single • 2025
+                </div>
+                
+                <h1 class="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tighter leading-[1.1]">
+                    Afterimage<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 text-2xl sm:text-4xl lg:text-6xl block mt-2">feat. Nakadate</span>
+                </h1>
+                
+                <p class="text-base sm:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                    A haunting blend of melodic vocals and crisp electronic production. The latest single exploring memory and digital echoes.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                    <a href="#" class="px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition-transform duration-300 hover:scale-105 flex items-center justify-center gap-2">
+                        <i class="ph-fill ph-play-circle text-xl"></i> Listen Now
+                    </a>
+                    <a href="#discography" class="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/10 transition-all">
+                        View All
+                    </a>
+                </div>
+            </div>
+
+            <!-- Album Art -->
+            <div class="flex justify-center lg:justify-end reveal perspective-1000" style="perspective: 1200px;">
+                <div class="relative w-[280px] sm:w-[450px] aspect-square rounded-[32px] bg-[#0A0A0A] border border-white/10 shadow-2xl overflow-hidden group animate-float">
+                    <!-- Album Art Image -->
+                    <img src="cover_afterimage.jpg" alt="Afterimage Single Cover" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                    
+                    <!-- Hover Overlay -->
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-white text-black flex items-center justify-center pl-1 hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-play text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discography Grid -->
+    <section id="discography" class="py-24 sm:py-32 px-6 border-y border-white/5 bg-black/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Discography</h2>
+                <p class="text-gray-500 mt-2">Full Catalog</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- 1. Single: Afterimage -->
+                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal">
+                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
+                         <!-- Cover Art Image -->
+                         <img src="cover_afterimage.jpg" alt="Afterimage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Afterimage</h3>
+                                <p class="text-sm text-gray-500">feat. Nakadate</p>
+                            </div>
+                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">Single</span>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-4">2025</p>
+                    </div>
+                </div>
+
+                <!-- 2. Single: BODYTALK (Middle) -->
+                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal" style="transition-delay: 0.1s">
+                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
+                         <img src="cover_bodytalk.jpg" alt="BODYTALK" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">BODYTALK</h3>
+                                <p class="text-sm text-gray-500">Original Mix</p>
+                            </div>
+                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">Single</span>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-4">2025</p>
+                    </div>
+                </div>
+
+                <!-- 3. EP: Midnight Blue (Right) -->
+                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal" style="transition-delay: 0.2s">
+                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
+                         <img src="cover_midnight.jpg" alt="Midnight Blue" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Midnight Blue</h3>
+                                <p class="text-sm text-gray-500">EP</p>
+                            </div>
+                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">EP</span>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-4">2025</p>
+                    </div>
+                </div>
+
+                <!-- 4. Album: Xero Vol 2 -->
+                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal">
+                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
+                         <img src="cover_xero.jpg" alt="Xero Vol 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Xero, Vol. 2</h3>
+                                <p class="text-sm text-gray-500">Album</p>
+                            </div>
+                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">Album</span>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-4">2025</p>
+                    </div>
+                </div>
+                
+                <!-- 5. EP: Sorry for being anti-social -->
+                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal" style="transition-delay: 0.1s">
+                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
+                         <img src="cover_antisocial.jpg" alt="Sorry for being anti-social" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Sorry for being anti-social</h3>
+                                <p class="text-sm text-gray-500">EP</p>
+                            </div>
+                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">EP</span>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-4">2025</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Streaming Platforms -->
+    <section id="listen" class="py-24 px-6 text-center">
+        <div class="max-w-3xl mx-auto reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12">Listen Everywhere</h2>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                <a href="#" class="p-6 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:bg-[#222] transition-all flex flex-col items-center gap-4 group">
+                    <i class="ph-fill ph-spotify-logo text-4xl text-[#1DB954] group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-gray-400 group-hover:text-white">Spotify</span>
+                </a>
+                <a href="#" class="p-6 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:bg-[#222] transition-all flex flex-col items-center gap-4 group">
+                    <i class="ph-fill ph-apple-logo text-4xl text-white group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-gray-400 group-hover:text-white">Apple Music</span>
+                </a>
+                <a href="#" class="p-6 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:bg-[#222] transition-all flex flex-col items-center gap-4 group">
+                    <i class="ph-fill ph-soundcloud-logo text-4xl text-[#FF5500] group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-gray-400 group-hover:text-white">SoundCloud</span>
+                </a>
+                <a href="#" class="p-6 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:bg-[#222] transition-all flex flex-col items-center gap-4 group">
+                    <i class="ph-fill ph-youtube-logo text-4xl text-[#FF0000] group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-gray-400 group-hover:text-white">YouTube</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6 text-center border-t border-white/10">
+        <div class="mt-8 flex justify-center gap-8">
+            <a href="index.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Back to Portfolio</a>
+        </div>
+        <p class="mt-12 text-xs sm:text-sm text-gray-600">© 2025 X3roe Music.</p>
+    </footer>
+
+    <script>
+        // Spotlight Effect
+        document.querySelectorAll('.spotlight-card').forEach(card => {
+            card.onmousemove = e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            }
+        });
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Navbar Logic (Math Based)
+        const navLinks = document.querySelectorAll('.nav-link');
+        const capsule = document.getElementById('nav-capsule');
+        let isManualScroll = false;
+        let scrollTimeout;
+
+        function moveCapsuleToLink(link) {
+            capsule.style.opacity = '1';
+            capsule.style.left = `${link.offsetLeft}px`;
+            capsule.style.width = `${link.offsetWidth}px`;
+            navLinks.forEach(l => {
+                l.classList.remove('text-black');
+                l.classList.add('text-gray-400', 'hover:text-white');
+            });
+            link.classList.remove('text-gray-400', 'hover:text-white');
+            link.classList.add('text-black');
+        }
+
+        function updateActiveSection() {
+            if (isManualScroll) return;
+
+            const scrollY = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const heroHeight = document.getElementById('latest').offsetHeight;
+
+            if (scrollY < heroHeight * 0.5) {
+                const heroLink = document.querySelector('.nav-link[href="#latest"]');
+                if(heroLink) moveCapsuleToLink(heroLink);
+                return;
+            }
+
+            const center = scrollY + (viewportHeight / 2);
+            const sectionsToTrack = [
+                { id: 'latest', link: document.querySelector('.nav-link[href="#latest"]') },
+                { id: 'discography', link: document.querySelector('.nav-link[href="#discography"]') },
+                { id: 'listen', link: document.querySelector('.nav-link[href="#listen"]') }
+            ];
+
+            for (const section of sectionsToTrack) {
+                const el = document.getElementById(section.id);
+                if (el) {
+                    const top = el.offsetTop;
+                    const bottom = top + el.offsetHeight;
+                    if (center >= top && center < bottom) {
+                        moveCapsuleToLink(section.link);
+                        return;
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveSection);
+        updateActiveSection();
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                isManualScroll = true;
+                clearTimeout(scrollTimeout);
+                moveCapsuleToLink(e.target);
+                scrollTimeout = setTimeout(() => {
+                    isManualScroll = false;
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
