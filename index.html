@@ -106,26 +106,28 @@
 </head>
 <body class="antialiased overflow-x-hidden selection:bg-ios-blue selection:text-white">
 
-    <!-- Floating Minimal Navbar -->
+    <!-- Floating Minimal Navbar with Sliding Capsule -->
     <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-        <nav class="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl animate-fade-in-up">
-            <a href="#" class="font-bold text-lg tracking-tight text-white/90 hover:text-white transition-colors">X3rœ</a>
+        <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-6 pr-2 py-2 flex items-center gap-6 shadow-2xl animate-fade-in-up">
+            <a href="#hero" class="font-bold text-lg tracking-tight text-white/90 hover:text-white transition-colors mr-2">X3rœ</a>
             
             <div class="h-4 w-px bg-white/10 hidden sm:block"></div>
             
-            <!-- Let's Talk Button moved to Left of links -->
-            <a href="#contact" class="bg-white text-black px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors">Let's Talk</a>
+            <!-- Navigation Links Container -->
+            <div class="relative flex items-center p-1">
+                <!-- Moving White Capsule (Background) -->
+                <div id="nav-capsule" class="absolute bg-white rounded-full h-full transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] opacity-0 pointer-events-none z-0"></div>
 
-            <div class="hidden sm:flex items-center gap-6 text-sm font-medium text-gray-400">
-                <a href="#work" class="hover:text-white transition-colors">Work</a>
-                <a href="#skills" class="hover:text-white transition-colors">Stack</a>
-                <a href="#music" class="hover:text-white transition-colors">Music</a>
+                <!-- Nav Items -->
+                <a href="#work" class="nav-link relative z-10 px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Work</a>
+                <a href="#music" class="nav-link relative z-10 px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Music</a>
+                <a href="#contact" class="nav-link relative z-10 px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Let's Talk</a>
             </div>
         </nav>
     </div>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex flex-col justify-center items-center pt-20 overflow-hidden">
+    <!-- Hero Section (Added ID for Scroll Spy) -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center pt-20 overflow-hidden">
         <!-- Minimal Ambient Background -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div class="absolute top-[-10%] left-[20%] w-[50vw] h-[50vw] bg-blue-600/10 rounded-full blur-[120px] animate-blob"></div>
@@ -405,13 +407,30 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Active Link Spy (Navbar Highlight)
-        const navLinks = document.querySelectorAll('nav div a'); // Select links inside the nav div
-        const sections = document.querySelectorAll('section[id], footer[id]'); // Sections to track
+        // Sliding Capsule Spy
+        const navLinks = document.querySelectorAll('.nav-link');
+        const capsule = document.getElementById('nav-capsule');
+        const sections = document.querySelectorAll('section[id], footer[id]');
+
+        function moveCapsuleToLink(link) {
+            capsule.style.opacity = '1';
+            capsule.style.left = `${link.offsetLeft}px`;
+            capsule.style.width = `${link.offsetWidth}px`;
+            
+            // Reset all colors
+            navLinks.forEach(l => {
+                l.classList.remove('text-black');
+                l.classList.add('text-gray-400');
+            });
+            
+            // Active color
+            link.classList.remove('text-gray-400');
+            link.classList.add('text-black');
+        }
 
         const spyOptions = {
             root: null,
-            rootMargin: "-50% 0px -50% 0px", // Trigger when section is in the middle of viewport
+            rootMargin: "-40% 0px -40% 0px",
             threshold: 0
         };
 
@@ -420,23 +439,30 @@
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
                     
-                    // Update Nav Links
-                    navLinks.forEach(link => {
-                        const href = link.getAttribute('href');
-                        if (href === `#${id}`) {
-                            link.classList.remove('text-gray-400');
-                            link.classList.add('text-white', 'scale-110'); // Active State
-                        } else {
-                            link.classList.add('text-gray-400');
-                            link.classList.remove('text-white', 'scale-110'); // Inactive State
+                    // Special case for Hero: Hide capsule
+                    if (id === 'hero') {
+                        capsule.style.opacity = '0';
+                        navLinks.forEach(l => {
+                            l.classList.remove('text-black');
+                            l.classList.add('text-gray-400');
+                        });
+                    } else {
+                        const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                        if (activeLink) {
+                            moveCapsuleToLink(activeLink);
                         }
-                    });
+                    }
                 }
             });
         }, spyOptions);
 
-        sections.forEach(section => {
-            scrollSpy.observe(section);
+        sections.forEach(section => scrollSpy.observe(section));
+
+        // Handle Click Events for immediate response
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                moveCapsuleToLink(e.target);
+            });
         });
     </script>
 </body>
