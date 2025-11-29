@@ -380,7 +380,7 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Navbar Logic with TIGHTER ROOT MARGIN
+        // Navbar Logic with TIGHTER ROOT MARGIN to fix glitch
         const navLinks = document.querySelectorAll('.nav-link');
         const capsule = document.getElementById('nav-capsule');
         const sections = document.querySelectorAll('section[id], footer[id]');
@@ -403,7 +403,6 @@
             if (isManualScroll) return;
             entries.forEach(entry => {
                 // Modified logic: if intersectionRatio > 0, it means part of it is visible.
-                // We prioritize: Contact > Features > Hero
                 
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
