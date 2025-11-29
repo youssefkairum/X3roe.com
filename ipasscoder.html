@@ -380,7 +380,7 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Navbar Logic with TIGHTER ROOT MARGIN to fix glitch
+        // Navbar Logic with FIXED SCROLL SPY
         const navLinks = document.querySelectorAll('.nav-link');
         const capsule = document.getElementById('nav-capsule');
         const sections = document.querySelectorAll('section[id], footer[id]');
@@ -402,18 +402,20 @@
         const scrollSpy = new IntersectionObserver((entries) => {
             if (isManualScroll) return;
             entries.forEach(entry => {
-                // Modified logic: if intersectionRatio > 0, it means part of it is visible.
-                
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
                     
-                    // IF HERO IS ACTIVE (Overview)
+                    // Priority check for bottom of page (Footer/Support)
+                    if (id === 'contact') {
+                         const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                         if (activeLink) moveCapsuleToLink(activeLink);
+                         return;
+                    }
+
                     if (id === 'hero') {
-                        // Find and highlight "Overview" link
                         const overviewLink = document.querySelector('.nav-link[href="#hero"]');
                         if (overviewLink) moveCapsuleToLink(overviewLink);
-                    } 
-                    else {
+                    } else {
                         const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
                         if (activeLink) moveCapsuleToLink(activeLink);
                     }
@@ -421,10 +423,9 @@
             });
         }, { 
             root: null, 
-            // Changed rootMargin to trigger earlier for footer on mobile
-            // -40% from top means it must cross the top 40% line
-            // -10% from bottom means it triggers when near the bottom (good for footer)
-            rootMargin: "-40% 0px -20% 0px", 
+            // ADJUSTED: Triggers earlier (-20% from top) and keeps valid until bottom (-70%)
+            // This prevents the "gap" when scrolling up.
+            rootMargin: "-20% 0px -70% 0px", 
             threshold: 0 
         });
 
@@ -439,7 +440,7 @@
             });
         });
 
-        // Contact Modal Logic
+        // Contact Modal & Form Logic
         const modal = document.getElementById('contact-modal');
         const modalContent = document.getElementById('modal-content');
         const contactForm = document.getElementById('contact-form');
