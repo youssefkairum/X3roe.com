@@ -402,19 +402,32 @@
         const scrollSpy = new IntersectionObserver((entries) => {
             if (isManualScroll) return;
             entries.forEach(entry => {
+                // Modified logic: if intersectionRatio > 0, it means part of it is visible.
+                // We prioritize: Contact > Features > Hero
+                
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
+                    
+                    // IF HERO IS ACTIVE (Overview)
                     if (id === 'hero') {
                         // Find and highlight "Overview" link
                         const overviewLink = document.querySelector('.nav-link[href="#hero"]');
                         if (overviewLink) moveCapsuleToLink(overviewLink);
-                    } else {
+                    } 
+                    else {
                         const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
                         if (activeLink) moveCapsuleToLink(activeLink);
                     }
                 }
             });
-        }, { root: null, rootMargin: "-50% 0px -50% 0px", threshold: 0 });
+        }, { 
+            root: null, 
+            // Changed rootMargin to trigger earlier for footer on mobile
+            // -40% from top means it must cross the top 40% line
+            // -10% from bottom means it triggers when near the bottom (good for footer)
+            rootMargin: "-40% 0px -20% 0px", 
+            threshold: 0 
+        });
 
         sections.forEach(section => scrollSpy.observe(section));
 
