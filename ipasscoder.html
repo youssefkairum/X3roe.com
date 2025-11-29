@@ -139,10 +139,8 @@
                 <h2 class="text-yellow-500 font-semibold tracking-widest uppercase text-[10px] sm:text-xs mb-4 border border-yellow-500/20 inline-block px-3 py-1 rounded-full bg-yellow-500/5">
                     Security & Privacy
                 </h2>
-                <!-- Adjusted font sizes for mobile -->
                 <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter text-white mb-6 leading-tight">
                     Secure.<br>
-                    <!-- Gradient: White -> Grey -> Gold -->
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-yellow-500">Powerful. Smart.</span>
                 </h1>
             </div>
@@ -164,12 +162,11 @@
         </div>
     </section>
 
-    <!-- Visual Mockup Section (Responsive adjustments) -->
+    <!-- Visual Mockup Section -->
     <section class="py-12 border-y border-white/5 overflow-hidden bg-black/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="relative mx-auto max-w-[800px] flex justify-center items-end gap-4 sm:gap-8 perspective-1000">
-                
-                <!-- Left Phone (Hidden on Mobile for cleaner look) -->
+                <!-- Left Phone -->
                 <div class="hidden lg:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform -rotate-y-12 translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
                     <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative flex flex-col pt-8 border border-white/5">
                         <div class="px-6 mb-4">
@@ -182,8 +179,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Main Phone (Front - Scaled for mobile) -->
+                <!-- Main Phone -->
                 <div class="w-[280px] sm:w-[300px] h-[560px] sm:h-[600px] bg-[#0A0A0A] rounded-[45px] border-[8px] sm:border-[10px] border-[#1A1A1A] shadow-2xl relative z-10 overflow-hidden reveal">
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 h-6 sm:h-7 w-24 sm:w-28 bg-black rounded-b-2xl z-20"></div>
                     <div class="w-full h-full bg-black pt-12 flex flex-col">
@@ -214,8 +210,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Right Phone (Hidden on Mobile) -->
+                <!-- Right Phone -->
                 <div class="hidden lg:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform rotate-y-12 -translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
                     <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative pt-10 px-6 border border-white/5">
                         <h3 class="text-2xl font-bold mb-6 text-white">Security</h3>
@@ -230,14 +225,13 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Features Grid - GOLD & WHITE THEME -->
+    <!-- Features Grid -->
     <section id="features" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <!-- Ambient Background for Content -->
+        <!-- Ambient Background -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div class="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] bg-white/5 rounded-full blur-[100px]"></div>
             <div class="absolute bottom-[10%] right-[-10%] w-[40vw] h-[40vw] bg-yellow-600/5 rounded-full blur-[100px]"></div>
@@ -248,61 +242,37 @@
             <p class="text-sm sm:text-base text-gray-400 mt-2">Powerful features wrapped in a simple design.</p>
         </div>
         
-        <!-- Grid now is 1 col on mobile, 2 on tablet, 3 on desktop -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 relative z-10">
-            
-            <!-- Feature 1 -->
+            <!-- Features Cards -->
             <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-magic-wand"></i>
-                </div>
+                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-magic-wand"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-yellow-500 transition-colors">Smart Generator</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Instantly create cryptographic strong passwords with custom length and complexity settings.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Instantly create cryptographic strong passwords.</p>
             </div>
-
-            <!-- Feature 2 -->
             <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-vault"></i>
-                </div>
+                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-vault"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-gray-300 transition-colors">Password Vault</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Save, name, search, and organize your passwords—all in one secure encrypted place.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Save, name, search, and organize your passwords.</p>
             </div>
-
-            <!-- Feature 3 -->
             <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-shield-check"></i>
-                </div>
+                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-shield-check"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-yellow-500 transition-colors">Security Audit</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Analyze your saved passwords for strength, reuse, and potential risks to stay ahead of threats.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Analyze strength, reuse, and potential risks.</p>
             </div>
-
-             <!-- Feature 4 -->
              <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-qr-code"></i>
-                </div>
+                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-qr-code"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-gray-300 transition-colors">2FA Authenticator</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Generate and manage two-factor authentication codes directly in the app.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Generate and manage two-factor authentication codes.</p>
             </div>
-
-            <!-- Feature 5 -->
             <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-face-mask"></i>
-                </div>
+                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-face-mask"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-yellow-500 transition-colors">Biometric Protection</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Keep your passwords safe with device-level security using Face ID or Touch ID.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Secure with Face ID or Touch ID.</p>
             </div>
-
-            <!-- Feature 6 -->
             <div class="p-6 sm:p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
-                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-paint-brush"></i>
-                </div>
+                <div class="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="ph-fill ph-paint-brush"></i></div>
                 <h3 class="text-xl font-bold mb-3 text-white group-hover:text-gray-300 transition-colors">Modern Design</h3>
-                <p class="text-gray-400 leading-relaxed text-sm">Enjoy a smooth, intuitive native SwiftUI interface designed for the latest iOS standards.</p>
+                <p class="text-gray-400 leading-relaxed text-sm">Smooth, intuitive native SwiftUI interface.</p>
             </div>
         </div>
     </section>
@@ -311,12 +281,8 @@
     <footer id="contact" class="py-16 sm:py-24 px-6 text-center border-t border-white/10">
         <div class="max-w-2xl mx-auto reveal" id="footer-cta">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">Need Support?</h2>
-            
-            <a href="#" onclick="openModal(); return false;" class="text-lg sm:text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">
-                contact@x3roe.com
-            </a>
+            <a href="#" onclick="openModal(); return false;" class="text-lg sm:text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">contact@x3roe.com</a>
         </div>
-            
         <div class="mt-12 sm:mt-16 flex justify-center gap-6 sm:gap-8 flex-wrap">
             <a href="index.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Main Portfolio</a>
             <span class="text-gray-700">•</span>
@@ -324,7 +290,6 @@
             <span class="text-gray-700">•</span>
             <a href="ipasscoder-terms.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Terms of Use</a>
         </div>
-        
         <p class="mt-12 text-xs sm:text-sm text-gray-600">© 2025 Youssef Keram.</p>
     </footer>
 
@@ -334,10 +299,8 @@
             <button onclick="closeModal()" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">
                 <i class="ph-bold ph-x text-xl"></i>
             </button>
-
             <h3 class="text-2xl font-bold mb-2">Get Support</h3>
             <p class="text-gray-400 mb-6 text-sm">Having issues with iPasscoder? Let us know.</p>
-
             <form id="contact-form" class="space-y-4" onsubmit="handleFormSubmit(event)">
                 <div>
                     <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Name</label>
@@ -351,15 +314,12 @@
                     <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Issue Description</label>
                     <textarea name="message" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="Describe the problem..."></textarea>
                 </div>
-                <button type="submit" id="submit-btn" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition-all mt-2 flex justify-center items-center gap-2">
-                    <span>Send Request</span>
-                </button>
+                <button type="submit" id="submit-btn" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition-all mt-2 flex justify-center items-center gap-2"><span>Send Request</span></button>
             </form>
         </div>
     </div>
 
     <script>
-        // Spotlight Effect
         document.querySelectorAll('.spotlight-card').forEach(card => {
             card.onmousemove = e => {
                 const rect = card.getBoundingClientRect();
@@ -370,17 +330,14 @@
             }
         });
 
-        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Navbar Logic with FIXED SCROLL SPY
+        // NEW SCROLL SPY LOGIC: Position Based
         const navLinks = document.querySelectorAll('.nav-link');
         const capsule = document.getElementById('nav-capsule');
         const sections = document.querySelectorAll('section[id], footer[id]');
@@ -399,37 +356,54 @@
             link.classList.add('text-black');
         }
 
-        const scrollSpy = new IntersectionObserver((entries) => {
+        // Updated Function: Uses math instead of Observer to prevent glitching
+        function updateActiveSection() {
             if (isManualScroll) return;
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    
-                    // Priority check for bottom of page (Footer/Support)
-                    if (id === 'contact') {
-                         const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
-                         if (activeLink) moveCapsuleToLink(activeLink);
-                         return;
-                    }
 
-                    if (id === 'hero') {
-                        const overviewLink = document.querySelector('.nav-link[href="#hero"]');
-                        if (overviewLink) moveCapsuleToLink(overviewLink);
-                    } else {
-                        const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
-                        if (activeLink) moveCapsuleToLink(activeLink);
+            const scrollY = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+
+            // 1. Bottom of Page -> Support
+            if (scrollY + viewportHeight >= docHeight - 50) {
+                const contactLink = document.querySelector('.nav-link[href="#contact"]');
+                if(contactLink) moveCapsuleToLink(contactLink);
+                return;
+            }
+
+            // 2. Top of Page -> Overview
+            if (scrollY < 100) {
+                const heroLink = document.querySelector('.nav-link[href="#hero"]');
+                if(heroLink) moveCapsuleToLink(heroLink);
+                return;
+            }
+
+            // 3. Middle Sections -> Features (or others if added later)
+            // Simple center point check
+            const center = scrollY + (viewportHeight / 2);
+            const featuresSection = document.getElementById('features');
+            
+            if (featuresSection) {
+                const top = featuresSection.offsetTop;
+                const bottom = top + featuresSection.offsetHeight;
+                
+                if (center >= top && center < bottom) {
+                    const featuresLink = document.querySelector('.nav-link[href="#features"]');
+                    if(featuresLink) moveCapsuleToLink(featuresLink);
+                } else {
+                    // Fallback to Overview if above features but not top
+                    if (center < top) {
+                        const heroLink = document.querySelector('.nav-link[href="#hero"]');
+                        if(heroLink) moveCapsuleToLink(heroLink);
                     }
                 }
-            });
-        }, { 
-            root: null, 
-            // ADJUSTED: Triggers earlier (-20% from top) and keeps valid until bottom (-70%)
-            // This prevents the "gap" when scrolling up.
-            rootMargin: "-20% 0px -70% 0px", 
-            threshold: 0 
-        });
+            }
+        }
 
-        sections.forEach(section => scrollSpy.observe(section));
+        // Use scroll event for smoother updates
+        window.addEventListener('scroll', updateActiveSection);
+        // Initial check
+        updateActiveSection();
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -440,7 +414,7 @@
             });
         });
 
-        // Contact Modal & Form Logic
+        // Contact Modal Logic
         const modal = document.getElementById('contact-modal');
         const modalContent = document.getElementById('modal-content');
         const contactForm = document.getElementById('contact-form');
@@ -499,9 +473,7 @@
                     localStorage.setItem('ipass_support_sent', 'true');
                     setTimeout(() => {
                         closeModal();
-                        if(footerCta) {
-                            footerCta.innerHTML = '<h2 class="text-3xl font-bold mb-4 text-white">Request Received</h2><p class="text-xl text-gray-400">We will get back to you soon.</p>';
-                        }
+                        if(footerCta) footerCta.innerHTML = '<h2 class="text-3xl font-bold mb-4 text-white">Request Received</h2><p class="text-xl text-gray-400">We will get back to you soon.</p>';
                     }, 1500);
                 } else { throw new Error('Failed'); }
             } catch (error) {
