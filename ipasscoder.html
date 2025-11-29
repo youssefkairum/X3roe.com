@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPasscoder - Secure Password Generator & Manager</title>
+    <title>iPasscoder | X3roe</title>
+    
+    <!-- Custom Logo (Favicon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,357 +21,494 @@
                     },
                     colors: {
                         ios: {
-                            blue: '#0A84FF', // Lightened for Dark Mode
-                            gray: '#1C1C1E', // Dark Gray Surface
-                            black: '#000000',
-                            card: '#1C1C1E',
-                            text: '#FFFFFF',
-                            subtext: '#98989D'
+                            blue: '#2997FF',
+                            dark: '#000000',
+                            card: '#0A0A0A',
+                            border: '#FFFFFF1A',
                         }
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 8s ease-in-out infinite',
+                        'blob': 'blob 10s infinite',
+                        'spin-slow': 'spin 3s linear infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
+                            '50%': { transform: 'translateY(-15px)' },
                         },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
                         }
                     }
                 }
             }
         }
     </script>
+
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(41, 151, 255, 0.15), transparent 40%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .modal-enter { opacity: 0; pointer-events: none; }
+        .modal-enter-active { opacity: 1; pointer-events: auto; transition: opacity 0.3s ease; }
+        .modal-exit { opacity: 1; pointer-events: auto; }
+        .modal-exit-active { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    </style>
 </head>
-<body class="bg-black text-white antialiased selection:bg-ios-blue selection:text-white">
+<body class="antialiased overflow-x-hidden selection:bg-ios-blue selection:text-white">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <a href="index.html" class="flex items-center gap-2 group">
-                    <div class="p-1.5 rounded-lg group-hover:bg-white/10 transition-colors">
-                        <i class="ph-bold ph-caret-left text-xl text-ios-blue"></i>
-                    </div>
-                    <span class="font-medium text-ios-blue">Back to Portfolio</span>
-                </a>
-                <span class="font-bold text-lg tracking-tight hidden sm:block">iPasscoder</span>
-                <div class="w-24 hidden sm:block"></div> <!-- Spacer for centering -->
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="pt-32 pb-12 overflow-hidden relative">
-        <!-- Ambient Glow -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- Floating Navbar -->
+    <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
+        <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-6 pr-2 py-2 flex items-center gap-6 shadow-2xl animate-fade-in-up">
+            <a href="index.html" class="flex items-center gap-2 group mr-2">
+                <i class="ph-bold ph-arrow-left text-white/50 group-hover:text-white transition-colors"></i>
+                <span class="font-bold text-lg tracking-tight text-white/90 group-hover:text-white transition-colors">X3rœ</span>
+            </a>
             
-            <!-- App Icon with Glow -->
-            <div class="relative mx-auto w-32 h-32 mb-8 animate-slide-up">
-                <div class="absolute inset-0 bg-blue-500 blur-2xl opacity-30 rounded-full"></div>
-                <div class="relative w-full h-full bg-[#1C1C1E] rounded-[28px] shadow-2xl border border-white/10 flex items-center justify-center text-6xl">
-                    🔐
+            <div class="h-4 w-px bg-white/10 hidden sm:block"></div>
+            
+            <div class="relative flex items-center p-1">
+                <div id="nav-capsule" class="absolute bg-white rounded-full h-full transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] opacity-0 pointer-events-none z-0"></div>
+
+                <a href="#hero" class="nav-link relative z-10 px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Overview</a>
+                <a href="#features" class="nav-link relative z-10 px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Features</a>
+                <a href="#contact" class="nav-link relative z-10 px-5 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Support</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero Section (Grey/Platinum Theme) -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center pt-32 pb-20 overflow-hidden">
+        <!-- Minimal Ambient Background - GREY/SILVER -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-[-10%] left-[20%] w-[50vw] h-[50vw] bg-gray-100/5 rounded-full blur-[120px] animate-blob"></div>
+            <div class="absolute bottom-[-10%] right-[20%] w-[50vw] h-[50vw] bg-gray-600/5 rounded-full blur-[120px] animate-blob" style="animation-delay: 2s"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            
+            <!-- App Icon with Silver Glow -->
+            <div class="relative mx-auto w-32 h-32 mb-8 reveal active">
+                <div class="absolute inset-0 bg-white/20 blur-2xl opacity-30 rounded-full"></div>
+                <!-- UPDATED: Replaced Text Emoji with Image Tag -->
+                <div class="relative w-full h-full bg-[#0A0A0A] rounded-[28px] shadow-2xl border border-white/10 overflow-hidden">
+                    <img src="ipasscoder_icon.png" alt="iPasscoder App Icon" class="w-full h-full object-cover">
                 </div>
             </div>
 
-            <div class="animate-slide-up" style="animation-delay: 0.1s; animation-fill-mode: backwards;">
-                <h2 class="text-ios-blue font-semibold tracking-wide uppercase text-sm mb-4">Secure Password Generator & Manager</h2>
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-                    Easy, Secure, <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-ios-blue to-purple-500">Powerful and Smart!</span>
+            <div class="reveal active" style="transition-delay: 0.1s;">
+                <h2 class="text-gray-400 font-semibold tracking-widest uppercase text-xs mb-4 border border-white/10 inline-block px-3 py-1 rounded-full bg-white/5">
+                    Security & Privacy
+                </h2>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-6 leading-tight">
+                    Secure.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Powerful. Smart.</span>
                 </h1>
             </div>
             
-            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up" style="animation-delay: 0.2s; animation-fill-mode: backwards;">
-                Take control of your digital security with iPasscoder, the modern password manager and generator designed for speed, simplicity, and privacy.
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed reveal active" style="transition-delay: 0.2s;">
+                Take control of your digital security with iPasscoder. The modern password manager designed for speed, simplicity, and privacy.
             </p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 0.3s; animation-fill-mode: backwards;">
-                <a href="https://apps.apple.com/us/app/ipasscoder/id1642169844" target="_blank" class="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all shadow-lg shadow-white/5 hover:shadow-xl flex items-center gap-2 transform hover:-translate-y-0.5">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal active" style="transition-delay: 0.3s;">
+                <a href="https://apps.apple.com/us/app/ipasscoder/id1642169844" target="_blank" class="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2">
                     <i class="ph-fill ph-app-store-logo text-xl"></i>
                     Download on App Store
                 </a>
-                <a href="#how-it-helps" class="px-8 py-4 bg-[#1C1C1E] text-white border border-white/10 font-semibold rounded-full hover:bg-[#2C2C2E] transition-all flex items-center gap-2">
-                    Why iPasscoder?
+                <a href="#features" class="px-8 py-4 bg-[#0A0A0A] text-white border border-white/10 font-semibold rounded-full hover:bg-white/5 transition-all flex items-center gap-2">
+                    Explore Features
                     <i class="ph-bold ph-arrow-down"></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Visual Divider / Phone Mockup -->
-    <section class="py-12 bg-black border-y border-white/5 overflow-hidden">
+    <!-- Visual Mockup Section (Monochrome transition) -->
+    <section class="py-12 border-y border-white/5 overflow-hidden bg-black/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="relative mx-auto max-w-[300px] md:max-w-[800px]">
-                <!-- Abstract iPhone Frames -->
-                <div class="flex justify-center items-end gap-8 perspective-1000">
-                    
-                    <!-- Feature: Generator (Left Phone) -->
-                    <div class="hidden md:block w-[260px] h-[520px] bg-[#1C1C1E] rounded-[40px] border-[8px] border-[#2C2C2E] shadow-2xl transform -rotate-y-12 translate-x-10 scale-90 opacity-80 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
-                        <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative flex flex-col pt-8 border border-white/10">
-                            <div class="px-6 mb-4">
-                                <div class="text-xs font-bold text-gray-500 uppercase">Generator</div>
-                                <div class="text-xl font-bold text-white">X7#k9$mP2</div>
-                            </div>
-                            <div class="px-4 space-y-2">
-                                <div class="h-2 bg-green-500 w-full rounded-full"></div>
-                                <div class="text-xs text-green-500 font-medium text-right">Strong</div>
-                            </div>
-                            <div class="mt-8 px-4 space-y-3">
-                                <div class="flex justify-between items-center bg-[#1C1C1E] p-3 rounded-xl border border-white/10">
-                                    <span class="text-sm text-gray-300">Length</span>
-                                    <span class="text-sm font-bold text-ios-blue">16</span>
-                                </div>
-                                <div class="flex justify-between items-center bg-[#1C1C1E] p-3 rounded-xl border border-white/10">
-                                    <span class="text-sm text-gray-300">Numbers</span>
-                                    <div class="w-10 h-6 bg-green-500 rounded-full relative"><div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div></div>
-                                </div>
-                            </div>
+            <div class="relative mx-auto max-w-[800px] flex justify-center items-end gap-8 perspective-1000">
+                
+                <!-- Left Phone (Behind) -->
+                <div class="hidden md:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform -rotate-y-12 translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
+                    <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative flex flex-col pt-8 border border-white/5">
+                        <div class="px-6 mb-4">
+                            <div class="text-xs font-bold text-gray-500 uppercase">Generator</div>
+                            <div class="text-xl font-bold text-white">X7#k9$mP2</div>
+                        </div>
+                        <div class="px-4 space-y-2">
+                            <div class="h-2 bg-green-500 w-full rounded-full"></div>
+                            <div class="text-xs text-green-500 font-medium text-right">Strong</div>
                         </div>
                     </div>
-
-                    <!-- Main Phone (Front) - Vault -->
-                    <div class="w-[300px] h-[600px] bg-[#1C1C1E] rounded-[45px] border-[10px] border-[#2C2C2E] shadow-2xl relative z-10 overflow-hidden animate-float">
-                        <!-- Dynamic Island -->
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 h-7 w-28 bg-black rounded-b-2xl z-20"></div>
-                        
-                        <!-- Screen Content -->
-                        <div class="w-full h-full bg-black pt-12 flex flex-col">
-                            <div class="px-6 mb-6">
-                                <h2 class="text-3xl font-bold text-white">Vault</h2>
-                                <p class="text-gray-500 text-sm flex items-center gap-1"><i class="ph-fill ph-lock-key-open text-ios-blue"></i> Unlocked</p>
-                            </div>
-                            
-                            <!-- Search Bar -->
-                            <div class="px-6 mb-4">
-                                <div class="bg-[#1C1C1E] h-10 rounded-xl flex items-center px-3 gap-2 text-gray-500 border border-white/10">
-                                    <i class="ph ph-magnifying-glass"></i>
-                                    <span class="text-sm">Search</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex-1 bg-[#1C1C1E] rounded-t-[32px] p-6 space-y-4 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] overflow-hidden border-t border-white/10">
-                                <!-- Secure Item -->
-                                <div class="flex items-center gap-4 p-4 bg-black rounded-2xl border border-white/10">
-                                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-black text-xl">
-                                        <i class="ph-fill ph-github-logo"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="font-bold text-sm text-white">GitHub</div>
-                                        <div class="text-xs text-gray-500">user@example.com</div>
-                                    </div>
-                                    <i class="ph-bold ph-caret-right text-gray-600"></i>
-                                </div>
-
-                                <!-- Secure Item -->
-                                <div class="flex items-center gap-4 p-4 bg-black rounded-2xl border border-white/10">
-                                    <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-white text-xl">
-                                        <i class="ph-fill ph-google-logo"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="font-bold text-sm text-white">Google</div>
-                                        <div class="text-xs text-gray-500">Personal</div>
-                                    </div>
-                                    <i class="ph-bold ph-caret-right text-gray-600"></i>
-                                </div>
-
-                                <!-- 2FA Code -->
-                                <div class="p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20 relative overflow-hidden">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <div class="text-xs font-bold text-blue-400 uppercase">2FA Code</div>
-                                        <div class="text-xs text-blue-300">AWS Console</div>
-                                    </div>
-                                    <div class="text-2xl font-mono font-bold tracking-widest text-white">492 108</div>
-                                    <div class="h-1 bg-blue-500/30 rounded-full mt-2 overflow-hidden">
-                                        <div class="h-full w-2/3 bg-blue-500"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Feature: Audit (Right Phone) -->
-                    <div class="hidden md:block w-[260px] h-[520px] bg-[#1C1C1E] rounded-[40px] border-[8px] border-[#2C2C2E] shadow-2xl transform rotate-y-12 -translate-x-10 scale-90 opacity-80 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
-                        <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative pt-10 px-6 border border-white/10">
-                            <h3 class="text-2xl font-bold mb-6 text-white">Security Audit</h3>
-                            
-                            <div class="space-y-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center"><i class="ph-fill ph-warning"></i></div>
-                                    <div class="flex-1">
-                                        <div class="text-sm font-bold text-white">Compromised</div>
-                                        <div class="h-1.5 w-full bg-[#1C1C1E] rounded-full mt-1 border border-white/5"><div class="h-full w-1/4 bg-red-500 rounded-full"></div></div>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center"><i class="ph-fill ph-arrow-clockwise"></i></div>
-                                    <div class="flex-1">
-                                        <div class="text-sm font-bold text-white">Reused</div>
-                                        <div class="h-1.5 w-full bg-[#1C1C1E] rounded-full mt-1 border border-white/5"><div class="h-full w-1/2 bg-orange-500 rounded-full"></div></div>
-                                    </div>
-                                </div>
-                                <div class="mt-6 p-4 bg-green-500/10 rounded-2xl border border-green-500/20 text-center">
-                                    <div class="text-3xl font-bold text-green-500">85%</div>
-                                    <div class="text-xs text-green-400 font-medium">Overall Score</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
+                <!-- Main Phone (Front) -->
+                <div class="w-[300px] h-[600px] bg-[#0A0A0A] rounded-[45px] border-[10px] border-[#1A1A1A] shadow-2xl relative z-10 overflow-hidden reveal">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 h-7 w-28 bg-black rounded-b-2xl z-20"></div>
+                    <div class="w-full h-full bg-black pt-12 flex flex-col">
+                        <div class="px-6 mb-6">
+                            <h2 class="text-3xl font-bold text-white">Vault</h2>
+                            <p class="text-gray-500 text-sm flex items-center gap-1"><i class="ph-fill ph-lock-key-open text-ios-blue"></i> Unlocked</p>
+                        </div>
+                        <div class="flex-1 bg-[#0A0A0A] rounded-t-[32px] p-6 space-y-4 border-t border-white/10">
+                            <!-- Items -->
+                            <div class="flex items-center gap-4 p-4 bg-black rounded-2xl border border-white/10 hover:border-ios-blue/50 transition-colors cursor-pointer group">
+                                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-black text-xl group-hover:scale-110 transition-transform">
+                                    <i class="ph-fill ph-github-logo"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-sm text-white">GitHub</div>
+                                    <div class="text-xs text-gray-500">user@example.com</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 bg-black rounded-2xl border border-white/10 hover:border-ios-blue/50 transition-colors cursor-pointer group">
+                                <div class="w-12 h-12 bg-ios-blue rounded-xl flex items-center justify-center text-white text-xl group-hover:scale-110 transition-transform">
+                                    <i class="ph-fill ph-google-logo"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-sm text-white">Google</div>
+                                    <div class="text-xs text-gray-500">Personal</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Phone (Behind) -->
+                <div class="hidden md:block w-[260px] h-[520px] bg-[#0A0A0A] rounded-[40px] border-[8px] border-[#1A1A1A] shadow-2xl transform rotate-y-12 -translate-x-10 scale-90 opacity-60 z-0 hover:z-20 hover:scale-100 hover:opacity-100 hover:rotate-y-0 transition-all duration-500">
+                    <div class="w-full h-full rounded-[32px] overflow-hidden bg-black relative pt-10 px-6 border border-white/5">
+                        <h3 class="text-2xl font-bold mb-6 text-white">Security</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center"><i class="ph-fill ph-warning"></i></div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold text-white">Risk Found</div>
+                                    <div class="h-1.5 w-full bg-[#1C1C1E] rounded-full mt-1"><div class="h-full w-1/4 bg-red-500 rounded-full"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Features Grid -->
-    <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
+    <!-- Features Grid - BLUE/CYAN THEME -->
+    <section id="features" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <!-- Ambient Background for Content -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] bg-blue-600/5 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-[10%] right-[-10%] w-[40vw] h-[40vw] bg-cyan-600/5 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="text-center mb-16 reveal">
             <h2 class="text-3xl font-bold text-white">Everything you need.</h2>
             <p class="text-gray-400 mt-2">Powerful features wrapped in a simple design.</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
             
             <!-- Feature 1 -->
-            <div class="p-8 rounded-3xl bg-[#1C1C1E] hover:bg-[#2C2C2E] border border-white/5 hover:border-white/10 hover:shadow-2xl transition-all duration-300 group">
-                <div class="w-14 h-14 bg-blue-500/20 text-ios-blue rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+                <div class="w-14 h-14 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-magic-wand"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-white">Smart Generator</h3>
+                <h3 class="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">Smart Generator</h3>
                 <p class="text-gray-400 leading-relaxed text-sm">Instantly create cryptographic strong passwords with custom length and complexity settings.</p>
             </div>
 
             <!-- Feature 2 -->
-            <div class="p-8 rounded-3xl bg-[#1C1C1E] hover:bg-[#2C2C2E] border border-white/5 hover:border-white/10 hover:shadow-2xl transition-all duration-300 group">
-                <div class="w-14 h-14 bg-white/10 text-gray-300 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+                <div class="w-14 h-14 bg-gray-500/10 text-gray-300 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-vault"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-white">Password Vault</h3>
+                <h3 class="text-xl font-bold mb-3 text-white group-hover:text-gray-300 transition-colors">Password Vault</h3>
                 <p class="text-gray-400 leading-relaxed text-sm">Save, name, search, and organize your passwords—all in one secure encrypted place.</p>
             </div>
 
             <!-- Feature 3 -->
-            <div class="p-8 rounded-3xl bg-[#1C1C1E] hover:bg-[#2C2C2E] border border-white/5 hover:border-white/10 hover:shadow-2xl transition-all duration-300 group">
-                <div class="w-14 h-14 bg-red-500/20 text-red-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+                <div class="w-14 h-14 bg-red-500/10 text-red-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-shield-check"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-white">Security Audit</h3>
+                <h3 class="text-xl font-bold mb-3 text-white group-hover:text-red-400 transition-colors">Security Audit</h3>
                 <p class="text-gray-400 leading-relaxed text-sm">Analyze your saved passwords for strength, reuse, and potential risks to stay ahead of threats.</p>
             </div>
 
              <!-- Feature 4 -->
-             <div class="p-8 rounded-3xl bg-[#1C1C1E] hover:bg-[#2C2C2E] border border-white/5 hover:border-white/10 hover:shadow-2xl transition-all duration-300 group">
-                <div class="w-14 h-14 bg-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+             <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+                <div class="w-14 h-14 bg-indigo-500/10 text-indigo-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-qr-code"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-white">2FA Authenticator</h3>
+                <h3 class="text-xl font-bold mb-3 text-white group-hover:text-indigo-400 transition-colors">2FA Authenticator</h3>
                 <p class="text-gray-400 leading-relaxed text-sm">Generate and manage two-factor authentication codes directly in the app.</p>
             </div>
 
             <!-- Feature 5 -->
-            <div class="p-8 rounded-3xl bg-[#1C1C1E] hover:bg-[#2C2C2E] border border-white/5 hover:border-white/10 hover:shadow-2xl transition-all duration-300 group">
-                <div class="w-14 h-14 bg-green-500/20 text-green-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+                <div class="w-14 h-14 bg-green-500/10 text-green-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-face-mask"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-white">Biometric Protection</h3>
+                <h3 class="text-xl font-bold mb-3 text-white group-hover:text-green-400 transition-colors">Biometric Protection</h3>
                 <p class="text-gray-400 leading-relaxed text-sm">Keep your passwords safe with device-level security using Face ID or Touch ID.</p>
             </div>
 
             <!-- Feature 6 -->
-            <div class="p-8 rounded-3xl bg-[#1C1C1E] hover:bg-[#2C2C2E] border border-white/5 hover:border-white/10 hover:shadow-2xl transition-all duration-300 group">
-                <div class="w-14 h-14 bg-orange-500/20 text-orange-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <div class="p-8 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card group reveal">
+                <div class="w-14 h-14 bg-orange-500/10 text-orange-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                     <i class="ph-fill ph-paint-brush"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-white">Modern Design</h3>
+                <h3 class="text-xl font-bold mb-3 text-white group-hover:text-orange-400 transition-colors">Modern Design</h3>
                 <p class="text-gray-400 leading-relaxed text-sm">Enjoy a smooth, intuitive native SwiftUI interface designed for the latest iOS standards.</p>
             </div>
         </div>
     </section>
 
-    <!-- "How iPasscoder Helps You" Section -->
-    <section id="how-it-helps" class="py-24 bg-[#0A0A0A] text-white border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-8">How iPasscoder Helps You</h2>
-                    <ul class="space-y-6">
-                        <li class="flex items-start gap-4">
-                            <div class="min-w-[32px] h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center">
-                                <i class="ph-bold ph-check"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Stop forgetting passwords</h4>
-                                <p class="text-gray-400 mt-1">Never forget or reuse weak passwords again. Your vault remembers them for you.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="min-w-[32px] h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center">
-                                <i class="ph-bold ph-check"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Instant Strength Check</h4>
-                                <p class="text-gray-400 mt-1">Instantly check if your credentials are strong and secure against modern attacks.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="min-w-[32px] h-8 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center">
-                                <i class="ph-bold ph-check"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Unified Security</h4>
-                                <p class="text-gray-400 mt-1">Manage your passwords and 2FA codes in one private, encrypted vault.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="min-w-[32px] h-8 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center">
-                                <i class="ph-bold ph-check"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Peace of Mind</h4>
-                                <p class="text-gray-400 mt-1">Rely on device-level biometric security. Only you can access your data.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- CTA Box -->
-                <div class="bg-[#1C1C1E] p-8 rounded-[32px] border border-white/10 text-center shadow-2xl">
-                    <div class="inline-block p-4 rounded-full bg-blue-500/20 mb-6">
-                        <i class="ph-fill ph-shield-star text-4xl text-blue-400"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white">Ready to upgrade your security?</h3>
-                    <p class="text-gray-400 mb-8">Join thousands of users securing their digital life today.</p>
-                    <a href="https://apps.apple.com/us/app/ipasscoder/id1642169844" target="_blank" class="block w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors">
-                        Download iPasscoder
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer class="bg-black border-t border-white/10 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-center md:text-left">
-                <div class="font-bold text-2xl tracking-tight mb-2 text-white">iPasscoder</div>
-                <p class="text-gray-500 text-sm">Part of the X3rœ Portfolio.</p>
-            </div>
-            <div class="flex gap-4">
-                <a href="#" class="text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
-                <span class="text-gray-700">•</span>
-                <a href="#" class="text-gray-500 hover:text-white transition-colors">Support</a>
-                <span class="text-gray-700">•</span>
-                <a href="#" class="text-gray-500 hover:text-white transition-colors">Rate App</a>
-            </div>
+    <footer id="contact" class="py-24 px-6 text-center border-t border-white/10">
+        <div class="max-w-2xl mx-auto reveal" id="footer-cta">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">Need Support?</h2>
+            
+            <a href="#" onclick="openModal(); return false;" class="text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">
+                contact@x3roe.com
+            </a>
         </div>
+            
+        <div class="mt-16 flex justify-center gap-8">
+            <a href="index.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Main Portfolio</a>
+            <span class="text-gray-700">•</span>
+            <a href="#" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Privacy Policy</a>
+        </div>
+        
+        <p class="mt-12 text-sm text-gray-600">© 2025 Youssef Keram.</p>
     </footer>
 
+    <!-- Contact Modal (Same Logic as Index) -->
+    <div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md hidden transition-all duration-300">
+        <div class="bg-[#111] border border-white/10 rounded-3xl w-full max-w-lg p-8 relative shadow-2xl mx-4 transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/10">
+                <i class="ph-bold ph-x text-xl"></i>
+            </button>
+
+            <h3 class="text-2xl font-bold mb-2">Get Support</h3>
+            <p class="text-gray-400 mb-6 text-sm">Having issues with iPasscoder? Let us know.</p>
+
+            <form id="contact-form" class="space-y-4" onsubmit="handleFormSubmit(event)">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Name</label>
+                    <input name="name" type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Email</label>
+                    <input name="email" type="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="john@example.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Issue Description</label>
+                    <textarea name="message" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="Describe the problem..."></textarea>
+                </div>
+                <button type="submit" id="submit-btn" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition-all mt-2 flex justify-center items-center gap-2">
+                    <span>Send Request</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Spotlight Effect
+        document.querySelectorAll('.spotlight-card').forEach(card => {
+            card.onmousemove = e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            }
+        });
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Navbar Logic
+        const navLinks = document.querySelectorAll('.nav-link');
+        const capsule = document.getElementById('nav-capsule');
+        const sections = document.querySelectorAll('section[id], footer[id]');
+        let isManualScroll = false;
+        let scrollTimeout;
+
+        function moveCapsuleToLink(link) {
+            capsule.style.opacity = '1';
+            capsule.style.left = `${link.offsetLeft}px`;
+            capsule.style.width = `${link.offsetWidth}px`;
+            navLinks.forEach(l => {
+                l.classList.remove('text-black');
+                l.classList.add('text-gray-400', 'hover:text-white');
+            });
+            link.classList.remove('text-gray-400', 'hover:text-white');
+            link.classList.add('text-black');
+        }
+
+        const scrollSpy = new IntersectionObserver((entries) => {
+            if (isManualScroll) return;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    if (id === 'hero') {
+                        capsule.style.opacity = '0';
+                        navLinks.forEach(l => {
+                            l.classList.remove('text-black');
+                            l.classList.add('text-gray-400', 'hover:text-white');
+                        });
+                    } else {
+                        const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                        if (activeLink) moveCapsuleToLink(activeLink);
+                    }
+                }
+            });
+        }, { root: null, rootMargin: "-40% 0px -40% 0px", threshold: 0 });
+
+        sections.forEach(section => scrollSpy.observe(section));
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                isManualScroll = true;
+                clearTimeout(scrollTimeout);
+                moveCapsuleToLink(e.target);
+                scrollTimeout = setTimeout(() => { isManualScroll = false; }, 1000);
+            });
+        });
+
+        // Contact Modal & Form Logic
+        const modal = document.getElementById('contact-modal');
+        const modalContent = document.getElementById('modal-content');
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const footerCta = document.getElementById('footer-cta');
+
+        function openModal() {
+            if (localStorage.getItem('ipass_support_sent')) return;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                setTimeout(resetFormState, 100);
+            }, 300);
+        }
+
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            if (localStorage.getItem('ipass_support_sent')) { alert("Request already sent."); return; }
+
+            const form = e.target;
+            const formData = new FormData(form);
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-xl"></i> Sending...';
+            submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+
+            const FORMSPREE_ENDPOINT = 'https://formspree.io/f/movozokz'; // Reuse endpoint or new one
+
+            try {
+                try {
+                    const ipRes = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipRes.json();
+                    formData.append('sender_ip', ipData.ip);
+                } catch (err) {}
+
+                const response = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    submitBtn.innerHTML = '<i class="ph-bold ph-check text-xl"></i> Sent!';
+                    submitBtn.classList.remove('bg-white', 'text-black', 'hover:bg-gray-200');
+                    submitBtn.classList.add('bg-green-500', 'text-white');
+                    localStorage.setItem('ipass_support_sent', 'true');
+                    setTimeout(() => {
+                        closeModal();
+                        if(footerCta) {
+                            footerCta.innerHTML = '<h2 class="text-3xl font-bold mb-4 text-white">Request Received</h2><p class="text-xl text-gray-400">We will get back to you soon.</p>';
+                        }
+                    }, 1500);
+                } else { throw new Error('Failed'); }
+            } catch (error) {
+                console.error(error);
+                submitBtn.innerHTML = 'Error. Try again.';
+                submitBtn.classList.add('bg-red-500', 'text-white');
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>Send Request</span>';
+                    submitBtn.classList.remove('opacity-80', 'cursor-not-allowed', 'bg-red-500', 'text-white');
+                    submitBtn.classList.add('bg-white', 'text-black');
+                }, 3000);
+            }
+        }
+
+        function resetFormState() {
+            contactForm.reset();
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Send Request</span>';
+            submitBtn.classList.remove('opacity-80', 'cursor-not-allowed', 'bg-green-500', 'text-white');
+            submitBtn.classList.add('bg-white', 'text-black');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('ipass_support_sent')) {
+                if(footerCta) footerCta.innerHTML = '<h2 class="text-3xl font-bold mb-4 text-white">Request Received</h2><p class="text-xl text-gray-400">We will get back to you soon.</p>';
+            }
+        });
+    </script>
 </body>
 </html>
