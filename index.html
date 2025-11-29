@@ -8,7 +8,6 @@
     <title>X3roe</title>
     
     <!-- 2. UPDATED FAVICON (X) -->
-    <!-- Using an SVG that renders a bold 'X'. It includes a media query to be black in light mode and white in dark mode. -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -375,25 +374,25 @@
 
     <!-- Footer -->
     <footer id="contact" class="py-24 px-6 text-center border-t border-white/10">
-        <div class="max-w-2xl mx-auto reveal">
+        <div class="max-w-2xl mx-auto reveal" id="footer-cta">
             <h2 class="text-3xl md:text-4xl font-bold mb-8">Ready to collaborate?</h2>
             
             <!-- Email Link triggering Modal -->
             <a href="#" onclick="openModal(); return false;" class="text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">
                 hello@example.com
             </a>
-            
-            <div class="mt-16 flex justify-center gap-8">
-                <a href="https://instagram.com/x3roe" target="_blank" class="text-gray-500 hover:text-white transition-colors text-2xl">
-                    <i class="ph-fill ph-instagram-logo"></i>
-                </a>
-                <a href="https://github.com/youssefkairum" target="_blank" class="text-gray-500 hover:text-white transition-colors text-2xl">
-                    <i class="ph-fill ph-github-logo"></i>
-                </a>
-            </div>
-            
-            <p class="mt-12 text-sm text-gray-600">© 2025 Youssef Keram.</p>
         </div>
+            
+        <div class="mt-16 flex justify-center gap-8">
+            <a href="https://instagram.com/x3roe" target="_blank" class="text-gray-500 hover:text-white transition-colors text-2xl">
+                <i class="ph-fill ph-instagram-logo"></i>
+            </a>
+            <a href="https://github.com/youssefkairum" target="_blank" class="text-gray-500 hover:text-white transition-colors text-2xl">
+                <i class="ph-fill ph-github-logo"></i>
+            </a>
+        </div>
+        
+        <p class="mt-12 text-sm text-gray-600">© 2025 Youssef Keram.</p>
     </footer>
 
     <!-- Contact Modal -->
@@ -433,10 +432,14 @@
         const modalContent = document.getElementById('modal-content');
         const contactForm = document.getElementById('contact-form');
         const submitBtn = document.getElementById('submit-btn');
+        const footerCta = document.getElementById('footer-cta');
 
         function openModal() {
+            // Check submission status before opening
+            if (localStorage.getItem('formSubmitted')) {
+                return; // Do nothing if already submitted
+            }
             modal.classList.remove('hidden');
-            // Small delay to allow display:block to apply before animating opacity
             setTimeout(() => {
                 modalContent.classList.remove('scale-95', 'opacity-0');
                 modalContent.classList.add('scale-100', 'opacity-100');
@@ -448,27 +451,29 @@
             modalContent.classList.add('scale-95', 'opacity-0');
             setTimeout(() => {
                 modal.classList.add('hidden');
-                // Reset form state if closed before submit finishes (optional, but good UX)
                 setTimeout(resetFormState, 100);
-            }, 300); // Wait for transition
+            }, 300);
         }
 
-        // Close on background click
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
             }
         });
 
-        // --- Production Form Submission Logic (Formspree) ---
+        // --- Production Form Submission Logic ---
         async function handleFormSubmit(e) {
             e.preventDefault();
 
-            // 1. Get Form Data
+            // Check if already submitted
+            if (localStorage.getItem('formSubmitted')) {
+                alert("You have already sent a message.");
+                return;
+            }
+
             const form = e.target;
             const formData = new FormData(form);
             
-            // 2. Loading State
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-xl"></i> Sending...';
             submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
@@ -476,7 +481,6 @@
             const FORMSPREE_ENDPOINT = 'https://formspree.io/f/movozokz'; 
 
             try {
-                // Fetch User IP (Optional but useful context)
                 try {
                     const ipRes = await fetch('https://api.ipify.org?format=json');
                     const ipData = await ipRes.json();
@@ -486,39 +490,33 @@
                     formData.append('sender_ip', 'Not available');
                 }
 
-                // 3. Send Data to Formspree
                 const response = await fetch(FORMSPREE_ENDPOINT, {
                     method: 'POST',
                     body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    headers: { 'Accept': 'application/json' }
                 });
 
                 if (response.ok) {
-                    // 4. Success State
                     submitBtn.innerHTML = '<i class="ph-bold ph-check text-xl"></i> Message Sent!';
                     submitBtn.classList.remove('bg-white', 'text-black', 'hover:bg-gray-200');
                     submitBtn.classList.add('bg-green-500', 'text-white');
 
-                    // 5. Close Modal after delay
+                    // Set LocalStorage Flag
+                    localStorage.setItem('formSubmitted', 'true');
+
                     setTimeout(() => {
                         closeModal();
-                        // Reset form after modal closes
-                        setTimeout(resetFormState, 300);
+                        updateFooterForSentState(); // Update UI immediately
                     }, 1500);
                 } else {
-                    // Formspree Error (e.g., spam protection)
                     throw new Error('Failed to send');
                 }
             } catch (error) {
-                // 6. Error State (Network or Service Error)
                 console.error(error);
                 submitBtn.innerHTML = '<i class="ph-bold ph-warning text-xl"></i> Error. Try again.';
                 submitBtn.classList.remove('bg-white', 'text-black');
                 submitBtn.classList.add('bg-red-500', 'text-white');
                 
-                // Reset button after 3 seconds to let user try again
                 setTimeout(() => {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = '<span>Send Message</span>';
@@ -536,9 +534,23 @@
             submitBtn.classList.add('bg-white', 'text-black', 'hover:bg-gray-200');
         }
 
-        // --- Existing Logic ---
+        function updateFooterForSentState() {
+            if (footerCta) {
+                footerCta.innerHTML = `
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Message Received</h2>
+                    <p class="text-xl text-gray-400">Thanks for reaching out! I'll be in touch shortly.</p>
+                `;
+            }
+        }
 
-        // Mouse movement for spotlight effect
+        // Initialize State on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('formSubmitted')) {
+                updateFooterForSentState();
+            }
+        });
+
+        // --- Existing Logic (Mouse, Scroll, etc.) ---
         document.querySelectorAll('.spotlight-card').forEach(card => {
             card.onmousemove = e => {
                 const rect = card.getBoundingClientRect();
@@ -549,7 +561,6 @@
             }
         });
 
-        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -564,7 +575,7 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const capsule = document.getElementById('nav-capsule');
         const sections = document.querySelectorAll('section[id], footer[id]');
-        let isManualScroll = false; // Flag to prevent conflict
+        let isManualScroll = false; 
         let scrollTimeout;
 
         function moveCapsuleToLink(link) {
@@ -572,13 +583,11 @@
             capsule.style.left = `${link.offsetLeft}px`;
             capsule.style.width = `${link.offsetWidth}px`;
             
-            // Reset all colors
             navLinks.forEach(l => {
                 l.classList.remove('text-black');
                 l.classList.add('text-gray-400', 'hover:text-white');
             });
             
-            // Active color
             link.classList.remove('text-gray-400', 'hover:text-white');
             link.classList.add('text-black');
         }
@@ -590,14 +599,12 @@
         };
 
         const scrollSpy = new IntersectionObserver((entries) => {
-            // If we are manually scrolling via click, ignore observer updates
             if (isManualScroll) return;
 
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
                     
-                    // Special case for Hero: Hide capsule
                     if (id === 'hero') {
                         capsule.style.opacity = '0';
                         navLinks.forEach(l => {
@@ -616,19 +623,11 @@
 
         sections.forEach(section => scrollSpy.observe(section));
 
-        // Handle Click Events
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                // 1. Set flag to true to disable observer
                 isManualScroll = true;
-                
-                // 2. Clear any existing timeout
                 clearTimeout(scrollTimeout);
-                
-                // 3. Move capsule immediately
                 moveCapsuleToLink(e.target);
-                
-                // 4. Reset flag after animation/scroll finishes (approx 1s)
                 scrollTimeout = setTimeout(() => {
                     isManualScroll = false;
                 }, 1000);
