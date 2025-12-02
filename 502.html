@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Bad Gateway | X3roe</title>
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        ios: {
+                            blue: '#2997FF',
+                            dark: '#000000',
+                            card: '#0A0A0A',
+                            border: '#FFFFFF1A',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-hidden selection:bg-white selection:text-black flex items-center justify-center h-screen w-screen bg-black relative">
+
+    <!-- Ambient Glow (Red for Server Errors) -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] bg-red-900/20 rounded-full blur-[150px]"></div>
+    </div>
+
+    <div class="relative z-10 text-center px-6 max-w-lg mx-auto">
+        <h1 class="text-9xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600 mb-2">502</h1>
+        
+        <div class="w-24 h-1 bg-red-500/50 mx-auto mb-8 rounded-full"></div>
+
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-white">Bad Gateway</h2>
+        <p class="text-gray-400 mb-10 text-lg">
+            The server received an invalid response from the upstream server.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="index.html" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-transform hover:scale-105">
+                <i class="ph-bold ph-house"></i>
+                Go Home
+            </a>
+            <button onclick="location.reload()" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition-colors border border-white/10">
+                <i class="ph-bold ph-arrow-clockwise"></i>
+                Reload
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>
