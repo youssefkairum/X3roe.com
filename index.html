@@ -8,6 +8,9 @@
     <!-- Custom Logo (Favicon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
+    <!-- Supabase Library (Added for Store) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -130,6 +133,7 @@
                 <!-- Nav Items -->
                 <a href="#work" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Work</a>
                 <a href="#music" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Music</a>
+                <a href="#store" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Store</a>
                 <a href="#contact" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Let's Talk</a>
             </div>
         </nav>
@@ -346,7 +350,6 @@
                      <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" class="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center text-2xl hover:scale-110 transition-transform"><i class="ph-fill ph-apple-logo"></i></a>
                 </div>
                 
-                <!-- NEW: Learn More Button for Music -->
                 <a href="music.html" class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors mt-2">
                     Learn More <i class="ph-bold ph-arrow-right"></i>
                 </a>
@@ -376,6 +379,34 @@
                     <div class="mt-6 h-1 w-full bg-white/10 rounded-full overflow-hidden">
                         <div class="h-full w-1/3 bg-white rounded-full"></div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW STORE SECTION -->
+    <section id="store" class="py-24 sm:py-32 px-6 border-t border-white/5 relative bg-[#050505] overflow-hidden">
+        <!-- Glowing Crimson Background -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] bg-[#DC143C]/10 rounded-full blur-[100px] animate-pulse"></div>
+            <div class="absolute bottom-0 right-0 w-[30vw] h-[30vw] bg-[#DC143C]/5 rounded-full blur-[80px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-16 reveal">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold">Digital Store</h2>
+                    <p class="text-gray-500 mt-4 max-w-lg">
+                        Premium assets, beats, and source code. Delivered instantly.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Store Grid Container -->
+            <div id="store-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
+                <!-- Loading State (Replaced by JS) -->
+                <div class="col-span-full py-20 text-center text-gray-500 animate-pulse">
+                    Connecting to database...
                 </div>
             </div>
         </div>
@@ -435,16 +466,126 @@
     </div>
 
     <script>
-        // Mouse movement for spotlight effect
-        document.querySelectorAll('.spotlight-card').forEach(card => {
-            card.onmousemove = e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
+        // --- 1. SUPABASE CONFIGURATION ---
+        // Updated with your project credentials
+        const supabaseUrl = 'https://evhlfqsdtxrqhvtvpjua.supabase.co'; 
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2aGxmcXNkdHhycWh2dHZwanVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NTkxMzAsImV4cCI6MjA4MDQzNTEzMH0.c8YAveXtgik0BjoHSZJYvKtozOGaeBOLHzzq13lXX7I';
+        
+        let supabaseClient;
+
+        // Initialize Supabase Client with error handling
+        try {
+            if (typeof supabase === 'undefined') {
+                throw new Error('Supabase library not loaded. Check your internet connection or ad blocker.');
             }
-        });
+            
+            // Initialize
+            supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+            
+        } catch (err) {
+            console.error('Supabase Initialization Error:', err);
+        }
+
+        // --- 2. FETCH STORE DATA ---
+        async function loadStore() {
+            const grid = document.getElementById('store-grid');
+            
+            if (!supabaseClient) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center text-gray-500 p-8 border border-white/10 rounded-2xl bg-white/5">
+                        <i class="ph-bold ph-warning-circle text-3xl mb-2 text-yellow-500"></i><br>
+                        Store Error<br>
+                        <span class="text-xs text-gray-400">Could not initialize database connection.</span>
+                    </div>`;
+                return;
+            }
+            
+            try {
+                // Fetch data from 'products' table
+                let { data: products, error } = await supabaseClient
+                    .from('products')
+                    .select('*')
+                    .order('id', { ascending: true }); // Optional ordering
+
+                if (error) throw error;
+
+                // Clear loading state
+                if (!products || products.length === 0) {
+                    grid.innerHTML = '<div class="col-span-full text-center text-gray-500 py-12">Store is currently empty. Check back soon.</div>';
+                    return;
+                }
+
+                grid.innerHTML = ''; // Clear loading text
+
+                // Render Products
+                products.forEach(product => {
+                    // Fallback for missing image
+                    const image = product.image_url || 'https://via.placeholder.com/400x400/1a1a1a/ffffff?text=No+Image';
+                    
+                    const card = `
+                        <div class="group relative rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card h-[420px] flex flex-col">
+                            <!-- Image Area with Gradient Overlay -->
+                            <div class="relative h-full w-full overflow-hidden">
+                                <img src="${image}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                
+                                <!-- Dark Gradient for Text Readability -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                                
+                                <!-- Price Badge (Glassmorphism) -->
+                                <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs font-bold text-white tracking-wide shadow-lg">
+                                    ${product.price}
+                                </div>
+                            </div>
+
+                            <!-- Content Area (Positioned Absolute Bottom) -->
+                            <div class="absolute bottom-0 left-0 right-0 p-8 flex flex-col gap-4 transform transition-transform duration-500">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-1 leading-tight">${product.name}</h3>
+                                    <p class="text-sm text-gray-400 font-medium">Digital Asset</p>
+                                </div>
+
+                                <!-- Action Button (Slides up on hover) -->
+                                <div class="overflow-hidden h-0 group-hover:h-12 transition-[height] duration-300 ease-in-out">
+                                    <a href="${product.buy_link}" target="_blank" class="flex items-center justify-center w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition-colors gap-2">
+                                        <span>Purchase</span>
+                                        <i class="ph-bold ph-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                });
+                
+                // Re-initialize spotlight effect for new elements
+                initSpotlightEffect();
+
+            } catch (err) {
+                console.error("Supabase Error:", err);
+                grid.innerHTML = `<div class="col-span-full text-center text-red-400">Failed to load products. <br> <span class="text-xs text-gray-600">${err.message}</span></div>`;
+            }
+        }
+
+        // --- Spot Light Effect Logic ---
+        function initSpotlightEffect() {
+            document.querySelectorAll('.spotlight-card').forEach(card => {
+                card.onmousemove = e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                }
+            });
+        }
+
+        // Call functions
+        loadStore();
+        initSpotlightEffect();
+
+
+        // --- EXISTING SITE SCRIPTS ---
+        // (Removed duplicate spotlight logic since we moved it to a function above)
 
         // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
@@ -501,9 +642,11 @@
             }
 
             const center = scrollY + (viewportHeight / 2);
+            // Updated to track Store as well
             const sectionsToTrack = [
                 { id: 'work', link: document.querySelector('.nav-link[href="#work"]') },
-                { id: 'music', link: document.querySelector('.nav-link[href="#music"]') }
+                { id: 'music', link: document.querySelector('.nav-link[href="#music"]') },
+                { id: 'store', link: document.querySelector('.nav-link[href="#store"]') }
             ];
 
             for (const section of sectionsToTrack) {
