@@ -8,9 +8,12 @@
     <!-- Custom Logo (Favicon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
-    <!-- Supabase Library (Added for Store) -->
+    <!-- Supabase Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
+    <!-- GUMROAD OVERLAY SCRIPT (Makes checkout happen inside your site) -->
+    <script src="https://gumroad.com/js/gumroad.js"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -523,33 +526,34 @@
                     const image = product.image_url || 'https://via.placeholder.com/400x400/1a1a1a/ffffff?text=No+Image';
                     
                     const card = `
-                        <div class="group relative rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card h-[420px] flex flex-col">
+                        <div class="group relative rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card h-[420px] flex flex-col cursor-pointer transition-transform duration-500 hover:scale-[1.01]">
+                            <!-- Link Wrapper for the whole card -->
+                            <a href="${product.buy_link}" class="absolute inset-0 z-20"></a>
+
                             <!-- Image Area with Gradient Overlay -->
                             <div class="relative h-full w-full overflow-hidden">
-                                <img src="${image}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <img src="${image}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
                                 
                                 <!-- Dark Gradient for Text Readability -->
                                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
                                 
                                 <!-- Price Badge (Glassmorphism) -->
-                                <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs font-bold text-white tracking-wide shadow-lg">
+                                <div class="absolute top-4 right-4 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-sm font-bold text-white tracking-wide shadow-lg z-30">
                                     ${product.price}
                                 </div>
                             </div>
 
                             <!-- Content Area (Positioned Absolute Bottom) -->
-                            <div class="absolute bottom-0 left-0 right-0 p-8 flex flex-col gap-4 transform transition-transform duration-500">
+                            <div class="absolute bottom-0 left-0 right-0 p-8 flex flex-col gap-4 z-30 pointer-events-none">
                                 <div>
-                                    <h3 class="text-2xl font-bold text-white mb-1 leading-tight">${product.name}</h3>
-                                    <p class="text-sm text-gray-400 font-medium">Digital Asset</p>
+                                    <h3 class="text-2xl font-bold text-white mb-1 leading-tight drop-shadow-md">${product.name}</h3>
+                                    <p class="text-sm text-gray-300 font-medium drop-shadow-sm">Digital Asset</p>
                                 </div>
 
-                                <!-- Action Button (Slides up on hover) -->
-                                <div class="overflow-hidden h-0 group-hover:h-12 transition-[height] duration-300 ease-in-out">
-                                    <a href="${product.buy_link}" target="_blank" class="flex items-center justify-center w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition-colors gap-2">
-                                        <span>Purchase</span>
-                                        <i class="ph-bold ph-arrow-right"></i>
-                                    </a>
+                                <!-- Action Button (Static but lights up on hover) -->
+                                <div class="w-full bg-white/10 backdrop-blur-md border border-white/10 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 group-hover:bg-white group-hover:text-black transition-all duration-300">
+                                    <span>Purchase</span>
+                                    <i class="ph-bold ph-arrow-right"></i>
                                 </div>
                             </div>
                         </div>
