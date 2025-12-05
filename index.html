@@ -569,11 +569,11 @@
                             <a href="${product.buy_link}" class="gumroad-product-overlay absolute inset-0 z-20"></a>
 
                             <!-- Image Area with Gradient Overlay -->
-                            <div class="relative h-full w-full overflow-hidden">
-                                <img src="${image}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                            <div class="relative h-full w-full overflow-hidden bg-[#050505]">
+                                <img src="${image}" alt="${product.name}" class="absolute inset-0 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100 p-4">
                                 
                                 <!-- Dark Gradient for Text Readability -->
-                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 pointer-events-none"></div>
                                 
                                 <!-- Price Badge (Glassmorphism) -->
                                 <div class="absolute top-4 right-4 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-sm font-bold text-white tracking-wide shadow-lg z-30">
