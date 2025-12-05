@@ -33,42 +33,6 @@
             <!-- THIS TAG MAKES IT MANDATORY (No 'Skip' button) -->
             <sparkle:criticalUpdate />
         </item>
-
-        <?xml version="1.0" standalone="yes"?>
-<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
-    <channel>
-        <title>Joke Generator Updates</title>
-        
-        <!-- VERSION 2.0 (New Major Release) -->
-        <item>
-            <title>Version 2.0 - The Major Upgrade!</title>
-            <version>2.0</version>
-            <description>
-                <![CDATA[
-                <h1>Welcome to Version 2.0</h1>
-                <p>This is a massive update with:</p>
-                <ul>
-                    <li>100 New Jokes</li>
-                    <li>Golden UI Theme</li>
-                    <li>Faster Performance</li>
-                </ul>
-                <p><strong>This update is mandatory.</strong></p>
-                ]]>
-            </description>
-            <pubDate>Sun, 07 Dec 2025 12:00:00 +0000</pubDate>
-            
-            <!-- IMPORTANT: Update 'length' with actual file size in bytes, and 'sparkle:edSignature' with the new key -->
-            <enclosure 
-                url="https://x3roe.com/JokeGenerator_v2.0.zip"
-                sparkle:version="2.0"
-                sparkle:shortVersionString="2.0"
-                sparkle:edSignature="HjesCKCNavDpZx8cw3git/ms7waJadvz6U9ZK3rc7C52wl9RKwao/YmvRf0+jenoeQbKzNAmJ0bzJgieNGfuBQ=="
-                length="4805232"
-                type="application/octet-stream" />
-
-            <!-- THIS TAG MAKES IT MANDATORY (No 'Skip' button) -->
-            <sparkle:criticalUpdate />
-        </item>
         
         </channel>
 </rss>
