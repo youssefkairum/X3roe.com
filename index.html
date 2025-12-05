@@ -3,23 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    
-    <!-- PREVENT CACHING -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-
     <title>X3roe</title>
     
     <!-- Custom Logo (Favicon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
-    <!-- Supabase Library -->
+    <!-- Supabase Library (Added for Store) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <!-- GUMROAD OVERLAY SCRIPT -->
-    <script src="https://gumroad.com/js/gumroad.js"></script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -74,14 +65,23 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
 
-        /* SAFARI FIX: Removed the complex mask-composite spotlight effect */
-        /* Replaced with a simpler hover border glow that won't hide content */
-        .spotlight-card {
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        /* Spotlight Effect Utility */
+        .spotlight-card:hover::before {
+            opacity: 1;
         }
-        .spotlight-card:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.1), transparent 40%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
         }
 
         /* 3D iPhone - Dark Mode Refined */
@@ -400,16 +400,12 @@
                         Premium assets, beats, and source code. Delivered instantly.
                     </p>
                 </div>
-                <!-- Status Indicator (Visible for debugging) -->
-                <div id="store-status" class="hidden md:block px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs text-gray-400">
-                    Checking database...
-                </div>
             </div>
 
             <!-- Store Grid Container -->
-            <div id="store-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Loading State -->
-                <div class="col-span-full py-20 text-center text-white/50 animate-pulse">
+            <div id="store-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
+                <!-- Loading State (Replaced by JS) -->
+                <div class="col-span-full py-20 text-center text-gray-500 animate-pulse">
                     Connecting to database...
                 </div>
             </div>
@@ -493,7 +489,6 @@
         // --- 2. FETCH STORE DATA ---
         async function loadStore() {
             const grid = document.getElementById('store-grid');
-            const statusBadge = document.getElementById('store-status');
             
             if (!supabaseClient) {
                 grid.innerHTML = `
@@ -506,8 +501,6 @@
             }
             
             try {
-                console.log("Fetching products...");
-                
                 // Fetch data from 'products' table
                 let { data: products, error } = await supabaseClient
                     .from('products')
@@ -516,35 +509,10 @@
 
                 if (error) throw error;
 
-                console.log("Products found:", products.length);
-
-                // --- DEMO MODE LOGIC ---
-                // If database is empty, show fake products so the design is visible
+                // Clear loading state
                 if (!products || products.length === 0) {
-                    if (statusBadge) statusBadge.innerHTML = '<span class="text-yellow-500">● Demo Mode</span> (Database Empty)';
-                    
-                    products = [
-                        {
-                            name: "Neon Nights (Demo)",
-                            price: "$29.99",
-                            image_url: "https://images.unsplash.com/photo-1614149162883-504ce4d13909?q=80&w=800&auto=format&fit=crop",
-                            buy_link: "#"
-                        },
-                        {
-                            name: "Cyber Pack Vol. 1",
-                            price: "$49.00",
-                            image_url: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop",
-                            buy_link: "#"
-                        },
-                        {
-                            name: "Vocal Chops",
-                            price: "$19.00",
-                            image_url: "https://images.unsplash.com/photo-1558507652-2d9626c4e67a?q=80&w=800&auto=format&fit=crop",
-                            buy_link: "#"
-                        }
-                    ];
-                } else {
-                    if (statusBadge) statusBadge.innerHTML = '<span class="text-green-500">● Live</span>';
+                    grid.innerHTML = '<div class="col-span-full text-center text-gray-500 py-12">Store is currently empty. Check back soon.</div>';
+                    return;
                 }
 
                 grid.innerHTML = ''; // Clear loading text
@@ -555,34 +523,33 @@
                     const image = product.image_url || 'https://via.placeholder.com/400x400/1a1a1a/ffffff?text=No+Image';
                     
                     const card = `
-                        <div class="group relative rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card h-[420px] flex flex-col cursor-pointer transition-transform duration-500 hover:scale-[1.01]">
-                            <!-- Link Wrapper for the whole card (Gumroad Overlay Class Added) -->
-                            <a href="${product.buy_link}" class="gumroad-product-overlay absolute inset-0 z-20"></a>
-
+                        <div class="group relative rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card h-[420px] flex flex-col">
                             <!-- Image Area with Gradient Overlay -->
-                            <div class="relative h-full w-full overflow-hidden bg-[#050505]">
-                                <img src="${image}" alt="${product.name}" class="absolute inset-0 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100 p-4">
+                            <div class="relative h-full w-full overflow-hidden">
+                                <img src="${image}" alt="${product.name}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 
                                 <!-- Dark Gradient for Text Readability -->
-                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 pointer-events-none"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
                                 
                                 <!-- Price Badge (Glassmorphism) -->
-                                <div class="absolute top-4 right-4 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-sm font-bold text-white tracking-wide shadow-lg z-30">
+                                <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs font-bold text-white tracking-wide shadow-lg">
                                     ${product.price}
                                 </div>
                             </div>
 
                             <!-- Content Area (Positioned Absolute Bottom) -->
-                            <div class="absolute bottom-0 left-0 right-0 p-8 flex flex-col gap-4 z-30 pointer-events-none">
+                            <div class="absolute bottom-0 left-0 right-0 p-8 flex flex-col gap-4 transform transition-transform duration-500">
                                 <div>
-                                    <h3 class="text-2xl font-bold text-white mb-1 leading-tight drop-shadow-md">${product.name}</h3>
-                                    <p class="text-sm text-gray-300 font-medium drop-shadow-sm">Digital Asset</p>
+                                    <h3 class="text-2xl font-bold text-white mb-1 leading-tight">${product.name}</h3>
+                                    <p class="text-sm text-gray-400 font-medium">Digital Asset</p>
                                 </div>
 
-                                <!-- Action Button (Static but lights up on hover) -->
-                                <div class="w-full bg-white/10 backdrop-blur-md border border-white/10 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 group-hover:bg-white group-hover:text-black transition-all duration-300">
-                                    <span>Purchase</span>
-                                    <i class="ph-bold ph-arrow-right"></i>
+                                <!-- Action Button (Slides up on hover) -->
+                                <div class="overflow-hidden h-0 group-hover:h-12 transition-[height] duration-300 ease-in-out">
+                                    <a href="${product.buy_link}" target="_blank" class="flex items-center justify-center w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition-colors gap-2">
+                                        <span>Purchase</span>
+                                        <i class="ph-bold ph-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -595,12 +562,7 @@
 
             } catch (err) {
                 console.error("Supabase Error:", err);
-                grid.innerHTML = `
-                    <div class="col-span-full text-center p-8 border border-red-500/20 rounded-2xl bg-red-500/5">
-                        <i class="ph-bold ph-warning text-3xl text-red-500 mb-2"></i>
-                        <p class="text-red-400 font-bold">Failed to load products</p>
-                        <p class="text-xs text-red-300/50 mt-1 font-mono">${err.message}</p>
-                    </div>`;
+                grid.innerHTML = `<div class="col-span-full text-center text-red-400">Failed to load products. <br> <span class="text-xs text-gray-600">${err.message}</span></div>`;
             }
         }
 
@@ -616,15 +578,6 @@
                 }
             });
         }
-
-        // --- BROWSER NAVIGATION HANDLING (The Fix) ---
-        // This ensures the store reloads when you hit "Back" in Safari
-        window.addEventListener('pageshow', (event) => {
-            if (event.persisted) {
-                console.log("Restored from bfcache. Reloading store...");
-                loadStore();
-            }
-        });
 
         // Call functions
         loadStore();
