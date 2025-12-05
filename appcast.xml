@@ -2,6 +2,32 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
         <title>Joke Generator Updates</title>
+         <!-- VERSION 2.0 (New Major Release) -->
+        <item>
+            <title>Version 2.0 - The Major Upgrade!</title>
+            <version>2.0</version>
+            <description>
+                <![CDATA[
+                <h1>Welcome to Version 2.0</h1>
+                <p>This is a massive update with:</p>
+                <ul>
+                    <li>100 New Jokes</li>
+                    <li>Golden UI Theme</li>
+                    <li>Faster Performance</li>
+                </ul>
+                ]]>
+            </description>
+            <pubDate>Sun, 07 Dec 2025 12:00:00 +0000</pubDate>
+            
+            <enclosure 
+                url="https://x3roe.com/downloads/JokeGenerator_v2.0.zip"
+                sparkle:version="2.0"
+                sparkle:shortVersionString="2.0"
+                sparkle:edSignature="mPcGipzRGtVNgOD5EGgwqrE7rebZAb1CmfuIK0GvnMHFJAGLDHMFswjviItd99U9vi/8dXOEK9VRuoDdD1YoAw=="
+                type="application/octet-stream" />
+            <sparkle:criticalUpdate />
+        </item>
+        
         <item>
             <title>Version 1.1</title>
             <version>1.1</version>
