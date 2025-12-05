@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
-    <!-- PREVENT CACHING (Fixes the disappearing store issue) -->
+    <!-- PREVENT CACHING -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -74,23 +74,14 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
 
-        /* Spotlight Effect Utility */
-        .spotlight-card:hover::before {
-            opacity: 1;
+        /* SAFARI FIX: Removed the complex mask-composite spotlight effect */
+        /* Replaced with a simpler hover border glow that won't hide content */
+        .spotlight-card {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .spotlight-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.1), transparent 40%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
+        .spotlight-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
         }
 
         /* 3D iPhone - Dark Mode Refined */
@@ -625,6 +616,15 @@
                 }
             });
         }
+
+        // --- BROWSER NAVIGATION HANDLING (The Fix) ---
+        // This ensures the store reloads when you hit "Back" in Safari
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                console.log("Restored from bfcache. Reloading store...");
+                loadStore();
+            }
+        });
 
         // Call functions
         loadStore();
