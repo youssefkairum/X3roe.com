@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Joke Generator 2.0</title>
+        <item>
+            <title>2.0</title>
+            <pubDate>Sat, 06 Dec 2025 15:54:32 +0200</pubDate>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>2.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://x3roe.com/JokeGenerator_v2.0.zip" length="4802467" type="application/octet-stream" sparkle:edSignature="wXezxkpQa4VivpTZZfKBHOvOoRxRi9ehXdc5DqvP620K26ZJ2cTWfcUM0nOcXnCvE1rUGiJWP+iXtkAOdrOlAQ=="/>
+        </item>
+    </channel>
+</rss>
