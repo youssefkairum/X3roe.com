@@ -824,8 +824,8 @@
         function initMinecraftServer() {
             const serverIp = 'play.x3roe.com'; 
             
-            // Removed manual timer (cache buster ?t= is still good to keep data fresh)
-            fetch(`https://api.mcsrvstat.us/2/${serverIp}?t=${Date.now()}`)
+            // Switched to mcstatus.io for faster updates
+            fetch(`https://api.mcstatus.io/v2/status/java/${serverIp}`)
                 .then(res => res.json())
                 .then(data => {
                     const dot = document.getElementById('mc-status-dot');
@@ -833,7 +833,7 @@
                     const players = document.getElementById('mc-players');
                     const icon = document.getElementById('mc-icon');
                     const motd = document.getElementById('mc-motd');
-                    const versionText = document.getElementById('mc-version'); // Updated ID
+                    const versionText = document.getElementById('mc-version');
 
                     if (data.online) {
                         dot.classList.remove('bg-gray-500', 'bg-red-500');
@@ -843,26 +843,33 @@
                         
                         players.innerText = `${data.players.online}/${data.players.max}`;
                         
-                        // Show Version instead of Ping
-                        versionText.innerText = data.version ? data.version : "Unknown";
+                        // New API structure for version
+                        versionText.innerText = data.version ? data.version.name_clean : "Unknown";
                         
+                        // New API structure for icon
                         if(data.icon) icon.src = data.icon;
                         
-                        // Set MOTD (Join lines if multiple)
+                        // New API structure for MOTD (it returns a string, not an array)
                         if (data.motd && data.motd.clean) {
-                            motd.innerText = data.motd.clean.join('\n');
+                            motd.innerText = data.motd.clean;
                         }
                     } else {
                         dot.classList.remove('bg-gray-500');
                         dot.classList.add('bg-red-500');
                         text.innerText = 'Offline';
                         text.classList.add('text-red-500');
+                        
+                        // Reset fields when offline
                         players.innerText = "0/0";
                         versionText.innerText = "--";
                         motd.innerText = "Server is currently unreachable.";
+                        
+                        // Optional: Grayscale the icon if offline
+                        icon.style.filter = "grayscale(100%)";
                     }
                 })
-                .catch(() => {
+                .catch(err => {
+                    console.error("MC Status Error:", err);
                     document.getElementById('mc-status-text').innerText = 'Error';
                 });
         }
