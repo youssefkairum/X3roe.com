@@ -445,10 +445,21 @@
                             <img id="mc-icon" src="https://api.mcsrvstat.us/icon/play.x3roe.com" alt="Server Icon" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#1A1A1A] border border-white/10 shadow-2xl">
                             <div>
                                 <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1">X3rœ SMP</h3>
-                                <div class="flex items-center gap-2 text-gray-400">
-                                    <i class="ph-fill ph-users text-green-500"></i>
-                                    <span id="mc-players">--</span> Players Online
+                                
+                                <!-- Players & Version Row -->
+                                <div class="flex flex-wrap items-center gap-3 text-gray-400 text-sm sm:text-base">
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="ph-fill ph-users text-green-500"></i>
+                                        <span id="mc-players">--</span>
+                                    </div>
+                                    <span class="text-gray-600">•</span>
+                                    <!-- Changed Ping to Version -->
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="ph-fill ph-cube text-blue-500"></i>
+                                        <span id="mc-version">Ver --</span>
+                                    </div>
                                 </div>
+
                                 <!-- MOTD Section -->
                                 <p id="mc-motd" class="text-sm text-gray-500 mt-3 font-mono leading-relaxed max-w-md hidden sm:block">
                                     Connecting...
@@ -464,7 +475,8 @@
                                     <span id="copy-text">Copy IP</span>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-600 font-mono hidden md:block">Version 1.20.4 • Java Edition</p>
+                            <!-- Removed the duplicate static version text from here since we moved it up -->
+                            <p class="text-xs text-gray-600 font-mono hidden md:block">Java Edition</p>
                         </div>
                     </div>
                 </div>
@@ -812,7 +824,8 @@
         function initMinecraftServer() {
             const serverIp = 'play.x3roe.com'; 
             
-            fetch(`https://api.mcsrvstat.us/2/${serverIp}`)
+            // Removed manual timer (cache buster ?t= is still good to keep data fresh)
+            fetch(`https://api.mcsrvstat.us/2/${serverIp}?t=${Date.now()}`)
                 .then(res => res.json())
                 .then(data => {
                     const dot = document.getElementById('mc-status-dot');
@@ -820,13 +833,19 @@
                     const players = document.getElementById('mc-players');
                     const icon = document.getElementById('mc-icon');
                     const motd = document.getElementById('mc-motd');
+                    const versionText = document.getElementById('mc-version'); // Updated ID
 
                     if (data.online) {
                         dot.classList.remove('bg-gray-500', 'bg-red-500');
                         dot.classList.add('bg-green-500', 'animate-pulse');
                         text.innerText = 'System Online';
                         text.classList.add('text-green-500');
+                        
                         players.innerText = `${data.players.online}/${data.players.max}`;
+                        
+                        // Show Version instead of Ping
+                        versionText.innerText = data.version ? data.version : "Unknown";
+                        
                         if(data.icon) icon.src = data.icon;
                         
                         // Set MOTD (Join lines if multiple)
@@ -839,6 +858,7 @@
                         text.innerText = 'Offline';
                         text.classList.add('text-red-500');
                         players.innerText = "0/0";
+                        versionText.innerText = "--";
                         motd.innerText = "Server is currently unreachable.";
                     }
                 })
