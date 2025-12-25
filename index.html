@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Added VT323 for Minecraft Font -->
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <!-- JetBrains Mono for Intro -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -24,6 +26,7 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         mc: ['"VT323"', 'monospace'], // Added custom Minecraft font family
+                        mono: ['"JetBrains Mono"', 'monospace'], // Added for Intro
                     },
                     colors: {
                         ios: {
@@ -60,6 +63,7 @@
         body {
             background-color: #000;
             color: #fff;
+            overflow-x: hidden; /* Default overflow handling */
         }
         
         /* Smooth, thin scrollbar */
@@ -67,6 +71,68 @@
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        /* --- INTRO CSS START --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease-in-out;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        #intro-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        #click-prompt {
+            z-index: 10;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: #0f0; /* Terminal Green */
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hidden-layer {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Wrapper for the main site content to handle the fade-in */
+        #main-content {
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
+        #main-content.visible {
+            opacity: 1 !important;
+        }
+        /* --- INTRO CSS END --- */
 
         /* Spotlight Effect Utility */
         .spotlight-card:hover::before {
@@ -164,401 +230,424 @@
         }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+<body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Floating Minimal Navbar with Sliding Capsule -->
-    <div class="fixed top-4 sm:top-6 left-0 right-0 z-50 flex justify-center px-4">
-        <!-- Added max-w-fit to prevent it stretching too much on mobile -->
-        <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-4 sm:pl-6 pr-2 py-2 flex items-center gap-3 sm:gap-6 shadow-2xl animate-fade-in-up max-w-full overflow-x-auto no-scrollbar">
-            <a href="#hero" class="font-bold text-lg tracking-tight text-white/90 hover:text-white transition-colors mr-1 sm:mr-2 shrink-0">X3rœ</a>
-            
-            <div class="h-4 w-px bg-white/10 hidden sm:block shrink-0"></div>
-            
-            <!-- Navigation Links Container -->
-            <div class="relative flex items-center p-1 overflow-x-auto">
-                <!-- Moving White Capsule (Background) -->
-                <div id="nav-capsule" class="absolute bg-white rounded-full h-full transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] opacity-0 pointer-events-none z-0"></div>
+    <!-- === PART 1: THE INTRO OVERLAY === -->
+    <div id="intro-overlay">
+        <!-- The Click Trigger -->
+        <div id="click-prompt">
+            <p class="text-sm text-gray-500 mb-2">ACCESS_TERMINAL</p>
+            <h1 class="text-2xl md:text-4xl font-bold tracking-widest hover:text-green-500 transition-colors">
+                > CLICK_TO_ENTER<span class="cursor"></span>
+            </h1>
+        </div>
 
-                <!-- Nav Items -->
-                <a href="#work" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Work</a>
-                <a href="#music" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Music</a>
-                <a href="#store" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Store</a>
-                <a href="#mc-server" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Server</a>
-                <a href="#contact" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Let's Talk</a>
-            </div>
-        </nav>
+        <!-- The Video (Hidden until click) -->
+        <!-- Updated to point to xero.mp4 as requested -->
+        <video id="intro-video" playsinline>
+            <source src="xero.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
-    <!-- Hero Section (Grey/Platinum Theme) -->
-    <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center pt-24 sm:pt-32 pb-12 sm:pb-20 overflow-hidden">
-        <!-- Minimal Ambient Background - GREY/SILVER -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-[-10%] left-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-gray-100/5 rounded-full blur-[80px] sm:blur-[120px] animate-blob"></div>
-            <div class="absolute bottom-[-10%] right-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-gray-600/5 rounded-full blur-[80px] sm:blur-[120px] animate-blob" style="animation-delay: 2s"></div>
-        </div>
-
-        <div class="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-12 sm:gap-16 items-center z-10">
-            <div class="space-y-6 sm:space-y-8 text-center lg:text-left reveal active">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-gray-300 text-[10px] sm:text-xs font-medium uppercase tracking-wider backdrop-blur-md">
-                    <!-- Green Pulse -->
-                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                    Available for projects
-                </div>
+    <!-- === PART 2: THE MAIN WEBSITE (Wrapped) === -->
+    <div id="main-content">
+        
+        <!-- Floating Minimal Navbar with Sliding Capsule -->
+        <div class="fixed top-4 sm:top-6 left-0 right-0 z-50 flex justify-center px-4">
+            <!-- Added max-w-fit to prevent it stretching too much on mobile -->
+            <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-4 sm:pl-6 pr-2 py-2 flex items-center gap-3 sm:gap-6 shadow-2xl animate-fade-in-up max-w-full overflow-x-auto no-scrollbar">
+                <a href="#hero" class="font-bold text-lg tracking-tight text-white/90 hover:text-white transition-colors mr-1 sm:mr-2 shrink-0">X3rœ</a>
                 
-                <!-- Responsive Typography -->
-                <h1 class="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tighter leading-[1.1]">
-                    Create.<br>
-                    <!-- Gradient: Silver/White -->
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Innovate.</span>
-                </h1>
+                <div class="h-4 w-px bg-white/10 hidden sm:block shrink-0"></div>
                 
-                <p class="text-base sm:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
-                    I'm X3roe, an iOS Engineer crafting digital experiences that feel magical. Minimal code, maximum impact.
-                </p>
+                <!-- Navigation Links Container -->
+                <div class="relative flex items-center p-1 overflow-x-auto">
+                    <!-- Moving White Capsule (Background) -->
+                    <div id="nav-capsule" class="absolute bg-white rounded-full h-full transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] opacity-0 pointer-events-none z-0"></div>
 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                    <a href="#work" class="px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition-transform duration-300 hover:scale-105">
-                        View Work
-                    </a>
-                    <a href="https://github.com/youssefkairum" target="_blank" class="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/10 transition-all">
-                        GitHub
-                    </a>
+                    <!-- Nav Items -->
+                    <a href="#work" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Work</a>
+                    <a href="#music" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Music</a>
+                    <a href="#store" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Store</a>
+                    <a href="#mc-server" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Server</a>
+                    <a href="#contact" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Let's Talk</a>
                 </div>
-            </div>
-
-            <!-- 3D Phone Showcase (Colorful UI) -->
-            <div class="flex justify-center lg:justify-end reveal perspective-1000" style="perspective: 1200px;">
-                <div class="iphone-mockup animate-float scale-90 sm:scale-100">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 h-6 w-32 bg-black rounded-b-2xl z-20"></div>
-                    <div class="w-full h-full bg-[#000] rounded-[34px] overflow-hidden flex flex-col relative border border-white/5">
-                        <!-- Abstract UI -->
-                        <div class="p-6 pt-12 flex justify-between items-center text-white/50">
-                            <i class="ph ph-list text-2xl"></i>
-                            <div class="w-8 h-8 rounded-full bg-white/10"></div>
-                        </div>
-                        <div class="px-6 space-y-2">
-                            <div class="h-8 w-2/3 bg-white/10 rounded-lg"></div>
-                            <div class="h-4 w-1/3 bg-white/5 rounded-lg"></div>
-                        </div>
-                        <!-- Widget (Colorful) -->
-                        <div class="mt-8 mx-4 p-4 rounded-2xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-white/10 backdrop-blur-md">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div class="w-12 h-12 rounded-xl bg-ios-blue flex items-center justify-center text-xl text-white">
-                                    <i class="ph-fill ph-code"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold">Swift Mastery</div>
-                                    <div class="text-xs text-white/50">In Progress</div>
-                                </div>
-                            </div>
-                            <div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                                <div class="h-full w-3/4 bg-ios-blue"></div>
-                            </div>
-                        </div>
-                        <div class="mt-4 mx-4 flex gap-4">
-                            <div class="flex-1 h-32 rounded-2xl bg-[#111] border border-white/5"></div>
-                            <div class="flex-1 h-32 rounded-2xl bg-[#111] border border-white/5"></div>
-                        </div>
-                        <!-- Dock (Colorful) -->
-                        <div class="mt-auto m-4 h-16 rounded-3xl bg-white/10 backdrop-blur-xl flex items-center justify-around px-2">
-                            <div class="w-10 h-10 rounded-xl bg-blue-500"></div>
-                            <div class="w-10 h-10 rounded-xl bg-green-500"></div>
-                            <div class="w-10 h-10 rounded-xl bg-white"></div>
-                            <div class="w-10 h-10 rounded-xl bg-gray-500"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </nav>
         </div>
-    </section>
 
-    <!-- Projects Section (Bento Grid) -->
-    <section id="work" class="py-24 sm:py-32 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Selected Work</h2>
-                <p class="text-gray-500 mt-4 md:mt-0">Crafted with precision.</p>
+        <!-- Hero Section (Grey/Platinum Theme) -->
+        <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center pt-24 sm:pt-32 pb-12 sm:pb-20 overflow-hidden">
+            <!-- Minimal Ambient Background - GREY/SILVER -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute top-[-10%] left-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-gray-100/5 rounded-full blur-[80px] sm:blur-[120px] animate-blob"></div>
+                <div class="absolute bottom-[-10%] right-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-gray-600/5 rounded-full blur-[80px] sm:blur-[120px] animate-blob" style="animation-delay: 2s"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
-                
-                <!-- iPasscoder (Featured) - GOLD BACKGROUND -->
-                <a href="ipasscoder.html" class="group relative md:col-span-2 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card reveal">
-                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10"></div>
-                    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
-                    
-                    <div class="relative z-20 p-8 sm:p-10 h-full flex flex-col justify-between">
-                        <div class="flex justify-between items-start">
-                            <!-- Replaced Emoji with Image -->
-                            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#1A1A1A] border border-white/10 overflow-hidden">
-                                <img src="ipasscoder_icon.png" alt="iPasscoder" class="w-full h-full object-cover">
-                            </div>
-                            <div class="px-3 sm:px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-xs font-medium uppercase tracking-wider">Featured</div>
-                        </div>
-                        
-                        <div>
-                            <h3 class="text-2xl sm:text-3xl font-bold mb-2 group-hover:text-yellow-500 transition-colors">iPasscoder</h3>
-                            <p class="text-gray-400 max-w-md text-sm sm:text-base">Military-grade encryption meet elegant design. The ultimate security hub for iOS.</p>
-                        </div>
+            <div class="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-12 sm:gap-16 items-center z-10">
+                <div class="space-y-6 sm:space-y-8 text-center lg:text-left reveal active">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-gray-300 text-[10px] sm:text-xs font-medium uppercase tracking-wider backdrop-blur-md">
+                        <!-- Green Pulse -->
+                        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                        Available for projects
                     </div>
                     
-                    <!-- Decorative visuals - GOLD GLOW -->
-                    <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-yellow-500/10 rounded-full blur-[80px] group-hover:bg-yellow-500/20 transition-colors duration-500"></div>
-                </a>
-
-                <!-- Voxel Tennis -->
-                <a href="https://apps.apple.com/us/app/voxel-tennis/id1670436995" target="_blank" class="group relative rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card reveal">
-                    <div class="absolute inset-0 bg-gradient-to-br from-green-900/10 to-transparent"></div>
-                    <div class="relative z-20 p-8 h-full flex flex-col">
-                        <div class="w-12 h-12 rounded-xl bg-[#1A1A1A] border border-white/10 flex items-center justify-center text-2xl mb-auto">🎾</div>
-                        <h3 class="text-2xl font-bold mt-4">Voxel Tennis</h3>
-                        <p class="text-sm text-gray-500 mt-2">Retro 3D arcade experience powered by SceneKit.</p>
-                        <div class="mt-6 flex justify-end">
-                            <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
-                                <i class="ph-bold ph-arrow-up-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Kompressor -->
-                <div class="group relative rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card reveal">
-                    <div class="relative z-20 p-8 h-full flex flex-col">
-                        <div class="flex justify-between items-start mb-auto">
-                            <div class="w-12 h-12 rounded-xl bg-[#1A1A1A] border border-white/10 flex items-center justify-center text-2xl">🗜️</div>
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-600 border border-white/5 px-2 py-1 rounded">Soon</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mt-4">Kompressor</h3>
-                        <p class="text-sm text-gray-500 mt-2">Universal media converter.</p>
-                        <div class="w-full h-1 bg-white/10 rounded-full mt-6 overflow-hidden">
-                            <div class="h-full w-1/3 bg-indigo-500 animate-pulse"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VisionOS -->
-                <div class="group relative md:col-span-2 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card reveal flex flex-col md:flex-row items-center">
-                    <div class="p-8 sm:p-10 flex-1 relative z-10">
-                        <div class="inline-block px-3 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-bold rounded-lg mb-4">R&D</div>
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-2">VisionOS Lab</h3>
-                        <p class="text-gray-400">Exploring the boundaries of spatial computing. Building AR components for the future.</p>
-                    </div>
-                    <div class="w-full md:w-[250px] h-[250px] relative flex items-center justify-center opacity-50 group-hover:opacity-80 transition-opacity">
-                         <div class="absolute inset-0 bg-gradient-to-l from-indigo-500/20 to-transparent"></div>
-                         <i class="ph-fill ph-goggles text-8xl text-white/20"></i>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Ticker -->
-    <section id="skills" class="py-16 sm:py-20 border-y border-white/5 bg-black/50 backdrop-blur-sm overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 text-center mb-10">
-            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest">Technologies</h2>
-        </div>
-        <div class="flex justify-center gap-8 sm:gap-12 flex-wrap">
-             <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
-                 <i class="ph-fill ph-lightning text-4xl text-orange-500"></i>
-                 <span class="text-xs font-mono">Swift</span>
-             </div>
-             <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
-                 <i class="ph-fill ph-layout text-4xl text-blue-500"></i>
-                 <span class="text-xs font-mono">SwiftUI</span>
-             </div>
-             <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
-                 <i class="ph-fill ph-database text-4xl text-gray-400"></i>
-                 <span class="text-xs font-mono">CoreData</span>
-             </div>
-             <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
-                 <i class="ph-fill ph-git-branch text-4xl text-white"></i>
-                 <span class="text-xs font-mono">Git</span>
-             </div>
-             <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
-                 <i class="ph-fill ph-fire text-4xl text-yellow-500"></i>
-                 <span class="text-xs font-mono">Firebase</span>
-             </div>
-             <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
-                 <i class="ph-bold ph-database text-4xl text-blue-600"></i>
-                 <span class="text-xs font-mono">MySQL</span>
-             </div>
-        </div>
-    </section>
-
-    <!-- Music Section -->
-    <section id="music" class="py-24 sm:py-32 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-black via-[#050505] to-black -z-10"></div>
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 sm:gap-16 items-center">
-            <div class="flex-1 space-y-6 reveal">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold">Sonic Landscapes</h2>
-                <p class="text-lg text-gray-400 font-light leading-relaxed">
-                    When the code compiles, the synths ignite. Producing ambient and electronic tracks that bridge the gap between digital precision and analog warmth.
-                </p>
-                <div class="flex gap-4 pt-4">
-                     <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" class="w-12 h-12 rounded-full bg-[#1DB954] text-black flex items-center justify-center text-2xl hover:scale-110 transition-transform"><i class="ph-bold ph-spotify-logo"></i></a>
-                     <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" class="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center text-2xl hover:scale-110 transition-transform"><i class="ph-fill ph-apple-logo"></i></a>
-                </div>
-                
-                <a href="music.html" class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors mt-2">
-                    Learn More <i class="ph-bold ph-arrow-right"></i>
-                </a>
-            </div>
-
-            <!-- Minimal Music Card -->
-            <div class="flex-1 w-full max-w-sm reveal" style="transition-delay: 0.2s">
-                <div class="bg-[#0A0A0A] border border-white/10 p-6 rounded-[32px] shadow-2xl relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <!-- Responsive Typography -->
+                    <h1 class="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tighter leading-[1.1]">
+                        Create.<br>
+                        <!-- Gradient: Silver/White -->
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Innovate.</span>
+                    </h1>
                     
-                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-gray-800 to-black mb-6 relative overflow-hidden">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-sm">
-                                <i class="ph-fill ph-play text-2xl ml-1"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex justify-between items-end">
-                        <div>
-                            <h3 class="font-bold text-xl">Midnight Code</h3>
-                            <p class="text-gray-500 text-sm">X3rœ</p>
-                        </div>
-                        <i class="ph-fill ph-wave-form text-3xl text-gray-600"></i>
-                    </div>
-                    
-                    <div class="mt-6 h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                        <div class="h-full w-1/3 bg-white rounded-full"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- STORE SECTION -->
-    <section id="store" class="py-24 sm:py-32 px-6 border-t border-white/5 relative bg-[#050505] overflow-hidden">
-        <!-- Glowing Crimson Background -->
-        <div class="absolute inset-0 pointer-events-none">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] bg-[#DC143C]/10 rounded-full blur-[100px] animate-pulse"></div>
-            <div class="absolute bottom-0 right-0 w-[30vw] h-[30vw] bg-[#DC143C]/5 rounded-full blur-[80px]"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-16 reveal">
-                <div>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold">Digital Store</h2>
-                    <p class="text-gray-500 mt-4 max-w-lg">
-                        Premium assets, beats, and source code. Delivered instantly.
+                    <p class="text-base sm:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        I'm X3roe, an iOS Engineer crafting digital experiences that feel magical. Minimal code, maximum impact.
                     </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#work" class="px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition-transform duration-300 hover:scale-105">
+                            View Work
+                        </a>
+                        <a href="https://github.com/youssefkairum" target="_blank" class="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/10 transition-all">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3D Phone Showcase (Colorful UI) -->
+                <div class="flex justify-center lg:justify-end reveal perspective-1000" style="perspective: 1200px;">
+                    <div class="iphone-mockup animate-float scale-90 sm:scale-100">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 h-6 w-32 bg-black rounded-b-2xl z-20"></div>
+                        <div class="w-full h-full bg-[#000] rounded-[34px] overflow-hidden flex flex-col relative border border-white/5">
+                            <!-- Abstract UI -->
+                            <div class="p-6 pt-12 flex justify-between items-center text-white/50">
+                                <i class="ph ph-list text-2xl"></i>
+                                <div class="w-8 h-8 rounded-full bg-white/10"></div>
+                            </div>
+                            <div class="px-6 space-y-2">
+                                <div class="h-8 w-2/3 bg-white/10 rounded-lg"></div>
+                                <div class="h-4 w-1/3 bg-white/5 rounded-lg"></div>
+                            </div>
+                            <!-- Widget (Colorful) -->
+                            <div class="mt-8 mx-4 p-4 rounded-2xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-white/10 backdrop-blur-md">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-ios-blue flex items-center justify-center text-xl text-white">
+                                        <i class="ph-fill ph-code"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">Swift Mastery</div>
+                                        <div class="text-xs text-white/50">In Progress</div>
+                                    </div>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                                    <div class="h-full w-3/4 bg-ios-blue"></div>
+                                </div>
+                            </div>
+                            <div class="mt-4 mx-4 flex gap-4">
+                                <div class="flex-1 h-32 rounded-2xl bg-[#111] border border-white/5"></div>
+                                <div class="flex-1 h-32 rounded-2xl bg-[#111] border border-white/5"></div>
+                            </div>
+                            <!-- Dock (Colorful) -->
+                            <div class="mt-auto m-4 h-16 rounded-3xl bg-white/10 backdrop-blur-xl flex items-center justify-around px-2">
+                                <div class="w-10 h-10 rounded-xl bg-blue-500"></div>
+                                <div class="w-10 h-10 rounded-xl bg-green-500"></div>
+                                <div class="w-10 h-10 rounded-xl bg-white"></div>
+                                <div class="w-10 h-10 rounded-xl bg-gray-500"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Store Grid Container -->
-            <div id="store-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
-                <!-- Loading State (Replaced by JS) -->
-                <div class="col-span-full py-20 text-center text-gray-500 animate-pulse">
-                    Connecting to database...
+        <!-- Projects Section (Bento Grid) -->
+        <section id="work" class="py-24 sm:py-32 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-16 reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Selected Work</h2>
+                    <p class="text-gray-500 mt-4 md:mt-0">Crafted with precision.</p>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- MINECRAFT SERVER SECTION (STYLED) -->
-    <section id="mc-server" class="py-24 sm:py-32 px-6 border-t border-white/5 relative mc-bg-pattern overflow-hidden font-mc">
-        <!-- Ambient Green Glow behind pattern -->
-        <div class="absolute inset-0 pointer-events-none">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] bg-green-500/10 rounded-full blur-[100px]"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <!-- Header -->
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
-                <div>
-                    <h2 class="text-5xl sm:text-6xl font-bold text-white mc-text-shadow">Server Status</h2>
-                    <p class="text-gray-400 mt-2 text-xl tracking-wide">JOIN THE WORLD. BUILD YOUR LEGACY.</p>
-                </div>
-                <!-- Live Indicator (Blocky) -->
-                <div class="hidden md:flex items-center gap-3 px-4 py-2 bg-[#212121] border-2 border-[#555] shadow-lg">
-                    <span id="mc-status-dot" class="w-3 h-3 bg-gray-500 border border-black shadow-[1px_1px_0px_white]"></span>
-                    <span id="mc-status-text" class="text-lg text-gray-300 uppercase tracking-widest">Checking...</span>
-                </div>
-            </div>
-
-            <!-- Server Card (Minecraft UI Style) -->
-            <div class="reveal">
-                <!-- Minecraft Panel Class Applied -->
-                <div class="group relative mc-panel p-8 sm:p-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
                     
-                    <div class="relative z-20 flex flex-col md:flex-row gap-8 items-center justify-between">
-                        <!-- Server Icon & Info -->
-                        <div class="flex items-center gap-6 w-full md:w-auto">
-                            <!-- Icon with Pixel Borders -->
-                            <div class="relative p-1 bg-[#1a1a1a] border-2 border-gray-600 shadow-inner">
-                                <img id="mc-icon" src="https://api.mcsrvstat.us/icon/play.x3roe.com" alt="Server Icon" class="w-20 h-20 sm:w-24 sm:h-24 image-pixelated">
+                    <!-- iPasscoder (Featured) - GOLD BACKGROUND -->
+                    <a href="ipasscoder.html" class="group relative md:col-span-2 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card reveal">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10"></div>
+                        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                        
+                        <div class="relative z-20 p-8 sm:p-10 h-full flex flex-col justify-between">
+                            <div class="flex justify-between items-start">
+                                <!-- Replaced Emoji with Image -->
+                                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#1A1A1A] border border-white/10 overflow-hidden">
+                                    <img src="ipasscoder_icon.png" alt="iPasscoder" class="w-full h-full object-cover">
+                                </div>
+                                <div class="px-3 sm:px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-xs font-medium uppercase tracking-wider">Featured</div>
                             </div>
                             
                             <div>
-                                <h3 class="text-4xl sm:text-5xl font-bold text-white mb-1 mc-text-shadow tracking-wide">X3rœ SMP</h3>
-                                
-                                <!-- Players & Version Row -->
-                                <div class="flex flex-wrap items-center gap-4 text-gray-400 text-xl">
-                                    <div class="flex items-center gap-2">
-                                        <i class="ph-fill ph-users text-green-500"></i>
-                                        <span id="mc-players">--</span>
-                                    </div>
-                                    <span class="text-gray-600">|</span>
-                                    <!-- Changed Ping to Version -->
-                                    <div class="flex items-center gap-2">
-                                        <i class="ph-fill ph-cube text-blue-500"></i>
-                                        <span id="mc-version">Ver --</span>
-                                    </div>
-                                </div>
-
-                                <!-- MOTD Section -->
-                                <p id="mc-motd" class="text-lg text-[#aaa] mt-3 leading-tight max-w-md hidden sm:block font-mc">
-                                    Connecting...
-                                </p>
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-2 group-hover:text-yellow-500 transition-colors">iPasscoder</h3>
+                                <p class="text-gray-400 max-w-md text-sm sm:text-base">Military-grade encryption meet elegant design. The ultimate security hub for iOS.</p>
                             </div>
                         </div>
+                        
+                        <!-- Decorative visuals - GOLD GLOW -->
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-yellow-500/10 rounded-full blur-[80px] group-hover:bg-yellow-500/20 transition-colors duration-500"></div>
+                    </a>
 
-                        <!-- Copy IP Action (Minecraft Button) -->
-                        <div class="w-full md:w-auto flex flex-col items-end gap-4">
-                            <!-- Minecraft Button Style -->
-                            <div class="w-full md:w-auto mc-button p-2 px-6 flex items-center justify-center gap-4 group/ip" onclick="copyIp()">
-                                <code class="text-2xl text-yellow-200 drop-shadow-[2px_2px_0_#000]">play.x3roe.com</code>
-                                <div class="hidden sm:block text-white/50 text-xl">
-                                    <span id="copy-text">Click to Copy</span>
+                    <!-- Voxel Tennis -->
+                    <a href="https://apps.apple.com/us/app/voxel-tennis/id1670436995" target="_blank" class="group relative rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card reveal">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-900/10 to-transparent"></div>
+                        <div class="relative z-20 p-8 h-full flex flex-col">
+                            <div class="w-12 h-12 rounded-xl bg-[#1A1A1A] border border-white/10 flex items-center justify-center text-2xl mb-auto">🎾</div>
+                            <h3 class="text-2xl font-bold mt-4">Voxel Tennis</h3>
+                            <p class="text-sm text-gray-500 mt-2">Retro 3D arcade experience powered by SceneKit.</p>
+                            <div class="mt-6 flex justify-end">
+                                <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                                    <i class="ph-bold ph-arrow-up-right"></i>
                                 </div>
                             </div>
-                            <p class="text-lg text-gray-500 hidden md:block uppercase tracking-wider">Java Edition</p>
+                        </div>
+                    </a>
+
+                    <!-- Kompressor -->
+                    <div class="group relative rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card reveal">
+                        <div class="relative z-20 p-8 h-full flex flex-col">
+                            <div class="flex justify-between items-start mb-auto">
+                                <div class="w-12 h-12 rounded-xl bg-[#1A1A1A] border border-white/10 flex items-center justify-center text-2xl">🗜️</div>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-600 border border-white/5 px-2 py-1 rounded">Soon</span>
+                            </div>
+                            <h3 class="text-2xl font-bold mt-4">Kompressor</h3>
+                            <p class="text-sm text-gray-500 mt-2">Universal media converter.</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-6 overflow-hidden">
+                                <div class="h-full w-1/3 bg-indigo-500 animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VisionOS -->
+                    <div class="group relative md:col-span-2 rounded-[32px] bg-[#0A0A0A] border border-white/10 overflow-hidden spotlight-card reveal flex flex-col md:flex-row items-center">
+                        <div class="p-8 sm:p-10 flex-1 relative z-10">
+                            <div class="inline-block px-3 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-bold rounded-lg mb-4">R&D</div>
+                            <h3 class="text-2xl sm:text-3xl font-bold mb-2">VisionOS Lab</h3>
+                            <p class="text-gray-400">Exploring the boundaries of spatial computing. Building AR components for the future.</p>
+                        </div>
+                        <div class="w-full md:w-[250px] h-[250px] relative flex items-center justify-center opacity-50 group-hover:opacity-80 transition-opacity">
+                             <div class="absolute inset-0 bg-gradient-to-l from-indigo-500/20 to-transparent"></div>
+                             <i class="ph-fill ph-goggles text-8xl text-white/20"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Ticker -->
+        <section id="skills" class="py-16 sm:py-20 border-y border-white/5 bg-black/50 backdrop-blur-sm overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 text-center mb-10">
+                <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest">Technologies</h2>
+            </div>
+            <div class="flex justify-center gap-8 sm:gap-12 flex-wrap">
+                 <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
+                     <i class="ph-fill ph-lightning text-4xl text-orange-500"></i>
+                     <span class="text-xs font-mono">Swift</span>
+                 </div>
+                 <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
+                     <i class="ph-fill ph-layout text-4xl text-blue-500"></i>
+                     <span class="text-xs font-mono">SwiftUI</span>
+                 </div>
+                 <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
+                     <i class="ph-fill ph-database text-4xl text-gray-400"></i>
+                     <span class="text-xs font-mono">CoreData</span>
+                 </div>
+                 <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
+                     <i class="ph-fill ph-git-branch text-4xl text-white"></i>
+                     <span class="text-xs font-mono">Git</span>
+                 </div>
+                 <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
+                     <i class="ph-fill ph-fire text-4xl text-yellow-500"></i>
+                     <span class="text-xs font-mono">Firebase</span>
+                 </div>
+                 <div class="flex flex-col items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
+                     <i class="ph-bold ph-database text-4xl text-blue-600"></i>
+                     <span class="text-xs font-mono">MySQL</span>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Music Section -->
+        <section id="music" class="py-24 sm:py-32 px-6 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-black via-[#050505] to-black -z-10"></div>
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 sm:gap-16 items-center">
+                <div class="flex-1 space-y-6 reveal">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold">Sonic Landscapes</h2>
+                    <p class="text-lg text-gray-400 font-light leading-relaxed">
+                        When the code compiles, the synths ignite. Producing ambient and electronic tracks that bridge the gap between digital precision and analog warmth.
+                    </p>
+                    <div class="flex gap-4 pt-4">
+                         <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" class="w-12 h-12 rounded-full bg-[#1DB954] text-black flex items-center justify-center text-2xl hover:scale-110 transition-transform"><i class="ph-bold ph-spotify-logo"></i></a>
+                         <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" class="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center text-2xl hover:scale-110 transition-transform"><i class="ph-fill ph-apple-logo"></i></a>
+                    </div>
+                    
+                    <a href="music.html" class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors mt-2">
+                        Learn More <i class="ph-bold ph-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Minimal Music Card -->
+                <div class="flex-1 w-full max-w-sm reveal" style="transition-delay: 0.2s">
+                    <div class="bg-[#0A0A0A] border border-white/10 p-6 rounded-[32px] shadow-2xl relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        
+                        <div class="aspect-square rounded-2xl bg-gradient-to-br from-gray-800 to-black mb-6 relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-sm">
+                                    <i class="ph-fill ph-play text-2xl ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h3 class="font-bold text-xl">Midnight Code</h3>
+                                <p class="text-gray-500 text-sm">X3rœ</p>
+                            </div>
+                            <i class="ph-fill ph-wave-form text-3xl text-gray-600"></i>
+                        </div>
+                        
+                        <div class="mt-6 h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                            <div class="h-full w-1/3 bg-white rounded-full"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer id="contact" class="py-16 sm:py-24 px-6 text-center border-t border-white/10">
-        <div class="max-w-2xl mx-auto reveal" id="footer-cta">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">Ready to collaborate?</h2>
+        <!-- STORE SECTION -->
+        <section id="store" class="py-24 sm:py-32 px-6 border-t border-white/5 relative bg-[#050505] overflow-hidden">
+            <!-- Glowing Crimson Background -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] bg-[#DC143C]/10 rounded-full blur-[100px] animate-pulse"></div>
+                <div class="absolute bottom-0 right-0 w-[30vw] h-[30vw] bg-[#DC143C]/5 rounded-full blur-[80px]"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-16 reveal">
+                    <div>
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold">Digital Store</h2>
+                        <p class="text-gray-500 mt-4 max-w-lg">
+                            Premium assets, beats, and source code. Delivered instantly.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Store Grid Container -->
+                <div id="store-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
+                    <!-- Loading State (Replaced by JS) -->
+                    <div class="col-span-full py-20 text-center text-gray-500 animate-pulse">
+                        Connecting to database...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MINECRAFT SERVER SECTION (STYLED) -->
+        <section id="mc-server" class="py-24 sm:py-32 px-6 border-t border-white/5 relative mc-bg-pattern overflow-hidden font-mc">
+            <!-- Ambient Green Glow behind pattern -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] bg-green-500/10 rounded-full blur-[100px]"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+                    <div>
+                        <h2 class="text-5xl sm:text-6xl font-bold text-white mc-text-shadow">Server Status</h2>
+                        <p class="text-gray-400 mt-2 text-xl tracking-wide">JOIN THE WORLD. BUILD YOUR LEGACY.</p>
+                    </div>
+                    <!-- Live Indicator (Blocky) -->
+                    <div class="hidden md:flex items-center gap-3 px-4 py-2 bg-[#212121] border-2 border-[#555] shadow-lg">
+                        <span id="mc-status-dot" class="w-3 h-3 bg-gray-500 border border-black shadow-[1px_1px_0px_white]"></span>
+                        <span id="mc-status-text" class="text-lg text-gray-300 uppercase tracking-widest">Checking...</span>
+                    </div>
+                </div>
+
+                <!-- Server Card (Minecraft UI Style) -->
+                <div class="reveal">
+                    <!-- Minecraft Panel Class Applied -->
+                    <div class="group relative mc-panel p-8 sm:p-12">
+                        
+                        <div class="relative z-20 flex flex-col md:flex-row gap-8 items-center justify-between">
+                            <!-- Server Icon & Info -->
+                            <div class="flex items-center gap-6 w-full md:w-auto">
+                                <!-- Icon with Pixel Borders -->
+                                <div class="relative p-1 bg-[#1a1a1a] border-2 border-gray-600 shadow-inner">
+                                    <img id="mc-icon" src="https://api.mcsrvstat.us/icon/play.x3roe.com" alt="Server Icon" class="w-20 h-20 sm:w-24 sm:h-24 image-pixelated">
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-4xl sm:text-5xl font-bold text-white mb-1 mc-text-shadow tracking-wide">X3rœ SMP</h3>
+                                    
+                                    <!-- Players & Version Row -->
+                                    <div class="flex flex-wrap items-center gap-4 text-gray-400 text-xl">
+                                        <div class="flex items-center gap-2">
+                                            <i class="ph-fill ph-users text-green-500"></i>
+                                            <span id="mc-players">--</span>
+                                        </div>
+                                        <span class="text-gray-600">|</span>
+                                        <!-- Changed Ping to Version -->
+                                        <div class="flex items-center gap-2">
+                                            <i class="ph-fill ph-cube text-blue-500"></i>
+                                            <span id="mc-version">Ver --</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- MOTD Section -->
+                                    <p id="mc-motd" class="text-lg text-[#aaa] mt-3 leading-tight max-w-md hidden sm:block font-mc">
+                                        Connecting...
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Copy IP Action (Minecraft Button) -->
+                            <div class="w-full md:w-auto flex flex-col items-end gap-4">
+                                <!-- Minecraft Button Style -->
+                                <div class="w-full md:w-auto mc-button p-2 px-6 flex items-center justify-center gap-4 group/ip" onclick="copyIp()">
+                                    <code class="text-2xl text-yellow-200 drop-shadow-[2px_2px_0_#000]">play.x3roe.com</code>
+                                    <div class="hidden sm:block text-white/50 text-xl">
+                                        <span id="copy-text">Click to Copy</span>
+                                    </div>
+                                </div>
+                                <p class="text-lg text-gray-500 hidden md:block uppercase tracking-wider">Java Edition</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact" class="py-16 sm:py-24 px-6 text-center border-t border-white/10">
+            <div class="max-w-2xl mx-auto reveal" id="footer-cta">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">Ready to collaborate?</h2>
+                
+                <!-- Email Link triggering Modal -->
+                <a href="#" onclick="openModal(); return false;" class="text-lg sm:text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">
+                    contact@x3roe.com
+                </a>
+            </div>
+                
+            <div class="mt-12 sm:mt-16 flex justify-center gap-8">
+                <a href="https://instagram.com/x3roe" target="_blank" class="text-gray-500 hover:text-white transition-colors text-2xl">
+                    <i class="ph-fill ph-instagram-logo"></i>
+                </a>
+                <a href="https://github.com/youssefkairum" target="_blank" class="text-gray-500 hover:text-white transition-colors text-2xl">
+                    <i class="ph-fill ph-github-logo"></i>
+                </a>
+            </div>
             
-            <!-- Email Link triggering Modal -->
-            <a href="#" onclick="openModal(); return false;" class="text-lg sm:text-xl md:text-2xl text-gray-400 hover:text-white transition-colors border-b border-gray-800 hover:border-white pb-1">
-                contact@x3roe.com
-            </a>
-        </div>
-            
-        <div class="mt-12 sm:mt-16 flex justify-center gap-8">
-            <a href="https://instagram.com/x3roe" target="_blank" class="text-gray-500 hover:text-white transition-colors text-2xl">
-                <i class="ph-fill ph-instagram-logo"></i>
-            </a>
-            <a href="https://github.com/youssefkairum" target="_blank" class="text-gray-500 hover:text-white transition-colors text-2xl">
-                <i class="ph-fill ph-github-logo"></i>
-            </a>
-        </div>
-        
-        <p class="mt-12 text-xs sm:text-sm text-gray-600">© 2025 X3roe.</p>
-    </footer>
+            <p class="mt-12 text-xs sm:text-sm text-gray-600">© 2025 X3roe.</p>
+        </footer>
+    </div>
+    <!-- === END MAIN CONTENT === -->
 
     <!-- Contact Modal -->
     <div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md hidden transition-all duration-300 px-4">
@@ -591,7 +680,45 @@
     </div>
 
     <script>
-        // --- 1. SUPABASE CONFIGURATION ---
+        // --- 1. INTRO LOGIC ---
+        const overlay = document.getElementById('intro-overlay');
+        const prompt = document.getElementById('click-prompt');
+        const video = document.getElementById('intro-video');
+        const mainContent = document.getElementById('main-content');
+        const bodyEl = document.body;
+
+        // Force overflow hidden initially so user doesn't scroll past video
+        bodyEl.style.overflow = 'hidden';
+
+        overlay.addEventListener('click', () => {
+            prompt.style.display = 'none';
+            video.style.opacity = '1';
+            video.volume = 1.0; 
+            video.play().catch(error => {
+                console.log("Autoplay prevented:", error);
+                endIntro();
+            });
+        });
+
+        video.addEventListener('ended', () => {
+            endIntro();
+        });
+
+        function endIntro() {
+            // Fade out the overlay
+            overlay.classList.add('hidden-layer');
+            
+            // Wait for fade to finish, then remove from DOM
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                bodyEl.style.overflow = 'auto'; // Re-enable scrolling
+            }, 1000);
+
+            // Fade in the website
+            mainContent.classList.add('visible');
+        }
+
+        // --- 2. SUPABASE CONFIGURATION ---
         const supabaseUrl = 'https://evhlfqsdtxrqhvtvpjua.supabase.co'; 
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2aGxmcXNkdHhycWh2dHZwanVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NTkxMzAsImV4cCI6MjA4MDQzNTEzMH0.c8YAveXtgik0BjoHSZJYvKtozOGaeBOLHzzq13lXX7I';
         
@@ -606,7 +733,7 @@
             console.error('Supabase Initialization Error:', err);
         }
 
-        // --- 2. FETCH STORE DATA ---
+        // --- 3. FETCH STORE DATA ---
         async function loadStore() {
             const grid = document.getElementById('store-grid');
             
@@ -873,7 +1000,7 @@
             }
         });
 
-        // --- 3. MINECRAFT SERVER LOGIC ---
+        // --- 4. MINECRAFT SERVER LOGIC ---
         function initMinecraftServer() {
             const serverIp = 'play.x3roe.com'; 
             
@@ -950,4 +1077,3 @@
     </script>
 </body>
 </html>
-
