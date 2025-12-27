@@ -14,8 +14,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Added VT323 for Minecraft Font -->
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <!-- JetBrains Mono for Intro -->
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
     
@@ -25,7 +23,6 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        mc: ['"VT323"', 'monospace'], // Added custom Minecraft font family
                         mono: ['"JetBrains Mono"', 'monospace'], // Added for Intro
                     },
                     colors: {
@@ -210,52 +207,6 @@
         .modal-enter-active { opacity: 1; pointer-events: auto; transition: opacity 0.3s ease; }
         .modal-exit { opacity: 1; pointer-events: auto; }
         .modal-exit-active { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-
-        /* MINECRAFT SPECIFIC STYLES */
-        .mc-bg-pattern {
-            background-color: #121212;
-            background-image: 
-                linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a),
-                linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-        }
-
-        .mc-panel {
-            background-color: #212121; /* Dark Stone */
-            border: 4px solid #000;
-            box-shadow: 
-                inset 4px 4px 0px #3c3c3c, /* Top Left Light */
-                inset -4px -4px 0px #111;  /* Bottom Right Dark */
-            border-radius: 0 !important; /* Force Sharp Corners */
-            image-rendering: pixelated;
-        }
-
-        .mc-button {
-            background-color: #7d7d7d;
-            border-top: 4px solid #c6c6c6;
-            border-left: 4px solid #c6c6c6;
-            border-bottom: 4px solid #3b3b3b;
-            border-right: 4px solid #3b3b3b;
-            color: #fff;
-            text-shadow: 2px 2px 0px #3b3b3b;
-            cursor: pointer;
-            transition: background-color 0.1s;
-        }
-        .mc-button:hover {
-            background-color: #8b8b8b;
-        }
-        .mc-button:active {
-            border-top: 4px solid #3b3b3b;
-            border-left: 4px solid #3b3b3b;
-            border-bottom: 4px solid #c6c6c6;
-            border-right: 4px solid #c6c6c6;
-            background-color: #6d6d6d;
-        }
-        
-        .mc-text-shadow {
-            text-shadow: 2px 2px 0px #000;
-        }
     </style>
 </head>
 <body class="antialiased selection:bg-white selection:text-black">
@@ -295,8 +246,7 @@
                     <a href="#work" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Work</a>
                     <a href="#music" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Music</a>
                     <a href="#store" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Store</a>
-                    <a href="#mc-server" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Server</a>
-                    <a href="#contact" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Let's Talk</a>
+                    <!-- Let's Talk link removed from navbar -->
                 </div>
             </nav>
         </div>
@@ -574,81 +524,6 @@
             </div>
         </section>
 
-        <!-- MINECRAFT SERVER SECTION (STYLED) -->
-        <section id="mc-server" class="py-24 sm:py-32 px-6 border-t border-white/5 relative mc-bg-pattern overflow-hidden font-mc">
-            <!-- Ambient Green Glow behind pattern -->
-            <div class="absolute inset-0 pointer-events-none">
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] bg-green-500/10 rounded-full blur-[100px]"></div>
-            </div>
-
-            <div class="max-w-7xl mx-auto relative z-10">
-                <!-- Header -->
-                <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
-                    <div>
-                        <h2 class="text-5xl sm:text-6xl font-bold text-white mc-text-shadow">Server Status</h2>
-                        <p class="text-gray-400 mt-2 text-xl tracking-wide">JOIN THE WORLD. BUILD YOUR LEGACY.</p>
-                    </div>
-                    <!-- Live Indicator (Blocky) -->
-                    <div class="hidden md:flex items-center gap-3 px-4 py-2 bg-[#212121] border-2 border-[#555] shadow-lg">
-                        <span id="mc-status-dot" class="w-3 h-3 bg-gray-500 border border-black shadow-[1px_1px_0px_white]"></span>
-                        <span id="mc-status-text" class="text-lg text-gray-300 uppercase tracking-widest">Checking...</span>
-                    </div>
-                </div>
-
-                <!-- Server Card (Minecraft UI Style) -->
-                <div class="reveal">
-                    <!-- Minecraft Panel Class Applied -->
-                    <div class="group relative mc-panel p-8 sm:p-12">
-                        
-                        <div class="relative z-20 flex flex-col md:flex-row gap-8 items-center justify-between">
-                            <!-- Server Icon & Info -->
-                            <div class="flex items-center gap-6 w-full md:w-auto">
-                                <!-- Icon with Pixel Borders -->
-                                <div class="relative p-1 bg-[#1a1a1a] border-2 border-gray-600 shadow-inner">
-                                    <img id="mc-icon" src="https://api.mcsrvstat.us/icon/play.x3roe.com" alt="Server Icon" class="w-20 h-20 sm:w-24 sm:h-24 image-pixelated">
-                                </div>
-                                
-                                <div>
-                                    <h3 class="text-4xl sm:text-5xl font-bold text-white mb-1 mc-text-shadow tracking-wide">X3rœ SMP</h3>
-                                    
-                                    <!-- Players & Version Row -->
-                                    <div class="flex flex-wrap items-center gap-4 text-gray-400 text-xl">
-                                        <div class="flex items-center gap-2">
-                                            <i class="ph-fill ph-users text-green-500"></i>
-                                            <span id="mc-players">--</span>
-                                        </div>
-                                        <span class="text-gray-600">|</span>
-                                        <!-- Changed Ping to Version -->
-                                        <div class="flex items-center gap-2">
-                                            <i class="ph-fill ph-cube text-blue-500"></i>
-                                            <span id="mc-version">Ver --</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- MOTD Section -->
-                                    <p id="mc-motd" class="text-lg text-[#aaa] mt-3 leading-tight max-w-md hidden sm:block font-mc">
-                                        Connecting...
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- Copy IP Action (Minecraft Button) -->
-                            <div class="w-full md:w-auto flex flex-col items-end gap-4">
-                                <!-- Minecraft Button Style -->
-                                <div class="w-full md:w-auto mc-button p-2 px-6 flex items-center justify-center gap-4 group/ip" onclick="copyIp()">
-                                    <code class="text-2xl text-yellow-200 drop-shadow-[2px_2px_0_#000]">play.x3roe.com</code>
-                                    <div class="hidden sm:block text-white/50 text-xl">
-                                        <span id="copy-text">Click to Copy</span>
-                                    </div>
-                                </div>
-                                <p class="text-lg text-gray-500 hidden md:block uppercase tracking-wider">Java Edition</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Footer -->
         <footer id="contact" class="py-16 sm:py-24 px-6 text-center border-t border-white/10">
             <div class="max-w-2xl mx-auto reveal" id="footer-cta">
@@ -917,7 +792,7 @@
                 { id: 'work', link: document.querySelector('.nav-link[href="#work"]') },
                 { id: 'music', link: document.querySelector('.nav-link[href="#music"]') },
                 { id: 'store', link: document.querySelector('.nav-link[href="#store"]') },
-                { id: 'mc-server', link: document.querySelector('.nav-link[href="#mc-server"]') } // Link updated
+                // MC Server link removed
             ];
 
             for (const section of sectionsToTrack) {
@@ -1040,81 +915,6 @@
                 updateFooterForSentState();
             }
         });
-
-        // --- 4. MINECRAFT SERVER LOGIC ---
-        function initMinecraftServer() {
-            const serverIp = 'play.x3roe.com'; 
-            
-            // DOM Elements
-            const dot = document.getElementById('mc-status-dot');
-            const text = document.getElementById('mc-status-text');
-            const players = document.getElementById('mc-players');
-            const icon = document.getElementById('mc-icon');
-            const motd = document.getElementById('mc-motd');
-            const versionText = document.getElementById('mc-version');
-            
-            // Updates status from API
-            function updateStatus() {
-                // We add a timestamp query parameter (e.g., ?_=123456789) to prevent the BROWSER from caching the result.
-                // The API itself may still have a 1-5 min cache on their end, but this ensures we get the latest they have.
-                fetch(`https://api.mcstatus.io/v2/status/java/${serverIp}?_=${Date.now()}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.online) {
-                            dot.classList.remove('bg-gray-500', 'bg-red-500');
-                            dot.classList.add('bg-green-500');
-                            text.innerText = 'Online';
-                            text.classList.remove('text-red-500');
-                            text.classList.add('text-green-500');
-                            
-                            players.innerText = `${data.players.online}/${data.players.max}`;
-                            
-                            versionText.innerText = data.version ? data.version.name_clean : "Unknown";
-                            
-                            if(data.icon) icon.src = data.icon;
-                            
-                            if (data.motd && data.motd.clean) {
-                                motd.innerText = data.motd.clean;
-                            }
-                        } else {
-                            dot.classList.remove('bg-gray-500');
-                            dot.classList.add('bg-red-500');
-                            text.innerText = 'Offline';
-                            text.classList.remove('text-green-500');
-                            text.classList.add('text-red-500');
-                            
-                            // Reset fields when offline
-                            players.innerText = "0/0";
-                            versionText.innerText = "--";
-                            motd.innerText = "Server is currently unreachable.";
-                            
-                            // Optional: Grayscale the icon if offline
-                            icon.style.filter = "grayscale(100%)";
-                        }
-                    })
-                    .catch(err => {
-                        console.error("MC Status Error:", err);
-                        // Only show error if we haven't successfully loaded before (optional check could be added)
-                        // document.getElementById('mc-status-text').innerText = 'Error';
-                    });
-            }
-
-            // 1. Load immediately
-            updateStatus();
-
-            // 2. Poll every 15 seconds to keep it fresh without page reload
-            setInterval(updateStatus, 15000);
-        }
-
-        function copyIp() {
-            navigator.clipboard.writeText('play.x3roe.com');
-            const btn = document.getElementById('copy-text');
-            const originalText = btn.innerText;
-            btn.innerText = "Copied!";
-            setTimeout(() => btn.innerText = originalText, 2000);
-        }
-
-        initMinecraftServer();
     </script>
 </body>
 </html>
