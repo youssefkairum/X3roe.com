@@ -78,7 +78,8 @@
             height: 100%;
             background: #000;
             z-index: 9999;
-            display: flex;
+            /* FIXED: Hidden by default to prevent flash on reload */
+            display: none; 
             justify-content: center;
             align-items: center;
             transition: opacity 1s ease-in-out;
@@ -607,12 +608,12 @@
 
         // Check if user has already seen the intro
         if (localStorage.getItem('hasSeenIntro')) {
-            // User has seen it: Hide overlay immediately, show content
-            overlay.style.display = 'none';
+            // User has seen it: Hide overlay immediately (it's already hidden by CSS), show content
             mainContent.classList.add('visible');
             bodyEl.style.overflow = 'auto';
         } else {
             // First time: Prepare intro
+            overlay.style.display = 'flex'; // FIXED: Turn it on manually
             bodyEl.style.overflow = 'hidden'; // Lock scroll
 
             function playIntro() {
