@@ -587,40 +587,11 @@
         const mainContent = document.getElementById('main-content');
         const bodyEl = document.body;
 
-        // Force overflow hidden initially so user doesn't scroll past video
-        bodyEl.style.overflow = 'hidden';
-
-        // Function to start the experience
-        function playIntro() {
-            prompt.style.display = 'none';
-            video.style.opacity = '1';
-            video.volume = 1.0; 
-            
-            // Try to play
-            const playPromise = video.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // Automatic playback started!
-                })
-                .catch(error => {
-                    // Auto-play was prevented (Low Power Mode or Browser Policy)
-                    // Skip intro immediately to avoid black screen
-                    console.log("Autoplay prevented, skipping intro:", error);
-                    endIntro();
-                });
-            }
-        }
-
-        // Add listeners for both Click and Touch to ensure mobile responsiveness
-        overlay.addEventListener('click', playIntro);
-        overlay.addEventListener('touchstart', playIntro, {passive: true});
-
-        video.addEventListener('ended', () => {
-            endIntro();
-        });
-
+        // Function to properly end the intro and save state
         function endIntro() {
+            // Mark intro as seen in localStorage
+            localStorage.setItem('hasSeenIntro', 'true');
+
             // Fade out the overlay
             overlay.classList.add('hidden-layer');
             
@@ -632,6 +603,42 @@
 
             // Fade in the website
             mainContent.classList.add('visible');
+        }
+
+        // Check if user has already seen the intro
+        if (localStorage.getItem('hasSeenIntro')) {
+            // User has seen it: Hide overlay immediately, show content
+            overlay.style.display = 'none';
+            mainContent.classList.add('visible');
+            bodyEl.style.overflow = 'auto';
+        } else {
+            // First time: Prepare intro
+            bodyEl.style.overflow = 'hidden'; // Lock scroll
+
+            function playIntro() {
+                prompt.style.display = 'none';
+                video.style.opacity = '1';
+                video.volume = 1.0; 
+                
+                const playPromise = video.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        // Automatic playback started!
+                    })
+                    .catch(error => {
+                        // Auto-play was prevented (Low Power Mode or Browser Policy)
+                        console.log("Autoplay prevented, skipping intro:", error);
+                        endIntro();
+                    });
+                }
+            }
+
+            // Add listeners for both Click and Touch to ensure mobile responsiveness
+            overlay.addEventListener('click', playIntro);
+            overlay.addEventListener('touchstart', playIntro, {passive: true});
+
+            video.addEventListener('ended', endIntro);
         }
 
         // --- 2. SUPABASE CONFIGURATION ---
