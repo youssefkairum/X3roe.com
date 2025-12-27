@@ -769,9 +769,13 @@
             const viewportHeight = window.innerHeight;
             const docHeight = document.documentElement.scrollHeight;
 
+            // Hide capsule at the very bottom (Footer / Contact area)
             if (scrollY + viewportHeight >= docHeight - 50) {
-                const contactLink = document.querySelector('.nav-link[href="#contact"]');
-                if(contactLink) moveCapsuleToLink(contactLink);
+                 capsule.style.opacity = '0';
+                 navLinks.forEach(l => {
+                    l.classList.remove('text-black');
+                    l.classList.add('text-gray-400', 'hover:text-white');
+                });
                 return;
             }
 
