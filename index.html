@@ -103,6 +103,29 @@
             transition: opacity 0.5s;
         }
 
+        /* --- MOBILE VIDEO FIX: CENTERED RECTANGLE --- */
+        @media (max-width: 768px) {
+            #intro-video {
+                width: 90% !important;      /* Fit width with margins */
+                height: auto !important;    /* Maintain aspect ratio */
+                max-height: 70vh;           /* Prevent it from being too tall */
+                
+                /* Center the video rectangle */
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%);
+                
+                /* Reset object-fit to show the whole video */
+                object-fit: contain !important;
+                object-position: center !important;
+                
+                /* Aesthetic touches (Rounded & Border) */
+                border-radius: 24px;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            }
+        }
+
         #click-prompt {
             z-index: 10;
             cursor: pointer;
