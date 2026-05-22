@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Use | iPasscoder</title>
     
-    <!-- Custom Logo (Favicon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -18,14 +18,11 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
-                        ios: {
-                            gold: '#FFD700',
-                            dark: '#000000',
-                            card: '#0A0A0A',
-                            border: '#FFFFFF1A',
-                        }
+                        black: '#000000',
+                        white: '#FFFFFF',
                     }
                 }
             }
@@ -35,7 +32,8 @@
     <style>
         body {
             background-color: #000;
-            color: #d1d5db; /* gray-300 */
+            color: #fff;
+            overflow-x: hidden;
         }
         
         ::-webkit-scrollbar { width: 6px; }
@@ -43,119 +41,145 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
 
-        h1, h2, h3 { color: white; }
-        strong { color: white; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+        .stagger-6 { animation-delay: 0.6s; opacity: 0; }
+        .stagger-7 { animation-delay: 0.7s; opacity: 0; }
+        .stagger-8 { animation-delay: 0.8s; opacity: 0; }
+        .stagger-9 { animation-delay: 0.9s; opacity: 0; }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden selection:bg-yellow-500 selection:text-black">
+<body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Floating Navbar (Minimal) -->
-    <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-        <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-2 pr-6 py-2 flex items-center gap-4 shadow-2xl">
-            <a href="ipasscoder.html" class="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors">
-                <i class="ph-bold ph-arrow-left text-lg"></i>
+    <!-- Fixed UI Overlay -->
+    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
+        <div class="pointer-events-auto">
+            <a href="ipasscoder.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
+                <i class="ph-bold ph-arrow-left"></i>
+                <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
             </a>
-            <span class="font-semibold text-sm text-white/90">iPasscoder Terms of Use</span>
-        </nav>
-    </div>
+        </div>
+    </header>
 
     <!-- Content -->
     <main class="max-w-3xl mx-auto px-6 pt-32 pb-24">
         
         <!-- Header -->
-        <div class="mb-12 border-b border-white/10 pb-8">
-            <h1 class="text-4xl font-bold mb-4">Terms of Use</h1>
-            <div class="flex flex-col sm:flex-row gap-4 text-sm text-gray-500">
-                <p><span class="text-yellow-500 font-medium">Effective Date:</span> September 22, 2025</p>
+        <div class="mb-16 pb-8 border-b border-white/10 reveal">
+            <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
+                Legal
+            </span>
+            <h1 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-6">
+                Terms of<br>
+                <span class="text-white/30">Use.</span>
+            </h1>
+            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/40 uppercase tracking-widest">
+                <p>Effective: September 22, 2025</p>
                 <span class="hidden sm:inline">•</span>
-                <p><span class="text-yellow-500 font-medium">Developer:</span> Youssef Keram</p>
+                <p>Developer: Youssef Keram</p>
             </div>
         </div>
 
         <!-- Terms Sections -->
-        <div class="space-y-12">
+        <div class="space-y-16">
             
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">01.</span> Acceptance of Terms
+            <section class="reveal stagger-1">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">01</span> Acceptance of Terms
                 </h2>
-                <p class="leading-relaxed">
-                    By downloading or using <strong>iPasscoder</strong>, you agree to these Terms of Use. If you do not agree, please do not use the App.
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    By downloading or using <strong class="text-white font-medium">iPasscoder</strong>, you agree to these Terms of Use. If you do not agree, please do not use the App.
                 </p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">02.</span> App Purpose
+            <section class="reveal stagger-2">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">02</span> App Purpose
                 </h2>
-                <p class="leading-relaxed">
+                <p class="leading-relaxed text-white/60 font-light text-lg">
                     iPasscoder provides a secure local storage and generating solution for passcodes and sensitive data, with optional encrypted export and import features.
                 </p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">03.</span> User Responsibilities
+            <section class="reveal stagger-3">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">03</span> User Responsibilities
                 </h2>
-                <ul class="list-disc list-outside ml-5 space-y-2 leading-relaxed marker:text-yellow-500">
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
                     <li>You are responsible for keeping your device secure.</li>
-                    <li>Forgotten passcodes or lost devices may result in <strong>permanent loss of stored data</strong>.</li>
+                    <li>Forgotten passcodes or lost devices may result in <strong class="text-white font-medium">permanent loss of stored data</strong>.</li>
                     <li>The developer is not responsible for user error or misuse of the App.</li>
                 </ul>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">04.</span> Premium Features
+            <section class="reveal stagger-4">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">04</span> Premium Features
                 </h2>
-                <ul class="list-disc list-outside ml-5 space-y-2 leading-relaxed marker:text-yellow-500">
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
                     <li>Some features (such as unlimited storage or encrypted backup) require a paid subscription.</li>
-                    <li>Subscriptions and billing are handled solely through <strong>Apple’s App Store</strong>.</li>
+                    <li>Subscriptions and billing are handled solely through <strong class="text-white font-medium">Apple’s App Store</strong>.</li>
                 </ul>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">05.</span> Data Security
+            <section class="reveal stagger-5">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">05</span> Data Security
                 </h2>
-                <ul class="list-disc list-outside ml-5 space-y-2 leading-relaxed marker:text-yellow-500">
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
                     <li>The App uses encryption (AES-GCM) to protect your stored passcodes and exported backups.</li>
-                    <li>The developer <strong>does not have access</strong> to your data.</li>
+                    <li>The developer <strong class="text-white font-medium">does not have access</strong> to your data.</li>
                 </ul>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">06.</span> Disclaimer of Warranty
+            <section class="reveal stagger-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">06</span> Disclaimer of Warranty
                 </h2>
-                <p class="leading-relaxed">
-                    The App is provided <strong>“as is”</strong> without warranties of any kind. We do not guarantee that the App will be error-free, uninterrupted, or meet your needs.
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    The App is provided <strong class="text-white font-medium">“as is”</strong> without warranties of any kind. We do not guarantee that the App will be error-free, uninterrupted, or meet your needs.
                 </p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">07.</span> Limitation of Liability
+            <section class="reveal stagger-7">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">07</span> Limitation of Liability
                 </h2>
-                <p class="leading-relaxed">
+                <p class="leading-relaxed text-white/60 font-light text-lg">
                     To the maximum extent permitted by law, the developer is not liable for any damages, data loss, or issues arising from use of the App.
                 </p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">08.</span> Termination
+            <section class="reveal stagger-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">08</span> Termination
                 </h2>
-                <p class="leading-relaxed">
+                <p class="leading-relaxed text-white/60 font-light text-lg">
                     You may stop using the App at any time. The developer may suspend or discontinue the App without notice.
                 </p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">09.</span> Governing Law
+            <section class="reveal stagger-9">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">09</span> Governing Law
                 </h2>
-                <p class="leading-relaxed">
+                <p class="leading-relaxed text-white/60 font-light text-lg">
                     These Terms are governed by the laws of your country of residence, unless otherwise required by law.
                 </p>
             </section>
@@ -164,8 +188,8 @@
     </main>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 text-center border-t border-white/10 text-sm text-gray-600">
-        <p>© 2025 Youssef Keram. All rights reserved.</p>
+    <footer class="py-12 px-6 text-center border-t border-white/10">
+        <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 Youssef Keram. All rights reserved.</p>
     </footer>
 
 </body>

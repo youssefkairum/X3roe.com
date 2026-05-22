@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | iPasscoder</title>
     
-    <!-- Custom Logo (Favicon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -18,14 +18,11 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
-                        ios: {
-                            gold: '#FFD700',
-                            dark: '#000000',
-                            card: '#0A0A0A',
-                            border: '#FFFFFF1A',
-                        }
+                        black: '#000000',
+                        white: '#FFFFFF',
                     }
                 }
             }
@@ -35,7 +32,8 @@
     <style>
         body {
             background-color: #000;
-            color: #d1d5db; /* gray-300 */
+            color: #fff;
+            overflow-x: hidden;
         }
         
         ::-webkit-scrollbar { width: 6px; }
@@ -43,114 +41,138 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
 
-        h1, h2, h3 { color: white; }
-        strong { color: white; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+        .stagger-6 { animation-delay: 0.6s; opacity: 0; }
+        .stagger-7 { animation-delay: 0.7s; opacity: 0; }
+        .stagger-8 { animation-delay: 0.8s; opacity: 0; }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden selection:bg-yellow-500 selection:text-black">
+<body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Floating Navbar (Minimal) -->
-    <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-        <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-2 pr-6 py-2 flex items-center gap-4 shadow-2xl">
-            <a href="ipasscoder.html" class="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors">
-                <i class="ph-bold ph-arrow-left text-lg"></i>
+    <!-- Fixed UI Overlay -->
+    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
+        <div class="pointer-events-auto">
+            <a href="ipasscoder.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
+                <i class="ph-bold ph-arrow-left"></i>
+                <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
             </a>
-            <span class="font-semibold text-sm text-white/90">iPasscoder Privacy Policy</span>
-        </nav>
-    </div>
+        </div>
+    </header>
 
     <!-- Content -->
     <main class="max-w-3xl mx-auto px-6 pt-32 pb-24">
         
         <!-- Header -->
-        <div class="mb-12 border-b border-white/10 pb-8">
-            <h1 class="text-4xl font-bold mb-4">Privacy Policy</h1>
-            <div class="flex flex-col sm:flex-row gap-4 text-sm text-gray-500">
-                <p><span class="text-yellow-500 font-medium">Effective Date:</span> September 22, 2025</p>
+        <div class="mb-16 pb-8 border-b border-white/10 reveal">
+            <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
+                Legal
+            </span>
+            <h1 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-6">
+                Privacy<br>
+                <span class="text-white/30">Policy.</span>
+            </h1>
+            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/40 uppercase tracking-widest">
+                <p>Effective: September 22, 2025</p>
                 <span class="hidden sm:inline">•</span>
-                <p><span class="text-yellow-500 font-medium">Developer:</span> Youssef Keram</p>
+                <p>Developer: Youssef Keram</p>
             </div>
         </div>
 
         <!-- Policy Sections -->
-        <div class="space-y-12">
+        <div class="space-y-16">
             
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">01.</span> Introduction
+            <section class="reveal stagger-1">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">01</span> Introduction
                 </h2>
-                <p class="leading-relaxed">
-                    <strong>iPasscoder</strong> (“the App”) respects your privacy. This Privacy Policy explains how your data is handled when you use the App.
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    <strong class="text-white font-medium">iPasscoder</strong> (“the App”) respects your privacy. This Privacy Policy explains how your data is handled when you use the App.
                 </p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">02.</span> Data Collection
+            <section class="reveal stagger-2">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">02</span> Data Collection
                 </h2>
-                <ul class="list-disc list-outside ml-5 space-y-2 leading-relaxed marker:text-yellow-500">
-                    <li>The App does <strong>not collect, transmit, or share</strong> your personal data with us or third parties.</li>
-                    <li>All passcodes and sensitive information you store in the App are saved <strong>locally on your device only</strong>.</li>
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
+                    <li>The App does <strong class="text-white font-medium">not collect, transmit, or share</strong> your personal data with us or third parties.</li>
+                    <li>All passcodes and sensitive information you store in the App are saved <strong class="text-white font-medium">locally on your device only</strong>.</li>
                 </ul>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">03.</span> Data Security
+            <section class="reveal stagger-3">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">03</span> Data Security
                 </h2>
-                <ul class="list-disc list-outside ml-5 space-y-2 leading-relaxed marker:text-yellow-500">
-                    <li>Stored passcodes are encrypted using <strong>Apple’s CryptoKit (AES-GCM)</strong> to ensure confidentiality.</li>
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
+                    <li>Stored passcodes are encrypted using <strong class="text-white font-medium">Apple’s CryptoKit (AES-GCM)</strong> to ensure confidentiality.</li>
                     <li>Exported backups are encrypted before leaving your device.</li>
                     <li>We do not have access to your encryption keys, passcodes, or backup files.</li>
                 </ul>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">04.</span> Purchases & Subscriptions
+            <section class="reveal stagger-4">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">04</span> Purchases & Subscriptions
                 </h2>
-                <ul class="list-disc list-outside ml-5 space-y-2 leading-relaxed marker:text-yellow-500">
-                    <li>Premium features are purchased through <strong>Apple’s App Store in-app purchase system</strong>.</li>
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
+                    <li>Premium features are purchased through <strong class="text-white font-medium">Apple’s App Store in-app purchase system</strong>.</li>
                     <li>We do not process or store payment information.</li>
                 </ul>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">05.</span> User Control
+            <section class="reveal stagger-5">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">05</span> User Control
                 </h2>
-                <ul class="list-disc list-outside ml-5 space-y-2 leading-relaxed marker:text-yellow-500">
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
                     <li>You can edit or delete saved passcodes at any time with a paid subscription.</li>
                     <li>Deleting the App will remove all stored data from your device.</li>
                 </ul>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">06.</span> Children’s Privacy
+            <section class="reveal stagger-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">06</span> Children’s Privacy
                 </h2>
-                <p class="leading-relaxed">
+                <p class="leading-relaxed text-white/60 font-light text-lg">
                     iPasscoder is not directed at children under 13. We do not knowingly collect information from children.
                 </p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <span class="text-yellow-500/50">07.</span> Changes to Policy
+            <section class="reveal stagger-7">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">07</span> Changes to Policy
                 </h2>
-                <p class="leading-relaxed">
+                <p class="leading-relaxed text-white/60 font-light text-lg">
                     We may update this Privacy Policy. Changes will be reflected in the App or on our website.
                 </p>
             </section>
 
-            <section class="bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 mt-16">
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3 text-white">
-                    <span class="text-yellow-500/50">08.</span> Contact
+            <section class="bg-white/[0.02] border border-white/10 rounded-3xl p-8 mt-16 reveal stagger-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">08</span> Contact
                 </h2>
-                <p class="mb-4 text-gray-400">If you have questions about this Privacy Policy, contact:</p>
-                <a href="mailto:youssefahmedkeram@gmail.com" class="inline-flex items-center gap-2 text-yellow-500 hover:text-white transition-colors font-medium">
-                    <i class="ph-fill ph-envelope-simple text-xl"></i>
-                    contact@x3roe.com
+                <p class="mb-6 text-white/60 font-light text-lg">If you have questions about this Privacy Policy, contact:</p>
+                <a href="mailto:contact@x3roe.com" class="inline-flex items-center gap-3 pb-2 border-b-2 border-white text-white font-bold hover:text-white/60 hover:border-white/60 transition-colors">
+                    <i class="ph-bold ph-envelope-simple text-xl"></i> contact@x3roe.com
                 </a>
             </section>
 
@@ -158,8 +180,8 @@
     </main>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 text-center border-t border-white/10 text-sm text-gray-600">
-        <p>© 2025 Youssef Keram. All rights reserved.</p>
+    <footer class="py-12 px-6 text-center border-t border-white/10">
+        <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 Youssef Keram. All rights reserved.</p>
     </footer>
 
 </body>
