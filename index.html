@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>X3roe | Spatial & iOS Engineer</title>
+    
+    <meta name="description" content="X3roe is an iOS Engineer crafting spatial, minimalist, and high-performance digital experiences.">
+    <meta property="og:title" content="X3roe | iOS Engineer">
+    <meta property="og:description" content="X3roe is an iOS Engineer crafting spatial, minimalist, and high-performance digital experiences.">
+    <meta property="og:image" content="https://x3roe.com/cover_xero.jpg">
+    <meta property="og:url" content="https://x3roe.com/">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        black: '#000000',
+                        white: '#FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden; /* Hide default scroll on HTML */
+        }
+
+        /* The scrolling container */
+        #snap-container {
+            width: 100vw;
+            height: 100vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        #snap-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+
+        .snap-section {
+            width: 100%;
+            height: 100vh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Pure Black/White Aesthetic */
+        .glass-border { border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-bg { background-color: rgba(255, 255, 255, 0.03); }
+        
+        /* Intro Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+    </style>
+</head>
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <!-- Fixed UI Overlay -->
+    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
+        <div class="pointer-events-auto">
+            <a href="#hero" class="text-2xl font-bold tracking-tighter text-white hover:text-white/70 transition-colors">X3rœ</a>
+        </div>
+        
+        <nav class="hidden md:flex gap-8 pointer-events-auto">
+            <a href="#ipasscoder" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Work</a>
+            <a href="#music" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Music</a>
+            <a href="#contact" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Contact</a>
+        </nav>
+        
+        <div class="pointer-events-auto">
+            <a href="https://github.com/youssefkairum" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+                <i class="ph-bold ph-github-logo"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="fixed bottom-6 sm:bottom-10 left-6 sm:left-10 z-50 pointer-events-none">
+        <div class="text-xs font-mono text-white/40 uppercase tracking-widest flex items-center gap-3">
+            <div class="w-px h-12 bg-white/20">
+                <div class="w-full h-1/2 bg-white animate-pulse"></div>
+            </div>
+            Scroll
+        </div>
+    </div>
+
+    <!-- Snap Scrolling Container -->
+    <main id="snap-container">
+        
+        <!-- Section 1: HERO -->
+        <section id="hero" class="snap-section">
+            <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                <h1 class="text-[20vw] font-black tracking-tighter text-white whitespace-nowrap overflow-hidden">X3ROE</h1>
+            </div>
+            
+            <div class="max-w-6xl w-full px-6 sm:px-10 z-10">
+                <div class="reveal">
+                    <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
+                        iOS & Spatial Computing
+                    </span>
+                    <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter leading-[0.9] text-white">
+                        Build<br>
+                        <span class="text-white/30">Beyond.</span>
+                    </h1>
+                </div>
+                
+                <p class="mt-8 text-lg sm:text-xl md:text-2xl text-white/60 font-light max-w-2xl leading-relaxed reveal stagger-1">
+                    Engineering absolute precision. Crafting minimalist, native experiences for iOS and VisionOS.
+                </p>
+                
+                <div class="mt-12 flex items-center gap-6 reveal stagger-2">
+                    <a href="#ipasscoder" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform">
+                        Explore Work
+                    </a>
+                    <a href="#contact" class="text-sm font-bold text-white/70 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2">
+                        Get in Touch <i class="ph-bold ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: iPasscoder -->
+        <section id="ipasscoder" class="snap-section bg-black border-t border-white/5">
+            <div class="max-w-7xl w-full px-6 sm:px-10 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
+                
+                <div class="flex-1 reveal z-10 w-full text-center md:text-left">
+                    <div class="flex items-center gap-4 justify-center md:justify-start mb-6">
+                        <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center overflow-hidden">
+                            <img src="ipasscoder_icon.png" alt="iPasscoder" loading="lazy" class="w-full h-full object-cover grayscale" onerror="this.style.display='none';">
+                        </div>
+                        <span class="text-xs font-bold text-white/50 border border-white/10 px-2 py-1 rounded">Featured App</span>
+                    </div>
+                    
+                    <h2 class="text-5xl sm:text-7xl font-bold tracking-tighter text-white mb-6">iPasscoder</h2>
+                    <p class="text-lg sm:text-xl text-white/60 font-light leading-relaxed max-w-xl mx-auto md:mx-0">
+                        The ultimate security hub. Military-grade encryption wrapped in an elegant, native iOS interface. Fast, secure, and purely minimalist.
+                    </p>
+                    
+                    <div class="mt-10">
+                        <a href="ipasscoder.html" class="inline-flex items-center gap-3 pb-2 border-b-2 border-white text-white font-bold hover:text-white/60 hover:border-white/60 transition-colors">
+                            View Case Study <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Abstract UI Representation -->
+                <div class="flex-1 w-full max-w-md reveal stagger-1 relative group">
+                    <div class="w-full aspect-[4/5] bg-[#050505] border border-white/10 rounded-[40px] p-8 flex flex-col gap-6 shadow-2xl overflow-hidden relative group-hover:border-white/30 transition-colors duration-700">
+                        <!-- Abstract vault visual -->
+                        <div class="w-full flex-1 border border-white/10 rounded-3xl flex items-center justify-center relative overflow-hidden bg-white/[0.02]">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)]"></div>
+                            <i class="ph-thin ph-lock-key text-7xl text-white/80 group-hover:scale-110 transition-transform duration-700"></i>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="h-16 flex-1 border border-white/10 rounded-2xl bg-white/[0.02] flex items-center px-4">
+                                <div class="w-2/3 h-1 bg-white/20 rounded-full"></div>
+                            </div>
+                            <div class="h-16 w-16 border border-white/10 rounded-2xl bg-white flex items-center justify-center text-black">
+                                <i class="ph-bold ph-fingerprint text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 3: Voxel Tennis & Lab -->
+        <section id="voxel" class="snap-section bg-[#020202] border-t border-white/5">
+            <div class="max-w-7xl w-full px-6 sm:px-10 flex flex-col md:flex-row-reverse items-center justify-between gap-12 md:gap-20">
+                
+                <div class="flex-1 reveal z-10 w-full text-center md:text-left">
+                    <span class="text-xs font-bold text-white/50 border border-white/10 px-2 py-1 rounded inline-block mb-6">Game Dev / Spatial</span>
+                    <h2 class="text-5xl sm:text-7xl font-bold tracking-tighter text-white mb-6">Voxel Tennis</h2>
+                    <p class="text-lg sm:text-xl text-white/60 font-light leading-relaxed max-w-xl mx-auto md:mx-0">
+                        A retro 3D arcade experience powered entirely by SceneKit. Pushing the boundaries of native rendering pipelines to create smooth, physics-based gameplay.
+                    </p>
+                    
+                    <div class="mt-10">
+                        <a href="https://apps.apple.com/us/app/voxel-tennis/id1670436995" target="_blank" class="inline-flex items-center gap-3 pb-2 border-b-2 border-white text-white font-bold hover:text-white/60 hover:border-white/60 transition-colors">
+                            View on App Store <i class="ph-bold ph-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex-1 w-full max-w-md reveal stagger-1">
+                    <div class="w-full aspect-square bg-[#050505] border border-white/10 rounded-full flex items-center justify-center group hover:border-white/40 transition-colors duration-700">
+                        <div class="w-2/3 h-2/3 border border-white/10 rounded-full border-dashed animate-[spin_20s_linear_infinite] flex items-center justify-center">
+                            <div class="w-1/2 h-1/2 border border-white/20 rounded-full animate-[spin_10s_linear_infinite_reverse] flex items-center justify-center">
+                                <i class="ph-fill ph-tennis-ball text-4xl text-white/80 group-hover:text-white transition-colors"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 4: Music -->
+        <section id="music" class="snap-section bg-black border-t border-white/5">
+            <div class="max-w-7xl w-full px-6 sm:px-10 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
+                
+                <div class="flex-1 reveal z-10 w-full text-center md:text-left">
+                    <span class="text-xs font-bold text-white/50 border border-white/10 px-2 py-1 rounded inline-block mb-6">Producer</span>
+                    <h2 class="text-5xl sm:text-7xl font-bold tracking-tighter text-white mb-6">Sonic Architecture</h2>
+                    <p class="text-lg sm:text-xl text-white/60 font-light leading-relaxed max-w-xl mx-auto md:mx-0">
+                        When the compiler finishes, the synths ignite. Producing atmospheric electronic tracks that bridge the gap between digital precision and analog warmth.
+                    </p>
+                    
+                    <div class="mt-10 flex items-center gap-6 justify-center md:justify-start">
+                        <a href="music.html" class="inline-flex items-center gap-3 pb-2 border-b-2 border-white text-white font-bold hover:text-white/60 hover:border-white/60 transition-colors">
+                            Explore Discography <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex-1 w-full max-w-md reveal stagger-1">
+                    <!-- Minimal Player Record -->
+                    <div class="w-full aspect-square border border-white/10 rounded-full bg-[#050505] relative flex items-center justify-center group overflow-hidden">
+                        <img src="cover_midnight.jpg" alt="Midnight Blue" loading="lazy" class="absolute inset-0 w-full h-full object-cover grayscale opacity-30 group-hover:opacity-70 group-hover:scale-105 transition-all duration-1000" onerror="this.style.display='none';">
+                        <div class="w-32 h-32 bg-black rounded-full z-10 flex items-center justify-center border-4 border-[#050505] group-hover:scale-90 transition-transform duration-700">
+                             <i class="ph-fill ph-play text-white text-3xl ml-1"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 5: Contact -->
+        <section id="contact" class="snap-section bg-[#020202] border-t border-white/5">
+            <div class="max-w-4xl w-full mx-auto px-6 text-center z-10">
+                <div class="reveal">
+                    <i class="ph-thin ph-envelope-simple text-6xl text-white/30 mb-8 block"></i>
+                    <h2 class="text-6xl sm:text-8xl font-black tracking-tighter text-white mb-8">
+                        Let's Talk.
+                    </h2>
+                    
+                    <a href="mailto:hello@x3roe.com" class="text-2xl sm:text-4xl font-light text-white/60 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-2 inline-block">
+                        hello@x3roe.com
+                    </a>
+                </div>
+                
+                <div class="mt-20 flex justify-center gap-8 reveal stagger-1">
+                    <a href="https://github.com/youssefkairum" target="_blank" class="text-sm font-bold text-white/50 hover:text-white uppercase tracking-widest transition-colors">GitHub</a>
+                    <a href="https://instagram.com/x3roe" target="_blank" class="text-sm font-bold text-white/50 hover:text-white uppercase tracking-widest transition-colors">Instagram</a>
+                    <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" class="text-sm font-bold text-white/50 hover:text-white uppercase tracking-widest transition-colors">Spotify</a>
+                </div>
+                
+                <div class="absolute bottom-10 left-0 right-0 text-center reveal stagger-2">
+                    <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 X3ROE. Built with absolute precision.</p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script>
+        // Intersection Observer for Scroll Snapping Animation Triggers
+        const observerOptions = {
+            root: document.getElementById('snap-container'),
+            rootMargin: '0px',
+            threshold: 0.5 // Trigger when section is 50% visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Find elements with .reveal in this section and add .active
+                    entry.target.querySelectorAll('.reveal').forEach(el => {
+                        el.classList.add('active');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.snap-section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Trigger for the first section on load
+        setTimeout(() => {
+            document.getElementById('hero').querySelectorAll('.reveal').forEach(el => {
+                el.classList.add('active');
+            });
+        }, 100);
+    </script>
+</body>
+</html>

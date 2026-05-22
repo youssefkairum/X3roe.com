@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Music | X3roe</title>
     
-    <!-- Custom Logo (Favicon) -->
+    <meta name="description" content="Discover the atmospheric electronic music discography of X3roe. Listen to the latest releases.">
+    <meta property="og:title" content="X3roe | Music">
+    <meta property="og:description" content="Discover the atmospheric electronic music discography of X3roe. Listen to the latest releases.">
+    <meta property="og:image" content="https://x3roe.com/cover_midnight.jpg">
+    <meta property="og:url" content="https://x3roe.com/music.html">
+    <meta property="og:type" content="music.musician">
+    
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -18,30 +25,11 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
-                        ios: {
-                            blue: '#2997FF',
-                            dark: '#000000',
-                            card: '#0A0A0A',
-                            border: '#FFFFFF1A',
-                        }
-                    },
-                    animation: {
-                        'float': 'float 8s ease-in-out infinite',
-                        'blob': 'blob 10s infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        },
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        }
+                        black: '#000000',
+                        white: '#FFFFFF',
                     }
                 }
             }
@@ -49,346 +37,248 @@
     </script>
 
     <style>
-        body {
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             background-color: #000;
             color: #fff;
+            overflow: hidden;
+        }
+
+        #snap-container {
+            width: 100vw;
+            height: 100vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
         
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        #snap-container::-webkit-scrollbar {
+            display: none;
+        }
 
-        .spotlight-card:hover::before { opacity: 1; }
-        .spotlight-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.1), transparent 40%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
+        .snap-section {
+            width: 100%;
+            height: 100vh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+<body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Floating Navbar -->
-    <div class="fixed top-4 sm:top-6 left-0 right-0 z-50 flex justify-center px-4">
-        <nav class="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full pl-4 sm:pl-6 pr-2 py-2 flex items-center gap-3 sm:gap-6 shadow-2xl animate-fade-in-up max-w-full overflow-x-auto no-scrollbar">
-            <a href="index.html" class="flex items-center gap-2 group mr-1 sm:mr-2 shrink-0">
-                <i class="ph-bold ph-arrow-left text-white/50 group-hover:text-white transition-colors"></i>
-                <span class="font-bold text-lg tracking-tight text-white/90 group-hover:text-white transition-colors">X3rœ</span>
+    <!-- Fixed UI Overlay -->
+    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
+        <div class="pointer-events-auto">
+            <a href="index.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
+                <i class="ph-bold ph-arrow-left"></i>
+                <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
             </a>
-            
-            <div class="h-4 w-px bg-white/10 hidden sm:block shrink-0"></div>
-            
-            <div class="relative flex items-center p-1 overflow-x-auto">
-                <div id="nav-capsule" class="absolute bg-white rounded-full h-full transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] opacity-0 pointer-events-none z-0"></div>
-
-                <a href="#latest" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Latest</a>
-                <a href="#discography" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Discography</a>
-                <a href="#listen" class="nav-link relative z-10 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors whitespace-nowrap">Listen</a>
-            </div>
+        </div>
+        
+        <nav class="hidden md:flex gap-8 pointer-events-auto">
+            <a href="#latest" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Latest</a>
+            <a href="#discography" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Catalog</a>
+            <a href="#listen" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Listen</a>
         </nav>
+        
+        <div class="pointer-events-auto flex gap-4">
+            <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+                <i class="ph-fill ph-spotify-logo"></i>
+            </a>
+            <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+                <i class="ph-fill ph-apple-logo"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="fixed bottom-6 sm:bottom-10 left-6 sm:left-10 z-50 pointer-events-none">
+        <div class="text-xs font-mono text-white/40 uppercase tracking-widest flex items-center gap-3">
+            <div class="w-px h-12 bg-white/20">
+                <div class="w-full h-1/2 bg-white animate-pulse"></div>
+            </div>
+            Scroll
+        </div>
     </div>
 
-    <!-- Hero Section (Latest Release: Afterimage) -->
-    <section id="latest" class="relative min-h-[90vh] flex flex-col justify-center items-center pt-24 overflow-hidden">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-[-10%] left-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-stone-800/40 rounded-full blur-[120px] animate-blob"></div>
-            <div class="absolute bottom-[-10%] right-[20%] w-[80vw] sm:w-[50vw] h-[80vw] sm:h-[50vw] bg-orange-900/20 rounded-full blur-[120px] animate-blob" style="animation-delay: 2s"></div>
-        </div>
-
-        <div class="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-12 sm:gap-16 items-center z-10">
-            <div class="space-y-6 sm:space-y-8 text-center lg:text-left reveal active">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-900/30 bg-orange-900/10 text-orange-100/80 text-[10px] sm:text-xs font-medium uppercase tracking-wider backdrop-blur-md">
-                    <span class="w-1.5 h-1.5 rounded-full bg-orange-200 animate-pulse"></span>
-                    New Single • 2025
-                </div>
-                
-                <h1 class="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tighter leading-[1.1]">
-                    <!-- UPDATED: Applied gradient to the main title -->
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-500">Afterimage</span><br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-stone-300 to-stone-600 text-2xl sm:text-4xl lg:text-6xl block mt-2">feat. Nakadate</span>
-                </h1>
-                
-                <p class="text-base sm:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
-                    A haunting blend of melodic vocals and crisp electronic production. The latest single exploring memory and digital echoes.
-                </p>
-
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                    <a href="https://lnk.to/aftrimg" target="_blank" class="px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-orange-50 transition-transform duration-300 hover:scale-105 flex items-center justify-center gap-2">
-                        <i class="ph-fill ph-play-circle text-xl"></i> Listen Now
-                    </a>
-                    <a href="#discography" class="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/10 transition-all">
-                        View All
-                    </a>
-                </div>
+    <!-- Snap Scrolling Container -->
+    <main id="snap-container">
+        
+        <!-- Section 1: LATEST RELEASE -->
+        <section id="latest" class="snap-section bg-black">
+            <div class="absolute inset-0 z-0 opacity-[0.15] pointer-events-none">
+                <img src="cover_afterimage.jpg" class="w-full h-full object-cover grayscale blur-3xl scale-110" onerror="this.style.display='none';">
+                <div class="absolute inset-0 bg-black/80"></div>
             </div>
-
-            <!-- Album Art -->
-            <div class="flex justify-center lg:justify-end reveal perspective-1000" style="perspective: 1200px;">
-                <div class="relative w-[280px] sm:w-[450px] aspect-square rounded-[32px] bg-[#0A0A0A] border border-white/10 shadow-2xl overflow-hidden group animate-float">
-                    <!-- Album Art Image -->
-                    <img src="cover_afterimage.jpg" alt="Afterimage Single Cover" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
-                    
-                    <!-- Hover Overlay -->
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm cursor-pointer">
-                        <div class="w-20 h-20 rounded-full bg-white text-black flex items-center justify-center pl-1 hover:scale-110 transition-transform">
-                            <i class="ph-fill ph-play text-3xl"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Discography Grid -->
-    <section id="discography" class="py-24 sm:py-32 px-6 border-y border-white/5 bg-black/50">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Discography</h2>
-                <p class="text-gray-500 mt-2">Full Catalog</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- 1. Single: Afterimage -->
-                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal">
-                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
-                         <!-- Cover Art Image -->
-                         <img src="cover_afterimage.jpg" alt="Afterimage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Afterimage</h3>
-                                <p class="text-sm text-gray-500">feat. Nakadate</p>
-                            </div>
-                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">Single</span>
-                        </div>
-                        <p class="text-xs text-gray-600 mt-4">2025</p>
-                    </div>
-                </div>
-
-                <!-- 2. Single: BODYTALK (Middle) -->
-                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal" style="transition-delay: 0.1s">
-                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
-                         <img src="cover_bodytalk.jpg" alt="BODYTALK" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">BODYTALK</h3>
-                                <p class="text-sm text-gray-500">Original Mix</p>
-                            </div>
-                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">Single</span>
-                        </div>
-                        <p class="text-xs text-gray-600 mt-4">2025</p>
-                    </div>
-                </div>
-
-                <!-- 3. EP: Midnight Blue (Right) -->
-                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal" style="transition-delay: 0.2s">
-                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
-                         <img src="cover_midnight.jpg" alt="Midnight Blue" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Midnight Blue</h3>
-                                <p class="text-sm text-gray-500">EP</p>
-                            </div>
-                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">EP</span>
-                        </div>
-                        <p class="text-xs text-gray-600 mt-4">2025</p>
-                    </div>
-                </div>
-
-                <!-- 4. Album: Xero Vol 2 -->
-                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal">
-                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
-                         <img src="cover_xero.jpg" alt="Xero Vol 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Xero, Vol. 2</h3>
-                                <p class="text-sm text-gray-500">Album</p>
-                            </div>
-                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">Album</span>
-                        </div>
-                        <p class="text-xs text-gray-600 mt-4">2025</p>
-                    </div>
-                </div>
-                
-                <!-- 5. EP: Sorry for being anti-social -->
-                <div class="group rounded-[24px] bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-colors reveal" style="transition-delay: 0.1s">
-                    <div class="aspect-square bg-gray-800 relative overflow-hidden">
-                         <img src="cover_antisocial.jpg" alt="Sorry for being anti-social" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Sorry for being anti-social</h3>
-                                <p class="text-sm text-gray-500">EP</p>
-                            </div>
-                            <span class="text-xs font-bold border border-white/10 px-2 py-1 rounded text-gray-400">EP</span>
-                        </div>
-                        <p class="text-xs text-gray-600 mt-4">2025</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Streaming Platforms (Minimalist - Icons Only) -->
-    <section id="listen" class="py-32 px-6 text-center">
-        <div class="max-w-4xl mx-auto reveal">
-            <h2 class="text-3xl md:text-4xl font-bold mb-16">Listen Everywhere</h2>
             
-            <!-- Icons Only Row -->
-            <div class="flex flex-wrap justify-center items-center gap-16 md:gap-24">
+            <div class="max-w-7xl w-full px-6 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20 z-10">
                 
-                <!-- Spotify -->
-                <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" class="group opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110" title="Spotify">
-                    <i class="ph-fill ph-spotify-logo text-5xl sm:text-6xl text-white group-hover:text-[#1DB954] transition-colors"></i>
-                </a>
-                
-                <!-- Apple Music -->
-                <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" class="group opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110" title="Apple Music">
-                    <svg class="w-12 h-12 sm:w-14 sm:h-14 fill-current text-white" viewBox="0 0 384 512">
-                        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
-                    </svg>
-                </a>
-                
-                <!-- SoundCloud -->
-                <a href="https://soundcloud.com/x3roe" target="_blank" class="group opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110" title="SoundCloud">
-                    <i class="ph-fill ph-soundcloud-logo text-5xl sm:text-6xl text-white group-hover:text-[#FF5500] transition-colors"></i>
-                </a>
-                
-                <!-- YouTube -->
-                <a href="https://www.youtube.com/@X3roe" target="_blank" class="group opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110" title="YouTube">
-                    <i class="ph-fill ph-youtube-logo text-5xl sm:text-6xl text-white group-hover:text-[#FF0000] transition-colors"></i>
-                </a>
+                <div class="flex-1 reveal w-full text-center md:text-left">
+                    <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
+                        New Single
+                    </span>
+                    <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter leading-[0.9] text-white">
+                        After<br>image.
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-white/40 font-medium mt-4 font-mono tracking-widest">
+                        FEAT. NAKADATE
+                    </p>
+                    
+                    <div class="mt-12 flex justify-center md:justify-start reveal stagger-1">
+                        <a href="https://lnk.to/aftrimg" target="_blank" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+                            <i class="ph-fill ph-play-circle text-xl"></i> Listen Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Record Player UI -->
+                <div class="flex-1 w-full max-w-md reveal stagger-2">
+                    <div class="w-full aspect-square bg-[#050505] border border-white/10 rounded-full p-4 group">
+                        <div class="w-full h-full border border-white/10 rounded-full bg-black relative overflow-hidden flex items-center justify-center animate-[spin_10s_linear_infinite]">
+                            <img src="cover_afterimage.jpg" alt="Afterimage Cover" class="absolute inset-0 w-full h-full object-cover opacity-60" onerror="this.style.display='none';">
+                            <div class="w-24 h-24 bg-black rounded-full border-4 border-[#050505] z-10"></div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="py-16 px-6 text-center border-t border-white/10">
-        <div class="mt-8 flex justify-center gap-8">
-            <a href="index.html" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">Back to Portfolio</a>
-        </div>
-        <p class="mt-12 text-xs sm:text-sm text-gray-600">© 2025 X3roe Music.</p>
-    </footer>
+        <!-- Section 2: DISCOGRAPHY -->
+        <section id="discography" class="snap-section bg-[#020202] border-t border-white/5">
+            <div class="max-w-7xl w-full px-6 flex flex-col justify-center h-full pt-20">
+                
+                <div class="reveal mb-12">
+                    <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-white">Catalog.</h2>
+                </div>
+
+                <!-- Horizontal scroll area for records if on small screens, or grid on large -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-6xl">
+                    
+                    <!-- Item 1 -->
+                    <div class="group reveal stagger-1">
+                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4 relative hover:border-white/30 transition-colors">
+                            <img src="cover_bodytalk.jpg" alt="BODYTALK" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500" onerror="this.style.display='none';">
+                        </div>
+                        <h3 class="text-white font-bold tracking-tight truncate">BODYTALK</h3>
+                        <p class="text-white/40 text-xs uppercase tracking-widest mt-1">Single • 2025</p>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="group reveal stagger-2">
+                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4 relative hover:border-white/30 transition-colors">
+                            <img src="cover_midnight.jpg" alt="Midnight Blue" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500" onerror="this.style.display='none';">
+                        </div>
+                        <h3 class="text-white font-bold tracking-tight truncate">Midnight Blue</h3>
+                        <p class="text-white/40 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="group reveal stagger-3">
+                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4 relative hover:border-white/30 transition-colors">
+                            <img src="cover_xero.jpg" alt="Xero Vol 2" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500" onerror="this.style.display='none';">
+                        </div>
+                        <h3 class="text-white font-bold tracking-tight truncate">Xero, Vol. 2</h3>
+                        <p class="text-white/40 text-xs uppercase tracking-widest mt-1">Album • 2025</p>
+                    </div>
+                    
+                    <!-- Item 4 -->
+                    <div class="group reveal stagger-4">
+                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4 relative hover:border-white/30 transition-colors">
+                            <img src="cover_antisocial.jpg" alt="Sorry for being anti-social" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500" onerror="this.style.display='none';">
+                        </div>
+                        <h3 class="text-white font-bold tracking-tight truncate">Anti-social</h3>
+                        <p class="text-white/40 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 3: LISTEN -->
+        <section id="listen" class="snap-section bg-black border-t border-white/5">
+            <div class="max-w-4xl w-full mx-auto px-6 text-center z-10">
+                <div class="reveal">
+                    <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-16">
+                        Listen Everywhere.
+                    </h2>
+                </div>
+                
+                <div class="flex flex-wrap justify-center items-center gap-12 sm:gap-20 reveal stagger-1">
+                    <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" class="text-white/40 hover:text-white transition-colors" title="Spotify">
+                        <i class="ph-fill ph-spotify-logo text-6xl"></i>
+                    </a>
+                    
+                    <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" class="text-white/40 hover:text-white transition-colors" title="Apple Music">
+                        <svg class="w-14 h-14 fill-current" viewBox="0 0 384 512">
+                            <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
+                        </svg>
+                    </a>
+                    
+                    <a href="https://soundcloud.com/x3roe" target="_blank" class="text-white/40 hover:text-white transition-colors" title="SoundCloud">
+                        <i class="ph-fill ph-soundcloud-logo text-6xl"></i>
+                    </a>
+                </div>
+                
+                <div class="absolute bottom-10 left-0 right-0 text-center reveal stagger-2">
+                    <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 X3roe Music.</p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
 
     <script>
-        // Spotlight Effect
-        document.querySelectorAll('.spotlight-card').forEach(card => {
-            card.onmousemove = e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            }
-        });
+        const observerOptions = {
+            root: document.getElementById('snap-container'),
+            rootMargin: '0px',
+            threshold: 0.5
+        };
 
-        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+                    entry.target.querySelectorAll('.reveal').forEach(el => {
+                        el.classList.add('active');
+                    });
                 }
             });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }, observerOptions);
 
-        // Navbar Logic (Math Based)
-        const navLinks = document.querySelectorAll('.nav-link');
-        const capsule = document.getElementById('nav-capsule');
-        let isManualScroll = false;
-        let scrollTimeout;
-
-        function moveCapsuleToLink(link) {
-            capsule.style.opacity = '1';
-            capsule.style.left = `${link.offsetLeft}px`;
-            capsule.style.width = `${link.offsetWidth}px`;
-            navLinks.forEach(l => {
-                l.classList.remove('text-black');
-                l.classList.add('text-gray-400', 'hover:text-white');
-            });
-            link.classList.remove('text-gray-400', 'hover:text-white');
-            link.classList.add('text-black');
-        }
-
-        function updateActiveSection() {
-            if (isManualScroll) return;
-
-            const scrollY = window.scrollY;
-            const viewportHeight = window.innerHeight;
-            const heroHeight = document.getElementById('latest').offsetHeight;
-
-            if (scrollY < heroHeight * 0.5) {
-                const heroLink = document.querySelector('.nav-link[href="#latest"]');
-                if(heroLink) moveCapsuleToLink(heroLink);
-                return;
-            }
-
-            const center = scrollY + (viewportHeight / 2);
-            const sectionsToTrack = [
-                { id: 'latest', link: document.querySelector('.nav-link[href="#latest"]') },
-                { id: 'discography', link: document.querySelector('.nav-link[href="#discography"]') },
-                { id: 'listen', link: document.querySelector('.nav-link[href="#listen"]') }
-            ];
-
-            for (const section of sectionsToTrack) {
-                const el = document.getElementById(section.id);
-                if (el) {
-                    const top = el.offsetTop;
-                    const bottom = top + el.offsetHeight;
-                    if (center >= top && center < bottom) {
-                        moveCapsuleToLink(section.link);
-                        return;
-                    }
-                }
-            }
-        }
-
-        window.addEventListener('scroll', updateActiveSection);
-        updateActiveSection();
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                isManualScroll = true;
-                clearTimeout(scrollTimeout);
-                moveCapsuleToLink(e.target);
-                scrollTimeout = setTimeout(() => {
-                    isManualScroll = false;
-                }, 1000);
-            });
+        document.querySelectorAll('.snap-section').forEach(section => {
+            observer.observe(section);
         });
+        
+        setTimeout(() => {
+            document.getElementById('latest').querySelectorAll('.reveal').forEach(el => {
+                el.classList.add('active');
+            });
+        }, 100);
     </script>
 </body>
 </html>
