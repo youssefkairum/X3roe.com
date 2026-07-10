@@ -26,9 +26,10 @@ The site is a high-performance, static web application designed to showcase iOS 
 
 ### 📱 Pages
 1.  **Home (`index.html`):** The main landing page featuring the portfolio, skills, and store. Dark/Platinum theme.
-2.  **iPasscoder (`ipasscoder.html`):** A dedicated product landing page for the iOS security app. White/Gold theme.
-3.  **Music (`music.html`):** A discography showcase for the artist alias "X3rœ". Dark/Orange theme.
-4.  **Error Pages:** Custom designs for 401, 403, 404, 500, etc.
+2.  **iPasscoder (`ipasscoder.html`):** A dedicated product landing page for the iOS security app.
+3.  **Slumber Hell (`slumber-hell.html`):** A dedicated product page for the authentic 1996 PSX survival horror game. Dark/Crimson retro CRT theme.
+4.  **Music (`music.html`):** A discography showcase for the artist alias "X3rœ". Dark/Orange theme.
+5.  **Error Pages:** Custom designs for 401, 403, 404, 500, etc.
 
 ## 📂 Project Structure
 
@@ -36,6 +37,9 @@ The site is a high-performance, static web application designed to showcase iOS 
 /
 ├── index.html            # Main Portfolio Landing Page
 ├── ipasscoder.html       # iPasscoder App Landing Page
+├── slumber-hell.html      # Slumber Hell PSX Horror Game Landing Page
+├── slumberhell-privacy.html # Slumber Hell Privacy Policy
+├── slumberhell-terms.html   # Slumber Hell Terms of Use
 ├── music.html            # Music & Discography Page
 ├── appcast.xml           # Sparkle Framework Appcast for software updates
 ├── CNAME                 # Domain configuration
