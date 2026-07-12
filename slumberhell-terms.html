@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use | Slumber Hell</title>
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        black: '#000000',
+                        white: '#FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+        .stagger-6 { animation-delay: 0.6s; opacity: 0; }
+        .stagger-7 { animation-delay: 0.7s; opacity: 0; }
+        .stagger-8 { animation-delay: 0.8s; opacity: 0; }
+    </style>
+</head>
+<body class="antialiased selection:bg-red-600 selection:text-white">
+
+    <!-- Fixed UI Overlay -->
+    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
+        <div class="pointer-events-auto">
+            <a href="slumber-hell.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
+                <i class="ph-bold ph-arrow-left"></i>
+                <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="max-w-3xl mx-auto px-6 pt-32 pb-24">
+        
+        <!-- Header -->
+        <div class="mb-16 pb-8 border-b border-white/10 reveal">
+            <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-red-500/30 bg-red-500/10 rounded-full text-red-400 mb-6 inline-block">
+                Legal & Terms
+            </span>
+            <h1 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-6">
+                Terms of<br>
+                <span class="text-white/30">Use.</span>
+            </h1>
+            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/40 uppercase tracking-widest">
+                <p>Effective: 2026</p>
+                <span class="hidden sm:inline">•</span>
+                <p>Developer: Youssef Keram</p>
+            </div>
+        </div>
+
+        <!-- Terms Sections -->
+        <div class="space-y-16">
+            
+            <section class="reveal stagger-1">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">01</span> Acceptance of Terms
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    By downloading, installing, or playing <strong class="text-white font-medium">Slumber Hell</strong>, you agree to be bound by these Terms of Use. If you do not agree to these terms, please discontinue use of the Game immediately.
+                </p>
+            </section>
+
+            <section class="reveal stagger-2">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">02</span> License & Permitted Use
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    We grant you a personal, limited, non-exclusive, non-transferable license to install and play Slumber Hell for non-commercial personal entertainment on your compatible devices.
+                </p>
+            </section>
+
+            <section class="reveal stagger-3">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">03</span> Content & Horror Notice
+                </h2>
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-red-500/60">
+                    <li>Slumber Hell is an atmospheric survival horror experience designed with suspenseful tension, sudden scares, and intense binaural sound design.</li>
+                    <li>Players are advised to play at a comfortable audio level and take regular breaks.</li>
+                </ul>
+            </section>
+
+            <section class="reveal stagger-4">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">04</span> Intellectual Property
+                </h2>
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-red-500/60">
+                    <li>All 3D geometric models, PSX-style artwork, sound design, code, and narrative elements within Slumber Hell are the sole intellectual property of <strong class="text-white font-medium">Youssef Keram (X3rœ)</strong>.</li>
+                    <li>Reverse engineering, redistributing, or commercial exploitation of game assets without explicit authorization is prohibited.</li>
+                </ul>
+            </section>
+
+            <section class="reveal stagger-5">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">05</span> Disclaimer of Warranties
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    The Game is provided on an <strong class="text-white font-medium">"AS IS"</strong> and <strong class="text-white font-medium">"AS AVAILABLE"</strong> basis without warranties of any kind, whether express or implied, including fitness for a particular purpose or continuous availability.
+                </p>
+            </section>
+
+            <section class="reveal stagger-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">06</span> Limitation of Liability
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    In no event shall the developer be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the Game.
+                </p>
+            </section>
+
+            <section class="reveal stagger-7">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">07</span> Modifications to Terms
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    We reserve the right to update or modify these Terms of Use at any time. Continued usage of Slumber Hell following any modifications indicates acceptance of the updated terms.
+                </p>
+            </section>
+
+            <section class="bg-white/[0.02] border border-white/10 rounded-3xl p-8 mt-16 reveal stagger-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">08</span> Contact Information
+                </h2>
+                <p class="mb-6 text-white/60 font-light text-lg">For legal inquiries or support regarding these Terms of Use, contact:</p>
+                <a href="mailto:contact@x3roe.com" class="inline-flex items-center gap-3 pb-2 border-b-2 border-white text-white font-bold hover:text-white/60 hover:border-white/60 transition-colors">
+                    <i class="ph-bold ph-envelope-simple text-xl"></i> contact@x3roe.com
+                </a>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 text-center border-t border-white/10">
+        <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 Youssef Keram. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
