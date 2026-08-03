@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use | iPrayer</title>
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        black: '#000000',
+                        white: '#FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+        .stagger-6 { animation-delay: 0.6s; opacity: 0; }
+        .stagger-7 { animation-delay: 0.7s; opacity: 0; }
+        .stagger-8 { animation-delay: 0.8s; opacity: 0; }
+        .stagger-9 { animation-delay: 0.9s; opacity: 0; }
+    </style>
+</head>
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <!-- Fixed UI Overlay -->
+    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
+        <div class="pointer-events-auto">
+            <a href="iprayer.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
+                <i class="ph-bold ph-arrow-left"></i>
+                <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="max-w-3xl mx-auto px-6 pt-32 pb-24">
+        
+        <!-- Header -->
+        <div class="mb-16 pb-8 border-b border-white/10 reveal">
+            <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
+                Legal
+            </span>
+            <h1 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-6">
+                Terms of<br>
+                <span class="text-white/30">Use.</span>
+            </h1>
+            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/40 uppercase tracking-widest">
+                <p>Effective: August 2026</p>
+                <span class="hidden sm:inline">•</span>
+                <p>Developer: Youssef Keram</p>
+            </div>
+        </div>
+
+        <!-- Terms Sections -->
+        <div class="space-y-16">
+            
+            <section class="reveal stagger-1">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">01</span> Acceptance of Terms
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    By downloading or using <strong class="text-teal-400 font-bold">iPrayer</strong>, you agree to these Terms of Use. If you do not agree, please do not use the App.
+                </p>
+            </section>
+
+            <section class="reveal stagger-2">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">02</span> App Purpose
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    iPrayer provides a digital Islamic companion, including prayer time calculations, Qibla direction tracking via device sensors, and offline Quran reading.
+                </p>
+            </section>
+
+            <section class="reveal stagger-3">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">03</span> Service Accuracy
+                </h2>
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
+                    <li>We strive for accuracy using established astronomical algorithms (such as the Muslim World League calculation method).</li>
+                    <li>However, device calibration and environmental factors may affect Compass (Qibla) precision.</li>
+                    <li>The developer is not liable for minor discrepancies in prayer times or sensor inaccuracies.</li>
+                </ul>
+            </section>
+
+            <section class="reveal stagger-4">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">04</span> Intellectual Property
+                </h2>
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
+                    <li>The software, code, and UI design are the intellectual property of X3roe.</li>
+                    <li>Quranic texts and standard Arabic fonts used within the app are derived from authentic public domain distributions intended for the global Muslim community.</li>
+                </ul>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/10 text-center">
+        <p class="text-xs font-mono text-white/30 uppercase tracking-widest">
+            &copy; 2026 X3rœ. All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>
