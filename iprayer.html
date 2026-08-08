@@ -87,16 +87,17 @@
                 <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
             </a>
         </div>
+        
+        <nav class="hidden md:flex gap-8 pointer-events-auto">
+            <a href="#hero" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Overview</a>
+            <a href="#showcase" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Showcase</a>
+            <a href="#features" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Features</a>
+        </nav>
+        
+        <!-- Invisible spacer to keep nav centered with justify-between -->
+        <div class="w-20 hidden md:block"></div>
     </header>
 
-    <div class="fixed bottom-6 sm:bottom-10 left-6 sm:left-10 z-50 pointer-events-none">
-        <div class="text-xs font-mono text-white/40 uppercase tracking-widest flex items-center gap-3">
-            <div class="w-px h-12 bg-white/20">
-                <div class="w-full h-1/2 bg-white animate-pulse"></div>
-            </div>
-            Scroll
-        </div>
-    </div>
 
     <!-- Snap Scrolling Container -->
     <main id="snap-container">
@@ -125,6 +126,12 @@
                 <p class="text-lg sm:text-xl md:text-2xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed reveal stagger-1">
                     The ultimate Islamic companion. Beautiful, accurate prayer times, full Quran, and Live Activities wrapped in an elegant native iOS interface.
                 </p>
+                
+                <div class="mt-12 flex justify-center pointer-events-auto">
+                    <a href="https://apps.apple.com/us/app/iprayer-prayer-times-quran/id6773148843" target="_blank" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+                        <i class="ph-fill ph-app-store-logo text-xl"></i> Download Now
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -214,30 +221,54 @@
             </div>
         </section>
 
-        <!-- Section 4: Legal -->
-        <section id="legal" class="snap-section bg-[#020202] border-t border-white/5">
+        <!-- Section 4: Support -->
+        <section id="support" class="snap-section bg-[#020202] border-t border-white/5">
             <div class="max-w-4xl w-full mx-auto px-6 text-center z-10">
                 <div class="reveal">
                     <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-8">
-                        Legal
+                        Need Support?
                     </h2>
-                    <p class="text-xl text-white/50 mb-12 max-w-lg mx-auto">
-                        We respect your privacy. All your data stays on-device.
-                    </p>
-                    
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                        <a href="iprayer-privacy.html" class="px-8 py-4 bg-white/[0.02] border border-white/10 text-white text-sm font-bold uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-colors w-full sm:w-auto">
-                            Privacy Policy
-                        </a>
-                        <a href="iprayer-terms.html" class="px-8 py-4 bg-white/[0.02] border border-white/10 text-white text-sm font-bold uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-colors w-full sm:w-auto">
-                            Terms of Use
-                        </a>
-                    </div>
+                    <a href="#" onclick="openModal(); return false;" class="text-xl sm:text-3xl font-light text-white/60 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-2 inline-block">
+                        contact@x3roe.com
+                    </a>
+                </div>
+                
+                <div class="mt-20 flex justify-center gap-8 flex-wrap reveal stagger-1">
+                    <a href="index.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Main Portfolio</a>
+                    <a href="privacy.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Privacy Policy</a>
+                    <a href="eula.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Terms of Use</a>
+                </div>
+                
+                <div class="absolute bottom-10 left-0 right-0 text-center reveal stagger-2">
+                    <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 Youssef Keram.</p>
                 </div>
             </div>
         </section>
-
+        
     </main>
+
+    <!-- Support Modal -->
+    <div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 hidden px-4">
+        <div class="bg-black border border-white/10 rounded-3xl w-full max-w-md p-8 relative shadow-2xl" id="modal-content">
+            <button aria-label="Close Modal" onclick="closeModal()" class="absolute top-6 right-6 text-white/40 hover:text-white transition-colors">
+                <i class="ph-bold ph-x text-xl"></i>
+            </button>
+            <h3 class="text-3xl font-bold mb-2 tracking-tighter text-white">Get Support</h3>
+            <p class="text-white/50 mb-8 font-light text-sm">Having issues with iPrayer? Let us know.</p>
+            
+            <form id="contact-form" class="space-y-6" onsubmit="handleFormSubmit(event)">
+                <div>
+                    <input name="email" type="email" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-white/30 text-sm" placeholder="Your Email Address">
+                </div>
+                <div>
+                    <textarea name="message" rows="4" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-white/30 text-sm" placeholder="Describe the issue..."></textarea>
+                </div>
+                <button type="submit" id="submit-btn" class="w-full bg-white text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform text-sm uppercase tracking-widest">
+                    Send Request
+                </button>
+            </form>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -257,6 +288,23 @@
             container.addEventListener('scroll', revealOnScroll);
             revealOnScroll();
         });
+
+        // Modal Logic
+        const modal = document.getElementById('contact-modal');
+        function openModal() { modal.classList.remove('hidden'); }
+        function closeModal() { modal.classList.add('hidden'); }
+        
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = 'Sending...';
+            setTimeout(() => {
+                btn.innerHTML = 'Sent!';
+                btn.classList.replace('bg-white', 'bg-white/10');
+                btn.classList.replace('text-black', 'text-white');
+                setTimeout(closeModal, 1500);
+            }, 1000); // Mock send
+        }
     </script>
 </body>
 </html>
