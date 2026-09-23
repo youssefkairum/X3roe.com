@@ -159,15 +159,16 @@ mailbox next to) `contact@x3roe.com`; if it does not, mail sent to it bounces.
 
 ### How the forms work
 
-There is one Formspree form per page, so each page's messages can be told apart and routed separately:
+There are two Formspree forms: one for the main site and one shared by all app pages. Every message carries its
+page in the `_subject` line and the `app` field, so app messages can still be told apart:
 
-| Page | Placeholder in the form `action` | `data-fallback-email` | `_subject` |
+| Page | Formspree form ID (in the form `action`) | `data-fallback-email` | `_subject` |
 | --- | --- | --- | --- |
-| `index.html` | `REPLACE_WITH_MAIN_FORM_ID` | `contact@x3roe.com` | New message from x3roe.com |
-| `ipasscoder.html` | `REPLACE_WITH_IPASSCODER_FORM_ID` | `support@x3roe.com` | iPasscoder support request (x3roe.com) |
-| `iprayer.html` | `REPLACE_WITH_IPRAYER_FORM_ID` | `support@x3roe.com` | iPrayer support request (x3roe.com) |
-| `slumber-hell.html` | `REPLACE_WITH_SLUMBERHELL_FORM_ID` | `support@x3roe.com` | Slumber Hell support request (x3roe.com) |
-| `help.html` | `REPLACE_WITH_JOKEGENERATOR_FORM_ID` | `support@x3roe.com` | Joke Generator support request (x3roe.com) |
+| `index.html` | `xkjgbyee` (main site) | `contact@x3roe.com` | New message from x3roe.com |
+| `ipasscoder.html` | `mljdnzkn` (apps) | `support@x3roe.com` | iPasscoder support request (x3roe.com) |
+| `iprayer.html` | `mljdnzkn` (apps) | `support@x3roe.com` | iPrayer support request (x3roe.com) |
+| `slumber-hell.html` | `mljdnzkn` (apps) | `support@x3roe.com` | Slumber Hell support request (x3roe.com) |
+| `help.html` | `mljdnzkn` (apps) | `support@x3roe.com` | Joke Generator support request (x3roe.com) |
 
 `assets/js/contact-form.js` enhances every `form[data-contact-form]`:
 
@@ -181,8 +182,8 @@ There is one Formspree form per page, so each page's messages can be told apart 
   into view. Pages with a fixed header give their form controls a `scroll-margin-top` in their inline `<style>`
   (header height plus the label, `9.5rem` on the home, iPasscoder and iPrayer pages) so the label stays visible too.
 - If the honeypot field `_gotcha` has a value (a bot filled it in), nothing is sent.
-- **Unconfigured forms are switched off.** While the form `action` still contains `REPLACE_WITH_`, the script
-  disables every field and the button and shows "The contact form is not available yet. Please email …"
+- **Unconfigured forms are switched off.** If a form `action` contains a `REPLACE_WITH_…` placeholder instead of a
+  real form ID (for example on a newly added page), the script disables every field and the button and shows "The contact form is not available yet. Please email …"
   followed by a link to the `data-fallback-email` address. A page never pretends to send a message it cannot send.
 - Without JavaScript the form still works as a normal HTML form post to Formspree, which may first show its own
   spam check and then shows its own confirmation page.
@@ -192,7 +193,7 @@ short unique id prefix per page: `home-`, `ipc-`, `ipr-`, `sh-`, `jg-`):
 
 ```html
 <form data-contact-form data-fallback-email="support@x3roe.com"
-      action="https://formspree.io/f/REPLACE_WITH_JOKEGENERATOR_FORM_ID" method="POST">
+      action="https://formspree.io/f/mljdnzkn" method="POST">
   <input type="hidden" name="_subject" value="Joke Generator support request (x3roe.com)">
   <input type="hidden" name="app" value="Joke Generator">
   <div class="hp-field" aria-hidden="true">
@@ -221,16 +222,14 @@ short unique id prefix per page: `home-`, `ipc-`, `ipr-`, `sh-`, `jg-`):
   `.hp-field`. `app` is an ordinary field that tells you which page the message came from.
 - Form inputs use `text-base` (16px) so iOS Safari does not zoom in on focus.
 
-### Setting up the Formspree forms
+### Formspree setup
 
-1. In the Formspree dashboard, create one form for each row of the table above. Send the home page form to
-   `contact@x3roe.com` and the app forms to `support@x3roe.com` (Formspree asks you to verify each target
-   address; `support@` has to exist in Zoho first).
-2. Copy each form's ID: the part after `/f/` in its endpoint (`https://formspree.io/f/<ID>`).
-3. Replace the matching `REPLACE_WITH_…_FORM_ID` in that page's form `action` with the ID. Change nothing else in
-   the URL.
-4. Check that none are left: `grep -n "REPLACE_WITH_" *.html` should print nothing once all five are set.
-5. After deploying, send a test message from each page and check that it arrives in the right mailbox.
+1. In the Formspree dashboard, form `xkjgbyee` (main site) should email `contact@x3roe.com` and form `mljdnzkn`
+   (apps) should email `support@x3roe.com`. Formspree asks you to verify each target address; `support@` has to
+   exist in Zoho first.
+2. To add a form to a new page, copy the markup above, give it a new id prefix, and use `mljdnzkn` for an app
+   page or `xkjgbyee` for a main-site page (or create a new Formspree form and use its ID, the part after `/f/`).
+3. After deploying, send a test message from each page and check that it arrives in the right mailbox.
 
 The privacy policy (`privacy.html`, section "This Website", anchor `#contact-forms`, linked from the note under
 every form, so keep that anchor) tells visitors that Formspree processes form messages (it emails them to us and
