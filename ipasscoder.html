@@ -3,165 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>iPasscoder | Secure Password Manager</title>
-    
+
     <meta name="description" content="Take control of your digital security with iPasscoder. The modern password manager designed for speed, simplicity, and absolute privacy on iOS.">
+    <link rel="canonical" href="https://x3roe.com/ipasscoder.html">
+    <meta property="og:site_name" content="X3roe">
     <meta property="og:title" content="iPasscoder | Secure Password Manager">
     <meta property="og:description" content="Take control of your digital security with iPasscoder. The modern password manager designed for speed, simplicity, and absolute privacy on iOS.">
-    <meta property="og:image" content="https://x3roe.com/ipasscoder_icon.png">
+    <meta property="og:image" content="https://x3roe.com/ipasscoder_icon-512.jpg">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="iPasscoder app icon">
     <meta property="og:url" content="https://x3roe.com/ipasscoder.html">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="iPasscoder | Secure Password Manager">
     <meta name="twitter:description" content="Take control of your digital security with iPasscoder. The modern password manager designed for speed, simplicity, and absolute privacy on iOS.">
-    <meta name="twitter:image" content="https://x3roe.com/ipasscoder_icon.png">
-    
+    <meta name="twitter:image" content="https://x3roe.com/ipasscoder_icon-512.jpg">
+    <meta name="twitter:image:alt" content="iPasscoder app icon">
+
     <meta name="apple-itunes-app" content="app-id=1642169844">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "iPasscoder",
+      "description": "The modern password manager and generator for iOS, designed for speed, simplicity, and privacy.",
       "operatingSystem": "iOS",
       "applicationCategory": "UtilitiesApplication",
-      "downloadUrl": "https://apps.apple.com/us/app/ipasscoder/id1642169844",
+      "url": "https://x3roe.com/ipasscoder.html",
+      "downloadUrl": "https://apps.apple.com/app/id1642169844",
+      "installUrl": "https://apps.apple.com/app/id1642169844",
+      "image": "https://x3roe.com/ipasscoder_icon-512.jpg",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "author": {
         "@type": "Person",
-        "name": "Youssef Keram"
+        "name": "Youssef Keram",
+        "url": "https://x3roe.com/"
       }
     }
     </script>
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        black: '#000000',
-                        white: '#FFFFFF',
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/head.js"></script>
+    <script src="/assets/js/site.js" defer></script>
 
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
-        }
-
-        #snap-container {
-            width: 100vw;
-            height: 100vh;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        
-        #snap-container::-webkit-scrollbar {
-            display: none;
+        /* The document scrolls; sections snap gently and grow with their content. */
+        html {
+            scroll-snap-type: y proximity;
         }
 
         .snap-section {
-            width: 100%;
-            height: 100vh;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
             position: relative;
+            isolation: isolate;
+            overflow: clip;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100svh;
+            scroll-snap-align: start;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding-top: 6.5rem;
+            padding-bottom: 4rem;
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        @media (min-width: 640px) {
+            .snap-section {
+                padding-top: 8rem;
+                padding-bottom: 5rem;
+            }
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+
+        /* Largest hero headline only where it still fits on one screen. */
+        @media (min-width: 768px) and (min-height: 900px) {
+            .hero-title { font-size: 8rem; line-height: 0.9; }
         }
-        
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
+
+        /* Short viewports (landscape phones, 200%+ zoom): slimmer header and section padding. */
+        @media (max-height: 480px) {
+            header.site-header {
+                padding-top: max(1rem, env(safe-area-inset-top));
+                padding-bottom: 1rem;
+            }
+            .snap-section {
+                padding-top: 5.5rem;
+                padding-bottom: 3rem;
+            }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-white selection:text-black">
 
     <!-- Fixed UI Overlay -->
-    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 flex justify-between items-center pointer-events-none bg-gradient-to-b from-black from-65% to-transparent pt-[max(1.5rem,env(safe-area-inset-top))] pb-6 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] sm:pt-[max(2.5rem,env(safe-area-inset-top))] sm:pb-10 sm:pl-[max(2.5rem,env(safe-area-inset-left))] sm:pr-[max(2.5rem,env(safe-area-inset-right))]">
         <div class="pointer-events-auto">
-            <a href="index.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
-                <i class="ph-bold ph-arrow-left"></i>
+            <a href="/" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors">
+                <i class="ph-bold ph-arrow-left" aria-hidden="true"></i>
                 <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
+                <span class="sr-only">home</span>
             </a>
         </div>
-        
-        <nav class="hidden md:flex gap-8 pointer-events-auto">
-            <a href="#hero" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Overview</a>
-            <a href="#vault" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Vault</a>
-            <a href="#features" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Features</a>
+
+        <nav class="hidden md:flex gap-8 pointer-events-auto" aria-label="Primary">
+            <a href="#hero" class="text-sm font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Overview</a>
+            <a href="#vault" class="text-sm font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Vault</a>
+            <a href="#features" class="text-sm font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Features</a>
+            <a href="#support" class="text-sm font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Support</a>
         </nav>
-        
+
         <!-- Invisible spacer to keep nav centered with justify-between -->
-        <div class="w-20 hidden md:block"></div>
+        <div class="w-20 hidden md:block" aria-hidden="true"></div>
+
+        <button type="button" class="md:hidden pointer-events-auto inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-full border border-white/20 text-white text-xl hover:bg-white/10 transition-colors" data-nav-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu"><i class="ph-bold ph-list" aria-hidden="true"></i></button>
+
+        <nav id="mobile-nav" class="md:hidden absolute top-full left-0 right-0 pointer-events-auto bg-black/90 backdrop-blur-md border-y border-white/10" data-mobile-nav aria-label="Mobile" hidden>
+            <ul class="flex flex-col py-2 pl-[max(0.5rem,env(safe-area-inset-left))] pr-[max(0.5rem,env(safe-area-inset-right))]">
+                <li><a href="#hero" class="block px-4 py-4 text-base font-semibold uppercase tracking-widest text-white/80 hover:text-white hover:bg-white/5 rounded-xl transition-colors">Overview</a></li>
+                <li><a href="#vault" class="block px-4 py-4 text-base font-semibold uppercase tracking-widest text-white/80 hover:text-white hover:bg-white/5 rounded-xl transition-colors">Vault</a></li>
+                <li><a href="#features" class="block px-4 py-4 text-base font-semibold uppercase tracking-widest text-white/80 hover:text-white hover:bg-white/5 rounded-xl transition-colors">Features</a></li>
+                <li><a href="#support" class="block px-4 py-4 text-base font-semibold uppercase tracking-widest text-white/80 hover:text-white hover:bg-white/5 rounded-xl transition-colors">Support</a></li>
+            </ul>
+        </nav>
     </header>
 
+    <main>
 
-
-    <!-- Snap Scrolling Container -->
-    <main id="snap-container">
-        
         <!-- Section 1: HERO -->
         <section id="hero" class="snap-section bg-black">
-            <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
-                <i class="ph-fill ph-shield-check text-[40vw]"></i>
+            <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-[0.03] pointer-events-none" aria-hidden="true">
+                <i class="ph-fill ph-shield-check text-[40vw]" aria-hidden="true"></i>
             </div>
-            
-            <div class="max-w-4xl w-full px-6 text-center z-10 mt-24">
-                <div class="reveal mb-8">
+
+            <div class="max-w-4xl w-full px-6 text-center">
+                <div class="reveal mb-6">
                     <div class="w-24 h-24 mx-auto bg-white/5 border border-white/10 rounded-3xl flex items-center justify-center overflow-hidden mb-6">
-                        <img src="ipasscoder_icon.png" alt="iPasscoder App Icon" class="w-full h-full object-cover">
+                        <img src="ipasscoder_icon-192.png" alt="iPasscoder app icon" width="192" height="192" decoding="async" class="w-full h-full object-cover">
                     </div>
-                    
+
                     <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
-                        Security & Privacy
+                        Security &amp; Privacy
                     </span>
-                    <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter leading-[0.9] text-white">
+                    <h1 class="hero-title text-6xl sm:text-8xl font-black tracking-tighter leading-[0.9] text-white">
                         Secure.<br>
-                        <span class="text-white/30">Powerful.</span>
+                        <span class="text-white/50">Powerful.</span>
                     </h1>
                 </div>
-                
+
                 <p class="text-lg sm:text-xl md:text-2xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed reveal stagger-1">
                     Take control of your digital security. The modern password manager designed for speed, simplicity, and absolute privacy.
                 </p>
-                
-                <div class="mt-12 flex justify-center pointer-events-auto">
-                    <a href="https://apps.apple.com/us/app/ipasscoder/id1642169844" target="_blank" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
-                        <i class="ph-fill ph-app-store-logo text-xl"></i> Download
+
+                <div class="mt-10 flex justify-center reveal stagger-2">
+                    <a href="https://apps.apple.com/app/id1642169844" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+                        <i class="ph-fill ph-app-store-logo text-xl" aria-hidden="true"></i> Download<span class="sr-only"> iPasscoder on the App Store (opens in new tab)</span>
                     </a>
                 </div>
             </div>
@@ -170,34 +181,35 @@
         <!-- Section 2: Vault Interface -->
         <section id="vault" class="snap-section bg-[#020202] border-t border-white/5">
             <div class="max-w-6xl w-full px-6 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20">
-                
-                <div class="flex-1 w-full max-w-md reveal z-10">
-                    <div class="w-full bg-black border border-white/10 rounded-[32px] overflow-hidden shadow-2xl group hover:border-white/30 transition-colors duration-700">
+
+                <!-- Decorative mock-up of the app's vault screen (sample data, not real content) -->
+                <div class="flex-1 w-full max-w-md reveal" aria-hidden="true">
+                    <div class="w-full bg-black border border-white/10 rounded-[32px] overflow-hidden shadow-2xl">
                         <div class="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
-                            <h2 class="text-2xl font-bold text-white">Vault</h2>
-                            <i class="ph-fill ph-lock-key-open text-white/50 text-xl group-hover:text-white transition-colors"></i>
+                            <div class="text-2xl font-bold text-white">Vault</div>
+                            <i class="ph-fill ph-lock-key-open text-white/50 text-xl" aria-hidden="true"></i>
                         </div>
                         <div class="p-6 space-y-4 bg-black">
                             <div class="flex items-center gap-4 p-4 border border-white/10 rounded-2xl bg-white/[0.02]">
                                 <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-black text-xl">
-                                    <i class="ph-fill ph-github-logo"></i>
+                                    <i class="ph-fill ph-github-logo" aria-hidden="true"></i>
                                 </div>
                                 <div class="flex-1">
                                     <div class="font-bold text-sm text-white">GitHub</div>
-                                    <div class="text-xs text-white/50 font-mono mt-1">user@example.com</div>
+                                    <div class="text-xs text-white/60 font-mono mt-1">user@example.com</div>
                                 </div>
                             </div>
                             <div class="flex items-center gap-4 p-4 border border-white/10 rounded-2xl bg-white/[0.02]">
                                 <div class="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-white text-xl">
-                                    <i class="ph-fill ph-google-logo"></i>
+                                    <i class="ph-fill ph-google-logo" aria-hidden="true"></i>
                                 </div>
                                 <div class="flex-1">
                                     <div class="font-bold text-sm text-white">Google</div>
-                                    <div class="text-xs text-white/50 font-mono mt-1">Personal</div>
+                                    <div class="text-xs text-white/60 font-mono mt-1">Personal</div>
                                 </div>
                             </div>
                             <div class="mt-8 p-4 border border-white/10 rounded-2xl bg-white/[0.02]">
-                                 <div class="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">Generator</div>
+                                 <div class="text-[10px] font-bold text-white/60 uppercase tracking-widest mb-2">Generator</div>
                                  <div class="text-xl font-mono font-bold text-white mb-2">X7#k9$mP2</div>
                                  <div class="h-1 bg-white/10 w-full rounded-full overflow-hidden">
                                      <div class="h-full w-full bg-white"></div>
@@ -207,7 +219,7 @@
                     </div>
                 </div>
 
-                <div class="flex-1 reveal stagger-1 text-center md:text-left z-10">
+                <div class="flex-1 reveal stagger-1 text-center md:text-left">
                     <h2 class="text-5xl sm:text-6xl font-bold tracking-tighter text-white mb-6">Your Digital Safe.</h2>
                     <p class="text-lg sm:text-xl text-white/60 font-light leading-relaxed max-w-lg mx-auto md:mx-0">
                         Everything is encrypted locally on your device. We use industry-leading cryptographic standards to ensure that no one—not even us—can access your passwords.
@@ -220,127 +232,63 @@
         <!-- Section 3: Features -->
         <section id="features" class="snap-section bg-black border-t border-white/5">
             <div class="max-w-7xl w-full px-6">
-                <div class="text-center mb-16 reveal">
+                <div class="text-center mb-12 sm:mb-16 reveal">
                     <h2 class="text-4xl sm:text-6xl font-bold tracking-tighter text-white">Everything you need.</h2>
                 </div>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     <!-- Feature 1 -->
                     <div class="p-8 border border-white/10 rounded-[32px] bg-white/[0.02] reveal stagger-1">
-                        <i class="ph-fill ph-magic-wand text-3xl text-white mb-6 block"></i>
+                        <i class="ph-fill ph-magic-wand text-3xl text-white mb-6 block" aria-hidden="true"></i>
                         <h3 class="text-xl font-bold mb-3 text-white">Smart Generator</h3>
-                        <p class="text-white/50 text-sm leading-relaxed font-light">Instantly create cryptographic strong passwords with custom length and character rules.</p>
+                        <p class="text-white/60 text-sm leading-relaxed font-light">Instantly create cryptographically strong passwords with custom length and character rules.</p>
                     </div>
-                    
+
                     <!-- Feature 2 -->
                     <div class="p-8 border border-white/10 rounded-[32px] bg-white/[0.02] reveal stagger-2">
-                        <i class="ph-fill ph-shield-check text-3xl text-white mb-6 block"></i>
+                        <i class="ph-fill ph-shield-check text-3xl text-white mb-6 block" aria-hidden="true"></i>
                         <h3 class="text-xl font-bold mb-3 text-white">Security Audit</h3>
-                        <p class="text-white/50 text-sm leading-relaxed font-light">Analyze your vault for weak passwords, reuse, and potential security risks automatically.</p>
+                        <p class="text-white/60 text-sm leading-relaxed font-light">Analyze your vault for weak passwords, reuse, and potential security risks automatically.</p>
                     </div>
 
                     <!-- Feature 3 -->
                     <div class="p-8 border border-white/10 rounded-[32px] bg-white/[0.02] reveal stagger-3">
-                        <i class="ph-fill ph-face-mask text-3xl text-white mb-6 block"></i>
+                        <i class="ph-fill ph-face-mask text-3xl text-white mb-6 block" aria-hidden="true"></i>
                         <h3 class="text-xl font-bold mb-3 text-white">Biometrics</h3>
-                        <p class="text-white/50 text-sm leading-relaxed font-light">Seamlessly unlock your vault using native Face ID or Touch ID integration on iOS.</p>
+                        <p class="text-white/60 text-sm leading-relaxed font-light">Seamlessly unlock your vault using native Face ID or Touch ID integration on iOS.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 4: Contact/Footer -->
-        <section id="support" class="snap-section bg-[#020202] border-t border-white/5">
-            <div class="max-w-4xl w-full mx-auto px-6 text-center z-10">
-                <div class="reveal">
-                    <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-8">
-                        Need Support?
-                    </h2>
-                    <a href="#" onclick="openModal(); return false;" class="text-xl sm:text-3xl font-light text-white/60 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-2 inline-block">
-                        contact@x3roe.com
-                    </a>
-                </div>
-                
-                <div class="mt-20 flex justify-center gap-8 flex-wrap reveal stagger-1">
-                    <a href="index.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Main Portfolio</a>
-                    <a href="ipasscoder-privacy.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Privacy Policy</a>
-                    <a href="ipasscoder-terms.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Terms of Use</a>
-                </div>
-                
-                <div class="absolute bottom-10 left-0 right-0 text-center reveal stagger-2">
-                    <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 Youssef Keram.</p>
-                </div>
-            </div>
-        </section>
-        
     </main>
 
-    <!-- Support Modal -->
-    <div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 hidden px-4">
-        <div class="bg-black border border-white/10 rounded-3xl w-full max-w-md p-8 relative shadow-2xl" id="modal-content">
-            <button aria-label="Close Modal" onclick="closeModal()" class="absolute top-6 right-6 text-white/40 hover:text-white transition-colors">
-                <i class="ph-bold ph-x text-xl"></i>
-            </button>
-            <h3 class="text-3xl font-bold mb-2 tracking-tighter text-white">Get Support</h3>
-            <p class="text-white/50 mb-8 font-light text-sm">Having issues with iPasscoder? Let us know.</p>
-            
-            <form id="contact-form" class="space-y-6" onsubmit="handleFormSubmit(event)">
-                <div>
-                    <input name="email" type="email" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-white/30 text-sm" placeholder="Your Email Address">
-                </div>
-                <div>
-                    <textarea name="message" rows="4" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-white/30 text-sm" placeholder="Describe the issue..."></textarea>
-                </div>
-                <button type="submit" id="submit-btn" class="w-full bg-white text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform text-sm uppercase tracking-widest">
-                    Send Request
-                </button>
-            </form>
+    <!-- Section 4: Support & Footer -->
+    <footer id="support" class="snap-section flex-col bg-[#020202] border-t border-white/5">
+        <div class="max-w-4xl w-full mx-auto px-6 text-center my-auto">
+            <div class="reveal">
+                <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-8">
+                    Need Support?
+                </h2>
+                <a href="mailto:contact@x3roe.com?subject=iPasscoder%20Support" class="text-xl sm:text-3xl font-light text-white/70 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-2 inline-block break-all">
+                    contact@x3roe.com
+                </a>
+            </div>
+
+            <nav aria-label="Legal" class="mt-16 sm:mt-20 reveal stagger-1">
+                <ul class="flex justify-center gap-x-6 gap-y-1 flex-wrap">
+                    <li><a href="/" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Home</a></li>
+                    <li><a href="ipasscoder-privacy.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Privacy Policy</a></li>
+                    <li><a href="ipasscoder-terms.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Terms of Use</a></li>
+                    <li><a href="/privacy.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Site Privacy</a></li>
+                    <li><a href="/eula.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">EULA</a></li>
+                    <li><a href="/copyright.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Copyright</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
 
-    <script>
-        const observerOptions = {
-            root: document.getElementById('snap-container'),
-            rootMargin: '0px',
-            threshold: 0.5
-        };
+        <p class="mt-12 px-6 text-center text-xs font-mono text-white/50 tracking-widest">© 2026 X3roe. All rights reserved.</p>
+    </footer>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.reveal').forEach(el => {
-                        el.classList.add('active');
-                    });
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.snap-section').forEach(section => {
-            observer.observe(section);
-        });
-        
-        setTimeout(() => {
-            document.getElementById('hero').querySelectorAll('.reveal').forEach(el => {
-                el.classList.add('active');
-            });
-        }, 100);
-
-        // Modal Logic
-        const modal = document.getElementById('contact-modal');
-        function openModal() { modal.classList.remove('hidden'); }
-        function closeModal() { modal.classList.add('hidden'); }
-        
-        async function handleFormSubmit(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerHTML = 'Sending...';
-            setTimeout(() => {
-                btn.innerHTML = 'Sent!';
-                btn.classList.replace('bg-white', 'bg-white/10');
-                btn.classList.replace('text-black', 'text-white');
-                setTimeout(closeModal, 1500);
-            }, 1000); // Mock send
-        }
-    </script>
 </body>
 </html>

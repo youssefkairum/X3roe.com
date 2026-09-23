@@ -1,0 +1,6 @@
+# GitHub Pages (Jekyll) settings: keep build tooling and sources off the public site.
+exclude:
+  - README.md
+  - tools/
+  - src/
+  - tailwind.config.js

@@ -1,37 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Main pages -->
     <url>
         <loc>https://x3roe.com/</loc>
+        <lastmod>2026-09-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://x3roe.com/ipasscoder.html</loc>
+        <lastmod>2026-09-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://x3roe.com/iprayer.html</loc>
+        <lastmod>2026-09-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://x3roe.com/slumber-hell.html</loc>
+        <lastmod>2026-09-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://x3roe.com/music.html</loc>
+        <lastmod>2026-09-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
+        <loc>https://x3roe.com/help.html</loc>
+        <lastmod>2026-09-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- Site-wide legal pages -->
+    <url>
         <loc>https://x3roe.com/privacy.html</loc>
+        <lastmod>2026-09-23</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
     <url>
         <loc>https://x3roe.com/eula.html</loc>
+        <lastmod>2026-09-23</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://x3roe.com/copyright.html</loc>
+        <lastmod>2026-09-23</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+    <!-- Per-app legal pages -->
+    <url>
+        <loc>https://x3roe.com/ipasscoder-privacy.html</loc>
+        <lastmod>2026-09-23</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+    <url>
+        <loc>https://x3roe.com/ipasscoder-terms.html</loc>
+        <lastmod>2026-09-23</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://x3roe.com/iprayer-privacy.html</loc>
+        <lastmod>2026-09-23</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+    <url>
+        <loc>https://x3roe.com/iprayer-terms.html</loc>
+        <lastmod>2026-09-23</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://x3roe.com/slumberhell-privacy.html</loc>
+        <lastmod>2026-09-23</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+    <url>
+        <loc>https://x3roe.com/slumberhell-terms.html</loc>
+        <lastmod>2026-09-23</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>

@@ -3,104 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Slumber Hell | Action Survival Game</title>
-    
-    <meta name="description" content="Survive the nightmare in Slumber Hell. A fast-paced, high-intensity action survival game for iOS.">
-    <meta property="og:title" content="Slumber Hell | Action Survival Game">
-    <meta property="og:description" content="Survive the nightmare in Slumber Hell. A fast-paced, high-intensity action survival game for iOS.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Slumber Hell | Retro PSX-Style Survival Horror</title>
+
+    <meta name="description" content="Slumber Hell is a retro PSX-style survival horror game with an authentic 1996 look. You cannot fight back: listen for the Entity, hide and escape. For iOS, Android and Windows PC.">
+    <link rel="canonical" href="https://x3roe.com/slumber-hell.html">
+    <meta property="og:site_name" content="X3roe">
+    <meta property="og:title" content="Slumber Hell | Retro PSX-Style Survival Horror">
+    <meta property="og:description" content="Slumber Hell is a retro PSX-style survival horror game with an authentic 1996 look. You cannot fight back: listen for the Entity, hide and escape. For iOS, Android and Windows PC.">
     <meta property="og:image" content="https://x3roe.com/slumber_icon.jpg">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="Slumber Hell app icon">
     <meta property="og:url" content="https://x3roe.com/slumber-hell.html">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Slumber Hell | Action Survival Game">
-    <meta name="twitter:description" content="Survive the nightmare in Slumber Hell. A fast-paced, high-intensity action survival game for iOS.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Slumber Hell | Retro PSX-Style Survival Horror">
+    <meta name="twitter:description" content="Slumber Hell is a retro PSX-style survival horror game with an authentic 1996 look. You cannot fight back: listen for the Entity, hide and escape. For iOS, Android and Windows PC.">
     <meta name="twitter:image" content="https://x3roe.com/slumber_icon.jpg">
-    
+    <meta name="twitter:image:alt" content="Slumber Hell app icon">
+
     <meta name="apple-itunes-app" content="app-id=6789374481">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Slumber Hell",
-      "operatingSystem": "iOS",
+      "alternateName": "Slumber Hell: Retro Horror",
+      "description": "A retro PSX-style survival horror game with an authentic 1996 look. You cannot fight back: listen for the Entity, hide and escape.",
+      "url": "https://x3roe.com/slumber-hell.html",
+      "image": "https://x3roe.com/slumber_icon.jpg",
+      "operatingSystem": "iOS, Android, Windows",
       "applicationCategory": "GameApplication",
-      "downloadUrl": "https://apps.apple.com/eg/app/slumber-hell-retro-horror/id6789374481",
+      "genre": "Survival horror",
+      "downloadUrl": [
+        "https://apps.apple.com/app/id6789374481",
+        "https://play.google.com/store/apps/details?id=com.slumberhell.x3roe",
+        "https://dl.x3roe.com/slumber_hell_pc.zip"
+      ],
+      "installUrl": [
+        "https://apps.apple.com/app/id6789374481",
+        "https://play.google.com/store/apps/details?id=com.slumberhell.x3roe"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "author": {
         "@type": "Person",
-        "name": "Youssef Keram"
+        "name": "Youssef Keram",
+        "url": "https://x3roe.com/"
       }
     }
     </script>
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        black: '#000000',
-                        white: '#FFFFFF',
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/head.js"></script>
+    <script src="/assets/js/site.js" defer></script>
+    <script src="/assets/js/slumber-hell.js" defer></script>
+
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
+        /* The document scrolls; sections snap loosely (firmly only on large screens). */
+        html {
+            scroll-snap-type: y proximity;
         }
-
-        #snap-container {
-            width: 100vw;
-            height: 100vh;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        
-        #snap-container::-webkit-scrollbar {
-            display: none;
+        @media (min-width: 1024px) and (min-height: 760px) {
+            html { scroll-snap-type: y mandatory; }
         }
 
         .snap-section {
+            position: relative;
             width: 100%;
             min-height: 100vh;
+            min-height: 100svh;
             scroll-snap-align: start;
-            scroll-snap-stop: always;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 6.5rem;
-            padding-bottom: 5rem;
+            /* Clears the fixed header (and the notch, when there is one). */
+            padding-top: calc(5rem + max(1.5rem, env(safe-area-inset-top)));
+            padding-bottom: 4rem;
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            isolation: isolate;
+            overflow-x: clip;
         }
 
-        /* CRT Scanlines Overlay */
+        /* Keep keyboard-focused controls out from under the fixed header. */
+        .snap-section a,
+        .snap-section button {
+            scroll-margin-top: 7rem;
+            scroll-margin-bottom: 2rem;
+        }
+
+        /* CRT scanline overlay. Off until slumber-hell.js turns it on (it stays off
+           for reduced-motion / contrast preferences unless the visitor enables it). */
         .crt-overlay {
             position: fixed;
             inset: 0;
             pointer-events: none;
             background: linear-gradient(
-                rgba(18, 16, 16, 0) 50%, 
+                rgba(18, 16, 16, 0) 50%,
                 rgba(0, 0, 0, 0.35) 50%
             );
             background-size: 100% 4px;
@@ -113,107 +125,160 @@
             opacity: 0;
         }
 
-        /* Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
-
         @keyframes horrorPulse {
-            0%, 100% { opacity: 0.15; transform: scale(1); }
-            50% { opacity: 0.22; transform: scale(1.04); }
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.04); }
         }
         .horror-glow {
             animation: horrorPulse 8s ease-in-out infinite;
+        }
+
+        /* Decorative "Scroll" hint (inside #overview): only on large screens, where the
+           centred hero content (max-w-3xl) leaves the bottom-left corner free. */
+        .scroll-hint { display: none; }
+        @media (min-width: 1024px) and (min-height: 700px) {
+            .scroll-hint { display: block; }
+        }
+
+        /* Screenshot lightbox (native <dialog>, see assets/js/slumber-hell.js). */
+        .lightbox {
+            width: min(64rem, calc(100vw - 2rem));
+            max-width: none;
+            max-height: calc(100svh - 2rem);
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #fff;
+            overflow: visible;
+        }
+        .lightbox::backdrop {
+            background: rgba(0, 0, 0, 0.95);
+        }
+        .lightbox-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: calc(100svh - 9rem);
+            object-fit: contain;
+            background: #000;
+        }
+        html:has(.lightbox[open]) {
+            overflow: hidden;
         }
     </style>
 </head>
 <body class="antialiased selection:bg-red-600 selection:text-white bg-black text-white">
 
-    <!-- Global CRT Scanline Overlay -->
-    <div id="crt-scanlines" class="crt-overlay"></div>
+    <!-- Global CRT Scanline Overlay (toggled by #crt-toggle) -->
+    <div id="crt-scanlines" class="crt-overlay disabled" aria-hidden="true"></div>
 
     <!-- Fixed UI Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 px-6 py-6 sm:px-10 flex justify-between items-center pointer-events-none bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-[2px]">
-        <div class="pointer-events-auto z-10">
-            <a href="index.html" class="flex items-center gap-2.5 text-white hover:text-white/70 transition-colors group">
-                <i class="ph-bold ph-arrow-left text-lg"></i>
+    <header class="fixed top-0 left-0 right-0 z-50 pt-[max(1.5rem,env(safe-area-inset-top))] pb-6 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] sm:pl-[max(2.5rem,env(safe-area-inset-left))] sm:pr-[max(2.5rem,env(safe-area-inset-right))] flex justify-between items-center gap-3 pointer-events-none bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-[2px]">
+        <div class="pointer-events-auto">
+            <a href="/" class="flex items-center gap-2.5 text-white hover:text-white/70 transition-colors">
+                <i class="ph-bold ph-arrow-left text-lg" aria-hidden="true"></i>
                 <span class="text-xl sm:text-2xl font-bold tracking-tighter">X3rœ</span>
             </a>
         </div>
-        
-        <nav class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8 pointer-events-auto z-10">
-            <a href="#overview" class="text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Overview</a>
-            <a href="#mechanics" class="text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Mechanics</a>
-            <a href="#screenshots" class="text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Screenshots</a>
-            <a href="#psx" class="text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">PSX Engine</a>
+
+        <nav aria-label="Primary" class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-4 lg:gap-8 pointer-events-auto">
+            <a href="#overview" class="whitespace-nowrap text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-wider lg:tracking-widest">Overview</a>
+            <a href="#mechanics" class="whitespace-nowrap text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-wider lg:tracking-widest">Mechanics</a>
+            <a href="#screenshots" class="whitespace-nowrap text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-wider lg:tracking-widest">Screenshots</a>
+            <a href="#psx" class="whitespace-nowrap text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-wider lg:tracking-widest">PSX Engine</a>
+            <a href="#support" class="whitespace-nowrap text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-wider lg:tracking-widest">Support</a>
+        </nav>
+
+        <div class="pointer-events-auto flex items-center gap-2">
+            <!-- Shown by slumber-hell.js (the overlay stays off without JS). -->
+            <button type="button" id="crt-toggle" aria-label="CRT effect" class="h-11 px-3.5 rounded-full border border-white/20 bg-black/50 text-[11px] font-mono font-bold uppercase tracking-widest text-white/80 hover:text-white hover:border-white/50 transition-colors whitespace-nowrap" aria-pressed="false" hidden>CRT<span class="md:max-lg:sr-only"> effect</span><span aria-hidden="true">: <span data-crt-state>off</span></span></button>
+
+            <button type="button" class="md:hidden w-11 h-11 flex items-center justify-center rounded-full border border-white/20 bg-black/50 text-white hover:border-white/50 transition-colors" data-nav-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu"><i class="ph-bold ph-list text-xl" aria-hidden="true"></i></button>
+        </div>
+
+        <nav id="mobile-nav" class="md:hidden absolute left-0 right-0 top-full pointer-events-auto bg-black/90 backdrop-blur-md border-y border-white/10" data-mobile-nav aria-label="Mobile" hidden>
+            <ul class="pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] py-2">
+                <li><a href="#overview" class="block py-4 border-b border-white/10 text-sm font-semibold uppercase tracking-widest text-white/80 hover:text-white">Overview</a></li>
+                <li><a href="#mechanics" class="block py-4 border-b border-white/10 text-sm font-semibold uppercase tracking-widest text-white/80 hover:text-white">Mechanics</a></li>
+                <li><a href="#screenshots" class="block py-4 border-b border-white/10 text-sm font-semibold uppercase tracking-widest text-white/80 hover:text-white">Screenshots</a></li>
+                <li><a href="#psx" class="block py-4 border-b border-white/10 text-sm font-semibold uppercase tracking-widest text-white/80 hover:text-white">PSX Engine</a></li>
+                <li><a href="#support" class="block py-4 text-sm font-semibold uppercase tracking-widest text-white/80 hover:text-white">Support</a></li>
+            </ul>
         </nav>
     </header>
 
-    <!-- Fixed Bottom Scroll Indicator -->
-    <div class="fixed bottom-6 left-6 sm:left-10 z-50 pointer-events-none">
-        <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest flex items-center gap-2.5">
-            <div class="w-px h-8 bg-white/20">
-                <div class="w-full h-1/2 bg-red-500 animate-pulse"></div>
-            </div>
-            Scroll
-        </div>
-    </div>
+    <main id="main">
 
-    <!-- Snap Scrolling Container -->
-    <main id="snap-container">
-        
         <!-- Section 1: HERO / OVERVIEW -->
         <section id="overview" class="snap-section bg-black">
             <!-- Ambient Horror Background Glow -->
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-                <div class="w-[500px] h-[500px] rounded-full bg-radial from-red-900/20 via-red-950/5 to-transparent blur-3xl horror-glow"></div>
+            <div class="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none overflow-hidden" aria-hidden="true">
+                <div class="w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(153,27,27,0.45)_0%,rgba(69,10,10,0.18)_45%,transparent_70%)] blur-3xl horror-glow"></div>
             </div>
-            
-            <div class="max-w-3xl w-full px-6 text-center z-10">
+
+            <!-- Scroll hint (decorative): lives in the hero only, so it scrolls away with it
+                 and never sits on top of later sections. -->
+            <div class="scroll-hint absolute bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-[max(2.5rem,env(safe-area-inset-left))] pointer-events-none" aria-hidden="true">
+                <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest flex items-center gap-2.5">
+                    <div class="w-px h-8 bg-white/20">
+                        <div class="w-full h-1/2 bg-red-500 animate-pulse"></div>
+                    </div>
+                    Scroll
+                </div>
+            </div>
+
+            <div class="max-w-3xl w-full px-6 text-center">
                 <div class="reveal">
                     <!-- App Icon -->
                     <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-black border border-red-500/30 rounded-2xl flex items-center justify-center overflow-hidden mb-5 shadow-[0_0_35px_rgba(220,38,38,0.25)]">
-                        <img src="slumber_icon.jpg" alt="Slumber Hell Icon" class="w-full h-full object-cover">
+                        <img src="slumber_icon-192.jpg" width="192" height="192" decoding="async" alt="" class="w-full h-full object-cover">
                     </div>
-                    
+
                     <!-- Badge -->
                     <span class="px-3 py-1 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest border border-red-500/30 bg-red-500/10 text-red-400 rounded-full mb-5 inline-block">
-                        Authentic 1996 PSX Survival Horror
+                        1996-Style PSX Survival Horror
                     </span>
 
                     <!-- Main Title -->
                     <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none text-white mb-4">
-                        Slumber <span class="text-white/30">Hell.</span>
+                        Slumber <span class="text-white/50">Hell.</span>
                     </h1>
                 </div>
-                
+
                 <p class="text-xs sm:text-sm font-mono text-red-400/90 uppercase tracking-widest mb-4 reveal stagger-1">
                     CAN YOU SURVIVE THE NIGHT?
                 </p>
-                
+
                 <p class="text-base sm:text-lg text-white/60 font-light max-w-xl mx-auto leading-relaxed reveal stagger-1">
                     Trapped inside a pitch-black, labyrinthine house, you are being hunted by a relentless Entity that listens to every sound and searches the shadows.
                 </p>
-                
-                <div class="mt-8 flex flex-wrap justify-center items-center gap-4 reveal stagger-2 pointer-events-auto">
+
+                <div class="mt-8 flex flex-wrap justify-center items-stretch gap-3 sm:gap-4 reveal stagger-2">
                     <!-- iOS App Store Button -->
-                    <a href="https://apps.apple.com/eg/app/slumber-hell-retro-horror/id6789374481" target="_blank" class="px-7 py-3.5 bg-white text-black text-xs font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
-                        <i class="ph-fill ph-app-store-logo text-lg"></i> Download iOS
+                    <a href="https://apps.apple.com/app/id6789374481" target="_blank" rel="noopener noreferrer" class="w-64 sm:w-auto pl-5 pr-6 py-2.5 bg-white text-black rounded-full hover:scale-105 transition-transform flex items-center gap-3">
+                        <i class="ph-fill ph-app-store-logo text-2xl" aria-hidden="true"></i>
+                        <span class="flex flex-col items-start text-left leading-tight">
+                            <span class="text-xs font-bold uppercase tracking-widest whitespace-nowrap">Download iOS</span>
+                            <span class="text-[11px] font-mono text-black/70">App Store</span>
+                        </span>
+                        <span class="sr-only">(opens in new tab)</span>
                     </a>
-                    <!-- Windows PC Button -->
-                    <a href="https://dl.x3roe.com/slumber_hell_pc.zip" target="_blank" class="px-7 py-3.5 bg-white/5 border border-white/20 text-white text-xs font-bold uppercase tracking-widest rounded-full hover:border-white hover:bg-white/10 transition-colors flex items-center gap-2">
-                        <i class="ph-fill ph-windows-logo text-lg"></i> Download PC
+                    <!-- Google Play Button -->
+                    <a href="https://play.google.com/store/apps/details?id=com.slumberhell.x3roe" target="_blank" rel="noopener noreferrer" class="w-64 sm:w-auto pl-5 pr-6 py-2.5 bg-white text-black rounded-full hover:scale-105 transition-transform flex items-center gap-3">
+                        <i class="ph-fill ph-google-play-logo text-2xl" aria-hidden="true"></i>
+                        <span class="flex flex-col items-start text-left leading-tight">
+                            <span class="text-xs font-bold uppercase tracking-widest whitespace-nowrap">Download Android</span>
+                            <span class="text-[11px] font-mono text-black/70">Google Play</span>
+                        </span>
+                        <span class="sr-only">(opens in new tab)</span>
+                    </a>
+                    <!-- Windows PC Button (direct download) -->
+                    <a href="https://dl.x3roe.com/slumber_hell_pc.zip" class="w-64 sm:w-auto pl-5 pr-6 py-2.5 bg-white/5 border border-white/20 text-white rounded-full hover:border-white hover:bg-white/10 transition-colors flex items-center gap-3">
+                        <i class="ph-fill ph-windows-logo text-2xl" aria-hidden="true"></i>
+                        <span class="flex flex-col items-start text-left leading-tight">
+                            <span class="text-xs font-bold uppercase tracking-widest whitespace-nowrap">Download PC</span>
+                            <span class="text-[11px] font-mono text-white/70">Windows · 82 MB ZIP</span>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -225,7 +290,7 @@
                 <div class="text-center mb-8 sm:mb-10 reveal">
                     <span class="text-[11px] font-mono font-bold text-red-400 uppercase tracking-widest border border-red-500/20 bg-red-500/5 px-3 py-1 rounded inline-block mb-3">Tactical Horror</span>
                     <h2 class="text-3xl sm:text-5xl font-bold tracking-tighter text-white">Core Gameplay & Mechanics.</h2>
-                    <p class="text-white/50 text-sm sm:text-base max-w-xl mx-auto mt-2 font-light leading-relaxed">
+                    <p class="text-white/60 text-sm sm:text-base max-w-xl mx-auto mt-2 font-light leading-relaxed">
                         You cannot fight back. Your only hope is your hearing, your wits, and whatever hiding spots you can find before the footsteps reach your door.
                     </p>
                 </div>
@@ -234,10 +299,10 @@
                     <!-- Feature 1 -->
                     <div class="p-6 border border-white/10 rounded-2xl bg-white/[0.02] hover:border-red-500/40 transition-colors group reveal stagger-1">
                         <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-4 group-hover:scale-110 transition-transform">
-                            <i class="ph-fill ph-ear text-xl"></i>
+                            <i class="ph-fill ph-ear text-xl" aria-hidden="true"></i>
                         </div>
                         <h3 class="text-lg font-bold mb-2 text-white">Binaural Spatial Audio</h3>
-                        <p class="text-white/50 text-xs sm:text-sm leading-relaxed font-light">
+                        <p class="text-white/60 text-xs sm:text-sm leading-relaxed font-light">
                             Listen closely. Binaural spatial audio allows you to pinpoint the Entity's movement through creaking floorboards and echoing hallways.
                         </p>
                     </div>
@@ -245,10 +310,10 @@
                     <!-- Feature 2 -->
                     <div class="p-6 border border-white/10 rounded-2xl bg-white/[0.02] hover:border-red-500/40 transition-colors group reveal stagger-2">
                         <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-4 group-hover:scale-110 transition-transform">
-                            <i class="ph-fill ph-eye-slash text-xl"></i>
+                            <i class="ph-fill ph-eye-slash text-xl" aria-hidden="true"></i>
                         </div>
                         <h3 class="text-lg font-bold mb-2 text-white">Tactical Hiding System</h3>
-                        <p class="text-white/50 text-xs sm:text-sm leading-relaxed font-light">
+                        <p class="text-white/60 text-xs sm:text-sm leading-relaxed font-light">
                             Hide inside wooden wardrobes, slip under metal beds, and crouch behind furniture. The Entity dynamically inspects rooms if it suspects you nearby.
                         </p>
                     </div>
@@ -256,10 +321,10 @@
                     <!-- Feature 3 -->
                     <div class="p-6 border border-white/10 rounded-2xl bg-white/[0.02] hover:border-red-500/40 transition-colors group reveal stagger-3">
                         <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-4 group-hover:scale-110 transition-transform">
-                            <i class="ph-fill ph-key text-xl"></i>
+                            <i class="ph-fill ph-key text-xl" aria-hidden="true"></i>
                         </div>
                         <h3 class="text-lg font-bold mb-2 text-white">Chilling Escape Puzzles</h3>
-                        <p class="text-white/50 text-xs sm:text-sm leading-relaxed font-light">
+                        <p class="text-white/60 text-xs sm:text-sm leading-relaxed font-light">
                             Search shadowy rooms for hidden keys, tools, and unlock sealed doors to secure your escape route as tension escalates.
                         </p>
                     </div>
@@ -267,10 +332,10 @@
                     <!-- Feature 4 -->
                     <div class="p-6 border border-white/10 rounded-2xl bg-white/[0.02] hover:border-red-500/40 transition-colors group reveal stagger-4">
                         <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-4 group-hover:scale-110 transition-transform">
-                            <i class="ph-fill ph-skull text-xl"></i>
+                            <i class="ph-fill ph-skull text-xl" aria-hidden="true"></i>
                         </div>
                         <h3 class="text-lg font-bold mb-2 text-white">Unpredictable Stalker AI</h3>
-                        <p class="text-white/50 text-xs sm:text-sm leading-relaxed font-light">
+                        <p class="text-white/60 text-xs sm:text-sm leading-relaxed font-light">
                             No two playthroughs are identical. The Entity patrols dynamically, investigates disturbances, and adapts its search pattern.
                         </p>
                     </div>
@@ -283,72 +348,77 @@
             <div class="max-w-6xl w-full px-6 sm:px-10">
                 <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 reveal">
                     <div>
-                        <span class="text-xs font-mono text-white/40 uppercase tracking-widest block mb-1">32-Bit Horror Archives</span>
+                        <span class="text-xs font-mono text-white/60 uppercase tracking-widest block mb-1">32-Bit Horror Archives</span>
                         <h2 class="text-3xl sm:text-5xl font-bold tracking-tighter text-white">Captured in Pitch Black.</h2>
                     </div>
-                    <p class="text-white/40 text-xs font-mono mt-2 sm:mt-0">Click any image to inspect PSX rendering</p>
+                    <p class="text-white/60 text-xs font-mono mt-2 sm:mt-0">Select a screenshot to view it full size</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-5xl mx-auto">
                     <!-- Screenshot 1 -->
-                    <div onclick="openLightbox('slumber_shot1.png', 'The Entity Approaching in the Labyrinthine Hallway')" class="group cursor-pointer border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 transition-all duration-500 reveal stagger-1">
-                        <div class="aspect-[1024/473] overflow-hidden relative">
-                            <img src="slumber_shot1.png" alt="Slumber Hell Hallway Entity" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-                            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <button type="button" data-lightbox="slumber_shot1.jpg" data-caption="The Entity Approaching in the Labyrinthine Hallway" class="group block w-full text-left border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 focus-visible:border-red-500/50 reveal stagger-1">
+                        <span class="block aspect-[1024/473] overflow-hidden relative">
+                            <img src="slumber_shot1.jpg" width="1024" height="473" loading="lazy" decoding="async" alt="The blood-stained Entity walking toward you down a dim hallway" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" aria-hidden="true"></span>
+                            <span class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                                 <span class="text-[11px] font-mono text-white/80 bg-black/70 px-2.5 py-1 rounded-full border border-white/10">Hallway Patrol</span>
-                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
+                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <span class="sr-only">(view full size)</span>
+                    </button>
 
                     <!-- Screenshot 2 -->
-                    <div onclick="openLightbox('slumber_shot2.png', 'Atmospheric Staircase & Shadows')" class="group cursor-pointer border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 transition-all duration-500 reveal stagger-2">
-                        <div class="aspect-[1024/473] overflow-hidden relative">
-                            <img src="slumber_shot2.png" alt="Slumber Hell Staircase" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-                            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <button type="button" data-lightbox="slumber_shot2.jpg" data-caption="Atmospheric Staircase &amp; Shadows" class="group block w-full text-left border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 focus-visible:border-red-500/50 reveal stagger-2">
+                        <span class="block aspect-[1024/473] overflow-hidden relative">
+                            <img src="slumber_shot2.jpg" width="1024" height="473" loading="lazy" decoding="async" alt="A dark wooden staircase and landing lit by a single ceiling lamp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" aria-hidden="true"></span>
+                            <span class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                                 <span class="text-[11px] font-mono text-white/80 bg-black/70 px-2.5 py-1 rounded-full border border-white/10">Shadowy Staircase</span>
-                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
+                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <span class="sr-only">(view full size)</span>
+                    </button>
 
                     <!-- Screenshot 3 -->
-                    <div onclick="openLightbox('slumber_shot3.png', 'Labyrinthine Living Room & Search Area')" class="group cursor-pointer border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 transition-all duration-500 reveal stagger-3">
-                        <div class="aspect-[1024/473] overflow-hidden relative">
-                            <img src="slumber_shot3.png" alt="Slumber Hell Living Room" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-                            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <button type="button" data-lightbox="slumber_shot3.jpg" data-caption="Labyrinthine Living Room &amp; Search Area" class="group block w-full text-left border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 focus-visible:border-red-500/50 reveal stagger-3">
+                        <span class="block aspect-[1024/473] overflow-hidden relative">
+                            <img src="slumber_shot3.jpg" width="1024" height="473" loading="lazy" decoding="async" alt="A dim living room with a green rug, a brick fireplace and a sofa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" aria-hidden="true"></span>
+                            <span class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                                 <span class="text-[11px] font-mono text-white/80 bg-black/70 px-2.5 py-1 rounded-full border border-white/10">Living Room Chamber</span>
-                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
+                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <span class="sr-only">(view full size)</span>
+                    </button>
 
                     <!-- Screenshot 4 -->
-                    <div onclick="openLightbox('slumber_shot4.png', 'Tactical Hiding Under Furniture')" class="group cursor-pointer border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 transition-all duration-500 reveal stagger-4">
-                        <div class="aspect-[1024/473] overflow-hidden relative">
-                            <img src="slumber_shot4.png" alt="Slumber Hell Hiding Under Table" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-                            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <button type="button" data-lightbox="slumber_shot4.jpg" data-caption="Tactical Hiding Under Furniture" class="group block w-full text-left border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 focus-visible:border-red-500/50 reveal stagger-4">
+                        <span class="block aspect-[1024/473] overflow-hidden relative">
+                            <img src="slumber_shot4.jpg" width="1024" height="473" loading="lazy" decoding="async" alt="Hiding under a table while the Entity's bloodied legs walk past" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" aria-hidden="true"></span>
+                            <span class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                                 <span class="text-[11px] font-mono text-white/80 bg-black/70 px-2.5 py-1 rounded-full border border-white/10">Tactical Hiding</span>
-                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
+                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <span class="sr-only">(view full size)</span>
+                    </button>
 
                     <!-- Screenshot 5 (Full Width Panoramic Showcase) -->
-                    <div onclick="openLightbox('slumber_shot5.png', 'Abandoned Bedroom Chamber & Metal Bed Hiding Spot')" class="sm:col-span-2 group cursor-pointer border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 transition-all duration-500 reveal stagger-4">
-                        <div class="aspect-[1024/473] overflow-hidden relative">
-                            <img src="slumber_shot5.png" alt="Slumber Hell Bedroom Chamber" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-                            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <button type="button" data-lightbox="slumber_shot5.jpg" data-caption="Abandoned Bedroom Chamber &amp; Metal Bed Hiding Spot" class="sm:col-span-2 group block w-full text-left border border-white/10 rounded-2xl overflow-hidden bg-[#050505] relative hover:border-red-500/50 focus-visible:border-red-500/50 reveal stagger-5">
+                        <span class="block aspect-[1024/473] overflow-hidden relative">
+                            <img src="slumber_shot5.jpg" width="1024" height="473" loading="lazy" decoding="async" alt="A dim bedroom with a metal-frame bed, a wardrobe and a green rug" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" aria-hidden="true"></span>
+                            <span class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                                 <span class="text-[11px] font-mono text-white/80 bg-black/70 px-2.5 py-1 rounded-full border border-white/10">Bedroom Chamber</span>
-                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
+                                <i class="ph-bold ph-corners-out text-white/80 group-hover:scale-125 transition-transform" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <span class="sr-only">(view full size)</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -356,47 +426,48 @@
         <!-- Section 4: AUTHENTIC 1996 PSX AESTHETICS -->
         <section id="psx" class="snap-section bg-[#030303] border-t border-white/5">
             <div class="max-w-5xl w-full px-6 sm:px-10 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
-                
-                <div class="flex-1 reveal z-10 w-full text-center md:text-left">
+
+                <div class="flex-1 reveal w-full text-center md:text-left">
                     <span class="text-[11px] font-mono font-bold text-red-400 border border-red-500/30 px-3 py-1 rounded inline-block mb-4">Visual Architecture</span>
                     <h2 class="text-3xl sm:text-5xl font-bold tracking-tighter text-white mb-4">Authentic 1996 PSX Aesthetics.</h2>
                     <p class="text-sm sm:text-base text-white/60 font-light leading-relaxed mb-6">
                         Built from the ground up to faithfully recreate classic late-90s 32-bit survival horror masterpieces.
                     </p>
-                    
+
                     <div class="space-y-5">
                         <div class="flex gap-4 items-start text-left">
                             <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-red-400 shrink-0 mt-0.5">
-                                <i class="ph-bold ph-cube text-lg"></i>
+                                <i class="ph-bold ph-cube text-lg" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <h4 class="text-white font-bold text-sm sm:text-base">True PSX Rendering</h4>
-                                <p class="text-white/50 text-xs sm:text-sm font-light mt-1 leading-relaxed">Chunky low-poly geometric character models with raw, unfiltered affine texture mapping.</p>
+                                <h3 class="text-white font-bold text-sm sm:text-base">True PSX Rendering</h3>
+                                <p class="text-white/60 text-xs sm:text-sm font-light mt-1 leading-relaxed">Chunky low-poly geometric character models with raw, unfiltered affine texture mapping.</p>
                             </div>
                         </div>
 
                         <div class="flex gap-4 items-start text-left">
                             <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-red-400 shrink-0 mt-0.5">
-                                <i class="ph-bold ph-monitor text-lg"></i>
+                                <i class="ph-bold ph-monitor text-lg" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <h4 class="text-white font-bold text-sm sm:text-base">Retro Shaders & Scanlines</h4>
-                                <p class="text-white/50 text-xs sm:text-sm font-light mt-1 leading-relaxed">Real-time color dithering, CRT scanline effects, and authentic low-resolution rendering options.</p>
+                                <h3 class="text-white font-bold text-sm sm:text-base">Retro Shaders & Scanlines</h3>
+                                <p class="text-white/60 text-xs sm:text-sm font-light mt-1 leading-relaxed">Real-time color dithering, CRT scanline effects, and authentic low-resolution rendering options.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex-1 w-full max-w-sm reveal stagger-1">
-                    <div class="w-full bg-[#050505] border border-white/10 rounded-3xl p-5 shadow-2xl relative overflow-hidden group hover:border-red-500/40 transition-colors">
+                <!-- Decorative mock-up of the in-game PSX mode -->
+                <div class="flex-1 w-full max-w-sm reveal stagger-1" aria-hidden="true">
+                    <div class="w-full bg-[#050505] border border-white/10 rounded-3xl p-5 shadow-2xl relative overflow-hidden">
                         <div class="border border-white/10 rounded-xl overflow-hidden aspect-[1024/473] mb-4 relative">
-                            <img src="slumber_shot1.png" alt="PSX Shaders Preview" class="w-full h-full object-cover">
+                            <img src="slumber_shot1.jpg" width="1024" height="473" loading="lazy" decoding="async" alt="" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.45)_50%)] bg-[length:100%_4px]"></div>
                         </div>
                         <div class="flex items-center justify-between px-1">
                             <div>
                                 <div class="text-[11px] font-mono font-bold text-white uppercase">Affine Mapping : Active</div>
-                                <div class="text-[10px] font-mono text-white/40">32-Bit Dither Engine v1.0</div>
+                                <div class="text-[10px] font-mono text-white/60">32-Bit Dither Engine v1.0</div>
                             </div>
                             <span class="px-2.5 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 font-mono text-[10px]">PSX MODE</span>
                         </div>
@@ -408,91 +479,82 @@
 
         <!-- Section 5: SUPPORT & FOOTER -->
         <section id="support" class="snap-section bg-black border-t border-white/5">
-            <div class="max-w-3xl w-full mx-auto px-6 text-center z-10">
+            <div class="max-w-3xl w-full mx-auto px-6 text-center">
                 <div class="reveal">
                     <div class="w-14 h-14 mx-auto bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-5">
-                        <i class="ph-fill ph-ghost text-2xl text-red-500"></i>
+                        <i class="ph-fill ph-ghost text-2xl text-red-500" aria-hidden="true"></i>
                     </div>
                     <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-white mb-4">
                         Ready To Enter?
                     </h2>
-                    <p class="text-white/50 text-sm sm:text-base max-w-md mx-auto mb-8 font-light">
-                        Slumber Hell pushes mobile survival horror to its atmospheric limits.
+                    <p class="text-white/60 text-sm sm:text-base max-w-md mx-auto mb-8 font-light">
+                        Slumber Hell pushes retro survival horror to its atmospheric limits.
                     </p>
-                    <a href="https://apps.apple.com/eg/app/slumber-hell-retro-horror/id6789374481" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-black font-bold text-sm uppercase tracking-widest hover:scale-105 transition-transform">
-                        <i class="ph-fill ph-app-store-logo text-xl"></i> Download on App Store
-                    </a>
+                    <div class="flex flex-wrap justify-center items-stretch gap-3 sm:gap-4">
+                        <a href="https://apps.apple.com/app/id6789374481" target="_blank" rel="noopener noreferrer" class="w-64 sm:w-auto pl-5 pr-6 py-2.5 bg-white text-black rounded-full hover:scale-105 transition-transform flex items-center gap-3">
+                            <i class="ph-fill ph-app-store-logo text-2xl" aria-hidden="true"></i>
+                            <span class="flex flex-col items-start text-left leading-tight">
+                                <span class="text-xs font-bold uppercase tracking-widest whitespace-nowrap">Download iOS</span>
+                                <span class="text-[11px] font-mono text-black/70">App Store</span>
+                            </span>
+                            <span class="sr-only">(opens in new tab)</span>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.slumberhell.x3roe" target="_blank" rel="noopener noreferrer" class="w-64 sm:w-auto pl-5 pr-6 py-2.5 bg-white text-black rounded-full hover:scale-105 transition-transform flex items-center gap-3">
+                            <i class="ph-fill ph-google-play-logo text-2xl" aria-hidden="true"></i>
+                            <span class="flex flex-col items-start text-left leading-tight">
+                                <span class="text-xs font-bold uppercase tracking-widest whitespace-nowrap">Download Android</span>
+                                <span class="text-[11px] font-mono text-black/70">Google Play</span>
+                            </span>
+                            <span class="sr-only">(opens in new tab)</span>
+                        </a>
+                        <a href="https://dl.x3roe.com/slumber_hell_pc.zip" class="w-64 sm:w-auto pl-5 pr-6 py-2.5 bg-white/5 border border-white/20 text-white rounded-full hover:border-white hover:bg-white/10 transition-colors flex items-center gap-3">
+                            <i class="ph-fill ph-windows-logo text-2xl" aria-hidden="true"></i>
+                            <span class="flex flex-col items-start text-left leading-tight">
+                                <span class="text-xs font-bold uppercase tracking-widest whitespace-nowrap">Download PC</span>
+                                <span class="text-[11px] font-mono text-white/70">Windows · 82 MB ZIP</span>
+                            </span>
+                        </a>
+                    </div>
                 </div>
-                
-                <div class="mt-14 flex justify-center gap-6 flex-wrap reveal stagger-1">
-                    <a href="index.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Main Portfolio</a>
-                    <a href="slumberhell-privacy.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Privacy Policy</a>
-                    <a href="slumberhell-terms.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Terms of Use</a>
-                </div>
-                
-                <div class="mt-8 text-center reveal stagger-2">
-                    <p class="text-[11px] font-mono text-white/30 uppercase tracking-widest">© 2026 X3ROE. Built with absolute precision.</p>
+
+                <!-- One reveal block, so the last lines of the page never wait on a threshold. -->
+                <div class="mt-12 reveal stagger-1">
+                    <h3 class="text-xs font-bold text-white uppercase tracking-widest">Support</h3>
+                    <p class="mt-3 text-white/60 text-sm sm:text-base font-light">
+                        Questions, bug reports or data requests? Email
+                        <a href="mailto:contact@x3roe.com?subject=Slumber%20Hell%20Support" class="font-medium text-white underline underline-offset-4 decoration-white/40 hover:decoration-white">contact@x3roe.com</a>
+                    </p>
+
+                    <nav aria-label="Footer" class="mt-10 flex justify-center gap-x-6 gap-y-1 flex-wrap">
+                        <a href="/" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Main Portfolio</a>
+                        <a href="slumberhell-privacy.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Privacy Policy</a>
+                        <a href="slumberhell-terms.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Terms of Use</a>
+                        <a href="/privacy.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Site Privacy</a>
+                        <a href="/eula.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">EULA</a>
+                        <a href="/copyright.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Copyright</a>
+                    </nav>
+
+                    <p class="mt-6 text-[11px] font-mono text-white/60 uppercase tracking-widest">© 2026 X3roe. All rights reserved.</p>
                 </div>
             </div>
         </section>
-        
+
     </main>
 
-    <!-- Lightbox Modal for Screenshots -->
-    <div id="lightbox-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 hidden px-4">
-        <button aria-label="Close Lightbox" onclick="closeLightbox()" class="absolute top-6 right-6 text-white/60 hover:text-white transition-colors">
-            <i class="ph-bold ph-x text-3xl"></i>
-        </button>
-        <div class="max-w-4xl w-full flex flex-col items-center">
-            <div class="w-full border border-white/20 rounded-2xl overflow-hidden shadow-2xl relative">
-                <img id="lightbox-img" src="" alt="Screenshot Fullscreen" class="w-full max-h-[75vh] object-contain bg-black">
+    <!-- Lightbox for screenshots (native <dialog>, opened by assets/js/slumber-hell.js) -->
+    <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-caption">
+        <div class="flex flex-col items-center">
+            <div class="w-full flex justify-end mb-3">
+                <button type="button" data-lightbox-close aria-label="Close screenshot" class="w-11 h-11 flex items-center justify-center rounded-full border border-white/20 bg-black/60 text-white/80 hover:text-white hover:border-white/60 transition-colors">
+                    <i class="ph-bold ph-x text-2xl" aria-hidden="true"></i>
+                </button>
             </div>
-            <p id="lightbox-caption" class="mt-4 text-xs font-mono text-white/70 tracking-widest uppercase"></p>
+            <figure class="w-full">
+                <div class="w-full border border-white/20 rounded-2xl overflow-hidden shadow-2xl" data-lightbox-frame></div>
+                <figcaption id="lightbox-caption" class="mt-4 text-center text-xs font-mono text-white/70 tracking-widest uppercase"></figcaption>
+            </figure>
         </div>
-    </div>
+    </dialog>
 
-    <script>
-        // Intersection Observer for animations
-        const observerOptions = {
-            root: document.getElementById('snap-container'),
-            rootMargin: '0px',
-            threshold: 0.4
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.reveal').forEach(el => {
-                        el.classList.add('active');
-                    });
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.snap-section').forEach(section => {
-            observer.observe(section);
-        });
-        
-        setTimeout(() => {
-            document.getElementById('overview').querySelectorAll('.reveal').forEach(el => {
-                el.classList.add('active');
-            });
-        }, 100);
-
-        // Lightbox Logic
-        function openLightbox(imgSrc, captionText) {
-            const modal = document.getElementById('lightbox-modal');
-            const img = document.getElementById('lightbox-img');
-            const caption = document.getElementById('lightbox-caption');
-            img.src = imgSrc;
-            caption.textContent = captionText;
-            modal.classList.remove('hidden');
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox-modal').classList.add('hidden');
-        }
-
-    </script>
 </body>
 </html>
