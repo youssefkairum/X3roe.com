@@ -51,6 +51,7 @@ Do not rename or move them.
 ├── tools/
 │   ├── build.sh            Builds assets/css/site.css
 │   ├── icons.py            Builds src/icons.css
+│   ├── version.py          Adds ?v=<hash> to local CSS/JS URLs in the HTML
 │   └── bin/                Local Tailwind CLI binary (git-ignored)
 ├── tailwind.config.js      Tailwind v3 config (content paths, fonts, colours)
 ├── _config.yml             GitHub Pages (Jekyll) excludes
@@ -81,7 +82,7 @@ Requirements:
 ./tools/build.sh
 ```
 
-`build.sh` does two things:
+`build.sh` does three things:
 
 1. `python3 tools/icons.py` scans `*.html` and `assets/js/*.js` for Phosphor class pairs such as
    `<i class="ph-bold ph-arrow-right" aria-hidden="true"></i>`. For any icon that is not cached yet, it downloads
@@ -94,6 +95,11 @@ Requirements:
    `aria-label`.
 2. Runs Tailwind with `tailwind.config.js` on `src/site.css` (which imports `icons.css`) and writes the
    minified `assets/css/site.css`.
+3. `python3 tools/version.py` cache-busts every local stylesheet and script: it rewrites each
+   `"/assets/css/…"` / `"/assets/js/…"` reference in `*.html` to `…?v=<first 10 hex chars of the file's SHA-1>`.
+   A changed file gets a new URL, so browsers and Cloudflare cannot keep serving an old copy after a deploy.
+   Always run `build.sh` (not just Tailwind) after editing CSS or JS, and commit the updated HTML with it. Running
+   it twice changes nothing.
 
 Tailwind only sees classes that appear literally in `./*.html` and `./assets/js/**/*.js`. Do not build class
 names by string concatenation.
@@ -196,7 +202,7 @@ short unique id prefix per page: `home-`, `ipc-`, `ipr-`, `sh-`, `jg-`):
       action="https://formspree.io/f/mljdnzkn" method="POST">
   <input type="hidden" name="_subject" value="Joke Generator support request (x3roe.com)">
   <input type="hidden" name="app" value="Joke Generator">
-  <div class="hp-field" aria-hidden="true">
+  <div class="hp-field" aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden">
     <label for="jg-website">Leave this field empty</label>
     <input id="jg-website" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
   </div>
@@ -219,7 +225,8 @@ short unique id prefix per page: `home-`, `ipc-`, `ipr-`, `sh-`, `jg-`):
   `aria-live="polite"` and `tabindex="-1"` (the script moves focus to it after a send so screen-reader and
   keyboard users hear the result).
 - `_subject` sets the subject of the email Formspree sends. `_gotcha` is Formspree's honeypot field, hidden with
-  `.hp-field`. `app` is an ordinary field that tells you which page the message came from.
+  `.hp-field` and the same rule inline in `style="…"`, so the trap stays hidden even if a visitor's browser has an
+  old or missing `site.css`. `app` is an ordinary field that tells you which page the message came from.
 - Form inputs use `text-base` (16px) so iOS Safari does not zoom in on focus.
 
 ### Formspree setup
@@ -297,8 +304,9 @@ What this means when you edit pages:
   working. The HTML files have no front matter, so Jekyll copies them unchanged.
 - **Custom domain:** `CNAME` is `x3roe.com`. DNS is proxied through **Cloudflare**, which terminates TLS and
   redirects `http://` to `https://`.
-- Assets use fixed URLs with no content hash. If a deploy changes `site.css` or a script and visitors still see
-  the old version, purge the Cloudflare cache.
+- Local CSS and JS URLs carry a content-hash query (`?v=…`, written by `tools/version.py`), so a deploy that
+  changes them is picked up immediately. HTML pages themselves are not versioned; if a page change does not show,
+  purge the Cloudflare cache.
 - Security headers such as HSTS, `X-Content-Type-Options`, `Referrer-Policy` and `frame-ancestors` cannot be set
   by GitHub Pages. They belong in a Cloudflare Transform Rule (Modify Response Header).
 
