@@ -8,3 +8,4 @@ if [ -z "$TAILWIND" ] && [ -x tools/bin/tailwindcss ]; then TAILWIND=tools/bin/t
 TAILWIND="${TAILWIND:-tailwindcss}"
 python3 tools/icons.py
 "$TAILWIND" -c tailwind.config.js -i src/site.css -o assets/css/site.css --minify
+python3 tools/version.py
