@@ -65,3 +65,17 @@
   }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* Contact forms (assets/js/contact-form.js) */
+.hp-field {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+[data-form-status]:empty { display: none; }
+[data-form-status]:focus { outline: none; }
+[data-form-status][data-state="success"] { color: #86efac; }
+[data-form-status][data-state="error"] { color: #fca5a5; }
+[data-form-status][data-state="pending"] { color: rgba(255, 255, 255, 0.7); }

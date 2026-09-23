@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://formspree.io; object-src 'none'; base-uri 'self'; form-action https://formspree.io; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>X3roe | macOS &amp; iOS Engineer</title>
 
@@ -63,6 +63,7 @@
     <link rel="stylesheet" href="/assets/css/site.css">
     <script src="/assets/js/head.js"></script>
     <script src="/assets/js/site.js" defer></script>
+    <script src="/assets/js/contact-form.js" defer></script>
 
     <style>
         /* The document scrolls; sections snap to the top of the viewport. */
@@ -113,6 +114,12 @@
                 padding-top: max(8.5rem, calc(env(safe-area-inset-top) + 6.5rem));
                 padding-bottom: 5rem;
             }
+        }
+
+        /* Keep focused contact-form fields and their labels clear of the fixed header (up to 120px tall). */
+        #contact form :is(input, textarea, button) {
+            scroll-margin-top: 9.5rem;
+            scroll-margin-bottom: 2rem;
         }
 
         /* Short viewports (landscape phones, 200% zoom): slimmer header and section padding. */
@@ -402,17 +409,43 @@
 
         <!-- Section 5: Contact -->
         <section id="contact" class="snap-section flex-col bg-[#020202] border-t border-white/5">
-            <div class="max-w-4xl w-full mx-auto px-6 text-center my-auto">
-                <div class="reveal">
-                    <i class="ph-thin ph-envelope-simple text-6xl text-white/30 mb-8 block mx-auto" aria-hidden="true"></i>
-                    <h2 class="text-6xl sm:text-8xl font-black tracking-tighter text-white mb-8">
+            <!-- One column on small screens; from lg up the heading and email sit left of the form so the section fits one screen. -->
+            <div class="max-w-4xl lg:max-w-6xl w-full mx-auto px-6 text-center my-auto lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 lg:text-left">
+                <div class="reveal lg:col-start-1 lg:row-start-1 lg:self-end">
+                    <i class="ph-thin ph-envelope-simple text-6xl text-white/30 mb-8 block mx-auto lg:mx-0" aria-hidden="true"></i>
+                    <h2 class="text-6xl sm:text-8xl font-black tracking-tighter text-white">
                         Let's Talk.
                     </h2>
-
-                    <a href="mailto:contact@x3roe.com" class="text-2xl sm:text-4xl font-light text-white/60 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-2 inline-block">
-                        contact@x3roe.com
-                    </a>
                 </div>
+
+                <!-- Contact form (Formspree; assets/js/contact-form.js). The email stays available below it. -->
+                <div class="max-w-xl w-full mx-auto mt-10 sm:mt-12 text-left reveal stagger-1 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center lg:justify-self-end lg:mx-0 lg:mt-0">
+                    <form data-contact-form data-fallback-email="contact@x3roe.com"
+                          action="https://formspree.io/f/xkjgbyee" method="POST" class="grid gap-5 sm:grid-cols-2">
+                        <input type="hidden" name="_subject" value="New message from x3roe.com">
+                        <input type="hidden" name="app" value="Main site">
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="home-website">Leave this field empty</label>
+                            <input id="home-website" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="home-name" class="block mb-2 text-xs font-bold uppercase tracking-widest text-white/60">Name</label>
+                            <input id="home-name" name="name" type="text" autocomplete="name" maxlength="100" class="block w-full bg-white/5 border border-white/40 rounded-2xl px-4 py-3 text-base text-white placeholder:text-white/40 hover:border-white/60 focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label for="home-email" class="block mb-2 text-xs font-bold uppercase tracking-widest text-white/60">Email <span aria-hidden="true">*</span></label>
+                            <input id="home-email" name="email" type="email" autocomplete="email" required maxlength="254" class="block w-full bg-white/5 border border-white/40 rounded-2xl px-4 py-3 text-base text-white placeholder:text-white/40 hover:border-white/60 focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="home-message" class="block mb-2 text-xs font-bold uppercase tracking-widest text-white/60">Message <span aria-hidden="true">*</span></label>
+                            <textarea id="home-message" name="message" rows="5" required maxlength="5000" class="block w-full min-h-[8rem] resize-y bg-white/5 border border-white/40 rounded-2xl px-4 py-3 text-base text-white placeholder:text-white/40 hover:border-white/60 focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"></textarea>
+                        </div>
+                        <button type="submit" data-submit class="sm:col-span-2 sm:justify-self-start px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">Send message</button>
+                        <p data-form-status role="status" aria-live="polite" tabindex="-1" class="sm:col-span-2 text-sm leading-relaxed"></p>
+                    </form>
+                    <p class="mt-5 text-xs leading-relaxed text-white/60">Messages sent with this form are delivered to us by Formspree. See the <a href="/privacy.html#contact-forms" class="text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors">Privacy Policy</a>.</p>
+                </div>
+                <p class="max-w-xl w-full mx-auto mt-6 text-left text-base text-white/60 reveal stagger-2 lg:col-start-1 lg:row-start-2 lg:self-start lg:mx-0 lg:mt-0">Prefer email? <a href="mailto:contact@x3roe.com" class="inline-block py-2.5 text-white underline decoration-white/40 underline-offset-4 hover:decoration-white transition-colors">contact@x3roe.com</a></p>
             </div>
 
             <footer class="w-full max-w-4xl mx-auto px-6 pt-12 sm:pt-16 text-center reveal stagger-1">

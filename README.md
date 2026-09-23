@@ -4,10 +4,13 @@ Source for [x3roe.com](https://x3roe.com/), the personal site of Youssef Keram (
 iPasscoder, iPrayer and Slumber Hell apps, the X3rœ music page, help and legal pages, and the Sparkle update
 feed for the Joke Generator macOS app.
 
-The site is plain static HTML. There is no backend, no database, no store, no contact form, no analytics and no
-cookies set by the site. Support requests go to `mailto:contact@x3roe.com`. The only third-party resources are
-Google Fonts (`fonts.googleapis.com` / `fonts.gstatic.com`). Everything else, including CSS, JavaScript and
-icons, is served from this repository.
+The site is plain static HTML. There is no backend, no database, no store, no analytics and no cookies set by the
+site. The home page, each app page and the Joke Generator help page have a contact form that submits to
+[Formspree](https://formspree.io/), which emails the message on (see
+[Contact forms and email](#contact-forms-and-email)). The home page uses `contact@x3roe.com`; the app pages and
+app-specific pages use `support@x3roe.com`. The only third-party resources are Google Fonts
+(`fonts.googleapis.com` / `fonts.gstatic.com`) and the Formspree form endpoint (`formspree.io`, contacted only
+when someone sends a form). Everything else, including CSS, JavaScript and icons, is served from this repository.
 
 ## Pages
 
@@ -18,7 +21,7 @@ icons, is served from this repository.
 | `iprayer.html` | iPrayer (iOS) landing page |
 | `slumber-hell.html` | Slumber Hell landing page (iOS, Android and Windows PC; the PC build is hosted on `dl.x3roe.com`, not in this repo) |
 | `music.html` | X3rœ discography |
-| `help.html` | Help and support. The Joke Generator app links to `https://x3roe.com/help`, which GitHub Pages resolves to this file, so keep the name. |
+| `help.html` | Joke Generator help and support form. The Joke Generator app links to `https://x3roe.com/help`, which GitHub Pages resolves to this file, so keep the name. |
 | `privacy.html`, `eula.html`, `copyright.html` | Site-wide privacy policy, EULA and copyright notice |
 | `ipasscoder-privacy.html`, `ipasscoder-terms.html` | iPasscoder privacy policy and terms |
 | `iprayer-privacy.html`, `iprayer-terms.html` | iPrayer privacy policy and terms |
@@ -39,6 +42,7 @@ Do not rename or move them.
 │   └── js/
 │       ├── head.js         Loaded synchronously in <head> on content pages
 │       ├── site.js         Shared behaviour (scroll reveal and mobile menu), loaded with defer
+│       ├── contact-form.js Formspree contact forms (home, app pages, help.html), loaded with defer
 │       └── <page>.js       Optional page-specific scripts, loaded with defer after site.js
 ├── src/
 │   ├── site.css            Tailwind entry point and shared CSS rules (edit this, not assets/css/site.css)
@@ -111,9 +115,11 @@ Every page loads the same stylesheet, `/assets/css/site.css`, after a single Goo
 - base colours and a visible `:focus-visible` outline (do not remove outlines without a visible replacement)
 - `.reveal` / `.reveal.active`: scroll-reveal for content pages. Content is hidden only when the `js` class is on
   `<html>`, so it stays visible if JavaScript fails.
-- `.reveal-in`: CSS-only entrance animation for legal and error pages, which load no JavaScript
+- `.reveal-in`: CSS-only entrance animation for legal, error and help pages (it needs no JavaScript)
 - `.stagger-1` … `.stagger-6` delays
 - `prefers-reduced-motion` handling that stops animations and shows all revealed content
+- contact-form rules: `.hp-field` moves the honeypot field off-screen, and `[data-form-status]` is hidden while
+  empty and coloured by its `data-state` (`success`, `error` or `pending`)
 
 Content pages (home, app pages, music) include:
 
@@ -121,6 +127,7 @@ Content pages (home, app pages, music) include:
 <script src="/assets/js/head.js"></script>
 <script src="/assets/js/site.js" defer></script>
 <!-- optional: <script src="/assets/js/<page>.js" defer></script> -->
+<!-- pages with a contact form: <script src="/assets/js/contact-form.js" defer></script> -->
 ```
 
 - `head.js` adds `js` to `<html>`. If `site.js` has not run within 3 seconds, it removes the class again so
@@ -132,7 +139,103 @@ Content pages (home, app pages, music) include:
 - Page-specific behaviour, such as lightboxes, goes in `assets/js/<page>.js` and attaches with
   `addEventListener`.
 
-Legal and error pages load no JavaScript.
+Legal and error pages load no JavaScript. `help.html` is built like a legal page (CSS-only `.reveal-in`, no
+`head.js` or `site.js`) and loads only `contact-form.js` for its support form.
+
+## Contact forms and email
+
+### Which address goes where
+
+- **`contact@x3roe.com`**: the home page (`index.html`) and the site-wide legal pages (`privacy.html`,
+  `eula.html`, `copyright.html`). Privacy requests also go here. The error pages and `music.html` show no address;
+  if one is added, use `contact@`.
+- **`support@x3roe.com`**: every app page and app-specific page: `ipasscoder.html`, `ipasscoder-privacy.html`,
+  `ipasscoder-terms.html`, `iprayer.html`, `iprayer-privacy.html`, `iprayer-terms.html`, `slumber-hell.html`,
+  `slumberhell-privacy.html`, `slumberhell-terms.html` and `help.html` (Joke Generator).
+
+Change both the visible address and the `mailto:` link (keep any `?subject=…`). Mail for `x3roe.com` is hosted by
+**Zoho Mail** (the domain's MX records point to Zoho). `support@x3roe.com` must exist in Zoho as an alias of (or a
+mailbox next to) `contact@x3roe.com`; if it does not, mail sent to it bounces.
+
+### How the forms work
+
+There are two Formspree forms: one for the main site and one shared by all app pages. Every message carries its
+page in the `_subject` line and the `app` field, so app messages can still be told apart:
+
+| Page | Formspree form ID (in the form `action`) | `data-fallback-email` | `_subject` |
+| --- | --- | --- | --- |
+| `index.html` | `xkjgbyee` (main site) | `contact@x3roe.com` | New message from x3roe.com |
+| `ipasscoder.html` | `mljdnzkn` (apps) | `support@x3roe.com` | iPasscoder support request (x3roe.com) |
+| `iprayer.html` | `mljdnzkn` (apps) | `support@x3roe.com` | iPrayer support request (x3roe.com) |
+| `slumber-hell.html` | `mljdnzkn` (apps) | `support@x3roe.com` | Slumber Hell support request (x3roe.com) |
+| `help.html` | `mljdnzkn` (apps) | `support@x3roe.com` | Joke Generator support request (x3roe.com) |
+
+`assets/js/contact-form.js` enhances every `form[data-contact-form]`:
+
+- It posts the form with `fetch` (`Accept: application/json`) and writes the real outcome into the form's
+  `[data-form-status]` element: a success message (and the form is reset), Formspree's own error message, or a
+  network-error message. Error messages end with a `mailto:` link to `data-fallback-email`. The submit button is
+  disabled and reads "Sending…" while the request runs.
+- It checks the browser's built-in validation (`required`, `type="email"`, `maxlength`) before sending.
+- An earlier success or error message is cleared as soon as the visitor edits the form or tries to send again.
+- When a field gets focus while a fixed header (`header.fixed` or `.site-header`) covers it, the script scrolls it
+  into view. Pages with a fixed header give their form controls a `scroll-margin-top` in their inline `<style>`
+  (header height plus the label, `9.5rem` on the home, iPasscoder and iPrayer pages) so the label stays visible too.
+- If the honeypot field `_gotcha` has a value (a bot filled it in), nothing is sent.
+- **Unconfigured forms are switched off.** If a form `action` contains a `REPLACE_WITH_…` placeholder instead of a
+  real form ID (for example on a newly added page), the script disables every field and the button and shows "The contact form is not available yet. Please email …"
+  followed by a link to the `data-fallback-email` address. A page never pretends to send a message it cannot send.
+- Without JavaScript the form still works as a normal HTML form post to Formspree, which may first show its own
+  spam check and then shows its own confirmation page.
+
+Markup contract (keep the attributes, `name`s and structure; only classes may change to fit the page, and use a
+short unique id prefix per page: `home-`, `ipc-`, `ipr-`, `sh-`, `jg-`):
+
+```html
+<form data-contact-form data-fallback-email="support@x3roe.com"
+      action="https://formspree.io/f/mljdnzkn" method="POST">
+  <input type="hidden" name="_subject" value="Joke Generator support request (x3roe.com)">
+  <input type="hidden" name="app" value="Joke Generator">
+  <div class="hp-field" aria-hidden="true">
+    <label for="jg-website">Leave this field empty</label>
+    <input id="jg-website" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+  </div>
+  <label for="jg-name">Name</label>
+  <input id="jg-name" name="name" type="text" autocomplete="name" maxlength="100">
+  <label for="jg-email">Email <span aria-hidden="true">*</span></label>
+  <input id="jg-email" name="email" type="email" autocomplete="email" required maxlength="254">
+  <label for="jg-message">Message <span aria-hidden="true">*</span></label>
+  <textarea id="jg-message" name="message" rows="5" required maxlength="5000"></textarea>
+  <button type="submit" data-submit>Send message</button>
+  <p data-form-status role="status" aria-live="polite" tabindex="-1"></p>
+  <p>Messages sent with this form are delivered to us by Formspree. See the <a href="/privacy.html#contact-forms">Privacy Policy</a>.</p>
+</form>
+<p>Prefer email? <a href="mailto:support@x3roe.com?subject=Joke%20Generator%20Support">support@x3roe.com</a></p>
+```
+
+- `data-contact-form` marks the form for the script. `data-fallback-email` is the address shown in error and
+  "not available yet" messages.
+- `data-submit` marks the submit button. `data-form-status` is the live region for results; keep `role="status"`,
+  `aria-live="polite"` and `tabindex="-1"` (the script moves focus to it after a send so screen-reader and
+  keyboard users hear the result).
+- `_subject` sets the subject of the email Formspree sends. `_gotcha` is Formspree's honeypot field, hidden with
+  `.hp-field`. `app` is an ordinary field that tells you which page the message came from.
+- Form inputs use `text-base` (16px) so iOS Safari does not zoom in on focus.
+
+### Formspree setup
+
+1. In the Formspree dashboard, form `xkjgbyee` (main site) should email `contact@x3roe.com` and form `mljdnzkn`
+   (apps) should email `support@x3roe.com`. Formspree asks you to verify each target address; `support@` has to
+   exist in Zoho first.
+2. To add a form to a new page, copy the markup above, give it a new id prefix, and use `mljdnzkn` for an app
+   page or `xkjgbyee` for a main-site page (or create a new Formspree form and use its ID, the part after `/f/`).
+3. After deploying, send a test message from each page and check that it arrives in the right mailbox.
+
+The privacy policy (`privacy.html`, section "This Website", anchor `#contact-forms`, linked from the note under
+every form, so keep that anchor) tells visitors that Formspree processes form messages (it emails them to us and
+keeps a copy in our Formspree account, and may show a spam check when JavaScript is off) and that the mailbox is
+hosted by Zoho Mail. If you change the form provider or mail host,
+update that section and its "Last updated" date.
 
 ## Content-Security-Policy (rules for contributors)
 
@@ -140,8 +243,8 @@ Every page has the same CSP `<meta>` tag:
 
 ```text
 default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self';
-object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests
+font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://formspree.io;
+object-src 'none'; base-uri 'self'; form-action https://formspree.io; upgrade-insecure-requests
 ```
 
 What this means when you edit pages:
@@ -150,9 +253,12 @@ What this means when you edit pages:
   no `javascript:` URLs. Put code in `assets/js/*.js` and use `addEventListener`. JSON-LD data blocks
   (`<script type="application/ld+json">`) are fine because they are not executed. They must be valid JSON.
 - Inline `<style>` and `style=""` attributes are allowed.
-- **No third-party scripts, images, frames or requests.** Host images and media in the repo. Adding any new
-  external origin means updating the CSP on every page, and the tag must stay identical across pages.
-- **No forms that submit anywhere** (`form-action 'none'`). Contact links are `mailto:` links.
+- **No third-party scripts, images or frames, and no requests to other origins** apart from Google Fonts and the
+  Formspree form endpoint. Host images and media in the repo. Adding any new external origin means updating the
+  CSP on every page, and the tag must stay identical across pages.
+- **Forms may only submit to Formspree.** `connect-src https://formspree.io` allows the `fetch` in
+  `contact-form.js`, and `form-action https://formspree.io` allows the no-JavaScript form post. A form that
+  submits anywhere else is blocked. Contact links elsewhere are `mailto:` links.
 - A `<meta>` CSP cannot set `frame-ancestors`, HSTS or other response headers. Those have to be set on Cloudflare.
 - Cloudflare features that inject inline or third-party scripts will be blocked by this policy, for example the
   Web Analytics beacon (`static.cloudflareinsights.com`) or Zaraz. If you enable one, update the CSP on every page
