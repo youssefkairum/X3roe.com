@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://formspree.io; object-src 'none'; base-uri 'self'; form-action https://formspree.io; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>iPrayer | Islamic Companion App</title>
 
@@ -61,6 +61,7 @@
     <link rel="stylesheet" href="/assets/css/site.css">
     <script src="/assets/js/head.js"></script>
     <script src="/assets/js/site.js" defer></script>
+    <script src="/assets/js/contact-form.js" defer></script>
 
     <style>
         /* The document scrolls; snapping lives on the root. */
@@ -104,6 +105,12 @@
         #support {
             flex-direction: column;
             padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+        }
+
+        /* Keep focused support-form fields and their labels clear of the fixed header (up to 112px tall). */
+        #support form :is(input, textarea, button) {
+            scroll-margin-top: 9.5rem;
+            scroll-margin-bottom: 2rem;
         }
     </style>
 </head>
@@ -266,10 +273,38 @@
         <section id="support" class="snap-section bg-[#020202] border-t border-white/5">
             <div class="flex-1 flex items-center w-full">
                 <div class="max-w-4xl w-full mx-auto px-6 text-center reveal">
-                    <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-8">
+                    <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-4">
                         Need Support?
                     </h2>
-                    <a href="mailto:contact@x3roe.com?subject=iPrayer%20Support" class="text-xl sm:text-3xl font-light text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-2 inline-block break-all">contact@x3roe.com</a>
+                    <p class="text-base sm:text-lg text-white/60 font-light max-w-xl mx-auto mb-10">Questions, bug reports or feedback about iPrayer? Send a message below.</p>
+
+                    <form data-contact-form data-fallback-email="support@x3roe.com"
+                          action="https://formspree.io/f/REPLACE_WITH_IPRAYER_FORM_ID" method="POST" class="max-w-xl mx-auto text-left grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-5">
+                        <input type="hidden" name="_subject" value="iPrayer support request (x3roe.com)">
+                        <input type="hidden" name="app" value="iPrayer">
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="ipr-website">Leave this field empty</label>
+                            <input id="ipr-website" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="ipr-name" class="block mb-2 text-xs font-bold uppercase tracking-widest text-white/60">Name</label>
+                            <input id="ipr-name" name="name" type="text" autocomplete="name" maxlength="100" class="w-full min-h-[44px] bg-white/5 border border-white/40 rounded-2xl px-4 py-3 text-base text-white placeholder:text-white/40 hover:border-white/60 focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label for="ipr-email" class="block mb-2 text-xs font-bold uppercase tracking-widest text-white/60">Email <span aria-hidden="true">*</span></label>
+                            <input id="ipr-email" name="email" type="email" autocomplete="email" required maxlength="254" class="w-full min-h-[44px] bg-white/5 border border-white/40 rounded-2xl px-4 py-3 text-base text-white placeholder:text-white/40 hover:border-white/60 focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="ipr-message" class="block mb-2 text-xs font-bold uppercase tracking-widest text-white/60">Message <span aria-hidden="true">*</span></label>
+                            <textarea id="ipr-message" name="message" rows="5" required maxlength="5000" class="block w-full min-h-[8rem] resize-y bg-white/5 border border-white/40 rounded-2xl px-4 py-3 text-base text-white placeholder:text-white/40 hover:border-white/60 focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"></textarea>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <button type="submit" data-submit class="w-full sm:w-auto min-h-[44px] px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">Send message</button>
+                        </div>
+                        <p data-form-status role="status" aria-live="polite" tabindex="-1" class="sm:col-span-2 text-sm leading-relaxed"></p>
+                        <p class="sm:col-span-2 text-xs leading-relaxed text-white/60">Messages sent with this form are delivered to us by Formspree. See the <a href="/privacy.html#contact-forms" class="text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors">Privacy Policy</a>.</p>
+                    </form>
+                    <p class="mt-5 text-sm text-white/60">Prefer email? <a href="mailto:support@x3roe.com?subject=iPrayer%20Support" class="inline-block py-3 text-white underline underline-offset-4 decoration-white/40 hover:decoration-white break-all">support@x3roe.com</a></p>
                 </div>
             </div>
 
