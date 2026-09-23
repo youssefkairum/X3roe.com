@@ -1,51 +1,234 @@
-# X3roe.com - Personal Portfolio & Digital Store
+# X3roe.com
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+Source for [x3roe.com](https://x3roe.com/), the personal site of Youssef Keram (X3roe): landing pages for the
+iPasscoder, iPrayer and Slumber Hell apps, the X3rœ music page, help and legal pages, and the Sparkle update
+feed for the Joke Generator macOS app.
 
-This repository contains the source code for **X3roe.com**, the personal portfolio website of **Youssef Keram** (iOS Engineer & Music Producer). 
+The site is plain static HTML. There is no backend, no database, no store, no contact form, no analytics and no
+cookies set by the site. Support requests go to `mailto:contact@x3roe.com`. The only third-party resources are
+Google Fonts (`fonts.googleapis.com` / `fonts.gstatic.com`). Everything else, including CSS, JavaScript and
+icons, is served from this repository.
 
-The site is a high-performance, static web application designed to showcase iOS projects, music discography, and a digital asset store. It features a modern, dark-themed UI with advanced CSS animations and 3D transforms.
+## Pages
 
-## ✨ Features
+| File | Purpose |
+| --- | --- |
+| `index.html` | Home page: apps, music and links |
+| `ipasscoder.html` | iPasscoder (iOS) landing page |
+| `iprayer.html` | iPrayer (iOS) landing page |
+| `slumber-hell.html` | Slumber Hell landing page (iOS, Android and Windows PC; the PC build is hosted on `dl.x3roe.com`, not in this repo) |
+| `music.html` | X3rœ discography |
+| `help.html` | Help and support. The Joke Generator app links to `https://x3roe.com/help`, which GitHub Pages resolves to this file, so keep the name. |
+| `privacy.html`, `eula.html`, `copyright.html` | Site-wide privacy policy, EULA and copyright notice |
+| `ipasscoder-privacy.html`, `ipasscoder-terms.html` | iPasscoder privacy policy and terms |
+| `iprayer-privacy.html`, `iprayer-terms.html` | iPrayer privacy policy and terms |
+| `slumberhell-privacy.html`, `slumberhell-terms.html` | Slumber Hell privacy policy and terms |
+| `404.html` | Not-found page. GitHub Pages serves it for any missing URL. |
+| `401.html`, `403.html`, `500.html`, `502.html`, `503.html` | Other error designs. GitHub Pages never serves these on its own; they only apply if they are set up as Cloudflare custom error pages. They are `noindex` and are left out of `sitemap.xml`. |
 
-### 🎨 Design & UI
-* **Glassmorphism & Neomorphism:** Extensive use of backdrop filters and semi-transparent borders to create a modern, depth-filled aesthetic.
-* **Spotlight Hover Effects:** Custom JavaScript and CSS implementation that tracks mouse movement to create a glowing "spotlight" effect on cards.
-* **3D CSS Transforms:** A pure CSS 3D iPhone mockup that reacts to hover states (`rotateY`, `rotateX`).
-* **Bento Grid Layout:** A responsive grid layout used to showcase projects and discography.
-* **Scroll-Spy Navigation:** A floating navbar with a "sliding capsule" that automatically moves to the active section based on scroll position.
+App Store and Google Play listings may link to the per-app privacy and terms URLs, so treat those URLs as permanent.
+Do not rename or move them.
 
-### 🛠 Technical Implementation
-* **Tailwind CSS (CDN):** Styled entirely using Tailwind utility classes via CDN for rapid development without a build step.
-* **Supabase Integration:** Connects to a Supabase backend to dynamically fetch and display digital products in the "Store" section.
-* **Formspree Integration:** Contact forms are wired to Formspree for serverless email handling.
-* **Sparkle Appcast:** Includes an `appcast.xml` file to support software updates for macOS applications (e.g., Joke Generator).
-
-### 📱 Pages
-1.  **Home (`index.html`):** The main landing page featuring the portfolio, skills, and store. Dark/Platinum theme.
-2.  **iPasscoder (`ipasscoder.html`):** A dedicated product landing page for the iOS security app.
-3.  **Slumber Hell (`slumber-hell.html`):** A dedicated product page for the authentic 1996 PSX survival horror game. Dark/Crimson retro CRT theme.
-4.  **Music (`music.html`):** A discography showcase for the artist alias "X3rœ". Dark/Orange theme.
-5.  **Error Pages:** Custom designs for 401, 403, 404, 500, etc.
-
-## 📂 Project Structure
+## Repository layout
 
 ```text
 /
-├── index.html            # Main Portfolio Landing Page
-├── ipasscoder.html       # iPasscoder App Landing Page
-├── slumber-hell.html      # Slumber Hell PSX Horror Game Landing Page
-├── slumberhell-privacy.html # Slumber Hell Privacy Policy
-├── slumberhell-terms.html   # Slumber Hell Terms of Use
-├── music.html            # Music & Discography Page
-├── appcast.xml           # Sparkle Framework Appcast for software updates
-├── CNAME                 # Domain configuration
-├── 404.html              # Custom Error Page
+├── *.html                  Pages (see above), flat in the root
 ├── assets/
-│   ├── cover_*.jpg       # Album art covers
-│   ├── ipasscoder_icon.png
-│   └── ...
-└── JokeGenerator_v2.0.zip # Downloadable software assets
+│   ├── css/site.css        GENERATED by tools/build.sh, committed and served
+│   └── js/
+│       ├── head.js         Loaded synchronously in <head> on content pages
+│       ├── site.js         Shared behaviour (scroll reveal and mobile menu), loaded with defer
+│       └── <page>.js       Optional page-specific scripts, loaded with defer after site.js
+├── src/
+│   ├── site.css            Tailwind entry point and shared CSS rules (edit this, not assets/css/site.css)
+│   ├── icons.css           GENERATED by tools/icons.py (Phosphor icon subset)
+│   └── icons/<weight>/     Cached Phosphor SVGs used to generate icons.css
+├── tools/
+│   ├── build.sh            Builds assets/css/site.css
+│   ├── icons.py            Builds src/icons.css
+│   └── bin/                Local Tailwind CLI binary (git-ignored)
+├── tailwind.config.js      Tailwind v3 config (content paths, fonts, colours)
+├── _config.yml             GitHub Pages (Jekyll) excludes
+├── favicon.ico, favicon.svg, apple-touch-icon.png
+├── *_icon*.png|jpg, cover_*.jpg, slumber_shot*.jpg     Images
+├── sitemap.xml, robots.txt Crawling
+├── app-ads.txt             AdMob authorised-sellers file for the mobile apps (must stay at /app-ads.txt)
+├── appcast.xml             Sparkle update feed for Joke Generator
+├── JokeGenerator_v2.0.zip  Joke Generator build referenced by appcast.xml
+├── CNAME                   x3roe.com
+└── .gitignore
+```
+
+## Building the CSS
+
+GitHub Pages does not run any build step. The generated CSS is committed and served as-is, so rebuild it and
+commit the result whenever you add or change Tailwind classes or icons.
+
+Requirements:
+
+- Python 3 (standard library only)
+- The Tailwind CSS **v3.4.17** standalone CLI. Download `tailwindcss-<os>-<arch>` from
+  <https://github.com/tailwindlabs/tailwindcss/releases/tag/v3.4.17>, `chmod +x` it and save it as
+  `tools/bin/tailwindcss` (git-ignored). A `tailwindcss` on your `PATH` also works, or you can set `$TAILWIND`.
+  Do not use Tailwind v4: its config format and some utilities differ.
+
+```sh
+./tools/build.sh
+```
+
+`build.sh` does two things:
+
+1. `python3 tools/icons.py` scans `*.html` and `assets/js/*.js` for Phosphor class pairs such as
+   `<i class="ph-bold ph-arrow-right" aria-hidden="true"></i>`. For any icon that is not cached yet, it downloads
+   the SVG from the pinned `@phosphor-icons/core@2.1.1` package on jsDelivr into `src/icons/<weight>/`, which needs
+   network access. It then writes `src/icons.css`, which draws each icon as a `currentColor` CSS mask. Any
+   Phosphor icon name works with the `ph-thin`, `ph-light`, `ph-regular`, `ph-bold`, `ph-fill` or `ph-duotone`
+   weight classes; add the classes and rebuild. The weight and name must appear together in one class string
+   (icons toggled from JavaScript, such as the mobile menu's `ph-bold ph-x`, are written out in a comment in
+   `assets/js/site.js` for this reason). Commit new files in `src/icons/` as well. Icon-only controls need an
+   `aria-label`.
+2. Runs Tailwind with `tailwind.config.js` on `src/site.css` (which imports `icons.css`) and writes the
+   minified `assets/css/site.css`.
+
+Tailwind only sees classes that appear literally in `./*.html` and `./assets/js/**/*.js`. Do not build class
+names by string concatenation.
+
+To preview locally, serve the repository root over HTTP. Pages use root-relative URLs (`/assets/...`,
+`/favicon.svg`), so opening the files directly with `file://` does not work.
+
+```sh
+python3 -m http.server 8000   # then open http://localhost:8000/
+```
+
+## Shared CSS and JavaScript
+
+Every page loads the same stylesheet, `/assets/css/site.css`, after a single Google Fonts stylesheet
+(Inter and JetBrains Mono). Page-specific styling uses Tailwind classes or an inline `<style>` block.
+
+`src/site.css` provides:
+
+- base colours and a visible `:focus-visible` outline (do not remove outlines without a visible replacement)
+- `.reveal` / `.reveal.active`: scroll-reveal for content pages. Content is hidden only when the `js` class is on
+  `<html>`, so it stays visible if JavaScript fails.
+- `.reveal-in`: CSS-only entrance animation for legal and error pages, which load no JavaScript
+- `.stagger-1` … `.stagger-6` delays
+- `prefers-reduced-motion` handling that stops animations and shows all revealed content
+
+Content pages (home, app pages, music) include:
+
+```html
+<script src="/assets/js/head.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<!-- optional: <script src="/assets/js/<page>.js" defer></script> -->
+```
+
+- `head.js` adds `js` to `<html>`. If `site.js` has not run within 3 seconds, it removes the class again so
+  nothing stays hidden.
+- `site.js` adds `.active` to each `.reveal` element when it scrolls into view (and to any that are left once the
+  page is scrolled to the end), and wires up the mobile menu:
+  a `<button data-nav-toggle aria-controls="mobile-nav" aria-expanded="false">` toggles a
+  `<nav id="mobile-nav" data-mobile-nav hidden>`. It closes on link click, outside click and Escape.
+- Page-specific behaviour, such as lightboxes, goes in `assets/js/<page>.js` and attaches with
+  `addEventListener`.
+
+Legal and error pages load no JavaScript.
+
+## Content-Security-Policy (rules for contributors)
+
+Every page has the same CSP `<meta>` tag:
+
+```text
+default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self';
+object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests
+```
+
+What this means when you edit pages:
+
+- **No inline JavaScript.** No `<script>` blocks with code, no `onclick=` / `onsubmit=` / other `on*` attributes,
+  no `javascript:` URLs. Put code in `assets/js/*.js` and use `addEventListener`. JSON-LD data blocks
+  (`<script type="application/ld+json">`) are fine because they are not executed. They must be valid JSON.
+- Inline `<style>` and `style=""` attributes are allowed.
+- **No third-party scripts, images, frames or requests.** Host images and media in the repo. Adding any new
+  external origin means updating the CSP on every page, and the tag must stay identical across pages.
+- **No forms that submit anywhere** (`form-action 'none'`). Contact links are `mailto:` links.
+- A `<meta>` CSP cannot set `frame-ancestors`, HSTS or other response headers. Those have to be set on Cloudflare.
+- Cloudflare features that inject inline or third-party scripts will be blocked by this policy, for example the
+  Web Analytics beacon (`static.cloudflareinsights.com`) or Zaraz. If you enable one, update the CSP on every page
+  first.
+
+## Page conventions
+
+- One `<h1>` per page and no skipped heading levels. Decorative text is `aria-hidden="true"`.
+- Every indexable page has a `<link rel="canonical">`, a meta description and Open Graph tags. `og:url` must equal
+  the canonical URL, and `og:image` / `twitter:image` must be absolute `https://x3roe.com/...` URLs. Error pages
+  use `<meta name="robots" content="noindex">` and have no canonical tag.
+- Links that open in a new tab use `rel="noopener noreferrer"` and include
+  `<span class="sr-only">(opens in new tab)</span>`.
+- App Store links use the storefront-neutral form `https://apps.apple.com/app/id<ID>`.
+- Wordmark in headers: `X3rœ`. In prose, legal text and titles: `X3roe`. Copyright line:
+  `© 2026 X3roe. All rights reserved.`
+- When you add, remove or materially change an indexable page, update `sitemap.xml` (including `<lastmod>`).
+
+## Images and favicons
+
+- `favicon.ico` (16, 32 and 48 px), `favicon.svg` and `apple-touch-icon.png` (180 px) sit in the root and are linked
+  from every page with absolute paths (`/favicon.ico`, and so on).
+- App icons: `*_icon-192.*` (192 px) is for display on pages. `ipasscoder_icon-512.jpg`, `iprayer_icon.jpg` and
+  `slumber_icon.jpg` (512 px) are for social previews. Because these are square, pages use
+  `twitter:card = summary`. `ipasscoder_icon.png` (512 px) is kept only so its old URL keeps working.
+- Album covers `cover_*.jpg` are 640×640. Slumber Hell screenshots `slumber_shot1-5.jpg` are 1024×473.
+- Nothing optimises images at deploy time, so resize and compress them before committing. Every `<img>` needs
+  `alt`, `width`/`height` matching its aspect ratio and `decoding="async"`, plus `loading="lazy"` when it is
+  below the first screen.
+
+## Deployment
+
+- **GitHub Pages** publishes the `main` branch from the repository root, using the default Jekyll build. There is
+  no `.nojekyll` file. Jekyll skips dotfiles, and `_config.yml` also excludes `README.md`, `tools/`, `src/` and
+  `tailwind.config.js`, so none of these are published. If you ever add `.nojekyll`, those exclusions stop
+  working. The HTML files have no front matter, so Jekyll copies them unchanged.
+- **Custom domain:** `CNAME` is `x3roe.com`. DNS is proxied through **Cloudflare**, which terminates TLS and
+  redirects `http://` to `https://`.
+- Assets use fixed URLs with no content hash. If a deploy changes `site.css` or a script and visitors still see
+  the old version, purge the Cloudflare cache.
+- Security headers such as HSTS, `X-Content-Type-Options`, `Referrer-Policy` and `frame-ancestors` cannot be set
+  by GitHub Pages. They belong in a Cloudflare Transform Rule (Modify Response Header).
+
+## Sparkle appcast (Joke Generator)
+
+`appcast.xml` is the Sparkle update feed for the Joke Generator macOS app (`com.x3roe.jokegenerator`).
+
+- Every installed copy has `SUFeedURL = https://x3roe.com/appcast.xml` built in. **Never move or rename
+  `appcast.xml`.**
+- The `<enclosure>` points to `https://x3roe.com/JokeGenerator_v2.0.zip`. Its `length` must equal the zip's size in
+  bytes. `sparkle:edSignature` is the Ed25519 signature of that exact zip, made with the private key that matches
+  the app's `SUPublicEDKey` (use Sparkle's `sign_update` or `generate_appcast`). Any change to the zip needs a new
+  signature and length.
+- `sparkle:version` must equal the build's `CFBundleVersion`, and each release's number must be **strictly greater
+  than any build ever published**. Builds `2` and `3` have both been published, so the next release must use
+  `CFBundleVersion` / `sparkle:version` **4 or higher**.
+- `sparkle:minimumSystemVersion` must match the build's `LSMinimumSystemVersion`.
+- The channel `<title>` is just `Joke Generator`, without a version.
+- To host release zips outside this repo (GitHub Releases or `dl.x3roe.com`), upload the zip first, point the
+  enclosure URL at it, then remove it from the repo. The feed itself must stay at `/appcast.xml`.
+- The in-app license help link is `https://x3roe.com/help` (see `help.html`).
+
+## Licence
+
+The repository has no licence file, so it grants no permission to reuse its contents. `copyright.html`
+states that all original content on the site, including text, graphics, designs and code, belongs to Youssef
+Keram (X3roe).
+Third-party parts keep their own MIT licences, and their notices must stay with them:
+
+- **Phosphor Icons** (MIT, Copyright (c) 2023 Phosphor Icons): the SVGs in `src/icons/` and the icon rules
+  generated from them into `src/icons.css` and then into `assets/css/site.css`. The notice is the comment that
+  `tools/icons.py` writes at the top of `src/icons.css`.
+- **Tailwind CSS v3.4.17** (MIT): its base layer (Preflight) is part of `assets/css/site.css`, which keeps
+  Tailwind's `/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/` banner (it is not at the top
+  of the file, because the icon rules come first).
+
+`tools/build.sh` runs Tailwind with `--minify`, which drops ordinary `/* … */` comments and keeps only
+`/*! … */` comments. A licence notice that has to ship in `assets/css/site.css`, including the Phosphor
+notice from `tools/icons.py`, must therefore use the `/*!` form.

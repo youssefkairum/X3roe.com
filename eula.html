@@ -2,150 +2,144 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EULA | X3ROE</title>
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>EULA | X3roe</title>
+    <meta name="description" content="End User License Agreement for the apps, games and services published by Youssef Keram as X3roe, with links to each app's own Terms of Use.">
+    <link rel="canonical" href="https://x3roe.com/eula.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="X3roe">
+    <meta property="og:title" content="EULA | X3roe">
+    <meta property="og:description" content="End User License Agreement for the apps, games and services published by Youssef Keram as X3roe.">
+    <meta property="og:url" content="https://x3roe.com/eula.html">
+    <meta name="twitter:card" content="summary">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        black: '#000000',
-                        white: '#FFFFFF',
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/site.css">
 
     <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-        }
-        
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        
-        @keyframes reveal {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
-        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
-        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
-        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
-        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
     </style>
 </head>
 <body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Fixed UI Overlay -->
-    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
-        <div class="pointer-events-auto">
-            <a href="index.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
-                <i class="ph-bold ph-arrow-left"></i>
-                <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
-            </a>
-        </div>
+    <header class="absolute top-0 left-0 right-0 z-10 pt-[max(1.5rem,env(safe-area-inset-top))] pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] sm:pt-[max(2.5rem,env(safe-area-inset-top))] sm:pl-[max(2.5rem,env(safe-area-inset-left))] sm:pr-[max(2.5rem,env(safe-area-inset-right))]">
+        <a href="/" class="inline-flex items-center gap-2 text-white hover:text-white/70 transition-colors">
+            <i class="ph-bold ph-arrow-left" aria-hidden="true"></i>
+            <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
+        </a>
     </header>
 
-    <!-- Content -->
-    <main class="max-w-3xl mx-auto px-6 pt-32 pb-24">
-        
-        <!-- Header -->
-        <div class="mb-16 pb-8 border-b border-white/10 reveal">
+    <main class="max-w-3xl mx-auto pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] pt-32 pb-24">
+
+        <div class="mb-16 pb-8 border-b border-white/10 reveal-in">
             <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
                 Legal
             </span>
             <h1 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-6">
                 End User<br>
-                <span class="text-white/30">License.</span>
+                <span class="text-white/50">License.</span>
             </h1>
-            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/40 uppercase tracking-widest">
-                <p>Effective: August 2026</p>
-                <span class="hidden sm:inline">•</span>
-                <p>Developer: Youssef Keram (X3ROE)</p>
+            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/60 tracking-wider">
+                <p>Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+                <span class="hidden sm:inline" aria-hidden="true">•</span>
+                <p>Developer: Youssef Keram (X3roe)</p>
             </div>
         </div>
 
-        <!-- Policy Sections -->
         <div class="space-y-16">
-            
-            <section class="reveal stagger-1">
+
+            <section id="acceptance" class="reveal-in stagger-1">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">01</span> Acceptance of Terms
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">01</span> Acceptance of Terms
                 </h2>
                 <p class="leading-relaxed text-white/60 font-light text-lg">
-                    By downloading, accessing, or using any software, games, APIs, or services provided by Youssef Keram (operating as X3ROE)—including but not limited to iPasscoder, iPrayer, Voxel Tennis, Slumber Hell, GhostOps: Mobile Warfare, X3roePlay, and X3roeDrive—you agree to be bound by the terms of this EULA.
+                    By downloading, accessing, or using any software, games, APIs, or services provided by Youssef Keram, who publishes as <strong class="text-white font-medium">X3roe</strong> (“we”, “us”)—including but not limited to iPasscoder, iPrayer, Voxel Tennis, Slumber Hell, GhostOps: Mobile Warfare, Joke Generator, X3roePlay, and X3roeDrive—you agree to be bound by the terms of this EULA.
                 </p>
             </section>
 
-            <section class="reveal stagger-2">
+            <section id="app-terms" class="reveal-in stagger-2">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">02</span> License Grant
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">02</span> App-Specific Terms
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg mb-4">
+                    Some apps also have their own Terms of Use:
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 leading-relaxed text-white/60 font-light text-lg marker:text-white/50">
+                    <li><a href="/ipasscoder-terms.html" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">iPasscoder Terms of Use</a></li>
+                    <li><a href="/iprayer-terms.html" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">iPrayer Terms of Use</a></li>
+                    <li><a href="/slumberhell-terms.html" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">Slumber Hell Terms of Use</a></li>
+                </ul>
+            </section>
+
+            <section id="license" class="reveal-in stagger-3">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">03</span> License Grant
                 </h2>
                 <p class="leading-relaxed text-white/60 font-light text-lg">
-                    X3ROE grants you a personal, non-exclusive, non-transferable, limited license to use our apps and games strictly for personal, non-commercial entertainment and utility purposes. Modifying, distributing, or attempting to monetize our intellectual property without prior authorization is strictly prohibited.
+                    We grant you a personal, non-exclusive, non-transferable, limited license to use our apps and games strictly for personal, non-commercial entertainment and utility purposes. Modifying, distributing, or attempting to monetize our intellectual property without prior authorization is strictly prohibited.
                 </p>
             </section>
 
-            <section class="reveal stagger-3">
+            <section id="multiplayer" class="reveal-in stagger-4">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">03</span> Multiplayer & API Restrictions
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">04</span> Multiplayer &amp; API Restrictions
                 </h2>
                 <p class="leading-relaxed text-white/60 font-light text-lg">
-                    When utilizing our network services (such as X3roePlay, our Minecraft servers, or game leaderboards), you agree not to use cheats, exploits, or third-party automated software designed to disrupt the experience of others or artificially inflate statistics.
+                    When using our network services (such as X3roePlay, our Minecraft servers, or game leaderboards), you agree not to use cheats, exploits, or third-party automated software designed to disrupt the experience of others or artificially inflate statistics.
                 </p>
             </section>
 
-            <section class="reveal stagger-4">
+            <section id="security-apps" class="reveal-in stagger-5">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">04</span> Security Apps (iPasscoder)
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">05</span> Security Apps (iPasscoder)
                 </h2>
                 <p class="leading-relaxed text-white/60 font-light text-lg">
-                    For security-focused applications like iPasscoder, X3ROE provides robust tools for encryption but assumes no liability for forgotten master passwords. Due to the local, zero-knowledge nature of the encryption, we cannot recover lost data under any circumstances.
+                    For security-focused applications like iPasscoder, we provide robust tools for encryption but assume no liability for forgotten master passwords. Due to the local, zero-knowledge nature of the encryption, we cannot recover lost data under any circumstances.
                 </p>
             </section>
 
-            <section class="reveal stagger-5">
+            <section id="disclaimer" class="reveal-in stagger-6">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">05</span> Termination & Disclaimer
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">06</span> Termination &amp; Disclaimer
                 </h2>
                 <p class="leading-relaxed text-white/60 font-light text-lg">
-                    All software and services are provided "AS-IS" without warranty of any kind. We reserve the right to suspend or terminate access to our web services or multiplayer endpoints at any time if you violate these terms or compromise the integrity of the X3ROE infrastructure.
+                    All software and services are provided “AS IS” without warranty of any kind. We reserve the right to suspend or terminate access to our web services or multiplayer endpoints at any time if you violate these terms or compromise the integrity of X3roe infrastructure.
                 </p>
             </section>
-            
+
+            <section id="contact" class="reveal-in stagger-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">07</span> Contact
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    For questions about this EULA, email <a href="mailto:contact@x3roe.com?subject=EULA%20Question" class="text-white font-bold underline underline-offset-4 decoration-white/40 hover:decoration-white">contact@x3roe.com</a>.
+                </p>
+            </section>
+
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="p-10 border-t border-white/10 text-center relative z-10">
-        <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 X3ROE. Built with absolute precision.</p>
+    <footer class="border-t border-white/10 text-center pt-10 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+        <nav aria-label="Legal" class="mb-6">
+            <ul class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-bold">
+                <li><a href="/" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Home</a></li>
+                <li><a href="/privacy.html" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Privacy</a></li>
+                <li><a href="/eula.html" aria-current="page" class="inline-block py-2 text-white underline underline-offset-4">EULA</a></li>
+                <li><a href="/copyright.html" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Copyright</a></li>
+            </ul>
+        </nav>
+        <p class="text-xs font-mono text-white/60 tracking-wider">© 2026 X3roe. All rights reserved.</p>
     </footer>
 
 </body>

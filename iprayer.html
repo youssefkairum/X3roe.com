@@ -2,161 +2,174 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>iPrayer | Islamic Companion App</title>
-    
+
     <meta name="description" content="The ultimate Islamic companion. Beautiful, accurate prayer times, full Quran, and Live Activities wrapped in an elegant native iOS interface.">
+    <link rel="canonical" href="https://x3roe.com/iprayer.html">
+    <meta property="og:site_name" content="X3roe">
     <meta property="og:title" content="iPrayer | Islamic Companion App">
     <meta property="og:description" content="The ultimate Islamic companion. Beautiful, accurate prayer times, full Quran, and Live Activities wrapped in an elegant native iOS interface.">
     <meta property="og:image" content="https://x3roe.com/iprayer_icon.jpg">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="iPrayer app icon">
     <meta property="og:url" content="https://x3roe.com/iprayer.html">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="iPrayer | Islamic Companion App">
     <meta name="twitter:description" content="The ultimate Islamic companion. Beautiful, accurate prayer times, full Quran, and Live Activities wrapped in an elegant native iOS interface.">
     <meta name="twitter:image" content="https://x3roe.com/iprayer_icon.jpg">
-    
+    <meta name="twitter:image:alt" content="iPrayer app icon">
+
     <meta name="apple-itunes-app" content="app-id=6773148843">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "iPrayer",
+      "alternateName": "iPrayer: Prayer Times & Quran",
+      "description": "The ultimate Islamic companion. Beautiful, accurate prayer times, full Quran, and Live Activities wrapped in an elegant native iOS interface.",
       "operatingSystem": "iOS",
       "applicationCategory": "LifestyleApplication",
-      "downloadUrl": "https://apps.apple.com/us/app/iprayer-prayer-times-quran/id6773148843",
+      "url": "https://x3roe.com/iprayer.html",
+      "downloadUrl": "https://apps.apple.com/app/id6773148843",
+      "installUrl": "https://apps.apple.com/app/id6773148843",
+      "image": "https://x3roe.com/iprayer_icon.jpg",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "author": {
         "@type": "Person",
-        "name": "Youssef Keram"
+        "name": "Youssef Keram",
+        "url": "https://x3roe.com/"
       }
     }
     </script>
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        black: '#000000',
-                        white: '#FFFFFF',
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/head.js"></script>
+    <script src="/assets/js/site.js" defer></script>
 
     <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
-        }
-        
-        #snap-container {
-            width: 100vw;
-            height: 100vh;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        
-        #snap-container::-webkit-scrollbar {
-            display: none;
+        /* The document scrolls; snapping lives on the root. */
+        html {
+            scroll-snap-type: y proximity;
         }
 
+        @media (min-width: 1024px) and (min-height: 760px) {
+            html {
+                scroll-snap-type: y mandatory;
+            }
+        }
+
+        /* Full-screen sections grow with their content and clear the fixed header. */
         .snap-section {
-            width: 100%;
-            height: 100vh;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
             position: relative;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100svh;
+            scroll-snap-align: start;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding-top: calc(6.5rem + env(safe-area-inset-top, 0px));
+            padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+            padding-left: env(safe-area-inset-left, 0px);
+            padding-right: env(safe-area-inset-right, 0px);
+            isolation: isolate;
+            overflow: hidden;
+            overflow: clip;
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
+        @media (min-width: 1024px) {
+            .snap-section {
+                padding-top: calc(8.5rem + env(safe-area-inset-top, 0px));
+                padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+            }
         }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+
+        /* Last screen: support contact plus the page footer. */
+        #support {
+            flex-direction: column;
+            padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
         }
-        
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
     </style>
 </head>
 <body class="antialiased selection:bg-teal-500 selection:text-white">
 
-    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
-        <div class="pointer-events-auto">
-            <a href="index.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
-                <i class="ph-bold ph-arrow-left"></i>
+    <header class="fixed top-0 left-0 right-0 z-50 pointer-events-none bg-gradient-to-b from-black via-black/80 to-transparent">
+        <div class="flex justify-between items-center gap-4 pt-[max(1.5rem,env(safe-area-inset-top))] pb-6 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] lg:pt-[max(2.5rem,env(safe-area-inset-top))] lg:pb-10 lg:pl-[max(2.5rem,env(safe-area-inset-left))] lg:pr-[max(2.5rem,env(safe-area-inset-right))]">
+            <a href="/" class="pointer-events-auto flex items-center gap-2 text-white hover:text-white/70 transition-colors">
+                <i class="ph-bold ph-arrow-left" aria-hidden="true"></i>
                 <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
+                <span class="sr-only">home</span>
             </a>
+
+            <nav class="hidden md:flex gap-6 lg:gap-8 pointer-events-auto" aria-label="Primary">
+                <a href="#hero" class="text-sm font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Overview</a>
+                <a href="#showcase" class="text-sm font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Showcase</a>
+                <a href="#features" class="text-sm font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Features</a>
+                <a href="#support" class="text-sm font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-widest">Support</a>
+            </nav>
+
+            <!-- Invisible spacer to keep nav centered with justify-between -->
+            <div class="w-20 hidden md:block" aria-hidden="true"></div>
+
+            <button type="button" class="md:hidden pointer-events-auto inline-flex items-center justify-center w-11 h-11 rounded-full border border-white/20 bg-black/60 text-white text-xl hover:border-white/60 transition-colors" data-nav-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu"><i class="ph-bold ph-list" aria-hidden="true"></i></button>
         </div>
-        
-        <nav class="hidden md:flex gap-8 pointer-events-auto">
-            <a href="#hero" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Overview</a>
-            <a href="#showcase" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Showcase</a>
-            <a href="#features" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Features</a>
+
+        <nav id="mobile-nav" class="md:hidden pointer-events-auto absolute top-full left-0 right-0 bg-black/90 backdrop-blur-md border-y border-white/10" data-mobile-nav aria-label="Mobile" hidden>
+            <ul class="pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] py-2">
+                <li><a href="#hero" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-b border-white/10 transition-colors">Overview</a></li>
+                <li><a href="#showcase" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-b border-white/10 transition-colors">Showcase</a></li>
+                <li><a href="#features" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-b border-white/10 transition-colors">Features</a></li>
+                <li><a href="#support" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest transition-colors">Support</a></li>
+            </ul>
         </nav>
-        
-        <!-- Invisible spacer to keep nav centered with justify-between -->
-        <div class="w-20 hidden md:block"></div>
     </header>
 
+    <main>
 
-    <!-- Snap Scrolling Container -->
-    <main id="snap-container">
-        
         <!-- Section 1: HERO -->
         <section id="hero" class="snap-section bg-black">
-            <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
-                <i class="ph-fill ph-mosque text-[40vw]"></i>
+            <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-[0.03] pointer-events-none" aria-hidden="true">
+                <i class="ph-fill ph-mosque text-[40vw]" aria-hidden="true"></i>
             </div>
-            
-            <div class="max-w-4xl w-full px-6 text-center z-10 mt-24">
+
+            <div class="max-w-4xl w-full px-6 text-center">
                 <div class="reveal mb-8">
                     <div class="w-24 h-24 mx-auto bg-white/5 border border-white/10 rounded-3xl flex items-center justify-center overflow-hidden mb-6">
-                        <img src="iprayer_icon.jpg" alt="iPrayer App Icon" class="w-full h-full object-cover">
+                        <img src="iprayer_icon-192.jpg" alt="iPrayer app icon" width="192" height="192" decoding="async" class="w-full h-full object-cover">
                     </div>
-                    
+
                     <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
-                        Islamic App & Utility
+                        Islamic App &amp; Utility
                     </span>
                     <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter leading-[0.9] text-white">
                         iPrayer.<br>
-                        <span class="text-white/30">Your Faith.</span>
+                        <span class="text-white/50">Your Faith.</span>
                     </h1>
                 </div>
-                
+
                 <p class="text-lg sm:text-xl md:text-2xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed reveal stagger-1">
                     The ultimate Islamic companion. Beautiful, accurate prayer times, full Quran, and Live Activities wrapped in an elegant native iOS interface.
                 </p>
-                
-                <div class="mt-12 flex justify-center pointer-events-auto">
-                    <a href="https://apps.apple.com/us/app/iprayer-prayer-times-quran/id6773148843" target="_blank" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
-                        <i class="ph-fill ph-app-store-logo text-xl"></i> Download Now
+
+                <div class="mt-10 lg:mt-12 flex justify-center">
+                    <a href="https://apps.apple.com/app/id6773148843" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+                        <i class="ph-fill ph-app-store-logo text-xl" aria-hidden="true"></i> Download Now<span class="sr-only"> on the App Store (opens in new tab)</span>
                     </a>
                 </div>
             </div>
@@ -165,27 +178,28 @@
         <!-- Section 2: Interface Showcase -->
         <section id="showcase" class="snap-section bg-[#020202] border-t border-white/5">
             <div class="max-w-6xl w-full px-6 flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-20">
-                
-                <div class="flex-1 w-full max-w-md reveal z-10">
-                    <div class="w-full aspect-[4/5] bg-black border border-white/10 rounded-[40px] p-8 flex flex-col gap-6 shadow-2xl group hover:border-white/30 transition-colors duration-700">
+
+                <!-- Decorative mock-up of the Live Activity -->
+                <div class="flex-1 w-full max-w-[18rem] sm:max-w-sm md:max-w-md reveal" aria-hidden="true">
+                    <div class="w-full aspect-[4/5] bg-black border border-white/10 rounded-[40px] p-8 flex flex-col gap-6 shadow-2xl">
                         <div class="w-full flex-1 border border-white/10 rounded-3xl flex flex-col items-center justify-center relative overflow-hidden bg-white/[0.02]">
                             <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(45,212,191,0.1)_0%,transparent_50%)]"></div>
-                            <div class="text-[10px] font-bold text-teal-500 uppercase tracking-widest mb-4">Live Activity</div>
-                            <div class="text-4xl font-mono font-bold text-white tracking-widest">00:58:21</div>
+                            <div class="relative text-[10px] font-bold text-teal-400 uppercase tracking-widest mb-4">Live Activity</div>
+                            <div class="relative text-3xl sm:text-4xl font-mono font-bold text-white tracking-widest">00:58:21</div>
                         </div>
-                        
+
                         <div class="flex gap-4">
                             <div class="h-16 flex-1 border border-white/10 rounded-2xl bg-white/[0.02] flex items-center justify-center text-white">
-                                <i class="ph-fill ph-book-open text-2xl"></i>
+                                <i class="ph-fill ph-book-open text-2xl" aria-hidden="true"></i>
                             </div>
                             <div class="h-16 flex-1 border border-white/10 rounded-2xl bg-white/[0.02] flex items-center justify-center text-white">
-                                <i class="ph-fill ph-compass text-2xl"></i>
+                                <i class="ph-fill ph-compass text-2xl" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex-1 reveal stagger-1 text-center md:text-left z-10">
+                <div class="flex-1 reveal stagger-1 text-center md:text-left">
                     <h2 class="text-5xl sm:text-6xl font-bold tracking-tighter text-white mb-6">Designed for Focus.</h2>
                     <p class="text-lg sm:text-xl text-white/60 font-light leading-relaxed max-w-lg mx-auto md:mx-0">
                         Every detail is crafted to keep you connected to your faith without distraction. From the Dynamic Island to the Lock Screen, your prayer times are always a glance away.
@@ -197,141 +211,84 @@
 
         <!-- Section 3: Features -->
         <section id="features" class="snap-section bg-black border-t border-white/5">
-            <div class="max-w-7xl w-full px-6 overflow-y-auto max-h-screen py-32">
-                <div class="text-center mb-16 reveal">
+            <div class="max-w-7xl w-full px-6">
+                <div class="text-center mb-12 lg:mb-16 reveal">
                     <h2 class="text-4xl sm:text-6xl font-bold tracking-tighter text-white">Comprehensive Utility.</h2>
                 </div>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                     <!-- Feature 1 -->
                     <div class="p-8 border border-white/10 rounded-[32px] bg-white/[0.02] reveal stagger-1">
-                        <i class="ph-fill ph-clock text-3xl text-teal-400 mb-6 block"></i>
+                        <i class="ph-fill ph-clock text-3xl text-teal-400 mb-6 block" aria-hidden="true"></i>
                         <h3 class="text-xl font-bold mb-3 text-white">Accurate Prayer Times</h3>
-                        <p class="text-white/50 text-sm leading-relaxed font-light">Calculates precise prayer timings using CoreLocation and standard conventions (e.g., Muslim World League), with robust push notifications.</p>
+                        <p class="text-white/60 text-sm leading-relaxed font-light">Calculates precise prayer timings using CoreLocation and standard conventions (e.g., Muslim World League), with prayer-time notifications.</p>
                     </div>
-                    
+
                     <!-- Feature 2 -->
                     <div class="p-8 border border-white/10 rounded-[32px] bg-white/[0.02] reveal stagger-2">
-                        <i class="ph-fill ph-app-window text-3xl text-teal-400 mb-6 block"></i>
+                        <i class="ph-fill ph-app-window text-3xl text-teal-400 mb-6 block" aria-hidden="true"></i>
                         <h3 class="text-xl font-bold mb-3 text-white">Live Activities</h3>
-                        <p class="text-white/50 text-sm leading-relaxed font-light">Track the countdown to the next prayer directly from your Lock Screen and Dynamic Island using native iOS widgets.</p>
+                        <p class="text-white/60 text-sm leading-relaxed font-light">Track the countdown to the next prayer directly from your Lock Screen and Dynamic Island using native iOS widgets.</p>
                     </div>
 
                     <!-- Feature 3 -->
                     <div class="p-8 border border-white/10 rounded-[32px] bg-white/[0.02] reveal stagger-3">
-                        <i class="ph-fill ph-book-open text-3xl text-teal-400 mb-6 block"></i>
+                        <i class="ph-fill ph-book-open text-3xl text-teal-400 mb-6 block" aria-hidden="true"></i>
                         <h3 class="text-xl font-bold mb-3 text-white">The Holy Quran</h3>
-                        <p class="text-white/50 text-sm leading-relaxed font-light">A complete digital Quran experience. Automatically saves your last read Surah and Ayah using AppStorage.</p>
+                        <p class="text-white/60 text-sm leading-relaxed font-light">A complete digital Quran experience. Automatically saves your last read Surah and Ayah using AppStorage.</p>
                     </div>
 
                     <!-- Feature 4 -->
                     <div class="p-8 border border-white/10 rounded-[32px] bg-white/[0.02] reveal stagger-4">
-                        <i class="ph-fill ph-compass text-3xl text-teal-400 mb-6 block"></i>
+                        <i class="ph-fill ph-compass text-3xl text-teal-400 mb-6 block" aria-hidden="true"></i>
                         <h3 class="text-xl font-bold mb-3 text-white">Qibla Compass</h3>
-                        <p class="text-white/50 text-sm leading-relaxed font-light">Calculates the shortest path to the Kaaba using real-time device heading data and your exact GPS coordinates.</p>
+                        <p class="text-white/60 text-sm leading-relaxed font-light">Calculates the shortest path to the Kaaba using real-time device heading data and your exact GPS coordinates.</p>
                     </div>
 
                     <!-- Feature 5 -->
                     <div class="p-8 border border-white/10 rounded-[32px] bg-white/[0.02] reveal stagger-5">
-                        <i class="ph-fill ph-hand-tap text-3xl text-teal-400 mb-6 block"></i>
+                        <i class="ph-fill ph-hand-tap text-3xl text-teal-400 mb-6 block" aria-hidden="true"></i>
                         <h3 class="text-xl font-bold mb-3 text-white">Digital Tasbih</h3>
-                        <p class="text-white/50 text-sm leading-relaxed font-light">A haptic-enabled counter for your daily Dhikr. Set custom cycle targets (e.g., 33) that persist across app launches.</p>
+                        <p class="text-white/60 text-sm leading-relaxed font-light">A haptic-enabled counter for your daily Dhikr. Set custom cycle targets (e.g., 33) that persist across app launches.</p>
                     </div>
 
                     <!-- Feature 6 -->
                     <div class="p-8 border border-white/10 rounded-[32px] bg-white/[0.02] reveal stagger-6">
-                        <i class="ph-fill ph-hands-praying text-3xl text-teal-400 mb-6 block"></i>
+                        <i class="ph-fill ph-hands-praying text-3xl text-teal-400 mb-6 block" aria-hidden="true"></i>
                         <h3 class="text-xl font-bold mb-3 text-white">Dua Library</h3>
-                        <p class="text-white/50 text-sm leading-relaxed font-light">An organized collection of authentic supplications for various occasions, beautifully rendered with multi-language support.</p>
+                        <p class="text-white/60 text-sm leading-relaxed font-light">An organized collection of authentic supplications for various occasions, beautifully rendered with multi-language support.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 4: Support -->
+        <!-- Section 4: Support + footer -->
         <section id="support" class="snap-section bg-[#020202] border-t border-white/5">
-            <div class="max-w-4xl w-full mx-auto px-6 text-center z-10">
-                <div class="reveal">
+            <div class="flex-1 flex items-center w-full">
+                <div class="max-w-4xl w-full mx-auto px-6 text-center reveal">
                     <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-8">
                         Need Support?
                     </h2>
-                    <a href="#" onclick="openModal(); return false;" class="text-xl sm:text-3xl font-light text-white/60 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-2 inline-block">
-                        contact@x3roe.com
-                    </a>
-                </div>
-                
-                <div class="mt-20 flex justify-center gap-8 flex-wrap reveal stagger-1">
-                    <a href="index.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Main Portfolio</a>
-                    <a href="iprayer-privacy.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Privacy Policy</a>
-                    <a href="iprayer-terms.html" class="text-xs font-bold text-white/40 hover:text-white uppercase tracking-widest transition-colors">Terms of Use</a>
-                </div>
-                
-                <div class="absolute bottom-10 left-0 right-0 text-center reveal stagger-2">
-                    <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 Youssef Keram.</p>
+                    <a href="mailto:contact@x3roe.com?subject=iPrayer%20Support" class="text-xl sm:text-3xl font-light text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-2 inline-block break-all">contact@x3roe.com</a>
                 </div>
             </div>
+
+            <footer class="w-full px-6 pt-16 text-center">
+                <nav aria-label="Footer" class="mb-6">
+                    <ul class="flex justify-center gap-x-6 gap-y-1 flex-wrap">
+                        <li><a href="/" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Home</a></li>
+                        <li><a href="iprayer-privacy.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">iPrayer Privacy</a></li>
+                        <li><a href="iprayer-terms.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">iPrayer Terms</a></li>
+                        <li><a href="/privacy.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Site Privacy</a></li>
+                        <li><a href="/eula.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">EULA</a></li>
+                        <li><a href="/copyright.html" class="inline-block py-2 text-xs font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Copyright</a></li>
+                    </ul>
+                </nav>
+                <p class="text-xs font-mono text-white/50 tracking-widest">© 2026 X3roe. All rights reserved.</p>
+            </footer>
         </section>
-        
+
     </main>
 
-    <!-- Support Modal -->
-    <div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 hidden px-4">
-        <div class="bg-black border border-white/10 rounded-3xl w-full max-w-md p-8 relative shadow-2xl" id="modal-content">
-            <button aria-label="Close Modal" onclick="closeModal()" class="absolute top-6 right-6 text-white/40 hover:text-white transition-colors">
-                <i class="ph-bold ph-x text-xl"></i>
-            </button>
-            <h3 class="text-3xl font-bold mb-2 tracking-tighter text-white">Get Support</h3>
-            <p class="text-white/50 mb-8 font-light text-sm">Having issues with iPrayer? Let us know.</p>
-            
-            <form id="contact-form" class="space-y-6" onsubmit="handleFormSubmit(event)">
-                <div>
-                    <input name="email" type="email" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-white/30 text-sm" placeholder="Your Email Address">
-                </div>
-                <div>
-                    <textarea name="message" rows="4" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-white/30 text-sm" placeholder="Describe the issue..."></textarea>
-                </div>
-                <button type="submit" id="submit-btn" class="w-full bg-white text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform text-sm uppercase tracking-widest">
-                    Send Request
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('snap-container');
-            const reveals = document.querySelectorAll('.reveal');
-
-            const revealOnScroll = () => {
-                const windowHeight = window.innerHeight;
-                reveals.forEach(reveal => {
-                    const rect = reveal.getBoundingClientRect();
-                    if (rect.top < windowHeight * 0.85 && rect.bottom > 0) {
-                        reveal.classList.add('active');
-                    }
-                });
-            };
-
-            container.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
-        });
-
-        // Modal Logic
-        const modal = document.getElementById('contact-modal');
-        function openModal() { modal.classList.remove('hidden'); }
-        function closeModal() { modal.classList.add('hidden'); }
-        
-        async function handleFormSubmit(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerHTML = 'Sending...';
-            setTimeout(() => {
-                btn.innerHTML = 'Sent!';
-                btn.classList.replace('bg-white', 'bg-white/10');
-                btn.classList.replace('text-black', 'text-white');
-                setTimeout(closeModal, 1500);
-            }, 1000); // Mock send
-        }
-    </script>
 </body>
 </html>

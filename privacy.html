@@ -2,152 +2,195 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | X3ROE</title>
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Privacy Policy | X3roe</title>
+    <meta name="description" content="How Youssef Keram (X3roe) handles data on the x3roe.com website and in X3roe apps and games, including ads served by Google AdMob, website hosting and links to each app's own privacy policy.">
+    <link rel="canonical" href="https://x3roe.com/privacy.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="X3roe">
+    <meta property="og:title" content="Privacy Policy | X3roe">
+    <meta property="og:description" content="How X3roe handles data on x3roe.com and in its apps and games, including advertising, website hosting and per-app privacy policies.">
+    <meta property="og:url" content="https://x3roe.com/privacy.html">
+    <meta name="twitter:card" content="summary">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        black: '#000000',
-                        white: '#FFFFFF',
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/site.css">
 
     <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-        }
-        
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        
-        @keyframes reveal {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
-        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
-        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
-        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
-        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
     </style>
 </head>
 <body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Fixed UI Overlay -->
-    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
-        <div class="pointer-events-auto">
-            <a href="index.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
-                <i class="ph-bold ph-arrow-left"></i>
-                <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
-            </a>
-        </div>
+    <header class="absolute top-0 left-0 right-0 z-10 pt-[max(1.5rem,env(safe-area-inset-top))] pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] sm:pt-[max(2.5rem,env(safe-area-inset-top))] sm:pl-[max(2.5rem,env(safe-area-inset-left))] sm:pr-[max(2.5rem,env(safe-area-inset-right))]">
+        <a href="/" class="inline-flex items-center gap-2 text-white hover:text-white/70 transition-colors">
+            <i class="ph-bold ph-arrow-left" aria-hidden="true"></i>
+            <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
+        </a>
     </header>
 
-    <!-- Content -->
-    <main class="max-w-3xl mx-auto px-6 pt-32 pb-24">
-        
-        <!-- Header -->
-        <div class="mb-16 pb-8 border-b border-white/10 reveal">
+    <main class="max-w-3xl mx-auto pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] pt-32 pb-24">
+
+        <div class="mb-16 pb-8 border-b border-white/10 reveal-in">
             <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
                 Legal
             </span>
             <h1 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-6">
                 Privacy<br>
-                <span class="text-white/30">Policy.</span>
+                <span class="text-white/50">Policy.</span>
             </h1>
-            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/40 uppercase tracking-widest">
-                <p>Effective: August 2026</p>
-                <span class="hidden sm:inline">•</span>
-                <p>Developer: Youssef Keram (X3ROE)</p>
+            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/60 tracking-wider">
+                <p>Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+                <span class="hidden sm:inline" aria-hidden="true">•</span>
+                <p>Developer: Youssef Keram (X3roe)</p>
             </div>
         </div>
 
-        <!-- Policy Sections -->
         <div class="space-y-16">
-            
-            <section class="reveal stagger-1">
+
+            <section id="introduction" class="reveal-in stagger-1">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">01</span> Introduction
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">01</span> Introduction
                 </h2>
                 <p class="leading-relaxed text-white/60 font-light text-lg">
-                    At <strong class="text-white font-medium">X3ROE</strong> (the development alias of Youssef Keram), we engineer minimalist, native experiences with a strict adherence to user privacy. This policy covers all apps and services under the X3ROE ecosystem, including iOS apps (iPasscoder, iPrayer), games (Voxel Tennis, Slumber Hell), and web infrastructure (X3roePlay, X3roeDrive).
+                    <strong class="text-white font-medium">X3roe</strong> is the name under which Youssef Keram publishes apps, games and music. In this policy, “we” and “us” mean Youssef Keram. This policy explains how data is handled on the x3roe.com website and across X3roe apps and services, including iOS apps (iPasscoder, iPrayer), games (Voxel Tennis, Slumber Hell, GhostOps: Mobile Warfare), the macOS app Joke Generator, and web infrastructure (X3roePlay, X3roeDrive).
                 </p>
             </section>
 
-            <section class="reveal stagger-2">
+            <section id="per-app-policies" class="reveal-in stagger-2">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">02</span> App-Specific Privacy
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">02</span> Per-App Policies
                 </h2>
-                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/30">
-                    <li><strong class="text-white font-medium">iPasscoder:</strong> Operates on military-grade encryption. Your passwords and secure data are encrypted entirely on-device. We have zero access to your vault or master passwords.</li>
-                    <li><strong class="text-white font-medium">iPrayer:</strong> Location data is used strictly locally on your device to calculate accurate prayer times. We do not transmit or store your location on our servers.</li>
-                    <li><strong class="text-white font-medium">Games:</strong> We do not track personal gameplay data in our games (such as Voxel Tennis, Slumber Hell, or GhostOps: Mobile Warfare). Any leaderboards or multiplayer functions utilize standard Apple Game Center APIs or our minimal X3roePlay infrastructure without tracking identifiable telemetry.</li>
+                <p class="leading-relaxed text-white/60 font-light text-lg mb-4">
+                    Some apps have their own, more detailed privacy policy:
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 leading-relaxed text-white/60 font-light text-lg marker:text-white/50">
+                    <li><a href="/ipasscoder-privacy.html" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">iPasscoder Privacy Policy</a></li>
+                    <li><a href="/iprayer-privacy.html" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">iPrayer Privacy Policy</a></li>
+                    <li><a href="/slumberhell-privacy.html" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">Slumber Hell Privacy Policy</a></li>
+                </ul>
+                <p class="leading-relaxed text-white/60 font-light text-lg mt-4">
+                    Where an app’s own privacy policy differs from this page, the app’s own policy governs for that app.
+                </p>
+            </section>
+
+            <section id="apps" class="reveal-in stagger-3">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">03</span> Apps &amp; Games
+                </h2>
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/50">
+                    <li><strong class="text-white font-medium">iPasscoder:</strong> Your vault (your saved passcodes and other secure data) is encrypted and stored on your device. We have no access to your vault or master password. The free version shows ads served by Google AdMob; Premium is ad-free (see <a href="#advertising" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">Advertising</a>).</li>
+                    <li><strong class="text-white font-medium">iPrayer:</strong> Location data is used only on your device to calculate accurate prayer times. We do not transmit or store your location on our servers.</li>
+                    <li id="games"><strong class="text-white font-medium">Games:</strong> Leaderboards, achievements and multiplayer features use Apple Game Center, Google Play Games Services (Slumber Hell on Android) or our X3roePlay infrastructure. Apart from the advertising described below, we do not track personal gameplay data in Voxel Tennis or Slumber Hell. Slumber Hell is covered in detail by its own policy (see <a href="#per-app-policies" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">Per-App Policies</a>). For our other games, each game’s App Store privacy label lists the following:
+                        <ul class="list-disc list-outside ml-5 mt-3 space-y-2 marker:text-white/50">
+                            <li><strong class="text-white font-medium">Voxel Tennis:</strong> diagnostic data that is not linked to your identity: performance data, used for analytics, and crash data and other diagnostic data, used for app functionality.</li>
+                            <li><strong class="text-white font-medium">GhostOps: Mobile Warfare:</strong> gameplay content that is linked to your identity and used for app functionality. It also lists data that is not linked to your identity: diagnostics (crash, performance and other diagnostic data), used for analytics, and your name and product-interaction data, used for app functionality.</li>
+                        </ul>
+                    </li>
+                    <li id="joke-generator"><strong class="text-white font-medium">Joke Generator (macOS):</strong> To check for updates, the app requests <span class="font-mono text-base text-white/80 break-words">https://x3roe.com/appcast.xml</span>, which is served like the rest of this website (see <a href="#website" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">This Website</a>). When you activate or deactivate a license, and when the app checks that your license is valid, it sends your license key and details of that activation (the activation instance) to Lemon Squeezy (api.lemonsqueezy.com). Lemon Squeezy’s response can include the name and email address linked to your purchase. Lemon Squeezy handles that data under its own <a href="https://www.lemonsqueezy.com/privacy" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">privacy policy</a>. For help with the app, see <a href="/help.html" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">Joke Generator Help</a>.</li>
                 </ul>
             </section>
 
-            <section class="reveal stagger-3">
+            <section id="advertising" class="reveal-in stagger-4">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">03</span> Web & Infrastructure
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">04</span> Advertising
                 </h2>
-                <p class="leading-relaxed text-white/60 font-light text-lg">
-                    For services like X3roeDrive, X3roePlay, and our multiplayer servers, we log only essential technical data (such as IP addresses and connection timestamps) required to maintain server stability, prevent attacks, and route traffic securely. We never sell or monetize your data.
+                <p class="leading-relaxed text-white/60 font-light text-lg mb-4">
+                    Some of our apps are free and supported by ads. These apps use Google AdMob, an advertising service provided by Google:
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-white/50">
+                    <li><strong class="text-white font-medium">iPasscoder:</strong> the free version on iOS. iPasscoder Premium is ad-free and does not load AdMob.</li>
+                    <li><strong class="text-white font-medium">Slumber Hell:</strong> the iOS and Android versions. The Windows PC version does not include AdMob.</li>
+                </ul>
+                <p class="leading-relaxed text-white/60 font-light text-lg mt-4">
+                    In these apps, AdMob may collect and process device identifiers (such as Apple’s Identifier for Advertisers, or IDFA, and the Android Advertising ID), your IP address and similar technical data to serve and personalize ads.
+                </p>
+                <p class="leading-relaxed text-white/60 font-light text-lg mt-4">
+                    On iOS, these apps ask for your permission through Apple’s App Tracking Transparency prompt before your IDFA can be used for tracking. You can decline, or change your choice later in Settings › Privacy &amp; Security › Tracking. On Android, you can opt out of personalized ads in your device settings.
+                </p>
+                <p class="leading-relaxed text-white/60 font-light text-lg mt-4">
+                    Google uses this data as described in <a href="https://policies.google.com/technologies/partner-sites" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">How Google uses information from sites or apps that use its services</a> and in the <a href="https://policies.google.com/privacy" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">Google Privacy Policy</a>. The per-app policies above describe the ads in each app in more detail.
                 </p>
             </section>
 
-            <section class="reveal stagger-4">
+            <section id="website" class="reveal-in stagger-5">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">04</span> Security
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">05</span> This Website
                 </h2>
                 <p class="leading-relaxed text-white/60 font-light text-lg">
-                    We implement robust security measures across all platforms. Our apps leverage Apple's native Secure Enclave where applicable, and our web APIs are secured behind enterprise-grade firewalls.
+                    x3roe.com is a static website. It is hosted on GitHub Pages and served through Cloudflare. To deliver the site and protect it from abuse, GitHub and Cloudflare process your IP address and standard request information (such as the page or file requested, your browser’s user agent and the time of the request) in their request logs. Downloads from dl.x3roe.com are also served through Cloudflare.
+                </p>
+                <p class="leading-relaxed text-white/60 font-light text-lg mt-4">
+                    Pages load fonts from Google Fonts (fonts.googleapis.com and fonts.gstatic.com), so Google receives your IP address and user agent when your browser fetches them.
+                </p>
+                <p class="leading-relaxed text-white/60 font-light text-lg mt-4">
+                    The site does not use analytics and does not set any cookies itself. If you email us, we receive your email address and the contents of your message, and use them to reply.
+                </p>
+                <p class="leading-relaxed text-white/60 font-light text-lg mt-4">
+                    More information: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">GitHub Privacy Statement</a>, <a href="https://www.cloudflare.com/privacypolicy/" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">Cloudflare Privacy Policy</a>, <a href="https://policies.google.com/privacy" class="text-white font-medium underline underline-offset-4 decoration-white/40 hover:decoration-white">Google Privacy Policy</a>.
                 </p>
             </section>
 
-            <section class="reveal stagger-5">
+            <section id="infrastructure" class="reveal-in stagger-6">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-white/30 border border-white/10 px-2 py-1 rounded">05</span> Contact
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">06</span> Web Services
                 </h2>
                 <p class="leading-relaxed text-white/60 font-light text-lg">
-                    For privacy inquiries regarding any of our apps or services, contact us at <a href="mailto:contact@x3roe.com" class="text-white font-bold hover:underline">contact@x3roe.com</a>.
+                    For services like X3roeDrive, X3roePlay, and our multiplayer servers, we log only essential technical data (such as IP addresses and connection timestamps) required to maintain server stability, prevent attacks, and route traffic securely. We do not sell or monetize these logs.
                 </p>
             </section>
-            
+
+            <section id="security" class="reveal-in stagger-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">07</span> Security
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    We implement robust security measures across all platforms. Our apps leverage Apple’s native Secure Enclave where applicable, and our web APIs are secured behind enterprise-grade firewalls.
+                </p>
+            </section>
+
+            <section id="changes" class="reveal-in stagger-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">08</span> Changes
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    When this policy changes, we update the “Last updated” date at the top of this page.
+                </p>
+            </section>
+
+            <section id="contact" class="reveal-in stagger-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-white/60 border border-white/10 px-2 py-1 rounded">09</span> Contact
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    For privacy questions or requests about any of our apps or services, email <a href="mailto:contact@x3roe.com?subject=Privacy%20Question" class="text-white font-bold underline underline-offset-4 decoration-white/40 hover:decoration-white">contact@x3roe.com</a>.
+                </p>
+            </section>
+
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="p-10 border-t border-white/10 text-center relative z-10">
-        <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 X3ROE. Built with absolute precision.</p>
+    <footer class="border-t border-white/10 text-center pt-10 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+        <nav aria-label="Legal" class="mb-6">
+            <ul class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-bold">
+                <li><a href="/" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Home</a></li>
+                <li><a href="/privacy.html" aria-current="page" class="inline-block py-2 text-white underline underline-offset-4">Privacy</a></li>
+                <li><a href="/eula.html" class="inline-block py-2 text-white/70 hover:text-white transition-colors">EULA</a></li>
+                <li><a href="/copyright.html" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Copyright</a></li>
+            </ul>
+        </nav>
+        <p class="text-xs font-mono text-white/60 tracking-wider">© 2026 X3roe. All rights reserved.</p>
     </footer>
 
 </body>

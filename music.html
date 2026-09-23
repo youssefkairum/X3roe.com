@@ -3,161 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Midnight Blue | Original Music by X3roe</title>
-    
-    <meta name="description" content="Explore Midnight Blue, original atmospheric music compositions and cinematic soundtracks produced by X3roe.">
-    <meta property="og:title" content="Midnight Blue | Original Music by X3roe">
-    <meta property="og:description" content="Explore Midnight Blue, original atmospheric music compositions and cinematic soundtracks produced by X3roe.">
-    <meta property="og:image" content="https://x3roe.com/cover_midnight.jpg">
-    <meta property="og:url" content="https://x3roe.com/music.html">
-    <meta property="og:type" content="music.musician">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Midnight Blue | Original Music by X3roe">
-    <meta name="twitter:description" content="Explore Midnight Blue, original atmospheric music compositions and cinematic soundtracks produced by X3roe.">
-    <meta name="twitter:image" content="https://x3roe.com/cover_midnight.jpg">
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>X3rœ Music | Discography &amp; Releases</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        black: '#000000',
-                        white: '#FFFFFF',
-                    }
-                }
-            }
-        }
+    <meta name="description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Listen on Spotify, Apple Music and SoundCloud.">
+    <link rel="canonical" href="https://x3roe.com/music.html">
+    <meta property="og:site_name" content="X3roe">
+    <meta property="og:title" content="X3rœ Music | Discography &amp; Releases">
+    <meta property="og:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Listen on Spotify, Apple Music and SoundCloud.">
+    <meta property="og:image" content="https://x3roe.com/cover_midnight.jpg">
+    <meta property="og:image:width" content="640">
+    <meta property="og:image:height" content="640">
+    <meta property="og:image:alt" content="Midnight Blue cover art">
+    <meta property="og:url" content="https://x3roe.com/music.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="X3rœ Music | Discography &amp; Releases">
+    <meta name="twitter:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Listen on Spotify, Apple Music and SoundCloud.">
+    <meta name="twitter:image" content="https://x3roe.com/cover_midnight.jpg">
+    <meta name="twitter:image:alt" content="Midnight Blue cover art">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicGroup",
+      "name": "X3rœ",
+      "url": "https://x3roe.com/music.html",
+      "sameAs": [
+        "https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5",
+        "https://music.apple.com/us/artist/x3r%C5%93/1802614999",
+        "https://soundcloud.com/x3roe"
+      ]
+    }
     </script>
 
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/head.js"></script>
+    <script src="/assets/js/site.js" defer></script>
+
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
+        /* The document scrolls; sections snap to the top of the viewport. */
+        html {
+            scroll-snap-type: y proximity;
+        }
+        @media (min-width: 1024px) and (min-height: 760px) {
+            html { scroll-snap-type: y mandatory; }
         }
 
-        #snap-container {
-            width: 100vw;
-            height: 100vh;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        /* Fixed header: clears notches and rounded corners (viewport-fit=cover). */
+        .site-header {
+            padding: max(1.5rem, env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-right)) 1.5rem max(1.5rem, env(safe-area-inset-left));
         }
-        
-        #snap-container::-webkit-scrollbar {
-            display: none;
+        @media (min-width: 640px) {
+            .site-header {
+                padding: max(2.5rem, env(safe-area-inset-top)) max(2.5rem, env(safe-area-inset-right)) 2.5rem max(2.5rem, env(safe-area-inset-left));
+            }
         }
 
+        /* Mobile menu panel: never taller than the space under the header (it scrolls instead). */
+        #mobile-nav {
+            max-height: calc(100vh - 100%);
+            max-height: calc(100svh - 100%);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        /* Full-screen sections that grow with their content instead of clipping it. */
         .snap-section {
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
+            min-height: 100svh;
             scroll-snap-align: start;
-            scroll-snap-stop: always;
             position: relative;
+            isolation: isolate;
+            overflow-x: clip;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding-top: max(6.5rem, calc(env(safe-area-inset-top) + 5rem));
+            padding-bottom: 4rem;
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+        @media (min-width: 640px) {
+            .snap-section {
+                padding-top: max(8.5rem, calc(env(safe-area-inset-top) + 6.5rem));
+                padding-bottom: 5rem;
+            }
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        /* Short viewports (landscape phones, 200% zoom): slimmer header and section padding. */
+        @media (max-height: 500px) {
+            .site-header {
+                padding-top: max(1rem, env(safe-area-inset-top));
+                padding-bottom: 1rem;
+            }
+            .snap-section {
+                padding-top: max(5.5rem, calc(env(safe-area-inset-top) + 4.5rem));
+                padding-bottom: 3rem;
+            }
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
     </style>
 </head>
 <body class="antialiased selection:bg-white selection:text-black">
 
     <!-- Fixed UI Overlay -->
-    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 flex justify-between items-center pointer-events-none bg-gradient-to-b from-black/80 via-black/40 to-transparent">
         <div class="pointer-events-auto">
-            <a href="index.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
-                <i class="ph-bold ph-arrow-left"></i>
+            <a href="/" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors">
+                <i class="ph-bold ph-arrow-left" aria-hidden="true"></i>
+                <span class="sr-only">Home: </span>
                 <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
             </a>
         </div>
-        
-        <nav class="hidden md:flex gap-8 pointer-events-auto">
+
+        <nav class="hidden md:flex gap-8 pointer-events-auto" aria-label="Primary">
             <a href="#latest" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Latest</a>
             <a href="#discography" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Catalog</a>
             <a href="#listen" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Listen</a>
         </nav>
-        
-        <div class="pointer-events-auto flex gap-4">
-            <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
-                <i class="ph-fill ph-spotify-logo"></i>
+
+        <div class="pointer-events-auto flex items-center gap-4">
+            <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" rel="noopener noreferrer" aria-label="X3rœ on Spotify (opens in new tab)" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+                <i class="ph-fill ph-spotify-logo" aria-hidden="true"></i>
             </a>
-            <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
-                <i class="ph-fill ph-apple-logo"></i>
+            <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" rel="noopener noreferrer" aria-label="X3rœ on Apple Music (opens in new tab)" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+                <i class="ph-fill ph-apple-logo" aria-hidden="true"></i>
             </a>
+            <button type="button" class="md:hidden w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors" data-nav-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
+                <i class="ph-bold ph-list" aria-hidden="true"></i>
+            </button>
         </div>
+
+        <nav id="mobile-nav" class="md:hidden absolute top-full left-0 right-0 pointer-events-auto bg-black/90 backdrop-blur-md border-y border-white/10" data-mobile-nav aria-label="Mobile" hidden>
+            <ul class="flex flex-col py-2 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))]">
+                <li><a href="#latest" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest">Latest</a></li>
+                <li><a href="#discography" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Catalog</a></li>
+                <li><a href="#listen" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Listen</a></li>
+            </ul>
+        </nav>
     </header>
 
+    <main id="main">
 
-
-    <!-- Snap Scrolling Container -->
-    <main id="snap-container">
-        
         <!-- Section 1: LATEST RELEASE -->
         <section id="latest" class="snap-section bg-black">
-            <div class="absolute inset-0 z-0 opacity-[0.15] pointer-events-none">
-                <img src="cover_afterimage.jpg" class="w-full h-full object-cover grayscale blur-3xl scale-110" onerror="this.style.display='none';">
+            <div class="absolute inset-0 -z-10 opacity-[0.15] pointer-events-none overflow-hidden" aria-hidden="true">
+                <img src="cover_afterimage.jpg" alt="" width="640" height="640" decoding="async" class="w-full h-full object-cover grayscale blur-3xl scale-110">
                 <div class="absolute inset-0 bg-black/80"></div>
             </div>
-            
-            <div class="max-w-7xl w-full px-6 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20 z-10">
-                
+
+            <div class="max-w-7xl w-full px-6 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
+
                 <div class="flex-1 reveal w-full text-center md:text-left">
                     <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
                         New Single
                     </span>
                     <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter leading-[0.9] text-white">
-                        After<br>image.
+                        <span class="sr-only">Afterimage</span>
+                        <span aria-hidden="true">After<br>image.</span>
                     </h1>
-                    <p class="text-xl sm:text-2xl text-white/40 font-medium mt-4 font-mono tracking-widest">
+                    <p class="text-xl sm:text-2xl text-white/60 mt-4 font-mono tracking-widest">
                         FEAT. NAKADATE
                     </p>
-                    
+
                     <div class="mt-12 flex justify-center md:justify-start reveal stagger-1">
-                        <a href="https://lnk.to/aftrimg" target="_blank" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
-                            <i class="ph-fill ph-play-circle text-xl"></i> Listen Now
+                        <a href="https://lnk.to/aftrimg" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+                            <i class="ph-fill ph-play-circle text-xl" aria-hidden="true"></i> Listen Now<span class="sr-only">: Afterimage (opens in new tab)</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- Record Player UI -->
-                <div class="flex-1 w-full max-w-md reveal stagger-2">
-                    <div class="w-full aspect-square bg-[#050505] border border-white/10 rounded-full p-4 group">
+                <!-- Record Player UI (decorative: the h1 names the release) -->
+                <div class="flex-1 w-full max-w-md reveal stagger-2" aria-hidden="true">
+                    <div class="w-full aspect-square bg-[#050505] border border-white/10 rounded-full p-4">
                         <div class="w-full h-full border border-white/10 rounded-full bg-black relative overflow-hidden flex items-center justify-center animate-[spin_10s_linear_infinite]">
-                            <img src="cover_afterimage.jpg" alt="Afterimage Cover" class="absolute inset-0 w-full h-full object-cover opacity-60" onerror="this.style.display='none';">
-                            <div class="w-24 h-24 bg-black rounded-full border-4 border-[#050505] z-10"></div>
+                            <img src="cover_afterimage.jpg" alt="" width="640" height="640" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                            <div class="w-24 h-24 bg-black rounded-full border-4 border-[#050505] relative"></div>
                         </div>
                     </div>
                 </div>
@@ -167,115 +197,93 @@
 
         <!-- Section 2: DISCOGRAPHY -->
         <section id="discography" class="snap-section bg-[#020202] border-t border-white/5">
-            <div class="max-w-7xl w-full px-6 flex flex-col justify-center h-full pt-20">
-                
+            <div class="max-w-7xl w-full px-6">
+
                 <div class="reveal mb-12">
                     <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-white">Catalog.</h2>
                 </div>
 
-                <!-- Horizontal scroll area for records if on small screens, or grid on large -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-6xl">
-                    
-                    <!-- Item 1 -->
-                    <div class="group reveal stagger-1">
-                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4 relative hover:border-white/30 transition-colors">
-                            <img src="cover_bodytalk.jpg" alt="BODYTALK" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500" onerror="this.style.display='none';">
-                        </div>
-                        <h3 class="text-white font-bold tracking-tight truncate">BODYTALK</h3>
-                        <p class="text-white/40 text-xs uppercase tracking-widest mt-1">Single • 2025</p>
-                    </div>
+                <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-6xl" role="list">
 
-                    <!-- Item 2 -->
-                    <div class="group reveal stagger-2">
-                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4 relative hover:border-white/30 transition-colors">
-                            <img src="cover_midnight.jpg" alt="Midnight Blue" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500" onerror="this.style.display='none';">
+                    <li class="group reveal stagger-1">
+                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
+                            <img src="cover_bodytalk.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
                         </div>
-                        <h3 class="text-white font-bold tracking-tight truncate">Midnight Blue</h3>
-                        <p class="text-white/40 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
-                    </div>
+                        <h3 class="text-white font-bold tracking-tight">BODYTALK</h3>
+                        <p class="text-white/60 text-xs uppercase tracking-widest mt-1">Single • 2025</p>
+                    </li>
 
-                    <!-- Item 3 -->
-                    <div class="group reveal stagger-3">
-                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4 relative hover:border-white/30 transition-colors">
-                            <img src="cover_xero.jpg" alt="Xero Vol 2" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500" onerror="this.style.display='none';">
+                    <li class="group reveal stagger-2">
+                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
+                            <img src="cover_midnight.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
                         </div>
-                        <h3 class="text-white font-bold tracking-tight truncate">Xero, Vol. 2</h3>
-                        <p class="text-white/40 text-xs uppercase tracking-widest mt-1">Album • 2025</p>
-                    </div>
-                    
-                    <!-- Item 4 -->
-                    <div class="group reveal stagger-4">
-                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4 relative hover:border-white/30 transition-colors">
-                            <img src="cover_antisocial.jpg" alt="Sorry for being anti-social" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500" onerror="this.style.display='none';">
-                        </div>
-                        <h3 class="text-white font-bold tracking-tight truncate">Anti-social</h3>
-                        <p class="text-white/40 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
-                    </div>
+                        <h3 class="text-white font-bold tracking-tight">Midnight Blue</h3>
+                        <p class="text-white/60 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
+                    </li>
 
-                </div>
+                    <li class="group reveal stagger-3">
+                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
+                            <img src="cover_xero.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
+                        </div>
+                        <h3 class="text-white font-bold tracking-tight">Xero, Vol. 2</h3>
+                        <p class="text-white/60 text-xs uppercase tracking-widest mt-1">Album • 2025</p>
+                    </li>
+
+                    <li class="group reveal stagger-4">
+                        <div class="aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
+                            <img src="cover_antisocial.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
+                        </div>
+                        <h3 class="text-white font-bold tracking-tight">Anti-social</h3>
+                        <p class="text-white/60 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
+                    </li>
+
+                </ul>
 
             </div>
         </section>
 
         <!-- Section 3: LISTEN -->
-        <section id="listen" class="snap-section bg-black border-t border-white/5">
-            <div class="max-w-4xl w-full mx-auto px-6 text-center z-10">
+        <section id="listen" class="snap-section flex-col bg-black border-t border-white/5">
+            <div class="max-w-4xl w-full mx-auto px-6 text-center my-auto">
                 <div class="reveal">
-                    <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-16">
+                    <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-10 sm:mb-16">
                         Listen Everywhere.
                     </h2>
                 </div>
-                
-                <div class="flex flex-wrap justify-center items-center gap-12 sm:gap-20 reveal stagger-1">
-                    <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" class="text-white/40 hover:text-white transition-colors" title="Spotify">
-                        <i class="ph-fill ph-spotify-logo text-6xl"></i>
-                    </a>
-                    
-                    <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" class="text-white/40 hover:text-white transition-colors" title="Apple Music">
-                        <svg class="w-14 h-14 fill-current" viewBox="0 0 384 512">
-                            <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
-                        </svg>
-                    </a>
-                    
-                    <a href="https://soundcloud.com/x3roe" target="_blank" class="text-white/40 hover:text-white transition-colors" title="SoundCloud">
-                        <i class="ph-fill ph-soundcloud-logo text-6xl"></i>
-                    </a>
-                </div>
-                
-                <div class="absolute bottom-10 left-0 right-0 text-center reveal stagger-2">
-                    <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 X3roe Music.</p>
-                </div>
+
+                <ul class="flex flex-wrap justify-center items-start gap-x-10 gap-y-8 sm:gap-20 reveal stagger-1" role="list">
+                    <li>
+                        <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-3 text-white/60 hover:text-white transition-colors">
+                            <i class="ph-fill ph-spotify-logo text-6xl" aria-hidden="true"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest">Spotify<span class="sr-only"> (opens in new tab)</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-3 text-white/60 hover:text-white transition-colors">
+                            <i class="ph-fill ph-apple-logo text-6xl" aria-hidden="true"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest">Apple Music<span class="sr-only"> (opens in new tab)</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://soundcloud.com/x3roe" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-3 text-white/60 hover:text-white transition-colors">
+                            <i class="ph-fill ph-soundcloud-logo text-6xl" aria-hidden="true"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest">SoundCloud<span class="sr-only"> (opens in new tab)</span></span>
+                        </a>
+                    </li>
+                </ul>
             </div>
+
+            <footer class="w-full max-w-4xl mx-auto px-6 pt-12 sm:pt-16 text-center reveal stagger-2">
+                <nav aria-label="Legal" class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+                    <a href="/" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Home</a>
+                    <a href="/privacy.html" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Privacy Policy</a>
+                    <a href="/eula.html" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">EULA</a>
+                    <a href="/copyright.html" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Copyright</a>
+                </nav>
+                <p class="mt-8 sm:mt-10 text-xs font-mono text-white/50 tracking-widest">© 2026 X3roe. All rights reserved.</p>
+            </footer>
         </section>
-        
+
     </main>
-
-    <script>
-        const observerOptions = {
-            root: document.getElementById('snap-container'),
-            rootMargin: '0px',
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.reveal').forEach(el => {
-                        el.classList.add('active');
-                    });
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.snap-section').forEach(section => {
-            observer.observe(section);
-        });
-        
-        setTimeout(() => {
-            document.getElementById('latest').querySelectorAll('.reveal').forEach(el => {
-                el.classList.add('active');
-            });
-        }, 100);
-    </script>
 </body>
 </html>

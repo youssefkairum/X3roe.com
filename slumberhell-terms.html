@@ -3,31 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Terms of Use | Slumber Hell</title>
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>text{fill:black} @media(prefers-color-scheme:dark){text{fill:white}}</style><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22>X</text></svg>">
+    <meta name="description" content="Terms of Use for Slumber Hell on iOS, Android and Windows PC: license, content notice, intellectual property, warranties, liability and contact.">
+    <link rel="canonical" href="https://x3roe.com/slumberhell-terms.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="X3roe">
+    <meta property="og:title" content="Terms of Use | Slumber Hell">
+    <meta property="og:description" content="Terms of Use for Slumber Hell on iOS, Android and Windows PC.">
+    <meta property="og:url" content="https://x3roe.com/slumberhell-terms.html">
+    <meta property="og:image" content="https://x3roe.com/slumber_icon.jpg">
+    <meta name="twitter:card" content="summary">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        black: '#000000',
-                        white: '#FFFFFF',
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/site.css">
 
     <style>
         body {
@@ -35,90 +31,68 @@
             color: #fff;
             overflow-x: hidden;
         }
-        
+
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        
-        @keyframes reveal {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
-        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
-        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
-        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
-        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
-        .stagger-6 { animation-delay: 0.6s; opacity: 0; }
-        .stagger-7 { animation-delay: 0.7s; opacity: 0; }
-        .stagger-8 { animation-delay: 0.8s; opacity: 0; }
     </style>
 </head>
 <body class="antialiased selection:bg-red-600 selection:text-white">
 
-    <!-- Fixed UI Overlay -->
-    <header class="fixed top-0 left-0 right-0 z-50 p-6 sm:p-10 flex justify-between items-center pointer-events-none">
-        <div class="pointer-events-auto">
-            <a href="slumber-hell.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors group">
-                <i class="ph-bold ph-arrow-left"></i>
-                <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
-            </a>
-        </div>
+    <header class="absolute top-0 left-0 right-0 z-10 p-6 sm:p-10 flex justify-between items-center gap-4">
+        <a href="/" class="text-2xl font-bold tracking-tighter text-white hover:text-white/70 transition-colors">X3rœ</a>
+        <a href="slumber-hell.html" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors">
+            <i class="ph-bold ph-arrow-left" aria-hidden="true"></i> Slumber Hell
+        </a>
     </header>
 
     <!-- Content -->
     <main class="max-w-3xl mx-auto px-6 pt-32 pb-24">
-        
+
         <!-- Header -->
-        <div class="mb-16 pb-8 border-b border-white/10 reveal">
+        <div class="mb-16 pb-8 border-b border-white/10 reveal-in">
             <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-red-500/30 bg-red-500/10 rounded-full text-red-400 mb-6 inline-block">
-                Legal & Terms
+                Slumber Hell · Legal &amp; Terms
             </span>
             <h1 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-6">
                 Terms of<br>
-                <span class="text-white/30">Use.</span>
+                <span class="text-white/50">Use.</span>
             </h1>
-            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/40 uppercase tracking-widest">
-                <p>Effective: 2026</p>
-                <span class="hidden sm:inline">•</span>
-                <p>Developer: Youssef Keram</p>
+            <div class="flex flex-col sm:flex-row gap-4 text-xs font-mono text-white/60 uppercase tracking-widest">
+                <p>Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+                <span class="hidden sm:inline" aria-hidden="true">•</span>
+                <p>Developer: Youssef Keram (X3roe)</p>
             </div>
         </div>
 
         <!-- Terms Sections -->
         <div class="space-y-16">
-            
-            <section class="reveal stagger-1">
+
+            <section class="reveal-in stagger-1">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
                     <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">01</span> Acceptance of Terms
                 </h2>
-                <p class="leading-relaxed text-white/60 font-light text-lg">
+                <p class="leading-relaxed text-white/60 font-light text-lg mb-4">
                     By downloading, installing, or playing <strong class="text-white font-medium">Slumber Hell</strong>, you agree to be bound by these Terms of Use. If you do not agree to these terms, please discontinue use of the Game immediately.
                 </p>
-            </section>
-
-            <section class="reveal stagger-2">
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">02</span> License & Permitted Use
-                </h2>
                 <p class="leading-relaxed text-white/60 font-light text-lg">
-                    We grant you a personal, limited, non-exclusive, non-transferable license to install and play Slumber Hell for non-commercial personal entertainment on your compatible devices.
+                    These Terms apply to every version of the Game: <strong class="text-white font-medium">iOS</strong> (Apple App Store), <strong class="text-white font-medium">Android</strong> (Google Play) and <strong class="text-white font-medium">Windows PC</strong> (ZIP download from dl.x3roe.com, linked from the <a href="slumber-hell.html" class="text-white underline underline-offset-4 decoration-white/40 hover:decoration-white">Slumber Hell page</a>). How each version handles your data is described in the <a href="slumberhell-privacy.html" class="text-white underline underline-offset-4 decoration-white/40 hover:decoration-white">Slumber Hell Privacy Policy</a>.
                 </p>
             </section>
 
-            <section class="reveal stagger-3">
+            <section class="reveal-in stagger-2">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
-                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">03</span> Content & Horror Notice
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">02</span> License &amp; Permitted Use
+                </h2>
+                <p class="leading-relaxed text-white/60 font-light text-lg">
+                    We grant you a personal, limited, non-exclusive, non-transferable license to install and play Slumber Hell for non-commercial personal entertainment on your compatible devices, including a Windows PC for the PC version.
+                </p>
+            </section>
+
+            <section class="reveal-in stagger-3">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
+                    <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">03</span> Content &amp; Horror Notice
                 </h2>
                 <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-red-500/60">
                     <li>Slumber Hell is an atmospheric survival horror experience designed with suspenseful tension, sudden scares, and intense binaural sound design.</li>
@@ -126,17 +100,17 @@
                 </ul>
             </section>
 
-            <section class="reveal stagger-4">
+            <section class="reveal-in stagger-4">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
                     <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">04</span> Intellectual Property
                 </h2>
                 <ul class="list-disc list-outside ml-5 space-y-3 leading-relaxed text-white/60 font-light text-lg marker:text-red-500/60">
-                    <li>All 3D geometric models, PSX-style artwork, sound design, code, and narrative elements within Slumber Hell are the sole intellectual property of <strong class="text-white font-medium">Youssef Keram (X3rœ)</strong>.</li>
+                    <li>All 3D geometric models, PSX-style artwork, sound design, code, and narrative elements within Slumber Hell are the sole intellectual property of <strong class="text-white font-medium">Youssef Keram (X3roe)</strong>.</li>
                     <li>Reverse engineering, redistributing, or commercial exploitation of game assets without explicit authorization is prohibited.</li>
                 </ul>
             </section>
 
-            <section class="reveal stagger-5">
+            <section class="reveal-in stagger-5">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
                     <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">05</span> Disclaimer of Warranties
                 </h2>
@@ -145,7 +119,7 @@
                 </p>
             </section>
 
-            <section class="reveal stagger-6">
+            <section class="reveal-in stagger-6">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
                     <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">06</span> Limitation of Liability
                 </h2>
@@ -154,7 +128,7 @@
                 </p>
             </section>
 
-            <section class="reveal stagger-7">
+            <section class="reveal-in stagger-6">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
                     <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">07</span> Modifications to Terms
                 </h2>
@@ -163,13 +137,13 @@
                 </p>
             </section>
 
-            <section class="bg-white/[0.02] border border-white/10 rounded-3xl p-8 mt-16 reveal stagger-8">
+            <section class="bg-white/[0.02] border border-white/10 rounded-3xl p-8 mt-16 reveal-in stagger-6">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-4 text-white tracking-tighter">
                     <span class="text-sm font-mono text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">08</span> Contact Information
                 </h2>
                 <p class="mb-6 text-white/60 font-light text-lg">For legal inquiries or support regarding these Terms of Use, contact:</p>
-                <a href="mailto:contact@x3roe.com" class="inline-flex items-center gap-3 pb-2 border-b-2 border-white text-white font-bold hover:text-white/60 hover:border-white/60 transition-colors">
-                    <i class="ph-bold ph-envelope-simple text-xl"></i> contact@x3roe.com
+                <a href="mailto:contact@x3roe.com?subject=Slumber%20Hell%20Support" class="inline-flex items-center gap-3 pb-2 border-b-2 border-white text-white font-bold hover:text-white/70 hover:border-white/70 transition-colors">
+                    <i class="ph-bold ph-envelope-simple text-xl" aria-hidden="true"></i> contact@x3roe.com
                 </a>
             </section>
 
@@ -177,8 +151,19 @@
     </main>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 text-center border-t border-white/10">
-        <p class="text-xs font-mono text-white/30 uppercase tracking-widest">© 2026 Youssef Keram. All rights reserved.</p>
+    <footer class="border-t border-white/10 text-center pt-10 px-6 pb-10">
+        <nav aria-label="Legal" class="mb-6">
+            <ul class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-bold">
+                <li><a href="/" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Home</a></li>
+                <li><a href="slumber-hell.html" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Slumber Hell</a></li>
+                <li><a href="slumberhell-privacy.html" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Game Privacy</a></li>
+                <li><a href="slumberhell-terms.html" aria-current="page" class="inline-block py-2 text-white underline underline-offset-4">Game Terms</a></li>
+                <li><a href="/privacy.html" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Site Privacy</a></li>
+                <li><a href="/eula.html" class="inline-block py-2 text-white/70 hover:text-white transition-colors">EULA</a></li>
+                <li><a href="/copyright.html" class="inline-block py-2 text-white/70 hover:text-white transition-colors">Copyright</a></li>
+            </ul>
+        </nav>
+        <p class="text-xs font-mono text-white/60 uppercase tracking-widest">© 2026 X3roe. All rights reserved.</p>
     </footer>
 
 </body>
