@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://formspree.io; object-src 'none'; base-uri 'self'; form-action https://formspree.io; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>For Maluuka | X3roe</title>
+    <meta name="robots" content="noindex">
+
+    <meta name="theme-color" content="#050208">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/site.css?v=c9ce7e3374">
+    <script src="/assets/js/head.js?v=ed7642216d"></script>
+    <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
+    <script src="/assets/js/maluuka.js?v=3f4e8d7a08" defer></script>
+
+    <style>
+        body {
+            background-color: #050208;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 80% 35%, rgba(192, 132, 252, 0.10) 0%, transparent 45%),
+                radial-gradient(circle at 50% 85%, rgba(251, 113, 133, 0.12) 0%, transparent 50%);
+            min-height: 100vh;
+            min-height: 100svh;
+            overflow-x: clip;
+        }
+
+        /* Subtle twinkling starfield */
+        .starfield {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                radial-gradient(1.5px 1.5px at 12% 18%, rgba(255, 255, 255, 0.75) 50%, transparent 100%),
+                radial-gradient(1px 1px at 28% 62%, rgba(251, 207, 232, 0.65) 50%, transparent 100%),
+                radial-gradient(2px 2px at 45% 26%, rgba(244, 114, 182, 0.7) 50%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 68% 14%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
+                radial-gradient(1px 1px at 84% 48%, rgba(233, 213, 255, 0.7) 50%, transparent 100%),
+                radial-gradient(2px 2px at 74% 78%, rgba(251, 113, 133, 0.6) 50%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 19% 84%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+                radial-gradient(1px 1px at 56% 52%, rgba(251, 207, 232, 0.55) 50%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 91% 82%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
+                radial-gradient(1px 1px at 36% 91%, rgba(244, 114, 182, 0.6) 50%, transparent 100%);
+            animation: twinkle 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.45; }
+            100% { opacity: 0.95; }
+        }
+
+        /* Interactive envelope stage */
+        .envelope-card {
+            position: relative;
+            background: linear-gradient(160deg, rgba(31, 16, 36, 0.92), rgba(14, 7, 19, 0.96));
+            border: 1px solid rgba(244, 114, 182, 0.35);
+            box-shadow:
+                0 25px 70px -15px rgba(244, 114, 182, 0.25),
+                0 0 40px rgba(192, 132, 252, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.4s ease;
+        }
+
+        .envelope-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(244, 114, 182, 0.65);
+            box-shadow:
+                0 30px 80px -10px rgba(244, 114, 182, 0.35),
+                0 0 55px rgba(192, 132, 252, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 54%;
+            background: linear-gradient(180deg, rgba(244, 114, 182, 0.22), rgba(192, 132, 252, 0.08));
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+            border-top-left-radius: 1.75rem;
+            border-top-right-radius: 1.75rem;
+            pointer-events: none;
+        }
+
+        .wax-seal {
+            box-shadow:
+                0 0 30px rgba(244, 114, 182, 0.55),
+                inset 0 2px 4px rgba(255, 255, 255, 0.35);
+            animation: pulse-rose 2.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-rose {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 25px rgba(244, 114, 182, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.35);
+            }
+            50% {
+                transform: scale(1.06);
+                box-shadow: 0 0 42px rgba(244, 114, 182, 0.75), inset 0 2px 4px rgba(255, 255, 255, 0.45);
+            }
+        }
+
+        .envelope-card.is-opening .envelope-flap {
+            transform: rotateX(180deg);
+            opacity: 0.2;
+        }
+
+        .envelope-card.is-opening {
+            transform: scale(0.96) translateY(-12px);
+            opacity: 0;
+            transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease 0.15s;
+            pointer-events: none;
+        }
+
+        /* When JS is running, hide the surprise content until the envelope is opened */
+        .js #surprise-content[data-locked="true"] {
+            display: none;
+        }
+
+        /* Appreciation cards secret note toggle */
+        .bestie-card {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .bestie-card:hover {
+            transform: translateY(-4px);
+        }
+        .bestie-card[aria-expanded="true"] {
+            border-color: rgba(244, 114, 182, 0.6);
+            background-color: rgba(244, 114, 182, 0.08);
+        }
+
+        /* Floating particle burst */
+        .particle-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 60;
+            overflow: hidden;
+        }
+
+        .floating-particle {
+            position: absolute;
+            will-change: transform, opacity;
+            animation: float-up var(--dur, 2.4s) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0) scale(0.5) rotate(0deg);
+            }
+            70% {
+                opacity: 0.95;
+            }
+            100% {
+                opacity: 0;
+                transform: translate3d(var(--dx, 0px), var(--dy, -220px), 0) scale(var(--scale, 1.25)) rotate(var(--rot, 18deg));
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-pink-400 selection:text-black relative flex flex-col text-white">
+
+    <!-- Ambient starry night layer -->
+    <div class="starfield" aria-hidden="true"></div>
+    <div id="particle-layer" class="particle-layer" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header class="relative z-20 flex justify-between items-center pt-[max(1.5rem,env(safe-area-inset-top))] pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] sm:pt-[max(2.5rem,env(safe-area-inset-top))] sm:pl-[max(2.5rem,env(safe-area-inset-left))] sm:pr-[max(2.5rem,env(safe-area-inset-right))]">
+        <a href="/" class="text-2xl font-bold tracking-tighter text-white hover:text-pink-300 transition-colors">X3rœ</a>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-pink-400/30 bg-pink-500/10 text-pink-200 text-xs font-mono tracking-widest uppercase">
+            <i class="ph-fill ph-sparkle text-pink-400" aria-hidden="true"></i>
+            <span>Secret Page // Maluuka</span>
+        </div>
+    </header>
+
+    <main id="main" class="relative z-10 flex-1 flex flex-col items-center justify-center w-full pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] pb-[max(4rem,env(safe-area-inset-bottom))]">
+
+        <!-- STAGE 1: Interactive Sealed Envelope -->
+        <section id="envelope-stage" aria-label="Surprise Envelope" class="w-full max-w-xl mx-auto py-12 sm:py-16 flex flex-col items-center justify-center min-h-[78svh]">
+            <div class="text-center mb-8 reveal-in">
+                <span class="inline-flex items-center gap-2 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-widest border border-pink-400/30 bg-pink-500/10 rounded-full text-pink-300 mb-4">
+                    <i class="ph-fill ph-moon-stars" aria-hidden="true"></i> A Private Delivery For You
+                </span>
+                <p class="text-sm sm:text-base text-white/60 font-light">
+                    Someone left a hidden constellation on <span class="text-white/90 font-medium">x3roe.com</span> just for you.
+                </p>
+            </div>
+
+            <button type="button" id="open-envelope-btn" class="envelope-card w-full rounded-[28px] p-8 sm:p-12 text-center cursor-pointer group focus-visible:outline focus-visible:outline-2 focus-visible:outline-pink-300">
+                <div class="envelope-flap" aria-hidden="true"></div>
+
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="wax-seal w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-pink-400 via-rose-500 to-purple-600 flex items-center justify-center text-white mb-6">
+                        <i class="ph-fill ph-heart text-3xl sm:text-4xl" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="font-mono text-xs uppercase tracking-[0.25em] text-pink-300/90 mb-2">
+                        To: Maluuka
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-3">
+                        Open Your Surprise
+                    </div>
+                    <p class="text-sm text-white/60 max-w-xs mx-auto leading-relaxed mb-6">
+                        Tap the heart seal to unseal your letter &amp; unlock your secret page
+                    </p>
+
+                    <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 text-xs font-bold uppercase tracking-widest text-pink-200 group-hover:bg-pink-400 group-hover:text-black group-hover:border-pink-400 transition-colors">
+                        <i class="ph-fill ph-sparkle" aria-hidden="true"></i> Tap to Unseal
+                    </span>
+                </div>
+            </button>
+        </section>
+
+        <!-- STAGE 2: Unlocked Surprise Content -->
+        <div id="surprise-content" data-locked="true" tabindex="-1" class="w-full max-w-5xl mx-auto pt-6 sm:pt-12 space-y-20 sm:space-y-28 focus:outline-none">
+
+            <!-- Hero + Letter Section -->
+            <section aria-labelledby="maluuka-heading" class="text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-pink-400/30 bg-pink-500/10 text-pink-300 text-xs font-bold uppercase tracking-widest mb-6">
+                    <i class="ph-fill ph-crown text-amber-300" aria-hidden="true"></i>
+                    <span>Official Bestie Appreciation Page</span>
+                </div>
+
+                <h1 id="maluuka-heading" class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[0.95] text-white">
+                    For <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-400 to-purple-300">Maluuka.</span>
+                </h1>
+
+                <p class="mt-6 text-lg sm:text-xl text-white/65 font-light max-w-2xl mx-auto leading-relaxed">
+                    A tiny corner of the internet built just to remind you how deeply loved, appreciated, and irreplaceable you are.
+                </p>
+
+                <!-- The Letter Card -->
+                <article aria-label="A letter to Maluuka" class="mt-12 sm:mt-16 text-left max-w-3xl mx-auto rounded-[32px] border border-pink-400/25 bg-gradient-to-b from-white/[0.06] to-white/[0.02] backdrop-blur-md p-7 sm:p-12 shadow-[0_20px_70px_rgba(244,114,182,0.12)] relative overflow-hidden">
+                    <div class="absolute -top-24 -right-24 w-56 h-56 rounded-full bg-pink-500/15 blur-3xl pointer-events-none" aria-hidden="true"></div>
+                    <div class="absolute -bottom-24 -left-24 w-56 h-56 rounded-full bg-purple-500/15 blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+                    <div class="flex flex-wrap items-center justify-between gap-2 pb-6 mb-6 border-b border-white/10">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-pink-500/15 border border-pink-400/30 flex items-center justify-center text-pink-300">
+                                <i class="ph-fill ph-heart text-xl" aria-hidden="true"></i>
+                            </span>
+                            <div>
+                                <div class="text-xs font-mono uppercase tracking-widest text-pink-300">Personal Note</div>
+                                <div class="text-sm text-white/60">To my favorite person, Maluuka</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-white/50">PRIORITY // FOREVER</span>
+                    </div>
+
+                    <div class="space-y-5 text-base sm:text-lg text-white/85 font-light leading-relaxed">
+                        <p class="text-xl sm:text-2xl font-semibold text-white">
+                            Hey Maluuka,
+                        </p>
+                        <p>
+                            I wanted to hide something special inside my website that belongs only to you. People usually build websites for apps, projects, or portfolios—but honestly, having a best friend like you is something worth celebrating way more.
+                        </p>
+                        <p>
+                            Thank you for being my constant safe space, for every single laugh that made my stomach hurt, for listening to my endless rants, and for always showing up with the purest, warmest heart. You make ordinary days feel lighter and hard days feel survivable just by existing in my life.
+                        </p>
+                        <p>
+                            Whenever you ever doubt yourself or have a heavy day, come back to this page and remember: <strong class="font-semibold text-pink-200">you are so loved, you matter more than words can say, and you will always have me in your corner.</strong>
+                        </p>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <div class="text-xs font-mono uppercase tracking-widest text-white/50">Signed with love</div>
+                            <div class="text-lg font-bold tracking-tight text-pink-200 mt-0.5">Your Bestie, Youssef (X3rœ)</div>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 text-pink-400 text-lg" aria-hidden="true">
+                            <i class="ph-fill ph-heart"></i>
+                            <i class="ph-fill ph-sparkle"></i>
+                            <i class="ph-fill ph-heart"></i>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Why You're Iconic: Interactive Reveal Cards -->
+            <section aria-labelledby="reasons-heading" class="w-full">
+                <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+                    <span class="text-xs font-mono font-bold uppercase tracking-widest text-pink-300 block mb-3">
+                        Tap Any Card For A Secret Note
+                    </span>
+                    <h2 id="reasons-heading" class="text-3xl sm:text-5xl font-bold tracking-tight text-white">
+                        Why You're The Best Bestie
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+                    <!-- Card 1 -->
+                    <button type="button" data-bestie-card aria-expanded="false" class="bestie-card text-left w-full rounded-3xl border border-white/15 bg-white/[0.03] p-6 sm:p-8 flex flex-col justify-between gap-4 cursor-pointer">
+                        <div>
+                            <div class="flex items-center justify-between gap-4 mb-4">
+                                <span class="w-12 h-12 rounded-2xl bg-pink-500/15 border border-pink-400/30 flex items-center justify-center text-pink-300">
+                                    <i class="ph-fill ph-moon-stars text-2xl" aria-hidden="true"></i>
+                                </span>
+                                <span class="text-xs font-mono text-pink-300/80 uppercase tracking-widest">01 // Safe Space</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Always My Comfort Zone</h3>
+                            <p class="text-sm sm:text-base text-white/65 font-light leading-relaxed">
+                                Through every high and low, you have this rare magic of making everything feel okay just by being there and listening without judgment.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-white/10 w-full">
+                            <span data-card-prompt class="text-xs font-mono uppercase tracking-widest text-pink-300 inline-flex items-center gap-1.5">
+                                <i class="ph-fill ph-sparkle" aria-hidden="true"></i> Tap to reveal secret note
+                            </span>
+                            <p data-card-secret hidden class="text-sm font-medium text-pink-200 leading-relaxed">
+                                Certified 10/10 best listener, advisor &amp; emotional support bestie in the universe.
+                            </p>
+                        </div>
+                    </button>
+
+                    <!-- Card 2 -->
+                    <button type="button" data-bestie-card aria-expanded="false" class="bestie-card text-left w-full rounded-3xl border border-white/15 bg-white/[0.03] p-6 sm:p-8 flex flex-col justify-between gap-4 cursor-pointer">
+                        <div>
+                            <div class="flex items-center justify-between gap-4 mb-4">
+                                <span class="w-12 h-12 rounded-2xl bg-purple-500/15 border border-purple-400/30 flex items-center justify-center text-purple-300">
+                                    <i class="ph-fill ph-smiley-wink text-2xl" aria-hidden="true"></i>
+                                </span>
+                                <span class="text-xs font-mono text-purple-300/80 uppercase tracking-widest">02 // Unmatched Vibe</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Pure Sunshine &amp; Laughs</h3>
+                            <p class="text-sm sm:text-base text-white/65 font-light leading-relaxed">
+                                Nobody makes me laugh the way you do. Even the most random, chaotic conversations with you instantly turn into core memories.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-white/10 w-full">
+                            <span data-card-prompt class="text-xs font-mono uppercase tracking-widest text-purple-300 inline-flex items-center gap-1.5">
+                                <i class="ph-fill ph-sparkle" aria-hidden="true"></i> Tap to reveal secret note
+                            </span>
+                            <p data-card-secret hidden class="text-sm font-medium text-purple-200 leading-relaxed">
+                                Official partner-in-crime for life. Every day is 100x funnier with Maluuka around.
+                            </p>
+                        </div>
+                    </button>
+
+                    <!-- Card 3 -->
+                    <button type="button" data-bestie-card aria-expanded="false" class="bestie-card text-left w-full rounded-3xl border border-white/15 bg-white/[0.03] p-6 sm:p-8 flex flex-col justify-between gap-4 cursor-pointer">
+                        <div>
+                            <div class="flex items-center justify-between gap-4 mb-4">
+                                <span class="w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-400/30 flex items-center justify-center text-rose-300">
+                                    <i class="ph-fill ph-crown text-2xl" aria-hidden="true"></i>
+                                </span>
+                                <span class="text-xs font-mono text-rose-300/80 uppercase tracking-widest">03 // Rare Soul</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">A Heart of Pure Gold</h3>
+                            <p class="text-sm sm:text-base text-white/65 font-light leading-relaxed">
+                                Your kindness, loyalty, and the genuine way you care for the people you love is honestly one of the rarest things in this world.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-white/10 w-full">
+                            <span data-card-prompt class="text-xs font-mono uppercase tracking-widest text-rose-300 inline-flex items-center gap-1.5">
+                                <i class="ph-fill ph-sparkle" aria-hidden="true"></i> Tap to reveal secret note
+                            </span>
+                            <p data-card-secret hidden class="text-sm font-medium text-rose-200 leading-relaxed">
+                                Rule #1 of the universe: Protect Maluuka and her smile at all costs.
+                            </p>
+                        </div>
+                    </button>
+
+                    <!-- Card 4 -->
+                    <button type="button" data-bestie-card aria-expanded="false" class="bestie-card text-left w-full rounded-3xl border border-white/15 bg-white/[0.03] p-6 sm:p-8 flex flex-col justify-between gap-4 cursor-pointer">
+                        <div>
+                            <div class="flex items-center justify-between gap-4 mb-4">
+                                <span class="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300">
+                                    <i class="ph-fill ph-shooting-star text-2xl" aria-hidden="true"></i>
+                                </span>
+                                <span class="text-xs font-mono text-amber-300/80 uppercase tracking-widest">04 // Every Timeline</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Besties Across Every Universe</h3>
+                            <p class="text-sm sm:text-base text-white/65 font-light leading-relaxed">
+                                If I had to choose a best friend all over again in every lifetime and every timeline, I would still pick you every single time.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-white/10 w-full">
+                            <span data-card-prompt class="text-xs font-mono uppercase tracking-widest text-amber-300 inline-flex items-center gap-1.5">
+                                <i class="ph-fill ph-sparkle" aria-hidden="true"></i> Tap to reveal secret note
+                            </span>
+                            <p data-card-secret hidden class="text-sm font-medium text-amber-200 leading-relaxed">
+                                Locked in forever — no cancellations, no refunds, besties for eternity.
+                            </p>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Interactive Virtual Hug & Heart Shower Station -->
+            <section aria-labelledby="hug-heading" class="rounded-[32px] border border-pink-400/30 bg-gradient-to-br from-pink-500/10 via-purple-500/5 to-transparent p-8 sm:p-12 text-center">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-pink-400/30 bg-pink-500/10 text-pink-300 text-xs font-mono uppercase tracking-widest mb-4">
+                    <i class="ph-fill ph-gift" aria-hidden="true"></i> Instant Mood Booster
+                </div>
+
+                <h2 id="hug-heading" class="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+                    Need a Virtual Hug?
+                </h2>
+                <p class="text-base sm:text-lg text-white/65 font-light max-w-xl mx-auto mb-8">
+                    Press the button below whenever you want a shower of hearts and a reminder of how much your bestie loves you.
+                </p>
+
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <button type="button" id="hug-btn" class="px-8 py-4 rounded-full bg-gradient-to-r from-pink-400 via-rose-400 to-purple-400 text-black font-bold text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-transform inline-flex items-center gap-2.5 shadow-[0_0_35px_rgba(244,114,182,0.45)] cursor-pointer">
+                        <i class="ph-fill ph-heart text-lg" aria-hidden="true"></i>
+                        <span>Send Virtual Hug</span>
+                    </button>
+
+                    <button type="button" id="replay-envelope-btn" class="px-6 py-4 rounded-full border border-white/20 bg-white/5 text-white/80 hover:text-white hover:bg-white/10 font-bold text-xs uppercase tracking-widest transition-colors inline-flex items-center gap-2 cursor-pointer">
+                        <i class="ph-bold ph-envelope-simple text-base" aria-hidden="true"></i>
+                        <span>Replay Envelope</span>
+                    </button>
+                </div>
+
+                <p id="hug-status" role="status" aria-live="polite" class="mt-6 text-sm sm:text-base font-medium text-pink-200 min-h-[1.75rem]">
+                    Bestie Love Meter: ∞ / 100
+                </p>
+            </section>
+
+            <footer class="pt-6 pb-8 text-center border-t border-white/10">
+                <p class="text-xs font-mono text-white/50 tracking-widest uppercase">
+                    Made with <i class="ph-fill ph-heart text-pink-400 mx-0.5" aria-hidden="true"></i> exclusively for Maluuka &bull; X3roe
+                </p>
+            </footer>
+        </div>
+
+    </main>
+
+</body>
+</html>
