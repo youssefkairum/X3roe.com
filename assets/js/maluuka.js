@@ -463,11 +463,11 @@
   // =========================================================================
   var hugCount = 0;
   var HUG_MESSAGES = [
-    'Virtual hug delivered! Maluuka is officially the most loved wifey on Earth.',
-    'Another big hug sent! Sending all my love to my favorite girl.',
-    'Hug x3! Warning: Wifey love levels are off the charts.',
-    'Unlimited hugs unlocked! You deserve all the happiness in the world, my wifey.',
-    'Maximum love reached! Forever grateful to call you my wifey.'
+    'Virtual hug delivered! Maluuka is officially the most loved future wifey on Earth.',
+    'Another big hug sent! Sending all my love to my future wifey.',
+    'Hug x3! Warning: Future wifey love levels are off the charts.',
+    'Unlimited hugs unlocked! You deserve all the happiness in the world, my future wifey.',
+    'Maximum love reached! Forever grateful to call you my future wifey.'
   ];
 
   if (hugBtn) {
