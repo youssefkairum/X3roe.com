@@ -1,15 +1,24 @@
-// Maluuka secret surprise page: envelope reveal, appreciation cards, and heart shower.
+// Maluuka secret surprise page: mobile-first step-by-step experience, reason deck, and heart shower.
 (function () {
   'use strict';
 
-  var stage = document.getElementById('envelope-stage');
+  var steps = Array.prototype.slice.call(document.querySelectorAll('[data-step]'));
+  var stepDotsContainer = document.getElementById('step-progress');
+  var stepDots = Array.prototype.slice.call(document.querySelectorAll('[data-step-dot]'));
   var openBtn = document.getElementById('open-envelope-btn');
   var replayBtn = document.getElementById('replay-envelope-btn');
-  var content = document.getElementById('surprise-content');
   var particleLayer = document.getElementById('particle-layer');
   var hugBtn = document.getElementById('hug-btn');
   var hugStatus = document.getElementById('hug-status');
 
+  var reasonTabs = Array.prototype.slice.call(document.querySelectorAll('[data-reason-tab]'));
+  var reasonPanels = Array.prototype.slice.call(document.querySelectorAll('[data-reason-panel]'));
+  var reasonCounter = document.getElementById('reason-counter');
+  var nextReasonOrStepBtn = document.getElementById('next-reason-or-step-btn');
+  var nextReasonLabel = document.getElementById('next-reason-label');
+
+  var currentStep = 0;
+  var currentReason = 0;
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---- Particle burst (hearts & sparkles) ----
@@ -29,7 +38,7 @@
     var vw = window.innerWidth;
     var vh = window.innerHeight;
     var centerX = originRect ? originRect.left + originRect.width / 2 : vw / 2;
-    var centerY = originRect ? originRect.top + originRect.height / 2 : vh * 0.55;
+    var centerY = originRect ? originRect.top + originRect.height / 2 : vh * 0.5;
 
     for (var i = 0; i < count; i++) {
       var el = document.createElement('i');
@@ -37,14 +46,14 @@
       el.className = 'floating-particle ' + iconClass;
       el.setAttribute('aria-hidden', 'true');
 
-      var spreadX = (Math.random() - 0.5) * Math.min(vw * 0.75, 420);
-      var startX = centerX + (Math.random() - 0.5) * 80;
-      var startY = centerY + (Math.random() - 0.5) * 40;
-      var dy = -(140 + Math.random() * 240);
-      var dur = (1.6 + Math.random() * 1.3).toFixed(2) + 's';
-      var scale = (0.9 + Math.random() * 0.9).toFixed(2);
+      var spreadX = (Math.random() - 0.5) * Math.min(vw * 0.85, 360);
+      var startX = centerX + (Math.random() - 0.5) * 60;
+      var startY = centerY + (Math.random() - 0.5) * 30;
+      var dy = -(120 + Math.random() * 200);
+      var dur = (1.5 + Math.random() * 1.1).toFixed(2) + 's';
+      var scale = (0.85 + Math.random() * 0.85).toFixed(2);
       var rot = Math.round((Math.random() - 0.5) * 60) + 'deg';
-      var size = Math.round(18 + Math.random() * 18) + 'px';
+      var size = Math.round(16 + Math.random() * 16) + 'px';
 
       el.style.left = startX + 'px';
       el.style.top = startY + 'px';
@@ -59,68 +68,165 @@
       (function (node) {
         window.setTimeout(function () {
           if (node.parentNode) node.parentNode.removeChild(node);
-        }, 3000);
+        }, 2700);
       })(el);
     }
   }
 
-  // ---- Envelope opening & replay ----
-  function openEnvelope() {
-    if (!openBtn || !content || !stage) return;
+  // ---- Step navigation ----
+  function showStep(index) {
+    if (index < 0 || index >= steps.length) return;
+    currentStep = index;
 
-    var rect = openBtn.getBoundingClientRect();
-    spawnParticles(28, rect);
+    steps.forEach(function (sec, idx) {
+      var active = idx === index;
+      sec.classList.toggle('is-active', active);
+    });
 
-    if (reduceMotion) {
-      stage.hidden = true;
-      content.removeAttribute('data-locked');
-      content.focus();
-      return;
+    if (stepDotsContainer) {
+      stepDotsContainer.hidden = index === 0;
     }
 
-    openBtn.classList.add('is-opening');
-    window.setTimeout(function () {
-      stage.hidden = true;
-      content.removeAttribute('data-locked');
-      content.focus();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 620);
+    stepDots.forEach(function (dot) {
+      var dotStep = parseInt(dot.getAttribute('data-step-dot'), 10);
+      if (dotStep === index) {
+        dot.setAttribute('aria-current', 'step');
+      } else {
+        dot.removeAttribute('aria-current');
+      }
+    });
+
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
-  function replayEnvelope() {
-    if (!openBtn || !content || !stage) return;
-    openBtn.classList.remove('is-opening');
-    content.setAttribute('data-locked', 'true');
-    stage.hidden = false;
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-    openBtn.focus();
+  // ---- Reason sub-deck inside Step 3 ----
+  function showReason(index, withSparkle) {
+    if (index < 0 || index >= reasonPanels.length) return;
+    currentReason = index;
+
+    reasonTabs.forEach(function (tab, idx) {
+      var selected = idx === index;
+      tab.setAttribute('aria-selected', String(selected));
+    });
+
+    reasonPanels.forEach(function (panel, idx) {
+      panel.hidden = idx !== index;
+    });
+
+    if (reasonCounter) {
+      reasonCounter.textContent = 'REASON 0' + (index + 1) + ' / 0' + reasonPanels.length;
+    }
+
+    if (nextReasonLabel) {
+      if (index < reasonPanels.length - 1) {
+        nextReasonLabel.textContent = 'Next Reason (' + (index + 2) + '/' + reasonPanels.length + ')';
+      } else {
+        nextReasonLabel.textContent = 'Final Surprise';
+      }
+    }
+
+    if (withSparkle && reasonTabs[index]) {
+      spawnParticles(8, reasonTabs[index].getBoundingClientRect());
+    }
   }
 
+  reasonTabs.forEach(function (tab, idx) {
+    tab.addEventListener('click', function () {
+      showReason(idx, true);
+    });
+  });
+
+  if (nextReasonOrStepBtn) {
+    nextReasonOrStepBtn.addEventListener('click', function () {
+      if (currentReason < reasonPanels.length - 1) {
+        showReason(currentReason + 1, true);
+      } else {
+        spawnParticles(14, nextReasonOrStepBtn.getBoundingClientRect());
+        showStep(4);
+      }
+    });
+  }
+
+  // ---- Envelope open & replay ----
   if (openBtn) {
-    openBtn.addEventListener('click', openEnvelope);
+    openBtn.addEventListener('click', function () {
+      spawnParticles(26, openBtn.getBoundingClientRect());
+      if (reduceMotion) {
+        showStep(1);
+        return;
+      }
+      openBtn.classList.add('is-opening');
+      window.setTimeout(function () {
+        showStep(1);
+      }, 520);
+    });
   }
+
   if (replayBtn) {
-    replayBtn.addEventListener('click', replayEnvelope);
+    replayBtn.addEventListener('click', function () {
+      if (openBtn) openBtn.classList.remove('is-opening');
+      showReason(0, false);
+      showStep(0);
+    });
   }
 
-  // ---- Interactive "Why You're The Best Bestie" cards ----
-  var cards = document.querySelectorAll('[data-bestie-card]');
-  cards.forEach(function (card) {
-    card.addEventListener('click', function () {
-      var expanded = card.getAttribute('aria-expanded') === 'true';
-      var next = !expanded;
-      card.setAttribute('aria-expanded', String(next));
+  // ---- Next / Prev step buttons & top progress dots ----
+  document.querySelectorAll('[data-next-step]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      spawnParticles(12, btn.getBoundingClientRect());
+      showStep(currentStep + 1);
+    });
+  });
 
-      var secret = card.querySelector('[data-card-secret]');
-      var prompt = card.querySelector('[data-card-prompt]');
-      if (secret) secret.hidden = !next;
-      if (prompt) prompt.hidden = next;
+  document.querySelectorAll('[data-prev-step]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      showStep(currentStep - 1);
+    });
+  });
 
-      if (next) {
-        spawnParticles(10, card.getBoundingClientRect());
+  stepDots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      var target = parseInt(dot.getAttribute('data-step-dot'), 10);
+      if (target >= 1 && target <= 4) {
+        showStep(target);
       }
     });
   });
+
+  // ---- Mobile touch swipe navigation between unlocked steps ----
+  var touchStartX = 0;
+  var touchStartY = 0;
+
+  document.addEventListener('touchstart', function (e) {
+    if (!e.touches || e.touches.length !== 1) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function (e) {
+    if (currentStep === 0 || !e.changedTouches || e.changedTouches.length !== 1) return;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var dy = e.changedTouches[0].clientY - touchStartY;
+
+    // Horizontal swipe only
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx < 0) {
+        // Swipe left -> next reason or next step
+        if (currentStep === 3 && currentReason < reasonPanels.length - 1) {
+          showReason(currentReason + 1, true);
+        } else if (currentStep < 4) {
+          showStep(currentStep + 1);
+        }
+      } else {
+        // Swipe right -> prev reason or prev step
+        if (currentStep === 3 && currentReason > 0) {
+          showReason(currentReason - 1, false);
+        } else if (currentStep > 1) {
+          showStep(currentStep - 1);
+        }
+      }
+    }
+  }, { passive: true });
 
   // ---- Virtual Hug Button & Love Meter ----
   var hugCount = 0;
@@ -138,7 +244,7 @@
       spawnParticles(22, hugBtn.getBoundingClientRect());
       if (hugStatus) {
         var msg = HUG_MESSAGES[(hugCount - 1) % HUG_MESSAGES.length];
-        hugStatus.textContent = msg + ' (Hugs sent: ' + hugCount + ' • Love: ∞)';
+        hugStatus.textContent = msg + ' (Hugs: ' + hugCount + ' • Love: ∞)';
       }
     });
   }
