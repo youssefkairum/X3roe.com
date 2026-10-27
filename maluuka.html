@@ -15,10 +15,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/css/site.css?v=67a78643f8">
+    <link rel="stylesheet" href="/assets/css/site.css?v=7f4eadbfe3">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
     <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
-    <script src="/assets/js/maluuka.js?v=9cee7cd540" defer></script>
+    <script src="/assets/js/maluuka.js?v=6aa32f7be1" defer></script>
 
     <style>
         html, body {
@@ -183,6 +183,34 @@
             color: #fbcfe8;
         }
 
+        /* Animated mini soundbars on the music toggle button */
+        .music-bars {
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 11px;
+        }
+        .music-bars span {
+            width: 2px;
+            background-color: #f472b6;
+            border-radius: 2px;
+            height: 3px;
+            transition: height 0.2s ease;
+        }
+        #music-toggle[aria-pressed="true"] .music-bars span:nth-child(1) {
+            animation: eq-bar 0.75s ease-in-out infinite alternate;
+        }
+        #music-toggle[aria-pressed="true"] .music-bars span:nth-child(2) {
+            animation: eq-bar 0.55s ease-in-out 0.15s infinite alternate;
+        }
+        #music-toggle[aria-pressed="true"] .music-bars span:nth-child(3) {
+            animation: eq-bar 0.65s ease-in-out 0.3s infinite alternate;
+        }
+        @keyframes eq-bar {
+            0% { height: 3px; }
+            100% { height: 11px; }
+        }
+
         /* Floating particle burst */
         .particle-layer {
             position: fixed;
@@ -231,9 +259,16 @@
             <button type="button" data-step-dot="4" aria-label="Step 4: Virtual Hug" class="step-dot"></button>
         </div>
 
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-pink-400/30 bg-pink-500/10 text-pink-200 text-[10px] sm:text-xs font-mono tracking-widest uppercase">
-            <i class="ph-fill ph-sparkle text-pink-400" aria-hidden="true"></i>
-            <span>Maluuka</span>
+        <div class="flex items-center gap-2">
+            <button type="button" id="music-toggle" aria-pressed="false" aria-label="Play background music" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-pink-400/30 bg-pink-500/10 hover:bg-pink-500/20 text-pink-200 text-[10px] sm:text-xs font-mono tracking-widest uppercase transition-colors cursor-pointer">
+                <i id="music-icon" class="ph-fill ph-speaker-slash text-pink-300 text-xs sm:text-sm" aria-hidden="true"></i>
+                <span class="music-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span id="music-label" class="hidden sm:inline">Music</span>
+            </button>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-pink-400/30 bg-pink-500/10 text-pink-200 text-[10px] sm:text-xs font-mono tracking-widest uppercase">
+                <i class="ph-fill ph-sparkle text-pink-400" aria-hidden="true"></i>
+                <span>Maluuka</span>
+            </div>
         </div>
     </header>
 
