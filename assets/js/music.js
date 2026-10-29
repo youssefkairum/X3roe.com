@@ -1,16 +1,15 @@
-// X3rœ Music Page: Native HTML5 Audio Player, Interactive Catalog & Tracklist, and MediaSession API.
+// X3rœ Music Page: Minimalist Native Audio Player with Instant Pre-Buffered Playback.
 (function () {
   'use strict';
 
   // Keep literal Phosphor classes in a comment so tools/icons.py bundles them:
   // ph-fill ph-play ph-fill ph-pause ph-fill ph-skip-back ph-fill ph-skip-forward
-  // ph-bold ph-repeat ph-fill ph-speaker-high ph-fill ph-speaker-slash
 
   var TRACKS = [
     {
       id: 'afterimage',
       title: 'Afterimage (feat. Nakadate)',
-      release: 'Afterimage • Single',
+      release: 'Single',
       group: 'singles',
       src: '/assets/audio/afterimage.m4a',
       cover: '/cover_afterimage.jpg',
@@ -20,7 +19,7 @@
     {
       id: 'bodytalk',
       title: 'BODYTALK',
-      release: 'BODYTALK • Single',
+      release: 'Single',
       group: 'singles',
       src: '/assets/audio/bodytalk.m4a',
       cover: '/cover_bodytalk.jpg',
@@ -30,7 +29,7 @@
     {
       id: 'velvet-plan',
       title: 'Velvet Plan',
-      release: 'Midnight Blue • EP',
+      release: 'Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/velvet-plan.m4a',
       cover: '/cover_midnight.jpg',
@@ -40,7 +39,7 @@
     {
       id: 'ephemeral',
       title: 'Ephemeral (feat. Limi)',
-      release: 'Midnight Blue • EP',
+      release: 'Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/ephemeral.m4a',
       cover: '/cover_midnight.jpg',
@@ -50,7 +49,7 @@
     {
       id: 'hotel-skin',
       title: 'Hotel Skin',
-      release: 'Midnight Blue • EP',
+      release: 'Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/hotel-skin.m4a',
       cover: '/cover_midnight.jpg',
@@ -60,7 +59,7 @@
     {
       id: 'room-42',
       title: 'Room 42',
-      release: 'Midnight Blue • EP',
+      release: 'Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/room-42.m4a',
       cover: '/cover_midnight.jpg',
@@ -70,7 +69,7 @@
     {
       id: 'secrets-of-my-soul',
       title: 'Secrets of My Soul',
-      release: 'Midnight Blue • EP',
+      release: 'Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/secrets-of-my-soul.m4a',
       cover: '/cover_midnight.jpg',
@@ -80,27 +79,27 @@
     {
       id: 'the-undertow',
       title: 'The Undertow',
-      release: 'Midnight Blue • EP',
+      release: 'Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/the-undertow.m4a',
       cover: '/cover_midnight.jpg',
-      duration: '4:14',
-      durationSec: 254
+      duration: '4:13',
+      durationSec: 253
     },
     {
       id: 'xero-2',
       title: 'Xer0 2.0',
-      release: 'Xero, Vol. 2 • Album',
+      release: 'Xero, Vol. 2',
       group: 'xero',
       src: '/assets/audio/xero-2.m4a',
       cover: '/cover_xero.jpg',
-      duration: '2:48',
-      durationSec: 168
+      duration: '2:44',
+      durationSec: 164
     },
     {
       id: 'lost-in-you',
       title: 'Lost In You',
-      release: 'Anti-social • EP',
+      release: 'Anti-social EP',
       group: 'antisocial',
       src: '/assets/audio/lost-in-you.m4a',
       cover: '/cover_antisocial.jpg',
@@ -109,29 +108,22 @@
     }
   ];
 
-  var audio = new Audio();
-  audio.preload = 'metadata';
-
   var currentIndex = 0;
   var isPlaying = false;
   var isSeeking = false;
+  var audioPool = {};
 
   // DOM Elements
   var playerBar = document.getElementById('player-bar');
   var playerCover = document.getElementById('player-cover');
   var playerTitle = document.getElementById('player-title');
   var playerSubtitle = document.getElementById('player-subtitle');
+  var playerTime = document.getElementById('player-time');
   var playerToggle = document.getElementById('player-toggle');
   var playerToggleIcon = document.getElementById('player-toggle-icon');
   var playerPrev = document.getElementById('player-prev');
   var playerNext = document.getElementById('player-next');
-  var playerLoop = document.getElementById('player-loop');
   var playerSeek = document.getElementById('player-seek');
-  var playerCurrentTime = document.getElementById('player-current-time');
-  var playerDuration = document.getElementById('player-duration');
-  var playerMute = document.getElementById('player-mute');
-  var playerMuteIcon = document.getElementById('player-mute-icon');
-  var playerVolume = document.getElementById('player-volume');
 
   var heroVinyl = document.getElementById('hero-vinyl');
   var heroVinylArt = document.getElementById('hero-vinyl-art');
@@ -139,9 +131,7 @@
   var heroPlayIcon = document.getElementById('hero-play-icon');
   var heroPlayLabel = document.getElementById('hero-play-label');
 
-  var trackButtons = Array.prototype.slice.call(document.querySelectorAll('[data-track-id]'));
   var releaseButtons = Array.prototype.slice.call(document.querySelectorAll('[data-release-play]'));
-  var filterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-filter-group]'));
 
   function formatTime(sec) {
     if (!isFinite(sec) || sec < 0) return '0:00';
@@ -173,6 +163,68 @@
     }
   }
 
+  // Create and reuse a dedicated Audio instance per track so Safari/Chrome keep its decoded buffer ready
+  function getAudio(index) {
+    var track = TRACKS[index];
+    if (!track) return null;
+    if (!audioPool[track.id]) {
+      var a = new Audio();
+      a.preload = 'auto';
+      a.src = track.src;
+      a.load();
+
+      a.addEventListener('timeupdate', function () {
+        if (currentIndex !== index || isSeeking) return;
+        var cur = a.currentTime || 0;
+        var dur = isFinite(a.duration) && a.duration > 0 ? a.duration : track.durationSec;
+        if (playerTime) {
+          playerTime.textContent = formatTime(cur) + ' / ' + (isFinite(a.duration) && a.duration > 0 ? formatTime(a.duration) : track.duration);
+        }
+        if (playerSeek && dur > 0) {
+          var pct = (cur / dur) * 100;
+          playerSeek.value = String(pct);
+          updateSeekVisual(pct);
+        }
+      });
+
+      a.addEventListener('play', function () {
+        if (currentIndex !== index) return;
+        isPlaying = true;
+        syncUI();
+      });
+
+      a.addEventListener('pause', function () {
+        if (currentIndex !== index) return;
+        isPlaying = false;
+        syncUI();
+      });
+
+      a.addEventListener('ended', function () {
+        if (currentIndex !== index) return;
+        loadTrack(currentIndex + 1, true);
+      });
+
+      audioPool[track.id] = a;
+    }
+    return audioPool[track.id];
+  }
+
+  function findIndexById(id) {
+    for (var i = 0; i < TRACKS.length; i++) {
+      if (TRACKS[i].id === id) return i;
+    }
+    return -1;
+  }
+
+  // Pre-buffer Hero track immediately, and pre-buffer the 4 Catalog cover tracks shortly after
+  getAudio(0);
+  window.setTimeout(function () {
+    ['bodytalk', 'velvet-plan', 'xero-2', 'lost-in-you'].forEach(function (id) {
+      var idx = findIndexById(id);
+      if (idx !== -1) getAudio(idx);
+    });
+  }, 350);
+
   function syncUI() {
     var track = TRACKS[currentIndex];
     if (!track) return;
@@ -189,7 +241,6 @@
       playerToggleIcon.classList.toggle('ph-play', !isPlaying);
     }
 
-    // Hero vinyl & hero button state
     if (heroVinyl) {
       heroVinyl.classList.toggle('is-spinning', isPlaying);
     }
@@ -200,26 +251,9 @@
       var afterimagePlaying = isPlaying && track.id === 'afterimage';
       heroPlayIcon.classList.toggle('ph-pause', afterimagePlaying);
       heroPlayIcon.classList.toggle('ph-play', !afterimagePlaying);
-      heroPlayLabel.textContent = afterimagePlaying ? 'Pause Track' : 'Play Track';
+      heroPlayLabel.textContent = afterimagePlaying ? 'Pause' : 'Listen Now';
     }
 
-    // Tracklist rows
-    trackButtons.forEach(function (btn) {
-      var id = btn.getAttribute('data-track-id');
-      var active = id === track.id;
-      var rowPlaying = active && isPlaying;
-      btn.setAttribute('aria-current', active ? 'true' : 'false');
-      btn.classList.toggle('is-active', active);
-      btn.classList.toggle('is-playing', rowPlaying);
-
-      var icon = btn.querySelector('[data-row-icon]');
-      if (icon) {
-        icon.classList.toggle('ph-pause', rowPlaying);
-        icon.classList.toggle('ph-play', !rowPlaying);
-      }
-    });
-
-    // Release cards in Catalog
     releaseButtons.forEach(function (btn) {
       var firstId = btn.getAttribute('data-release-play');
       var group = btn.getAttribute('data-release-group');
@@ -239,36 +273,37 @@
     if (index < 0) index = TRACKS.length - 1;
     if (index >= TRACKS.length) index = 0;
 
-    var track = TRACKS[index];
-    var changed = currentIndex !== index || !audio.src;
-    currentIndex = index;
-
-    if (changed) {
-      audio.src = track.src;
-      if (playerCurrentTime) playerCurrentTime.textContent = '0:00';
-      if (playerDuration) playerDuration.textContent = track.duration;
-      if (playerSeek) playerSeek.value = '0';
-      updateSeekVisual(0);
-      updateMediaSession(track);
+    var prevAudio = getAudio(currentIndex);
+    if (prevAudio && currentIndex !== index) {
+      prevAudio.pause();
+      try { prevAudio.currentTime = 0; } catch (e) {}
     }
+
+    currentIndex = index;
+    var track = TRACKS[index];
+    var a = getAudio(index);
+
+    if (playerTime) playerTime.textContent = '0:00 / ' + track.duration;
+    if (playerSeek) playerSeek.value = '0';
+    updateSeekVisual(0);
+    updateMediaSession(track);
 
     if (playerBar) {
       playerBar.removeAttribute('hidden');
     }
 
-    if (autoplay) {
-      var playPromise = audio.play();
-      if (playPromise && typeof playPromise.then === 'function') {
-        playPromise.then(function () {
-          isPlaying = true;
-          syncUI();
-        }).catch(function () {
+    // Warm the next track in queue
+    getAudio((index + 1) % TRACKS.length);
+
+    if (autoplay && a) {
+      isPlaying = true;
+      syncUI();
+      var playPromise = a.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function () {
           isPlaying = false;
           syncUI();
         });
-      } else {
-        isPlaying = true;
-        syncUI();
       }
     } else {
       syncUI();
@@ -276,77 +311,40 @@
   }
 
   function togglePlay() {
-    if (!audio.src) {
-      loadTrack(currentIndex, true);
-      return;
+    if (playerBar) {
+      playerBar.removeAttribute('hidden');
     }
-    if (audio.paused) {
-      audio.play().then(function () {
-        isPlaying = true;
-        syncUI();
-      }).catch(function () {
-        isPlaying = false;
-        syncUI();
-      });
+    var a = getAudio(currentIndex);
+    if (!a) return;
+
+    if (a.paused) {
+      isPlaying = true;
+      syncUI();
+      getAudio((currentIndex + 1) % TRACKS.length);
+      var playPromise = a.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function () {
+          isPlaying = false;
+          syncUI();
+        });
+      }
     } else {
-      audio.pause();
+      a.pause();
       isPlaying = false;
       syncUI();
     }
   }
 
   function playTrackById(id) {
-    var idx = -1;
-    for (var i = 0; i < TRACKS.length; i++) {
-      if (TRACKS[i].id === id) {
-        idx = i;
-        break;
-      }
-    }
+    var idx = findIndexById(id);
     if (idx === -1) return;
 
-    if (currentIndex === idx && audio.src) {
+    if (currentIndex === idx) {
       togglePlay();
     } else {
       loadTrack(idx, true);
     }
   }
-
-  // ---- Audio element events ----
-  audio.addEventListener('loadedmetadata', function () {
-    if (playerDuration && isFinite(audio.duration) && audio.duration > 0) {
-      playerDuration.textContent = formatTime(audio.duration);
-    }
-  });
-
-  audio.addEventListener('timeupdate', function () {
-    if (isSeeking) return;
-    var cur = audio.currentTime || 0;
-    var dur = isFinite(audio.duration) && audio.duration > 0
-      ? audio.duration
-      : TRACKS[currentIndex].durationSec;
-    if (playerCurrentTime) playerCurrentTime.textContent = formatTime(cur);
-    if (playerSeek && dur > 0) {
-      var pct = (cur / dur) * 100;
-      playerSeek.value = String(pct);
-      updateSeekVisual(pct);
-    }
-  });
-
-  audio.addEventListener('play', function () {
-    isPlaying = true;
-    syncUI();
-  });
-
-  audio.addEventListener('pause', function () {
-    isPlaying = false;
-    syncUI();
-  });
-
-  audio.addEventListener('ended', function () {
-    if (audio.loop) return;
-    loadTrack(currentIndex + 1, true);
-  });
 
   // ---- Controls ----
   if (playerToggle) {
@@ -354,8 +352,9 @@
   }
   if (playerPrev) {
     playerPrev.addEventListener('click', function () {
-      if (audio.currentTime > 3) {
-        audio.currentTime = 0;
+      var a = getAudio(currentIndex);
+      if (a && a.currentTime > 3) {
+        a.currentTime = 0;
       } else {
         loadTrack(currentIndex - 1, true);
       }
@@ -366,72 +365,30 @@
       loadTrack(currentIndex + 1, true);
     });
   }
-  if (playerLoop) {
-    playerLoop.addEventListener('click', function () {
-      audio.loop = !audio.loop;
-      playerLoop.setAttribute('aria-pressed', String(audio.loop));
-    });
-  }
 
   if (playerSeek) {
     playerSeek.addEventListener('input', function () {
       isSeeking = true;
       var pct = parseFloat(playerSeek.value) || 0;
       updateSeekVisual(pct);
-      var dur = isFinite(audio.duration) && audio.duration > 0
-        ? audio.duration
-        : TRACKS[currentIndex].durationSec;
-      if (playerCurrentTime && dur > 0) {
-        playerCurrentTime.textContent = formatTime((pct / 100) * dur);
+      var track = TRACKS[currentIndex];
+      var a = getAudio(currentIndex);
+      var dur = a && isFinite(a.duration) && a.duration > 0 ? a.duration : track.durationSec;
+      if (playerTime && dur > 0) {
+        playerTime.textContent = formatTime((pct / 100) * dur) + ' / ' + formatTime(dur);
       }
     });
     playerSeek.addEventListener('change', function () {
       var pct = parseFloat(playerSeek.value) || 0;
-      if (!audio.src) {
-        loadTrack(currentIndex, false);
-      }
-      var dur = isFinite(audio.duration) && audio.duration > 0
-        ? audio.duration
-        : TRACKS[currentIndex].durationSec;
-      if (dur > 0) {
+      var track = TRACKS[currentIndex];
+      var a = getAudio(currentIndex);
+      var dur = a && isFinite(a.duration) && a.duration > 0 ? a.duration : track.durationSec;
+      if (a && dur > 0) {
         try {
-          audio.currentTime = (pct / 100) * dur;
-        } catch (e) {
-          // Ignore if metadata not ready yet
-        }
+          a.currentTime = (pct / 100) * dur;
+        } catch (e) {}
       }
       isSeeking = false;
-    });
-  }
-
-  function updateMuteUI() {
-    var muted = audio.muted || audio.volume === 0;
-    if (playerMute) {
-      playerMute.setAttribute('aria-pressed', String(muted));
-      playerMute.setAttribute('aria-label', muted ? 'Unmute audio' : 'Mute audio');
-    }
-    if (playerMuteIcon) {
-      playerMuteIcon.classList.toggle('ph-speaker-slash', muted);
-      playerMuteIcon.classList.toggle('ph-speaker-high', !muted);
-    }
-  }
-
-  if (playerMute) {
-    playerMute.addEventListener('click', function () {
-      audio.muted = !audio.muted;
-      updateMuteUI();
-    });
-  }
-
-  if (playerVolume) {
-    playerVolume.addEventListener('input', function () {
-      var val = parseFloat(playerVolume.value);
-      audio.volume = Math.max(0, Math.min(1, val));
-      playerVolume.style.setProperty('--seek-pct', (audio.volume * 100).toFixed(1) + '%');
-      if (audio.volume > 0 && audio.muted) {
-        audio.muted = false;
-      }
-      updateMuteUI();
     });
   }
 
@@ -447,39 +404,26 @@
     });
   }
 
-  // ---- Tracklist rows & Catalog release cards ----
-  trackButtons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var id = btn.getAttribute('data-track-id');
-      playTrackById(id);
-    });
-  });
-
+  // ---- Catalog release cards ----
   releaseButtons.forEach(function (btn) {
+    var firstId = btn.getAttribute('data-release-play');
+    var group = btn.getAttribute('data-release-group');
+
+    var warm = function () {
+      var idx = findIndexById(firstId);
+      if (idx !== -1) getAudio(idx);
+    };
+    btn.addEventListener('mouseenter', warm, { passive: true });
+    btn.addEventListener('touchstart', warm, { passive: true });
+    btn.addEventListener('focus', warm, { passive: true });
+
     btn.addEventListener('click', function () {
-      var firstId = btn.getAttribute('data-release-play');
-      var group = btn.getAttribute('data-release-group');
       var currentTrack = TRACKS[currentIndex];
-      if (group && currentTrack && currentTrack.group === group && audio.src) {
+      if (group && currentTrack && currentTrack.group === group) {
         togglePlay();
       } else {
         playTrackById(firstId);
       }
-    });
-  });
-
-  // ---- Tracklist filter tabs ----
-  filterButtons.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var filter = tab.getAttribute('data-filter-group');
-      filterButtons.forEach(function (b) {
-        b.setAttribute('aria-pressed', String(b === tab));
-      });
-      trackButtons.forEach(function (row) {
-        var rowGroup = row.getAttribute('data-track-group');
-        var visible = filter === 'all' || rowGroup === filter || (filter === 'albums' && (rowGroup === 'xero' || rowGroup === 'antisocial'));
-        row.hidden = !visible;
-      });
     });
   });
 
@@ -495,7 +439,6 @@
     }
   }
 
-  // Initialise UI with Track 0 ready in the dock
   syncUI();
   updateSeekVisual(0);
 })();

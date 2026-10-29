@@ -7,11 +7,11 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>X3rœ Music | Discography &amp; Releases</title>
 
-    <meta name="description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Stream directly or listen on Spotify, Apple Music and SoundCloud.">
+    <meta name="description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Listen on Spotify, Apple Music and SoundCloud.">
     <link rel="canonical" href="https://x3roe.com/music.html">
     <meta property="og:site_name" content="X3roe">
     <meta property="og:title" content="X3rœ Music | Discography &amp; Releases">
-    <meta property="og:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Stream directly or listen on Spotify, Apple Music and SoundCloud.">
+    <meta property="og:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Listen on Spotify, Apple Music and SoundCloud.">
     <meta property="og:image" content="https://x3roe.com/cover_midnight.jpg">
     <meta property="og:image:width" content="640">
     <meta property="og:image:height" content="640">
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="X3rœ Music | Discography &amp; Releases">
-    <meta name="twitter:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Stream directly or listen on Spotify, Apple Music and SoundCloud.">
+    <meta name="twitter:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Listen on Spotify, Apple Music and SoundCloud.">
     <meta name="twitter:image" content="https://x3roe.com/cover_midnight.jpg">
     <meta name="twitter:image:alt" content="Midnight Blue cover art">
 
@@ -45,15 +45,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/css/site.css?v=a16766e473">
+    <link rel="stylesheet" href="/assets/css/site.css?v=e8ca7935d8">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
     <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
-    <script src="/assets/js/music.js?v=e8df8c9747" defer></script>
+    <script src="/assets/js/music.js?v=31196129be" defer></script>
 
     <style>
-        /* The document scrolls; sections snap gently. */
+        /* The document scrolls; sections snap to the top of the viewport. */
         html {
             scroll-snap-type: y proximity;
+        }
+        @media (min-width: 1024px) and (min-height: 760px) {
+            html { scroll-snap-type: y mandatory; }
         }
 
         /* Fixed header: clears notches and rounded corners (viewport-fit=cover). */
@@ -87,121 +90,78 @@
             align-items: center;
             justify-content: center;
             padding-top: max(6.5rem, calc(env(safe-area-inset-top) + 5rem));
-            padding-bottom: 6rem;
+            padding-bottom: 4rem;
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);
         }
         @media (min-width: 640px) {
             .snap-section {
                 padding-top: max(8.5rem, calc(env(safe-area-inset-top) + 6.5rem));
-                padding-bottom: 7rem;
+                padding-bottom: 5rem;
             }
         }
 
-        /* Hero vinyl spin state synced with audio playback */
+        /* Hero vinyl spin synced with playback */
         .vinyl-disc {
-            animation: spin 12s linear infinite;
+            animation: spin 10s linear infinite;
             animation-play-state: paused;
         }
         #hero-vinyl.is-spinning .vinyl-disc {
             animation-play-state: running;
         }
 
-        /* Tracklist row active & playing states */
-        .track-row {
-            transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+        /* Minimalist Catalog card play badge: subtle on hover, visible when playing */
+        .catalog-badge {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s ease, color 0.2s ease;
         }
-        .track-row.is-active {
-            background-color: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.35);
+        .group:hover .catalog-badge,
+        .group:focus-within .catalog-badge,
+        [data-release-play].is-playing .catalog-badge {
+            opacity: 1;
+            transform: scale(1);
         }
-        .track-row .eq-bars {
-            display: none;
-            align-items: flex-end;
-            gap: 2px;
-            height: 14px;
+        [data-release-play].is-playing .catalog-badge {
+            background-color: #ffffff;
+            color: #000000;
         }
-        .track-row.is-playing .eq-bars {
-            display: inline-flex;
-        }
-        .track-row.is-playing .track-num {
-            display: none;
-        }
-        .eq-bars span {
-            width: 2.5px;
-            background-color: #fff;
-            border-radius: 2px;
-            height: 4px;
-        }
-        .track-row.is-playing .eq-bars span:nth-child(1) {
-            animation: eq-bounce 0.7s ease-in-out infinite alternate;
-        }
-        .track-row.is-playing .eq-bars span:nth-child(2) {
-            animation: eq-bounce 0.5s ease-in-out 0.15s infinite alternate;
-        }
-        .track-row.is-playing .eq-bars span:nth-child(3) {
-            animation: eq-bounce 0.65s ease-in-out 0.3s infinite alternate;
-        }
-        @keyframes eq-bounce {
-            0% { height: 3px; }
-            100% { height: 14px; }
+        @media (hover: none) {
+            .catalog-badge {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        /* Filter pills */
-        [data-filter-group][aria-pressed="true"] {
-            background-color: #fff;
-            color: #000;
-            border-color: #fff;
-        }
-
-        /* Repeat button active state */
-        #player-loop[aria-pressed="true"] {
-            color: #fff;
-            background-color: rgba(255, 255, 255, 0.16);
-        }
-
-        /* Custom range inputs for seek and volume */
-        .player-range {
+        /* Minimalist floating pill scrubber */
+        .pill-seek {
             -webkit-appearance: none;
             appearance: none;
             background: linear-gradient(
                 to right,
                 #ffffff 0%,
                 #ffffff var(--seek-pct, 0%),
-                rgba(255, 255, 255, 0.2) var(--seek-pct, 0%),
-                rgba(255, 255, 255, 0.2) 100%
+                rgba(255, 255, 255, 0.16) var(--seek-pct, 0%),
+                rgba(255, 255, 255, 0.16) 100%
             );
-            height: 4px;
+            height: 3px;
             border-radius: 9999px;
             cursor: pointer;
         }
-        .player-range::-webkit-slider-thumb {
+        .pill-seek::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: #ffffff;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            transition: transform 0.15s ease;
         }
-        .player-range:hover::-webkit-slider-thumb {
-            transform: scale(1.25);
-        }
-        .player-range::-moz-range-thumb {
-            width: 12px;
-            height: 12px;
+        .pill-seek::-moz-range-thumb {
+            width: 10px;
+            height: 10px;
             border: 0;
             border-radius: 50%;
             background: #ffffff;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Bottom player bar safe area */
-        .player-dock {
-            padding-bottom: max(0.85rem, env(safe-area-inset-bottom));
-            padding-left: max(1rem, env(safe-area-inset-left));
-            padding-right: max(1rem, env(safe-area-inset-right));
         }
 
         /* Short viewports (landscape phones, 200% zoom): slimmer header and section padding. */
@@ -212,12 +172,12 @@
             }
             .snap-section {
                 padding-top: max(5.5rem, calc(env(safe-area-inset-top) + 4.5rem));
-                padding-bottom: 5rem;
+                padding-bottom: 3rem;
             }
         }
     </style>
 </head>
-<body class="antialiased selection:bg-white selection:text-black pb-28">
+<body class="antialiased selection:bg-white selection:text-black">
 
     <!-- Fixed UI Overlay -->
     <header class="site-header fixed top-0 left-0 right-0 z-50 flex justify-between items-center pointer-events-none bg-gradient-to-b from-black/80 via-black/40 to-transparent">
@@ -232,7 +192,6 @@
         <nav class="hidden md:flex gap-8 pointer-events-auto" aria-label="Primary">
             <a href="#latest" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Latest</a>
             <a href="#discography" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Catalog</a>
-            <a href="#tracks" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Tracks</a>
             <a href="#listen" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Listen</a>
         </nav>
 
@@ -252,7 +211,6 @@
             <ul class="flex flex-col py-2 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))]">
                 <li><a href="#latest" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest">Latest</a></li>
                 <li><a href="#discography" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Catalog</a></li>
-                <li><a href="#tracks" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Tracks</a></li>
                 <li><a href="#listen" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Listen</a></li>
             </ul>
         </nav>
@@ -281,27 +239,25 @@
                         FEAT. NAKADATE
                     </p>
 
-                    <div class="mt-12 flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6 reveal stagger-1">
-                        <button type="button" id="hero-play-btn" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform inline-flex items-center gap-2.5 cursor-pointer">
+                    <div class="mt-12 flex flex-wrap items-center justify-center md:justify-start gap-6 reveal stagger-1">
+                        <button type="button" id="hero-play-btn" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2 cursor-pointer">
                             <i id="hero-play-icon" class="ph-fill ph-play text-lg" aria-hidden="true"></i>
-                            <span id="hero-play-label">Play Track</span>
+                            <span id="hero-play-label">Listen Now</span>
                         </button>
-                        <a href="https://lnk.to/aftrimg" target="_blank" rel="noopener noreferrer" class="px-7 py-4 border border-white/25 hover:border-white text-white text-sm font-bold uppercase tracking-widest rounded-full transition-colors inline-flex items-center gap-2">
-                            <span>Stream Everywhere</span>
+                        <a href="https://lnk.to/aftrimg" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-white/50 hover:text-white uppercase tracking-widest transition-colors inline-flex items-center gap-1.5">
+                            <span>All Platforms</span>
                             <span class="sr-only">: Afterimage (opens in new tab)</span>
                             <i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Interactive Record Player UI (clicks toggle play/pause; spin syncs with player) -->
+                <!-- Record Player UI -->
                 <div class="flex-1 w-full max-w-md reveal stagger-2">
-                    <button type="button" id="hero-vinyl" aria-label="Toggle playback" class="w-full aspect-square bg-[#050505] border border-white/10 hover:border-white/30 rounded-full p-4 transition-colors cursor-pointer group block">
+                    <button type="button" id="hero-vinyl" aria-label="Toggle playback" class="w-full aspect-square bg-[#050505] border border-white/10 rounded-full p-4 block cursor-pointer">
                         <span class="vinyl-disc w-full h-full border border-white/10 rounded-full bg-black relative overflow-hidden flex items-center justify-center">
-                            <img id="hero-vinyl-art" src="cover_afterimage.jpg" alt="" width="640" height="640" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:opacity-85 transition-opacity">
-                            <span class="w-24 h-24 bg-black rounded-full border-4 border-[#050505] relative flex items-center justify-center">
-                                <span class="w-3 h-3 rounded-full bg-white/40"></span>
-                            </span>
+                            <img id="hero-vinyl-art" src="cover_afterimage.jpg" alt="" width="640" height="640" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                            <span class="w-24 h-24 bg-black rounded-full border-4 border-[#050505] relative"></span>
                         </span>
                     </button>
                 </div>
@@ -309,305 +265,69 @@
             </div>
         </section>
 
-        <!-- Section 2: DISCOGRAPHY & PLAYABLE STUDIO DECK -->
+        <!-- Section 2: DISCOGRAPHY -->
         <section id="discography" class="snap-section bg-[#020202] border-t border-white/5">
-            <div class="max-w-7xl w-full px-6 space-y-16">
+            <div class="max-w-7xl w-full px-6">
 
-                <div>
-                    <div class="reveal mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                        <div>
-                            <span class="text-xs font-mono uppercase tracking-widest text-white/50 block mb-2">Tap Any Release To Play</span>
-                            <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-white">Catalog.</h2>
-                        </div>
-                        <p class="text-sm text-white/50 font-mono">5 RELEASES • 10 STREAMABLE TRACKS</p>
-                    </div>
+                <div class="reveal mb-12">
+                    <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-white">Catalog.</h2>
+                </div>
 
-                    <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-6xl" role="list">
+                <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-6xl" role="list">
 
-                        <li class="group reveal stagger-1">
+                    <li class="group reveal stagger-1">
+                        <button type="button" data-release-play="bodytalk" data-release-name="BODYTALK" aria-label="Play BODYTALK" class="w-full text-left cursor-pointer">
                             <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
-                                <img src="cover_bodytalk.jpg" alt="BODYTALK cover art" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
-                                <button type="button" data-release-play="bodytalk" data-release-name="BODYTALK" aria-label="Play BODYTALK" class="absolute inset-0 flex items-end justify-end p-3 sm:p-4 bg-gradient-to-t from-black/70 via-transparent to-transparent cursor-pointer">
-                                    <span class="w-11 h-11 rounded-full bg-white text-black flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                                        <i class="ph-fill ph-play text-lg" aria-hidden="true"></i>
-                                    </span>
-                                </button>
+                                <img src="cover_bodytalk.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
+                                <span class="catalog-badge absolute bottom-3 right-3 w-10 h-10 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center">
+                                    <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
+                                </span>
                             </div>
                             <h3 class="text-white font-bold tracking-tight">BODYTALK</h3>
                             <p class="text-white/60 text-xs uppercase tracking-widest mt-1">Single • 2025</p>
-                        </li>
+                        </button>
+                    </li>
 
-                        <li class="group reveal stagger-2">
+                    <li class="group reveal stagger-2">
+                        <button type="button" data-release-play="velvet-plan" data-release-group="midnight" data-release-name="Midnight Blue" aria-label="Play Midnight Blue" class="w-full text-left cursor-pointer">
                             <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
-                                <img src="cover_midnight.jpg" alt="Midnight Blue cover art" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
-                                <button type="button" data-release-play="velvet-plan" data-release-group="midnight" data-release-name="Midnight Blue EP" aria-label="Play Midnight Blue EP" class="absolute inset-0 flex items-end justify-end p-3 sm:p-4 bg-gradient-to-t from-black/70 via-transparent to-transparent cursor-pointer">
-                                    <span class="w-11 h-11 rounded-full bg-white text-black flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                                        <i class="ph-fill ph-play text-lg" aria-hidden="true"></i>
-                                    </span>
-                                </button>
+                                <img src="cover_midnight.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
+                                <span class="catalog-badge absolute bottom-3 right-3 w-10 h-10 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center">
+                                    <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
+                                </span>
                             </div>
                             <h3 class="text-white font-bold tracking-tight">Midnight Blue</h3>
-                            <p class="text-white/60 text-xs uppercase tracking-widest mt-1">EP (6 Tracks) • 2025</p>
-                        </li>
+                            <p class="text-white/60 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
+                        </button>
+                    </li>
 
-                        <li class="group reveal stagger-3">
+                    <li class="group reveal stagger-3">
+                        <button type="button" data-release-play="xero-2" data-release-group="xero" data-release-name="Xero, Vol. 2" aria-label="Play Xero, Vol. 2" class="w-full text-left cursor-pointer">
                             <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
-                                <img src="cover_xero.jpg" alt="Xero, Vol. 2 cover art" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
-                                <button type="button" data-release-play="xero-2" data-release-group="xero" data-release-name="Xero, Vol. 2" aria-label="Play Xero, Vol. 2" class="absolute inset-0 flex items-end justify-end p-3 sm:p-4 bg-gradient-to-t from-black/70 via-transparent to-transparent cursor-pointer">
-                                    <span class="w-11 h-11 rounded-full bg-white text-black flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                                        <i class="ph-fill ph-play text-lg" aria-hidden="true"></i>
-                                    </span>
-                                </button>
+                                <img src="cover_xero.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
+                                <span class="catalog-badge absolute bottom-3 right-3 w-10 h-10 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center">
+                                    <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
+                                </span>
                             </div>
                             <h3 class="text-white font-bold tracking-tight">Xero, Vol. 2</h3>
                             <p class="text-white/60 text-xs uppercase tracking-widest mt-1">Album • 2025</p>
-                        </li>
+                        </button>
+                    </li>
 
-                        <li class="group reveal stagger-4">
+                    <li class="group reveal stagger-4">
+                        <button type="button" data-release-play="lost-in-you" data-release-group="antisocial" data-release-name="Anti-social" aria-label="Play Anti-social" class="w-full text-left cursor-pointer">
                             <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
-                                <img src="cover_antisocial.jpg" alt="Anti-social cover art" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
-                                <button type="button" data-release-play="lost-in-you" data-release-group="antisocial" data-release-name="Anti-social EP" aria-label="Play Anti-social EP" class="absolute inset-0 flex items-end justify-end p-3 sm:p-4 bg-gradient-to-t from-black/70 via-transparent to-transparent cursor-pointer">
-                                    <span class="w-11 h-11 rounded-full bg-white text-black flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                                        <i class="ph-fill ph-play text-lg" aria-hidden="true"></i>
-                                    </span>
-                                </button>
+                                <img src="cover_antisocial.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
+                                <span class="catalog-badge absolute bottom-3 right-3 w-10 h-10 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center">
+                                    <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
+                                </span>
                             </div>
                             <h3 class="text-white font-bold tracking-tight">Anti-social</h3>
                             <p class="text-white/60 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
-                        </li>
-
-                    </ul>
-                </div>
-
-                <!-- Interactive Playable Tracklist -->
-                <div id="tracks" class="max-w-6xl pt-4 border-t border-white/10 reveal">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                        <div>
-                            <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">Studio Player</h3>
-                            <p class="text-xs sm:text-sm text-white/55 mt-1">Stream full-length X3rœ tracks directly in your browser</p>
-                        </div>
-
-                        <!-- Filter Pills -->
-                        <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter tracks by release">
-                            <button type="button" data-filter-group="all" aria-pressed="true" class="px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-mono uppercase tracking-widest text-white/75 hover:text-white transition-colors cursor-pointer">All (10)</button>
-                            <button type="button" data-filter-group="singles" aria-pressed="false" class="px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-mono uppercase tracking-widest text-white/75 hover:text-white transition-colors cursor-pointer">Singles</button>
-                            <button type="button" data-filter-group="midnight" aria-pressed="false" class="px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-mono uppercase tracking-widest text-white/75 hover:text-white transition-colors cursor-pointer">Midnight Blue EP</button>
-                            <button type="button" data-filter-group="albums" aria-pressed="false" class="px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-mono uppercase tracking-widest text-white/75 hover:text-white transition-colors cursor-pointer">Xero &amp; Anti-social</button>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5" role="list" aria-label="Playable tracks">
-                        <!-- 01: Afterimage -->
-                        <button type="button" data-track-id="afterimage" data-track-group="singles" aria-current="true" class="track-row is-active w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">01</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_afterimage.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">Afterimage (feat. Nakadate)</span>
-                                    <span class="block text-xs text-white/50 truncate">Single • 2025</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">4:20</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
                         </button>
+                    </li>
 
-                        <!-- 02: BODYTALK -->
-                        <button type="button" data-track-id="bodytalk" data-track-group="singles" aria-current="false" class="track-row w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">02</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_bodytalk.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">BODYTALK</span>
-                                    <span class="block text-xs text-white/50 truncate">Single • 2025</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">2:58</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
-                        </button>
-
-                        <!-- 03: Velvet Plan -->
-                        <button type="button" data-track-id="velvet-plan" data-track-group="midnight" aria-current="false" class="track-row w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">03</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_midnight.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">Velvet Plan</span>
-                                    <span class="block text-xs text-white/50 truncate">Midnight Blue • EP</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">3:39</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
-                        </button>
-
-                        <!-- 04: Ephemeral (feat. Limi) -->
-                        <button type="button" data-track-id="ephemeral" data-track-group="midnight" aria-current="false" class="track-row w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">04</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_midnight.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">Ephemeral (feat. Limi)</span>
-                                    <span class="block text-xs text-white/50 truncate">Midnight Blue • EP</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">3:42</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
-                        </button>
-
-                        <!-- 05: Hotel Skin -->
-                        <button type="button" data-track-id="hotel-skin" data-track-group="midnight" aria-current="false" class="track-row w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">05</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_midnight.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">Hotel Skin</span>
-                                    <span class="block text-xs text-white/50 truncate">Midnight Blue • EP</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">3:09</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
-                        </button>
-
-                        <!-- 06: Room 42 -->
-                        <button type="button" data-track-id="room-42" data-track-group="midnight" aria-current="false" class="track-row w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">06</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_midnight.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">Room 42</span>
-                                    <span class="block text-xs text-white/50 truncate">Midnight Blue • EP</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">3:10</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
-                        </button>
-
-                        <!-- 07: Secrets of My Soul -->
-                        <button type="button" data-track-id="secrets-of-my-soul" data-track-group="midnight" aria-current="false" class="track-row w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">07</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_midnight.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">Secrets of My Soul</span>
-                                    <span class="block text-xs text-white/50 truncate">Midnight Blue • EP</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">2:55</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
-                        </button>
-
-                        <!-- 08: The Undertow -->
-                        <button type="button" data-track-id="the-undertow" data-track-group="midnight" aria-current="false" class="track-row w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">08</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_midnight.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">The Undertow</span>
-                                    <span class="block text-xs text-white/50 truncate">Midnight Blue • EP</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">4:14</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
-                        </button>
-
-                        <!-- 09: Xer0 2.0 -->
-                        <button type="button" data-track-id="xero-2" data-track-group="xero" aria-current="false" class="track-row w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">09</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_xero.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">Xer0 2.0</span>
-                                    <span class="block text-xs text-white/50 truncate">Xero, Vol. 2 • Album</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">2:48</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
-                        </button>
-
-                        <!-- 10: Lost In You -->
-                        <button type="button" data-track-id="lost-in-you" data-track-group="antisocial" aria-current="false" class="track-row w-full text-left flex items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer group">
-                            <span class="flex items-center gap-3.5 min-w-0">
-                                <span class="w-6 text-center font-mono text-xs text-white/45 shrink-0">
-                                    <span class="track-num">10</span>
-                                    <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                                </span>
-                                <img src="cover_antisocial.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/10 shrink-0">
-                                <span class="min-w-0">
-                                    <span class="block text-sm sm:text-base font-bold text-white truncate">Lost In You</span>
-                                    <span class="block text-xs text-white/50 truncate">Anti-social • EP</span>
-                                </span>
-                            </span>
-                            <span class="flex items-center gap-3 shrink-0">
-                                <span class="text-xs font-mono text-white/50">4:19</span>
-                                <span class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <i data-row-icon class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
+                </ul>
 
             </div>
         </section>
@@ -643,7 +363,7 @@
                 </ul>
             </div>
 
-            <footer class="w-full max-w-4xl mx-auto px-6 pt-12 sm:pt-16 text-center reveal stagger-2">
+            <footer class="w-full max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-20 text-center reveal stagger-2">
                 <nav aria-label="Legal" class="flex flex-wrap justify-center gap-x-8 gap-y-4">
                     <a href="/" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Home</a>
                     <a href="/privacy.html" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Privacy Policy</a>
@@ -656,62 +376,39 @@
 
     </main>
 
-    <!-- Persistent Floating Bottom Music Player Dock -->
-    <aside id="player-bar" aria-label="Music player" class="player-dock fixed bottom-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-t border-white/15 pt-3">
-        <div class="max-w-7xl mx-auto flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-
-            <!-- Now Playing Track Info -->
-            <div class="flex items-center justify-between sm:justify-start gap-3.5 min-w-0 sm:w-64 md:w-72">
+    <!-- Minimalist Floating Pill Player (appears when playing) -->
+    <aside id="player-bar" hidden aria-label="Music player" class="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-4 right-4 z-50 pointer-events-none flex justify-center">
+        <div class="pointer-events-auto w-full max-w-md rounded-2xl bg-black/85 backdrop-blur-xl border border-white/15 px-4 py-3 shadow-2xl">
+            <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3 min-w-0">
-                    <img id="player-cover" src="/cover_afterimage.jpg" alt="" width="48" height="48" decoding="async" class="w-11 h-11 rounded-xl object-cover border border-white/15 shrink-0">
+                    <img id="player-cover" src="/cover_afterimage.jpg" alt="" width="40" height="40" decoding="async" class="w-10 h-10 rounded-lg object-cover border border-white/10 shrink-0">
                     <div class="min-w-0">
-                        <div id="player-title" class="text-sm font-bold text-white truncate">Afterimage (feat. Nakadate)</div>
-                        <div id="player-subtitle" class="text-xs text-white/55 truncate">Afterimage • Single</div>
+                        <div id="player-title" class="text-xs sm:text-sm font-bold text-white truncate">Afterimage (feat. Nakadate)</div>
+                        <div class="flex items-center gap-2 text-[11px] text-white/50 font-mono truncate">
+                            <span id="player-subtitle" class="truncate">Single</span>
+                            <span>•</span>
+                            <span id="player-time">0:00 / 4:20</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Compact transport on mobile -->
-                <div class="flex sm:hidden items-center gap-2 shrink-0">
-                    <button type="button" id="player-prev-mobile" hidden aria-hidden="true"></button>
+                <div class="flex items-center gap-1 shrink-0">
+                    <button type="button" id="player-prev" aria-label="Previous track" class="w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer">
+                        <i class="ph-fill ph-skip-back text-sm" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" id="player-toggle" aria-label="Pause" class="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer">
+                        <i id="player-toggle-icon" class="ph-fill ph-play text-sm" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" id="player-next" aria-label="Next track" class="w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer">
+                        <i class="ph-fill ph-skip-forward text-sm" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Transport + Scrubber -->
-            <div class="flex-1 flex flex-col gap-1.5 max-w-2xl">
-                <div class="flex items-center justify-between sm:justify-center gap-4">
-                    <div class="flex items-center gap-2 sm:gap-4 mx-auto">
-                        <button type="button" id="player-prev" aria-label="Previous track" class="w-9 h-9 rounded-full flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer">
-                            <i class="ph-fill ph-skip-back text-lg" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" id="player-toggle" aria-label="Play Afterimage (feat. Nakadate)" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer">
-                            <i id="player-toggle-icon" class="ph-fill ph-play text-lg" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" id="player-next" aria-label="Next track" class="w-9 h-9 rounded-full flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer">
-                            <i class="ph-fill ph-skip-forward text-lg" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" id="player-loop" aria-label="Repeat current track" aria-pressed="false" class="w-8 h-8 rounded-full flex items-center justify-center text-white/50 hover:text-white transition-colors cursor-pointer">
-                            <i class="ph-bold ph-repeat text-sm" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-3">
-                    <span id="player-current-time" class="text-[11px] font-mono text-white/55 w-9 text-right shrink-0">0:00</span>
-                    <label for="player-seek" class="sr-only">Seek track position</label>
-                    <input id="player-seek" type="range" min="0" max="100" step="0.1" value="0" class="player-range w-full">
-                    <span id="player-duration" class="text-[11px] font-mono text-white/55 w-9 shrink-0">4:20</span>
-                </div>
+            <div class="mt-2.5 flex items-center">
+                <label for="player-seek" class="sr-only">Seek track position</label>
+                <input id="player-seek" type="range" min="0" max="100" step="0.1" value="0" class="pill-seek w-full">
             </div>
-
-            <!-- Volume Controls (Desktop) -->
-            <div class="hidden md:flex items-center justify-end gap-2.5 w-48 shrink-0">
-                <button type="button" id="player-mute" aria-label="Mute audio" aria-pressed="false" class="w-9 h-9 rounded-full flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer">
-                    <i id="player-mute-icon" class="ph-fill ph-speaker-high text-lg" aria-hidden="true"></i>
-                </button>
-                <label for="player-volume" class="sr-only">Volume</label>
-                <input id="player-volume" type="range" min="0" max="1" step="0.01" value="1" style="--seek-pct: 100%" class="player-range w-24">
-            </div>
-
         </div>
     </aside>
 
