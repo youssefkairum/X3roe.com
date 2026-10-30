@@ -50,10 +50,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/css/site.css?v=598ac4382b">
+    <link rel="stylesheet" href="/assets/css/site.css?v=322c724343">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
     <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
-    <script src="/assets/js/music.js?v=ae77c2dee1" defer></script>
+    <script src="/assets/js/music.js?v=3fef5cb98c" defer></script>
 
     <style>
         html {
@@ -272,6 +272,7 @@
         <nav class="hidden md:flex gap-8 pointer-events-auto" aria-label="Primary">
             <a href="#overview" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Overview</a>
             <a href="#tracklist" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Tracklist</a>
+            <a href="#video" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Video</a>
             <a href="#listen" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Listen</a>
         </nav>
 
@@ -291,6 +292,7 @@
             <ul class="flex flex-col py-2 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))]">
                 <li><a href="#overview" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest">Overview</a></li>
                 <li><a href="#tracklist" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Tracklist</a></li>
+                <li><a href="#video" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Video</a></li>
                 <li><a href="#listen" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Listen</a></li>
             </ul>
         </nav>
@@ -326,6 +328,10 @@
                         </button>
                         <a href="#tracklist" class="text-xs font-bold text-white/50 hover:text-white uppercase tracking-widest transition-colors inline-flex items-center gap-1.5">
                             <span>Tracklist</span>
+                            <i class="ph-bold ph-arrow-down" aria-hidden="true"></i>
+                        </a>
+                        <a href="#video" class="text-xs font-bold text-white/50 hover:text-white uppercase tracking-widest transition-colors inline-flex items-center gap-1.5">
+                            <span>Watch Video</span>
                             <i class="ph-bold ph-arrow-down" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -451,7 +457,31 @@
             </div>
         </section>
 
-        <!-- Section 3: LISTEN -->
+        <!-- Section 3: OFFICIAL VISUALIZER -->
+        <section id="video" class="snap-section bg-black border-t border-white/5">
+            <div class="max-w-5xl w-full px-6">
+
+                <div class="reveal mb-8 sm:mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <p class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-2">Official Visualizer</p>
+                        <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-white">Ephemeral.</h2>
+                    </div>
+                    <p class="text-xs font-mono uppercase tracking-widest text-white/40">FEAT. LIMI • 03:42</p>
+                </div>
+
+                <div class="reveal stagger-1 relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-black shadow-2xl group">
+                    <video data-music-video id="video-ephemeral" src="/assets/video/ephemeral-visualizer.mp4" poster="/cover_midnight.jpg" preload="metadata" playsinline controls class="w-full aspect-video object-cover bg-black block"></video>
+                    <button type="button" data-video-overlay="video-ephemeral" aria-label="Play Ephemeral (feat. Limi) Official Visualizer" class="absolute inset-0 bg-black/40 hover:bg-black/25 transition-colors flex items-center justify-center cursor-pointer touch-manipulation">
+                        <span class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white text-black flex items-center justify-center shadow-2xl group-hover:scale-105 transition-transform">
+                            <i class="ph-fill ph-play text-2xl sm:text-3xl ml-0.5" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 4: LISTEN -->
         <section id="listen" class="snap-section flex-col bg-black border-t border-white/5">
             <div class="max-w-4xl w-full mx-auto px-6 text-center my-auto">
                 <div class="reveal">

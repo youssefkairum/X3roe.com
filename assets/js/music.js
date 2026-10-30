@@ -384,6 +384,8 @@
 
   var releaseButtons = Array.prototype.slice.call(document.querySelectorAll('[data-release-play]'));
   var trackButtons = Array.prototype.slice.call(document.querySelectorAll('[data-track-id]'));
+  var musicVideos = Array.prototype.slice.call(document.querySelectorAll('[data-music-video]'));
+  var videoOverlays = Array.prototype.slice.call(document.querySelectorAll('[data-video-overlay]'));
 
   function findIndexById(id) {
     for (var i = 0; i < TRACKS.length; i++) {
@@ -644,6 +646,11 @@
 
   audio.addEventListener('play', function () {
     isPlaying = true;
+    musicVideos.forEach(function (v) {
+      if (!v.paused) {
+        v.pause();
+      }
+    });
     syncUI();
   });
 
@@ -966,6 +973,52 @@
     var id = btn.getAttribute('data-track-id');
     btn.addEventListener('click', function () {
       playTrackById(id);
+    });
+  });
+
+  // ---- Official Visualizer Videos ----
+  videoOverlays.forEach(function (overlay) {
+    var videoId = overlay.getAttribute('data-video-overlay');
+    var video = videoId ? document.getElementById(videoId) : null;
+    if (!video) return;
+    overlay.addEventListener('click', function () {
+      overlay.setAttribute('hidden', '');
+      if (!audio.paused) {
+        audio.pause();
+      }
+      musicVideos.forEach(function (other) {
+        if (other !== video && !other.paused) {
+          other.pause();
+        }
+      });
+      var p = video.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {
+          overlay.removeAttribute('hidden');
+        });
+      }
+    });
+  });
+
+  musicVideos.forEach(function (video) {
+    var overlay = video.id ? document.querySelector('[data-video-overlay="' + video.id + '"]') : null;
+    video.addEventListener('play', function () {
+      if (overlay) {
+        overlay.setAttribute('hidden', '');
+      }
+      if (!audio.paused) {
+        audio.pause();
+      }
+      musicVideos.forEach(function (other) {
+        if (other !== video && !other.paused) {
+          other.pause();
+        }
+      });
+    });
+    video.addEventListener('ended', function () {
+      if (overlay) {
+        overlay.removeAttribute('hidden');
+      }
     });
   });
 
