@@ -48,10 +48,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/css/site.css?v=b4e5d6102c">
+    <link rel="stylesheet" href="/assets/css/site.css?v=d965df385c">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
     <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
-    <script src="/assets/js/music.js?v=d7d8d111d7" defer></script>
+    <script src="/assets/js/music.js?v=ccceb5c3b7" defer></script>
 
     <style>
         html {
@@ -384,6 +384,16 @@
     <!-- Minimalist Floating Pill Player -->
     <aside id="player-bar" data-default-track="bodytalk" hidden aria-label="Music player" class="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-4 right-4 z-50 pointer-events-none flex justify-center">
         <div class="pointer-events-auto w-full max-w-md rounded-2xl bg-black/85 backdrop-blur-xl border border-white/15 px-4 py-3 shadow-2xl">
+            <div id="player-lyrics-panel" hidden class="mb-3 pb-3 border-b border-white/10">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40">Synced Lyrics • Tap line to seek</span>
+                    <button type="button" id="player-lyrics-close" aria-label="Close lyrics" class="text-[10px] font-mono uppercase tracking-widest text-white/50 hover:text-white transition-colors cursor-pointer">
+                        Close
+                    </button>
+                </div>
+                <div id="player-lyrics-list" class="max-h-52 overflow-y-auto pr-1 space-y-1.5 scroll-smooth"></div>
+            </div>
+
             <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3 min-w-0">
                     <img id="player-cover" src="/cover_bodytalk.jpg" alt="" width="40" height="40" decoding="async" class="w-10 h-10 rounded-lg object-cover border border-white/10 shrink-0">
@@ -398,6 +408,9 @@
                 </div>
 
                 <div class="flex items-center gap-1 shrink-0">
+                    <button type="button" id="player-lyrics-btn" aria-expanded="false" aria-controls="player-lyrics-panel" aria-label="Toggle lyrics" class="px-2.5 h-8 rounded-full border border-white/15 text-[10px] font-mono uppercase tracking-widest text-white/70 hover:text-white hover:border-white/40 transition-colors cursor-pointer mr-1">
+                        Lyrics
+                    </button>
                     <button type="button" id="player-prev" aria-label="Previous track" class="w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer">
                         <i class="ph-fill ph-skip-back text-sm" aria-hidden="true"></i>
                     </button>
@@ -410,7 +423,9 @@
                 </div>
             </div>
 
-            <div class="mt-2.5 flex items-center">
+            <button type="button" id="player-lyric-preview" aria-label="Expand full lyrics" class="mt-2.5 w-full text-left text-xs text-white/75 hover:text-white truncate font-medium transition-colors cursor-pointer block"></button>
+
+            <div class="mt-2 flex items-center">
                 <label for="player-seek" class="sr-only">Seek track position</label>
                 <input id="player-seek" type="range" min="0" max="100" step="0.1" value="0" class="pill-seek w-full">
             </div>
