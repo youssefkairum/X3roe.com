@@ -1,23 +1,26 @@
 // X3rœ Music Pages (music.html, bodytalk.html, midnight-blue.html):
-// Minimalist Native Audio Player with Instant Pre-Buffered Playback & Time-Synced Lyrics.
+// Spotify-Style Bottom Player Bar + Full-Screen Time-Synced Lyrics View.
 (function () {
   'use strict';
 
   // Keep literal Phosphor classes in a comment so tools/icons.py bundles them:
   // ph-fill ph-play ph-fill ph-pause ph-fill ph-skip-back ph-fill ph-skip-forward
+  // ph-bold ph-shuffle ph-bold ph-repeat ph-bold ph-microphone-stage
+  // ph-fill ph-speaker-high ph-fill ph-speaker-slash ph-bold ph-caret-down
 
   var TRACKS = [
     {
       id: 'afterimage',
       title: 'Afterimage (feat. Nakadate)',
-      release: 'Single',
+      release: 'X3rœ • Single',
       group: 'afterimage',
       src: '/assets/audio/afterimage.m4a',
       cover: '/cover_afterimage.jpg',
+      accent: 'rgba(120, 82, 52, 0.55)',
       duration: '4:20',
       durationSec: 260,
       lyrics: [
-        { t: 0, text: '♪ Instrumental Intro ♪' },
+        { t: 0, text: '♪' },
         { t: 45.18, text: 'The window hums with faded rain' },
         { t: 51.13, text: 'Your outline moves inside my brain' },
         { t: 57.13, text: 'You left your shirt upon the chair' },
@@ -51,14 +54,15 @@
     {
       id: 'bodytalk',
       title: 'BODYTALK',
-      release: 'Single',
+      release: 'X3rœ • Single',
       group: 'bodytalk',
       src: '/assets/audio/bodytalk.m4a',
       cover: '/cover_bodytalk.jpg',
+      accent: 'rgba(88, 56, 135, 0.6)',
       duration: '2:58',
       durationSec: 178,
       lyrics: [
-        { t: 0, text: '♪ Instrumental Intro ♪' },
+        { t: 0, text: '♪' },
         { t: 18.77, text: 'You walk in like a midnight sin' },
         { t: 23.80, text: 'Perfume mixed with smoke and gin' },
         { t: 28.99, text: 'Every curve you’ve got’s a crime' },
@@ -94,14 +98,15 @@
     {
       id: 'velvet-plan',
       title: 'Velvet Plan',
-      release: 'Midnight Blue EP',
+      release: 'X3rœ • Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/velvet-plan.m4a',
       cover: '/cover_midnight.jpg',
+      accent: 'rgba(56, 74, 122, 0.6)',
       duration: '3:39',
       durationSec: 219,
       lyrics: [
-        { t: 0, text: '♪ Instrumental Intro ♪' },
+        { t: 0, text: '♪' },
         { t: 19.50, text: 'Cut a name off her wrist, didn’t ask for it' },
         { t: 25.42, text: 'She don’t know I exist, but I track the orbit' },
         { t: 30.74, text: 'Another face in the smoke, another ghost in the bed' },
@@ -144,14 +149,15 @@
     {
       id: 'ephemeral',
       title: 'Ephemeral (feat. Limi)',
-      release: 'Midnight Blue EP',
+      release: 'X3rœ • Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/ephemeral.m4a',
       cover: '/cover_midnight.jpg',
+      accent: 'rgba(56, 74, 122, 0.6)',
       duration: '3:42',
       durationSec: 222,
       lyrics: [
-        { t: 0, text: '♪ Instrumental Intro ♪' },
+        { t: 0, text: '♪' },
         { t: 19.33, text: 'You came through my door like a fever dream' },
         { t: 23.83, text: 'Skin still wet from the city steam' },
         { t: 28.73, text: 'Said you only want it till the light' },
@@ -192,14 +198,15 @@
     {
       id: 'hotel-skin',
       title: 'Hotel Skin',
-      release: 'Midnight Blue EP',
+      release: 'X3rœ • Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/hotel-skin.m4a',
       cover: '/cover_midnight.jpg',
+      accent: 'rgba(56, 74, 122, 0.6)',
       duration: '3:09',
       durationSec: 189,
       lyrics: [
-        { t: 0, text: '♪ Instrumental Intro ♪' },
+        { t: 0, text: '♪' },
         { t: 15.00, text: 'She left her heels by the minibar, her body talkin’ louder than her heart' },
         { t: 22.44, text: 'Told me "Make me feel like I’m the only star," but I just needed somewhere to fall apart' },
         { t: 29.34, text: 'Lipstick stains on my collarbone, she moan my name like she on the throne' },
@@ -227,14 +234,15 @@
     {
       id: 'room-42',
       title: 'Room 42',
-      release: 'Midnight Blue EP',
+      release: 'X3rœ • Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/room-42.m4a',
       cover: '/cover_midnight.jpg',
+      accent: 'rgba(56, 74, 122, 0.6)',
       duration: '3:10',
       durationSec: 190,
       lyrics: [
-        { t: 0, text: '♪ Instrumental Intro ♪' },
+        { t: 0, text: '♪' },
         { t: 19.50, text: 'This bed was never made for love' },
         { t: 27.06, text: 'You used to call me your drug, now your moans still echo in my head' },
         { t: 33.18, text: 'And your scent won’t leave my sheets, my bed — you move like sin, I’m as cold as glass' },
@@ -267,14 +275,15 @@
     {
       id: 'secrets-of-my-soul',
       title: 'Secrets of My Soul',
-      release: 'Midnight Blue EP',
+      release: 'X3rœ • Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/secrets-of-my-soul.m4a',
       cover: '/cover_midnight.jpg',
+      accent: 'rgba(56, 74, 122, 0.6)',
       duration: '2:55',
       durationSec: 175,
       lyrics: [
-        { t: 0, text: '♪ Instrumental Intro ♪' },
+        { t: 0, text: '♪' },
         { t: 20.00, text: 'I’m lost inside the shadows' },
         { t: 29.06, text: 'Tracing every scar, every choice I can’t undo — the silence holds my name like a warning' },
         { t: 44.06, text: 'And I’m sinking deep, no hand to pull me through' },
@@ -296,14 +305,15 @@
     {
       id: 'the-undertow',
       title: 'The Undertow',
-      release: 'Midnight Blue EP',
+      release: 'X3rœ • Midnight Blue EP',
       group: 'midnight',
       src: '/assets/audio/the-undertow.m4a',
       cover: '/cover_midnight.jpg',
+      accent: 'rgba(56, 74, 122, 0.6)',
       duration: '4:13',
       durationSec: 253,
       lyrics: [
-        { t: 0, text: '♪ Instrumental Intro ♪' },
+        { t: 0, text: '♪' },
         { t: 30.00, text: 'Whispers crawl along the floor' },
         { t: 37.00, text: 'Names I don’t remember anymore' },
         { t: 43.00, text: 'Dreams decay where shadows stay' },
@@ -339,18 +349,29 @@
   // DOM Elements
   var playerBar = document.getElementById('player-bar');
   var playerCover = document.getElementById('player-cover');
+  var playerCoverBtn = document.getElementById('player-cover-btn');
   var playerTitle = document.getElementById('player-title');
   var playerSubtitle = document.getElementById('player-subtitle');
-  var playerTime = document.getElementById('player-time');
+  var playerElapsed = document.getElementById('player-elapsed');
+  var playerDuration = document.getElementById('player-duration');
   var playerToggle = document.getElementById('player-toggle');
   var playerToggleIcon = document.getElementById('player-toggle-icon');
   var playerPrev = document.getElementById('player-prev');
   var playerNext = document.getElementById('player-next');
+  var playerShuffle = document.getElementById('player-shuffle');
+  var playerRepeat = document.getElementById('player-repeat');
   var playerSeek = document.getElementById('player-seek');
+  var playerMute = document.getElementById('player-mute');
+  var playerMuteIcon = document.getElementById('player-mute-icon');
+  var playerVolume = document.getElementById('player-volume');
 
   var playerLyricsBtn = document.getElementById('player-lyrics-btn');
   var playerLyricsClose = document.getElementById('player-lyrics-close');
   var playerLyricsPanel = document.getElementById('player-lyrics-panel');
+  var playerLyricsBg = document.getElementById('player-lyrics-bg');
+  var playerLyricsCover = document.getElementById('player-lyrics-cover');
+  var playerLyricsTitle = document.getElementById('player-lyrics-title');
+  var playerLyricsSub = document.getElementById('player-lyrics-sub');
   var playerLyricsList = document.getElementById('player-lyrics-list');
   var playerLyricPreview = document.getElementById('player-lyric-preview');
 
@@ -375,6 +396,10 @@
   var currentIndex = defaultIndex !== -1 ? defaultIndex : 0;
   var isPlaying = false;
   var isSeeking = false;
+  var isShuffle = false;
+  var isRepeat = false;
+  var isMuted = false;
+  var currentVolume = 0.9;
   var lyricsOpen = false;
   var activeLyricIndex = -1;
   var renderedLyricsTrackId = null;
@@ -392,6 +417,28 @@
     if (!playerSeek) return;
     var clamped = Math.max(0, Math.min(100, pct || 0));
     playerSeek.style.setProperty('--seek-pct', clamped.toFixed(2) + '%');
+  }
+
+  function updateVolumeVisual(pct) {
+    if (!playerVolume) return;
+    var clamped = Math.max(0, Math.min(100, pct || 0));
+    playerVolume.style.setProperty('--vol-pct', clamped.toFixed(2) + '%');
+  }
+
+  function applyVolumeToPool() {
+    var effective = isMuted ? 0 : currentVolume;
+    Object.keys(audioPool).forEach(function (id) {
+      if (audioPool[id]) {
+        audioPool[id].volume = effective;
+        audioPool[id].muted = isMuted;
+      }
+    });
+    if (playerMuteIcon) {
+      var silent = isMuted || currentVolume === 0;
+      playerMuteIcon.classList.toggle('ph-speaker-slash', silent);
+      playerMuteIcon.classList.toggle('ph-speaker-high', !silent);
+    }
+    updateVolumeVisual((isMuted ? 0 : currentVolume) * 100);
   }
 
   function updateMediaSession(track) {
@@ -417,12 +464,19 @@
     activeLyricIndex = -1;
     playerLyricsList.innerHTML = '';
 
+    if (playerLyricsBg && track.accent) {
+      playerLyricsBg.style.background = 'radial-gradient(circle at 20% 20%, ' + track.accent + ' 0%, rgba(10,10,12,0.96) 70%)';
+    }
+    if (playerLyricsCover) playerLyricsCover.src = track.cover;
+    if (playerLyricsTitle) playerLyricsTitle.textContent = track.title;
+    if (playerLyricsSub) playerLyricsSub.textContent = track.release;
+
     var lines = track.lyrics || [];
     lines.forEach(function (item, idx) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.setAttribute('data-lyric-idx', String(idx));
-      btn.className = 'w-full text-left py-1.5 px-2.5 rounded-lg text-xs sm:text-sm transition-all duration-200 cursor-pointer block text-white/40 hover:text-white/80';
+      btn.className = 'spotify-lyric-line is-upcoming';
       btn.textContent = item.text;
       btn.addEventListener('click', function () {
         var a = getAudio(currentIndex);
@@ -464,28 +518,30 @@
     activeLyricIndex = idx;
 
     if (playerLyricPreview && lines[idx]) {
-      playerLyricPreview.textContent = lines[idx].text;
+      var previewText = lines[idx].text === '♪' && lines[1] ? '♪ ' + lines[1].text : lines[idx].text;
+      playerLyricPreview.textContent = previewText;
     }
 
     if (playerLyricsList) {
       var buttons = playerLyricsList.querySelectorAll('[data-lyric-idx]');
       var activeEl = null;
       for (var j = 0; j < buttons.length; j++) {
-        var isCurrent = j === idx;
-        buttons[j].className = isCurrent
-          ? 'w-full text-left py-1.5 px-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-white/10 transition-all duration-200 cursor-pointer block'
-          : 'w-full text-left py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-white/40 hover:text-white/80 transition-all duration-200 cursor-pointer block';
-        if (isCurrent) activeEl = buttons[j];
+        buttons[j].classList.remove('is-past', 'is-current', 'is-upcoming');
+        if (j < idx) {
+          buttons[j].classList.add('is-past');
+        } else if (j === idx) {
+          buttons[j].classList.add('is-current');
+          activeEl = buttons[j];
+        } else {
+          buttons[j].classList.add('is-upcoming');
+        }
       }
       if (activeEl && lyricsOpen) {
-        var containerTop = playerLyricsList.scrollTop;
         var containerHeight = playerLyricsList.clientHeight;
         var elTop = activeEl.offsetTop - playerLyricsList.offsetTop;
         var elHeight = activeEl.offsetHeight;
         var targetScroll = elTop - (containerHeight / 2) + (elHeight / 2);
-        if (Math.abs(containerTop - targetScroll) > 12) {
-          playerLyricsList.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
-        }
+        playerLyricsList.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
       }
     }
   }
@@ -501,10 +557,7 @@
     }
     if (playerLyricsBtn) {
       playerLyricsBtn.setAttribute('aria-expanded', lyricsOpen ? 'true' : 'false');
-      playerLyricsBtn.classList.toggle('bg-white', lyricsOpen);
-      playerLyricsBtn.classList.toggle('text-black', lyricsOpen);
-      playerLyricsBtn.classList.toggle('border-white', lyricsOpen);
-      playerLyricsBtn.classList.toggle('text-white/70', !lyricsOpen);
+      playerLyricsBtn.classList.toggle('is-active', lyricsOpen);
     }
     if (lyricsOpen && playerLyricsList && activeLyricIndex >= 0) {
       var activeEl = playerLyricsList.querySelector('[data-lyric-idx="' + activeLyricIndex + '"]');
@@ -524,14 +577,19 @@
       var a = new Audio();
       a.preload = 'auto';
       a.src = track.src;
+      a.volume = isMuted ? 0 : currentVolume;
+      a.muted = isMuted;
       a.load();
 
       a.addEventListener('timeupdate', function () {
         if (currentIndex !== index || isSeeking) return;
         var cur = a.currentTime || 0;
         var dur = isFinite(a.duration) && a.duration > 0 ? a.duration : track.durationSec;
-        if (playerTime) {
-          playerTime.textContent = formatTime(cur) + ' / ' + (isFinite(a.duration) && a.duration > 0 ? formatTime(a.duration) : track.duration);
+        if (playerElapsed) {
+          playerElapsed.textContent = formatTime(cur);
+        }
+        if (playerDuration) {
+          playerDuration.textContent = isFinite(a.duration) && a.duration > 0 ? formatTime(a.duration) : track.duration;
         }
         if (playerSeek && dur > 0) {
           var pct = (cur / dur) * 100;
@@ -555,7 +613,18 @@
 
       a.addEventListener('ended', function () {
         if (currentIndex !== index) return;
-        loadTrack(currentIndex + 1, true);
+        if (isRepeat) {
+          try { a.currentTime = 0; } catch (e) {}
+          a.play();
+        } else if (isShuffle && TRACKS.length > 1) {
+          var nextIdx = currentIndex;
+          while (nextIdx === currentIndex) {
+            nextIdx = Math.floor(Math.random() * TRACKS.length);
+          }
+          loadTrack(nextIdx, true);
+        } else {
+          loadTrack(currentIndex + 1, true);
+        }
       });
 
       audioPool[track.id] = a;
@@ -579,6 +648,9 @@
     if (playerCover) playerCover.src = track.cover;
     if (playerTitle) playerTitle.textContent = track.title;
     if (playerSubtitle) playerSubtitle.textContent = track.release;
+    if (playerDuration && (!audioPool[track.id] || !isFinite(audioPool[track.id].duration))) {
+      playerDuration.textContent = track.duration;
+    }
 
     renderTrackLyrics(track);
 
@@ -649,7 +721,8 @@
     var track = TRACKS[index];
     var a = getAudio(index);
 
-    if (playerTime) playerTime.textContent = '0:00 / ' + track.duration;
+    if (playerElapsed) playerElapsed.textContent = '0:00';
+    if (playerDuration) playerDuration.textContent = track.duration;
     if (playerSeek) playerSeek.value = '0';
     updateSeekVisual(0);
     updateMediaSession(track);
@@ -730,12 +803,56 @@
   }
   if (playerNext) {
     playerNext.addEventListener('click', function () {
-      loadTrack(currentIndex + 1, true);
+      if (isShuffle && TRACKS.length > 1) {
+        var nextIdx = currentIndex;
+        while (nextIdx === currentIndex) {
+          nextIdx = Math.floor(Math.random() * TRACKS.length);
+        }
+        loadTrack(nextIdx, true);
+      } else {
+        loadTrack(currentIndex + 1, true);
+      }
+    });
+  }
+  if (playerShuffle) {
+    playerShuffle.addEventListener('click', function () {
+      isShuffle = !isShuffle;
+      playerShuffle.setAttribute('aria-pressed', isShuffle ? 'true' : 'false');
+      playerShuffle.classList.toggle('is-active', isShuffle);
+    });
+  }
+  if (playerRepeat) {
+    playerRepeat.addEventListener('click', function () {
+      isRepeat = !isRepeat;
+      playerRepeat.setAttribute('aria-pressed', isRepeat ? 'true' : 'false');
+      playerRepeat.classList.toggle('is-active', isRepeat);
+    });
+  }
+
+  if (playerMute) {
+    playerMute.addEventListener('click', function () {
+      isMuted = !isMuted;
+      applyVolumeToPool();
+    });
+  }
+  if (playerVolume) {
+    playerVolume.addEventListener('input', function () {
+      var val = parseFloat(playerVolume.value);
+      if (isFinite(val)) {
+        currentVolume = Math.max(0, Math.min(1, val / 100));
+        isMuted = currentVolume === 0;
+        applyVolumeToPool();
+      }
     });
   }
 
   if (playerLyricsBtn) {
     playerLyricsBtn.addEventListener('click', function () {
+      setLyricsOpen(!lyricsOpen);
+    });
+  }
+  if (playerCoverBtn) {
+    playerCoverBtn.addEventListener('click', function () {
       setLyricsOpen(!lyricsOpen);
     });
   }
@@ -750,6 +867,12 @@
     });
   }
 
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lyricsOpen) {
+      setLyricsOpen(false);
+    }
+  });
+
   if (playerSeek) {
     playerSeek.addEventListener('input', function () {
       isSeeking = true;
@@ -758,9 +881,9 @@
       var track = TRACKS[currentIndex];
       var a = getAudio(currentIndex);
       var dur = a && isFinite(a.duration) && a.duration > 0 ? a.duration : track.durationSec;
-      if (playerTime && dur > 0) {
+      if (dur > 0) {
         var seekSec = (pct / 100) * dur;
-        playerTime.textContent = formatTime(seekSec) + ' / ' + formatTime(dur);
+        if (playerElapsed) playerElapsed.textContent = formatTime(seekSec);
         syncLyricsTime(seekSec);
       }
     });
@@ -859,4 +982,5 @@
 
   syncUI();
   updateSeekVisual(0);
+  updateVolumeVisual(currentVolume * 100);
 })();
