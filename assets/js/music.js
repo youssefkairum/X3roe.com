@@ -227,10 +227,10 @@
     }
 
     if (heroVinyl) {
-      heroVinyl.classList.toggle('is-spinning', isPlaying);
-    }
-    if (heroVinylArt && !heroVinylArt.hasAttribute('data-fixed-art')) {
-      heroVinylArt.src = track.cover;
+      var vinylGroup = heroVinyl.getAttribute('data-hero-group');
+      var vinylTrack = heroVinyl.getAttribute('data-hero-track') || defaultTrackId;
+      var vinylActive = vinylGroup ? track.group === vinylGroup : track.id === vinylTrack;
+      heroVinyl.classList.toggle('is-spinning', isPlaying && vinylActive);
     }
     if (heroPlayBtn && heroPlayIcon && heroPlayLabel) {
       var heroGroup = heroPlayBtn.getAttribute('data-hero-group');
@@ -409,7 +409,14 @@
   }
   if (heroVinyl) {
     heroVinyl.addEventListener('click', function () {
-      togglePlay();
+      var vinylGroup = heroVinyl.getAttribute('data-hero-group');
+      var vinylTrack = heroVinyl.getAttribute('data-hero-track') || defaultTrackId;
+      var currentTrack = TRACKS[currentIndex];
+      if (vinylGroup && currentTrack && currentTrack.group === vinylGroup) {
+        togglePlay();
+      } else {
+        playTrackById(vinylTrack);
+      }
     });
   }
 
