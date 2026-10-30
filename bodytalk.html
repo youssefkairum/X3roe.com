@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://formspree.io; object-src 'none'; base-uri 'self'; form-action https://formspree.io; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>BODYTALK — X3rœ | Single &amp; Lyrics</title>
+
+    <meta name="description" content="Stream BODYTALK by X3rœ and read the official lyrics. Atmospheric dark electronic &amp; alternative R&amp;B single.">
+    <link rel="canonical" href="https://x3roe.com/bodytalk.html">
+    <meta property="og:site_name" content="X3roe">
+    <meta property="og:title" content="BODYTALK — X3rœ | Single &amp; Lyrics">
+    <meta property="og:description" content="Stream BODYTALK by X3rœ and read the official lyrics. Atmospheric dark electronic &amp; alternative R&amp;B single.">
+    <meta property="og:image" content="https://x3roe.com/cover_bodytalk.jpg">
+    <meta property="og:image:width" content="640">
+    <meta property="og:image:height" content="640">
+    <meta property="og:image:alt" content="BODYTALK cover art">
+    <meta property="og:url" content="https://x3roe.com/bodytalk.html">
+    <meta property="og:type" content="music.song">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="BODYTALK — X3rœ | Single &amp; Lyrics">
+    <meta name="twitter:description" content="Stream BODYTALK by X3rœ and read the official lyrics. Atmospheric dark electronic &amp; alternative R&amp;B single.">
+    <meta name="twitter:image" content="https://x3roe.com/cover_bodytalk.jpg">
+    <meta name="twitter:image:alt" content="BODYTALK cover art">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicRecording",
+      "name": "BODYTALK",
+      "url": "https://x3roe.com/bodytalk.html",
+      "duration": "PT2M58S",
+      "datePublished": "2025",
+      "image": "https://x3roe.com/cover_bodytalk.jpg",
+      "byArtist": {
+        "@type": "MusicGroup",
+        "name": "X3rœ",
+        "url": "https://x3roe.com/music.html"
+      }
+    }
+    </script>
+
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/site.css?v=508a84bd03">
+    <script src="/assets/js/head.js?v=ed7642216d"></script>
+    <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
+    <script src="/assets/js/music.js?v=2597c1148b" defer></script>
+
+    <style>
+        html {
+            scroll-snap-type: y proximity;
+        }
+        @media (min-width: 1024px) and (min-height: 760px) {
+            html { scroll-snap-type: y mandatory; }
+        }
+
+        .site-header {
+            padding: max(1.5rem, env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-right)) 1.5rem max(1.5rem, env(safe-area-inset-left));
+        }
+        @media (min-width: 640px) {
+            .site-header {
+                padding: max(2.5rem, env(safe-area-inset-top)) max(2.5rem, env(safe-area-inset-right)) 2.5rem max(2.5rem, env(safe-area-inset-left));
+            }
+        }
+
+        #mobile-nav {
+            max-height: calc(100vh - 100%);
+            max-height: calc(100svh - 100%);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .snap-section {
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100svh;
+            scroll-snap-align: start;
+            position: relative;
+            isolation: isolate;
+            overflow-x: clip;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: max(6.5rem, calc(env(safe-area-inset-top) + 5rem));
+            padding-bottom: 4rem;
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+        @media (min-width: 640px) {
+            .snap-section {
+                padding-top: max(8.5rem, calc(env(safe-area-inset-top) + 6.5rem));
+                padding-bottom: 5rem;
+            }
+        }
+
+        .vinyl-disc {
+            animation: spin 10s linear infinite;
+            animation-play-state: paused;
+        }
+        #hero-vinyl.is-spinning .vinyl-disc {
+            animation-play-state: running;
+        }
+
+        .pill-seek {
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(
+                to right,
+                #ffffff 0%,
+                #ffffff var(--seek-pct, 0%),
+                rgba(255, 255, 255, 0.16) var(--seek-pct, 0%),
+                rgba(255, 255, 255, 0.16) 100%
+            );
+            height: 3px;
+            border-radius: 9999px;
+            cursor: pointer;
+        }
+        .pill-seek::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ffffff;
+        }
+        .pill-seek::-moz-range-thumb {
+            width: 10px;
+            height: 10px;
+            border: 0;
+            border-radius: 50%;
+            background: #ffffff;
+        }
+
+        @media (max-height: 500px) {
+            .site-header {
+                padding-top: max(1rem, env(safe-area-inset-top));
+                padding-bottom: 1rem;
+            }
+            .snap-section {
+                padding-top: max(5.5rem, calc(env(safe-area-inset-top) + 4.5rem));
+                padding-bottom: 3rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <!-- Fixed UI Overlay -->
+    <header class="site-header fixed top-0 left-0 right-0 z-50 flex justify-between items-center pointer-events-none bg-gradient-to-b from-black/80 via-black/40 to-transparent">
+        <div class="pointer-events-auto">
+            <a href="/music.html" class="flex items-center gap-2 text-white hover:text-white/70 transition-colors">
+                <i class="ph-bold ph-arrow-left" aria-hidden="true"></i>
+                <span class="sr-only">Back to Music: </span>
+                <span class="text-2xl font-bold tracking-tighter">X3rœ</span>
+            </a>
+        </div>
+
+        <nav class="hidden md:flex gap-8 pointer-events-auto" aria-label="Primary">
+            <a href="#track" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Single</a>
+            <a href="#lyrics" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Lyrics</a>
+            <a href="#listen" class="text-sm font-semibold text-white/50 hover:text-white transition-colors uppercase tracking-widest">Listen</a>
+        </nav>
+
+        <div class="pointer-events-auto flex items-center gap-4">
+            <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" rel="noopener noreferrer" aria-label="X3rœ on Spotify (opens in new tab)" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+                <i class="ph-fill ph-spotify-logo" aria-hidden="true"></i>
+            </a>
+            <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" rel="noopener noreferrer" aria-label="X3rœ on Apple Music (opens in new tab)" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+                <i class="ph-fill ph-apple-logo" aria-hidden="true"></i>
+            </a>
+            <button type="button" class="md:hidden w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors" data-nav-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
+                <i class="ph-bold ph-list" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <nav id="mobile-nav" class="md:hidden absolute top-full left-0 right-0 pointer-events-auto bg-black/90 backdrop-blur-md border-y border-white/10" data-mobile-nav aria-label="Mobile" hidden>
+            <ul class="flex flex-col py-2 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))]">
+                <li><a href="#track" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest">Single</a></li>
+                <li><a href="#lyrics" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Lyrics</a></li>
+                <li><a href="#listen" class="block py-4 text-base font-semibold text-white/80 hover:text-white uppercase tracking-widest border-t border-white/10">Listen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+
+        <!-- Section 1: HERO / SINGLE -->
+        <section id="track" class="snap-section bg-black">
+            <div class="absolute inset-0 -z-10 opacity-[0.15] pointer-events-none overflow-hidden" aria-hidden="true">
+                <img src="cover_bodytalk.jpg" alt="" width="640" height="640" decoding="async" class="w-full h-full object-cover grayscale blur-3xl scale-110">
+                <div class="absolute inset-0 bg-black/80"></div>
+            </div>
+
+            <div class="max-w-7xl w-full px-6 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
+
+                <div class="flex-1 reveal w-full text-center md:text-left">
+                    <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
+                        Single • 2025
+                    </span>
+                    <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter leading-[0.9] text-white">
+                        <span class="sr-only">BODYTALK</span>
+                        <span aria-hidden="true">BODY<br>TALK.</span>
+                    </h1>
+                    <p class="text-sm sm:text-base text-white/50 mt-5 font-mono uppercase tracking-widest">
+                        X3RŒ • 2:58
+                    </p>
+
+                    <div class="mt-12 flex flex-wrap items-center justify-center md:justify-start gap-6 reveal stagger-1">
+                        <button type="button" id="hero-play-btn" data-hero-track="bodytalk" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2 cursor-pointer">
+                            <i id="hero-play-icon" class="ph-fill ph-play text-lg" aria-hidden="true"></i>
+                            <span id="hero-play-label">Listen Now</span>
+                        </button>
+                        <a href="#lyrics" class="text-xs font-bold text-white/50 hover:text-white uppercase tracking-widest transition-colors inline-flex items-center gap-1.5">
+                            <span>Lyrics</span>
+                            <i class="ph-bold ph-arrow-down" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Record Player UI -->
+                <div class="flex-1 w-full max-w-md reveal stagger-2">
+                    <button type="button" id="hero-vinyl" aria-label="Toggle BODYTALK playback" class="w-full aspect-square bg-[#050505] border border-white/10 rounded-full p-4 block cursor-pointer">
+                        <span class="vinyl-disc w-full h-full border border-white/10 rounded-full bg-black relative overflow-hidden flex items-center justify-center">
+                            <img id="hero-vinyl-art" data-fixed-art src="cover_bodytalk.jpg" alt="" width="640" height="640" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                            <span class="w-24 h-24 bg-black rounded-full border-4 border-[#050505] relative"></span>
+                        </span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 2: LYRICS -->
+        <section id="lyrics" class="snap-section bg-[#020202] border-t border-white/5">
+            <div class="max-w-5xl w-full px-6">
+
+                <div class="reveal mb-12 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-8">
+                    <div>
+                        <p class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-2">Written &amp; Performed by X3rœ</p>
+                        <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-white">Lyrics.</h2>
+                    </div>
+                    <p class="text-xs font-mono uppercase tracking-widest text-white/40">BODYTALK • 02:58</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12 text-white/75 leading-relaxed">
+
+                    <div class="space-y-8 reveal stagger-1">
+                        <div>
+                            <h3 class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-3">Verse I</h3>
+                            <p class="text-base sm:text-lg font-light space-y-1">
+                                You walk in like a midnight sin,<br>
+                                Perfume mixed with smoke and gin.<br>
+                                Every curve you’ve got’s a crime,<br>
+                                And I keep doing time.<br>
+                                Your beauty’s cold, it cuts so deep,<br>
+                                You make me beg, you make me bleed.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-3">Pre-Chorus</h3>
+                            <p class="text-base sm:text-lg font-light">
+                                Your body speaks in tongues I crave,<br>
+                                But your words could dig a grave.<br>
+                                I try to love the fire inside,<br>
+                                But girl, you burn and never cry.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-3">Chorus</h3>
+                            <p class="text-base sm:text-lg font-medium text-white">
+                                Your body never lies to me,<br>
+                                But your soul’s a mystery.<br>
+                                You taste like heaven, talk like pain,<br>
+                                I lose myself then curse your name.<br>
+                                Yeah, your body’s holy, but your heart’s a war,<br>
+                                And I keep crawling back for more.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8 reveal stagger-2">
+                        <div>
+                            <h3 class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-3">Verse II</h3>
+                            <p class="text-base sm:text-lg font-light">
+                                You love me just to feel control,<br>
+                                Then vanish deep inside your soul.<br>
+                                Every kiss is a sweet disguise,<br>
+                                I see the truth behind your eyes.<br>
+                                You call it love, I call it need,<br>
+                                We plant the hurt and let it bleed.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-3">Bridge</h3>
+                            <p class="text-base sm:text-lg font-light">
+                                You’re poison dressed in angel skin,<br>
+                                A war I’ll never win.<br>
+                                Still I drink you like my sin,<br>
+                                And fall right back again.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-3">Outro</h3>
+                            <p class="text-base sm:text-lg font-light">
+                                So let the night erase my pride,<br>
+                                Your shadow’s where I hide.<br>
+                                Your body saves me, your heart destroys,<br>
+                                But I still chase the noise.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 3: LISTEN -->
+        <section id="listen" class="snap-section flex-col bg-black border-t border-white/5">
+            <div class="max-w-4xl w-full mx-auto px-6 text-center my-auto">
+                <div class="reveal">
+                    <h2 class="text-5xl sm:text-7xl font-black tracking-tighter text-white mb-10 sm:mb-16">
+                        Listen Everywhere.
+                    </h2>
+                </div>
+
+                <ul class="flex flex-wrap justify-center items-start gap-x-10 gap-y-8 sm:gap-20 reveal stagger-1" role="list">
+                    <li>
+                        <a href="https://open.spotify.com/artist/1lPo5ruZv0OSzUx99hsSX5" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-3 text-white/60 hover:text-white transition-colors">
+                            <i class="ph-fill ph-spotify-logo text-6xl" aria-hidden="true"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest">Spotify<span class="sr-only"> (opens in new tab)</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://music.apple.com/us/artist/x3r%C5%93/1802614999" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-3 text-white/60 hover:text-white transition-colors">
+                            <i class="ph-fill ph-apple-logo text-6xl" aria-hidden="true"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest">Apple Music<span class="sr-only"> (opens in new tab)</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://soundcloud.com/x3roe" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-3 text-white/60 hover:text-white transition-colors">
+                            <i class="ph-fill ph-soundcloud-logo text-6xl" aria-hidden="true"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest">SoundCloud<span class="sr-only"> (opens in new tab)</span></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="mt-14 flex flex-wrap justify-center gap-6 reveal stagger-2">
+                    <a href="/music.html" class="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white inline-flex items-center gap-2 transition-colors">
+                        <i class="ph-bold ph-arrow-left" aria-hidden="true"></i>
+                        <span>All Releases</span>
+                    </a>
+                    <span class="text-white/20" aria-hidden="true">•</span>
+                    <a href="/midnight-blue.html" class="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white inline-flex items-center gap-2 transition-colors">
+                        <span>Midnight Blue EP</span>
+                        <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+            <footer class="w-full max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-20 text-center reveal stagger-2">
+                <nav aria-label="Legal" class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+                    <a href="/" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Home</a>
+                    <a href="/music.html" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Music</a>
+                    <a href="/privacy.html" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Privacy Policy</a>
+                    <a href="/eula.html" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">EULA</a>
+                    <a href="/copyright.html" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Copyright</a>
+                </nav>
+                <p class="mt-8 sm:mt-10 text-xs font-mono text-white/50 tracking-widest">© 2026 X3roe. All rights reserved.</p>
+            </footer>
+        </section>
+
+    </main>
+
+    <!-- Minimalist Floating Pill Player -->
+    <aside id="player-bar" data-default-track="bodytalk" hidden aria-label="Music player" class="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-4 right-4 z-50 pointer-events-none flex justify-center">
+        <div class="pointer-events-auto w-full max-w-md rounded-2xl bg-black/85 backdrop-blur-xl border border-white/15 px-4 py-3 shadow-2xl">
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <img id="player-cover" src="/cover_bodytalk.jpg" alt="" width="40" height="40" decoding="async" class="w-10 h-10 rounded-lg object-cover border border-white/10 shrink-0">
+                    <div class="min-w-0">
+                        <div id="player-title" class="text-xs sm:text-sm font-bold text-white truncate">BODYTALK</div>
+                        <div class="flex items-center gap-2 text-[11px] text-white/50 font-mono truncate">
+                            <span id="player-subtitle" class="truncate">Single</span>
+                            <span>•</span>
+                            <span id="player-time">0:00 / 2:58</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-1 shrink-0">
+                    <button type="button" id="player-prev" aria-label="Previous track" class="w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer">
+                        <i class="ph-fill ph-skip-back text-sm" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" id="player-toggle" aria-label="Pause" class="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer">
+                        <i id="player-toggle-icon" class="ph-fill ph-play text-sm" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" id="player-next" aria-label="Next track" class="w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer">
+                        <i class="ph-fill ph-skip-forward text-sm" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-2.5 flex items-center">
+                <label for="player-seek" class="sr-only">Seek track position</label>
+                <input id="player-seek" type="range" min="0" max="100" step="0.1" value="0" class="pill-seek w-full">
+            </div>
+        </div>
+    </aside>
+
+</body>
+</html>

@@ -1,4 +1,5 @@
-// X3rœ Music Page: Minimalist Native Audio Player with Instant Pre-Buffered Playback.
+// X3rœ Music Pages (music.html, bodytalk.html, midnight-blue.html):
+// Minimalist Native Audio Player with Instant Pre-Buffered Playback.
 (function () {
   'use strict';
 
@@ -10,7 +11,7 @@
       id: 'afterimage',
       title: 'Afterimage (feat. Nakadate)',
       release: 'Single',
-      group: 'singles',
+      group: 'afterimage',
       src: '/assets/audio/afterimage.m4a',
       cover: '/cover_afterimage.jpg',
       duration: '4:20',
@@ -20,7 +21,7 @@
       id: 'bodytalk',
       title: 'BODYTALK',
       release: 'Single',
-      group: 'singles',
+      group: 'bodytalk',
       src: '/assets/audio/bodytalk.m4a',
       cover: '/cover_bodytalk.jpg',
       duration: '2:58',
@@ -85,33 +86,8 @@
       cover: '/cover_midnight.jpg',
       duration: '4:13',
       durationSec: 253
-    },
-    {
-      id: 'xero-2',
-      title: 'Xer0 2.0',
-      release: 'Xero, Vol. 2',
-      group: 'xero',
-      src: '/assets/audio/xero-2.m4a',
-      cover: '/cover_xero.jpg',
-      duration: '2:44',
-      durationSec: 164
-    },
-    {
-      id: 'lost-in-you',
-      title: 'Lost In You',
-      release: 'Anti-social EP',
-      group: 'antisocial',
-      src: '/assets/audio/lost-in-you.m4a',
-      cover: '/cover_antisocial.jpg',
-      duration: '4:19',
-      durationSec: 259
     }
   ];
-
-  var currentIndex = 0;
-  var isPlaying = false;
-  var isSeeking = false;
-  var audioPool = {};
 
   // DOM Elements
   var playerBar = document.getElementById('player-bar');
@@ -130,8 +106,24 @@
   var heroPlayBtn = document.getElementById('hero-play-btn');
   var heroPlayIcon = document.getElementById('hero-play-icon');
   var heroPlayLabel = document.getElementById('hero-play-label');
+  var heroDefaultLabel = heroPlayLabel ? heroPlayLabel.textContent : 'Listen Now';
 
   var releaseButtons = Array.prototype.slice.call(document.querySelectorAll('[data-release-play]'));
+  var trackButtons = Array.prototype.slice.call(document.querySelectorAll('[data-track-id]'));
+
+  function findIndexById(id) {
+    for (var i = 0; i < TRACKS.length; i++) {
+      if (TRACKS[i].id === id) return i;
+    }
+    return -1;
+  }
+
+  var defaultTrackId = (playerBar && playerBar.getAttribute('data-default-track')) || 'afterimage';
+  var defaultIndex = findIndexById(defaultTrackId);
+  var currentIndex = defaultIndex !== -1 ? defaultIndex : 0;
+  var isPlaying = false;
+  var isSeeking = false;
+  var audioPool = {};
 
   function formatTime(sec) {
     if (!isFinite(sec) || sec < 0) return '0:00';
@@ -209,21 +201,14 @@
     return audioPool[track.id];
   }
 
-  function findIndexById(id) {
-    for (var i = 0; i < TRACKS.length; i++) {
-      if (TRACKS[i].id === id) return i;
-    }
-    return -1;
-  }
-
-  // Pre-buffer Hero track immediately, and pre-buffer the 4 Catalog cover tracks shortly after
-  getAudio(0);
+  // Pre-buffer current page's default track immediately, then warm the other featured tracks
+  getAudio(currentIndex);
   window.setTimeout(function () {
-    ['bodytalk', 'velvet-plan', 'xero-2', 'lost-in-you'].forEach(function (id) {
+    ['afterimage', 'bodytalk', 'velvet-plan', 'ephemeral'].forEach(function (id) {
       var idx = findIndexById(id);
       if (idx !== -1) getAudio(idx);
     });
-  }, 350);
+  }, 300);
 
   function syncUI() {
     var track = TRACKS[currentIndex];
@@ -244,14 +229,17 @@
     if (heroVinyl) {
       heroVinyl.classList.toggle('is-spinning', isPlaying);
     }
-    if (heroVinylArt) {
+    if (heroVinylArt && !heroVinylArt.hasAttribute('data-fixed-art')) {
       heroVinylArt.src = track.cover;
     }
     if (heroPlayBtn && heroPlayIcon && heroPlayLabel) {
-      var afterimagePlaying = isPlaying && track.id === 'afterimage';
-      heroPlayIcon.classList.toggle('ph-pause', afterimagePlaying);
-      heroPlayIcon.classList.toggle('ph-play', !afterimagePlaying);
-      heroPlayLabel.textContent = afterimagePlaying ? 'Pause' : 'Listen Now';
+      var heroGroup = heroPlayBtn.getAttribute('data-hero-group');
+      var heroTrack = heroPlayBtn.getAttribute('data-hero-track') || defaultTrackId;
+      var heroActive = heroGroup ? track.group === heroGroup : track.id === heroTrack;
+      var heroPlaying = isPlaying && heroActive;
+      heroPlayIcon.classList.toggle('ph-pause', heroPlaying);
+      heroPlayIcon.classList.toggle('ph-play', !heroPlaying);
+      heroPlayLabel.textContent = heroPlaying ? 'Pause' : heroDefaultLabel;
     }
 
     releaseButtons.forEach(function (btn) {
@@ -265,6 +253,20 @@
       if (icon) {
         icon.classList.toggle('ph-pause', releasePlaying);
         icon.classList.toggle('ph-play', !releasePlaying);
+      }
+    });
+
+    trackButtons.forEach(function (btn) {
+      var id = btn.getAttribute('data-track-id');
+      var active = id === track.id;
+      var rowPlaying = active && isPlaying;
+      btn.setAttribute('aria-current', active ? 'true' : 'false');
+      btn.classList.toggle('is-active', active);
+      btn.classList.toggle('is-playing', rowPlaying);
+      var icon = btn.querySelector('[data-row-icon]');
+      if (icon) {
+        icon.classList.toggle('ph-pause', rowPlaying);
+        icon.classList.toggle('ph-play', !rowPlaying);
       }
     });
   }
@@ -395,7 +397,14 @@
   // ---- Hero buttons & Vinyl click ----
   if (heroPlayBtn) {
     heroPlayBtn.addEventListener('click', function () {
-      playTrackById('afterimage');
+      var heroGroup = heroPlayBtn.getAttribute('data-hero-group');
+      var heroTrack = heroPlayBtn.getAttribute('data-hero-track') || defaultTrackId;
+      var currentTrack = TRACKS[currentIndex];
+      if (heroGroup && currentTrack && currentTrack.group === heroGroup) {
+        togglePlay();
+      } else {
+        playTrackById(heroTrack);
+      }
     });
   }
   if (heroVinyl) {
@@ -424,6 +433,22 @@
       } else {
         playTrackById(firstId);
       }
+    });
+  });
+
+  // ---- Tracklist rows (on midnight-blue.html) ----
+  trackButtons.forEach(function (btn) {
+    var id = btn.getAttribute('data-track-id');
+    var warm = function () {
+      var idx = findIndexById(id);
+      if (idx !== -1) getAudio(idx);
+    };
+    btn.addEventListener('mouseenter', warm, { passive: true });
+    btn.addEventListener('touchstart', warm, { passive: true });
+    btn.addEventListener('focus', warm, { passive: true });
+
+    btn.addEventListener('click', function () {
+      playTrackById(id);
     });
   });
 

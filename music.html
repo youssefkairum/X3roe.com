@@ -7,11 +7,11 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>X3rœ Music | Discography &amp; Releases</title>
 
-    <meta name="description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Listen on Spotify, Apple Music and SoundCloud.">
+    <meta name="description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK and the Midnight Blue EP. Listen on Spotify, Apple Music and SoundCloud.">
     <link rel="canonical" href="https://x3roe.com/music.html">
     <meta property="og:site_name" content="X3roe">
     <meta property="og:title" content="X3rœ Music | Discography &amp; Releases">
-    <meta property="og:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Listen on Spotify, Apple Music and SoundCloud.">
+    <meta property="og:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK and the Midnight Blue EP. Listen on Spotify, Apple Music and SoundCloud.">
     <meta property="og:image" content="https://x3roe.com/cover_midnight.jpg">
     <meta property="og:image:width" content="640">
     <meta property="og:image:height" content="640">
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="X3rœ Music | Discography &amp; Releases">
-    <meta name="twitter:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK, Midnight Blue, Xero, Vol. 2 and Anti-social. Listen on Spotify, Apple Music and SoundCloud.">
+    <meta name="twitter:description" content="The music of X3rœ: atmospheric electronic releases, from the new single Afterimage (feat. Nakadate) to BODYTALK and the Midnight Blue EP. Listen on Spotify, Apple Music and SoundCloud.">
     <meta name="twitter:image" content="https://x3roe.com/cover_midnight.jpg">
     <meta name="twitter:image:alt" content="Midnight Blue cover art">
 
@@ -45,10 +45,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/css/site.css?v=e8ca7935d8">
+    <link rel="stylesheet" href="/assets/css/site.css?v=508a84bd03">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
     <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
-    <script src="/assets/js/music.js?v=31196129be" defer></script>
+    <script src="/assets/js/music.js?v=2597c1148b" defer></script>
 
     <style>
         /* The document scrolls; sections snap to the top of the viewport. */
@@ -240,7 +240,7 @@
                     </p>
 
                     <div class="mt-12 flex flex-wrap items-center justify-center md:justify-start gap-6 reveal stagger-1">
-                        <button type="button" id="hero-play-btn" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2 cursor-pointer">
+                        <button type="button" id="hero-play-btn" data-hero-track="afterimage" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2 cursor-pointer">
                             <i id="hero-play-icon" class="ph-fill ph-play text-lg" aria-hidden="true"></i>
                             <span id="hero-play-label">Listen Now</span>
                         </button>
@@ -273,58 +273,52 @@
                     <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-white">Catalog.</h2>
                 </div>
 
-                <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-6xl" role="list">
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 max-w-4xl" role="list">
 
                     <li class="group reveal stagger-1">
-                        <button type="button" data-release-play="bodytalk" data-release-name="BODYTALK" aria-label="Play BODYTALK" class="w-full text-left cursor-pointer">
-                            <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
-                                <img src="cover_bodytalk.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
-                                <span class="catalog-badge absolute bottom-3 right-3 w-10 h-10 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center">
-                                    <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
+                        <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-5">
+                            <a href="/bodytalk.html" aria-label="Explore BODYTALK" class="block w-full h-full">
+                                <img src="cover_bodytalk.jpg" alt="BODYTALK cover art" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
+                            </a>
+                            <button type="button" data-release-play="bodytalk" data-release-group="bodytalk" data-release-name="BODYTALK" aria-label="Play BODYTALK" class="catalog-badge absolute bottom-4 right-4 w-11 h-11 rounded-full bg-black/80 backdrop-blur-md border border-white/25 text-white flex items-center justify-center hover:scale-105 transition-transform cursor-pointer">
+                                <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-4">
+                            <div>
+                                <h3 class="text-xl text-white font-bold tracking-tight">
+                                    <a href="/bodytalk.html" class="hover:text-white/70 transition-colors">BODYTALK</a>
+                                </h3>
+                                <p class="text-white/60 text-xs uppercase tracking-widest mt-1">Single • 2025</p>
                             </div>
-                            <h3 class="text-white font-bold tracking-tight">BODYTALK</h3>
-                            <p class="text-white/60 text-xs uppercase tracking-widest mt-1">Single • 2025</p>
-                        </button>
+                            <a href="/bodytalk.html" aria-label="View BODYTALK release page" class="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white inline-flex items-center gap-1.5 transition-colors">
+                                <span>Explore</span>
+                                <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </li>
 
                     <li class="group reveal stagger-2">
-                        <button type="button" data-release-play="velvet-plan" data-release-group="midnight" data-release-name="Midnight Blue" aria-label="Play Midnight Blue" class="w-full text-left cursor-pointer">
-                            <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
-                                <img src="cover_midnight.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
-                                <span class="catalog-badge absolute bottom-3 right-3 w-10 h-10 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center">
-                                    <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
+                        <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-5">
+                            <a href="/midnight-blue.html" aria-label="Explore Midnight Blue" class="block w-full h-full">
+                                <img src="cover_midnight.jpg" alt="Midnight Blue cover art" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
+                            </a>
+                            <button type="button" data-release-play="velvet-plan" data-release-group="midnight" data-release-name="Midnight Blue" aria-label="Play Midnight Blue" class="catalog-badge absolute bottom-4 right-4 w-11 h-11 rounded-full bg-black/80 backdrop-blur-md border border-white/25 text-white flex items-center justify-center hover:scale-105 transition-transform cursor-pointer">
+                                <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-4">
+                            <div>
+                                <h3 class="text-xl text-white font-bold tracking-tight">
+                                    <a href="/midnight-blue.html" class="hover:text-white/70 transition-colors">Midnight Blue</a>
+                                </h3>
+                                <p class="text-white/60 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
                             </div>
-                            <h3 class="text-white font-bold tracking-tight">Midnight Blue</h3>
-                            <p class="text-white/60 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
-                        </button>
-                    </li>
-
-                    <li class="group reveal stagger-3">
-                        <button type="button" data-release-play="xero-2" data-release-group="xero" data-release-name="Xero, Vol. 2" aria-label="Play Xero, Vol. 2" class="w-full text-left cursor-pointer">
-                            <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
-                                <img src="cover_xero.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
-                                <span class="catalog-badge absolute bottom-3 right-3 w-10 h-10 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center">
-                                    <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <h3 class="text-white font-bold tracking-tight">Xero, Vol. 2</h3>
-                            <p class="text-white/60 text-xs uppercase tracking-widest mt-1">Album • 2025</p>
-                        </button>
-                    </li>
-
-                    <li class="group reveal stagger-4">
-                        <button type="button" data-release-play="lost-in-you" data-release-group="antisocial" data-release-name="Anti-social" aria-label="Play Anti-social" class="w-full text-left cursor-pointer">
-                            <div class="relative aspect-square bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden mb-4">
-                                <img src="cover_antisocial.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500">
-                                <span class="catalog-badge absolute bottom-3 right-3 w-10 h-10 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center">
-                                    <i class="ph-fill ph-play text-sm" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <h3 class="text-white font-bold tracking-tight">Anti-social</h3>
-                            <p class="text-white/60 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
-                        </button>
+                            <a href="/midnight-blue.html" aria-label="View Midnight Blue EP page" class="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white inline-flex items-center gap-1.5 transition-colors">
+                                <span>Explore</span>
+                                <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </li>
 
                 </ul>
@@ -377,7 +371,7 @@
     </main>
 
     <!-- Minimalist Floating Pill Player (appears when playing) -->
-    <aside id="player-bar" hidden aria-label="Music player" class="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-4 right-4 z-50 pointer-events-none flex justify-center">
+    <aside id="player-bar" data-default-track="afterimage" hidden aria-label="Music player" class="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-4 right-4 z-50 pointer-events-none flex justify-center">
         <div class="pointer-events-auto w-full max-w-md rounded-2xl bg-black/85 backdrop-blur-xl border border-white/15 px-4 py-3 shadow-2xl">
             <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3 min-w-0">
