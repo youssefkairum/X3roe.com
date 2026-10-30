@@ -386,6 +386,7 @@
   var trackButtons = Array.prototype.slice.call(document.querySelectorAll('[data-track-id]'));
   var musicVideos = Array.prototype.slice.call(document.querySelectorAll('[data-music-video]'));
   var videoOverlays = Array.prototype.slice.call(document.querySelectorAll('[data-video-overlay]'));
+  var watchVideoLinks = Array.prototype.slice.call(document.querySelectorAll('[data-watch-video]'));
 
   function findIndexById(id) {
     for (var i = 0; i < TRACKS.length; i++) {
@@ -995,6 +996,32 @@
       if (p && typeof p.catch === 'function') {
         p.catch(function () {
           overlay.removeAttribute('hidden');
+        });
+      }
+    });
+  });
+
+  watchVideoLinks.forEach(function (link) {
+    var videoId = link.getAttribute('data-watch-video');
+    var video = videoId ? document.getElementById(videoId) : null;
+    if (!video) return;
+    link.addEventListener('click', function () {
+      var overlay = document.querySelector('[data-video-overlay="' + videoId + '"]');
+      if (overlay) {
+        overlay.setAttribute('hidden', '');
+      }
+      if (!audio.paused) {
+        audio.pause();
+      }
+      musicVideos.forEach(function (other) {
+        if (other !== video && !other.paused) {
+          other.pause();
+        }
+      });
+      var p = video.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {
+          if (overlay) overlay.removeAttribute('hidden');
         });
       }
     });

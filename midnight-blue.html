@@ -50,10 +50,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/css/site.css?v=322c724343">
+    <link rel="stylesheet" href="/assets/css/site.css?v=359633a72a">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
     <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
-    <script src="/assets/js/music.js?v=3fef5cb98c" defer></script>
+    <script src="/assets/js/music.js?v=21dd0dfd07" defer></script>
 
     <style>
         html {
@@ -321,18 +321,14 @@
                         6 TRACKS • 20 MIN
                     </p>
 
-                    <div class="mt-8 sm:mt-12 flex flex-wrap items-center justify-center md:justify-start gap-6 reveal stagger-1">
+                    <div class="mt-8 sm:mt-12 flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-5 reveal stagger-1">
                         <button type="button" id="hero-play-btn" data-hero-track="velvet-plan" data-hero-group="midnight" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 active:scale-95 transition-transform flex items-center gap-2 cursor-pointer touch-manipulation">
                             <i id="hero-play-icon" class="ph-fill ph-play text-lg" aria-hidden="true"></i>
                             <span id="hero-play-label">Listen Now</span>
                         </button>
-                        <a href="#tracklist" class="text-xs font-bold text-white/50 hover:text-white uppercase tracking-widest transition-colors inline-flex items-center gap-1.5">
-                            <span>Tracklist</span>
-                            <i class="ph-bold ph-arrow-down" aria-hidden="true"></i>
-                        </a>
-                        <a href="#video" class="text-xs font-bold text-white/50 hover:text-white uppercase tracking-widest transition-colors inline-flex items-center gap-1.5">
+                        <a href="#video" data-watch-video="video-ephemeral" class="px-6 py-4 border border-white/25 bg-white/5 hover:bg-white hover:text-black text-white text-sm font-bold uppercase tracking-widest rounded-full transition-colors flex items-center gap-2 touch-manipulation">
+                            <i class="ph-fill ph-play-circle text-lg" aria-hidden="true"></i>
                             <span>Watch Video</span>
-                            <i class="ph-bold ph-arrow-down" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -378,8 +374,8 @@
                         </button>
                     </li>
 
-                    <li>
-                        <button type="button" data-track-id="ephemeral" aria-current="false" class="track-row w-full py-5 px-4 flex items-center justify-between gap-4 text-left hover:bg-white/[0.04] transition-colors cursor-pointer rounded-xl">
+                    <li class="flex items-center justify-between gap-2">
+                        <button type="button" data-track-id="ephemeral" aria-current="false" class="track-row flex-1 min-w-0 py-5 px-4 flex items-center justify-between gap-4 text-left hover:bg-white/[0.04] transition-colors cursor-pointer rounded-xl">
                             <span class="flex items-center gap-5 min-w-0">
                                 <span class="text-xs font-mono text-white/40 w-6 shrink-0">02</span>
                                 <span class="text-base sm:text-lg font-bold text-white truncate">Ephemeral (feat. Limi)</span>
@@ -391,6 +387,10 @@
                                 </span>
                             </span>
                         </button>
+                        <a href="#video" data-watch-video="video-ephemeral" aria-label="Watch Ephemeral Official Visualizer" class="shrink-0 px-3 py-1.5 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-widest text-white/70 hover:bg-white hover:text-black transition-colors inline-flex items-center gap-1 mr-2">
+                            <i class="ph-fill ph-play-circle text-xs" aria-hidden="true"></i>
+                            <span>Video</span>
+                        </a>
                     </li>
 
                     <li>
