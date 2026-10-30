@@ -20,7 +20,7 @@
       duration: '4:20',
       durationSec: 260,
       lyrics: [
-        { t: 0, text: '♪' },
+        { t: 0, text: '♪ Instrumental Intro ♪' },
         { t: 45.18, text: 'The window hums with faded rain' },
         { t: 51.13, text: 'Your outline moves inside my brain' },
         { t: 57.13, text: 'You left your shirt upon the chair' },
@@ -62,7 +62,7 @@
       duration: '2:58',
       durationSec: 178,
       lyrics: [
-        { t: 0, text: '♪' },
+        { t: 0, text: '♪ Instrumental Intro ♪' },
         { t: 18.77, text: 'You walk in like a midnight sin' },
         { t: 23.80, text: 'Perfume mixed with smoke and gin' },
         { t: 28.99, text: 'Every curve you’ve got’s a crime' },
@@ -106,7 +106,7 @@
       duration: '3:39',
       durationSec: 219,
       lyrics: [
-        { t: 0, text: '♪' },
+        { t: 0, text: '♪ Instrumental Intro ♪' },
         { t: 19.50, text: 'Cut a name off her wrist, didn’t ask for it' },
         { t: 25.42, text: 'She don’t know I exist, but I track the orbit' },
         { t: 30.74, text: 'Another face in the smoke, another ghost in the bed' },
@@ -157,7 +157,7 @@
       duration: '3:42',
       durationSec: 222,
       lyrics: [
-        { t: 0, text: '♪' },
+        { t: 0, text: '♪ Instrumental Intro ♪' },
         { t: 19.33, text: 'You came through my door like a fever dream' },
         { t: 23.83, text: 'Skin still wet from the city steam' },
         { t: 28.73, text: 'Said you only want it till the light' },
@@ -206,7 +206,7 @@
       duration: '3:09',
       durationSec: 189,
       lyrics: [
-        { t: 0, text: '♪' },
+        { t: 0, text: '♪ Instrumental Intro ♪' },
         { t: 15.00, text: 'She left her heels by the minibar, her body talkin’ louder than her heart' },
         { t: 22.44, text: 'Told me "Make me feel like I’m the only star," but I just needed somewhere to fall apart' },
         { t: 29.34, text: 'Lipstick stains on my collarbone, she moan my name like she on the throne' },
@@ -242,7 +242,7 @@
       duration: '3:10',
       durationSec: 190,
       lyrics: [
-        { t: 0, text: '♪' },
+        { t: 0, text: '♪ Instrumental Intro ♪' },
         { t: 19.50, text: 'This bed was never made for love' },
         { t: 27.06, text: 'You used to call me your drug, now your moans still echo in my head' },
         { t: 33.18, text: 'And your scent won’t leave my sheets, my bed — you move like sin, I’m as cold as glass' },
@@ -283,7 +283,7 @@
       duration: '2:55',
       durationSec: 175,
       lyrics: [
-        { t: 0, text: '♪' },
+        { t: 0, text: '♪ Instrumental Intro ♪' },
         { t: 20.00, text: 'I’m lost inside the shadows' },
         { t: 29.06, text: 'Tracing every scar, every choice I can’t undo — the silence holds my name like a warning' },
         { t: 44.06, text: 'And I’m sinking deep, no hand to pull me through' },
@@ -313,7 +313,7 @@
       duration: '4:13',
       durationSec: 253,
       lyrics: [
-        { t: 0, text: '♪' },
+        { t: 0, text: '♪ Instrumental Intro ♪' },
         { t: 30.00, text: 'Whispers crawl along the floor' },
         { t: 37.00, text: 'Names I don’t remember anymore' },
         { t: 43.00, text: 'Dreams decay where shadows stay' },
@@ -403,7 +403,12 @@
   var lyricsOpen = false;
   var activeLyricIndex = -1;
   var renderedLyricsTrackId = null;
-  var audioPool = {};
+  var pendingSeekSec = null;
+
+  // Single reliable HTMLAudioElement so browser HTTP range/seek requests never collide
+  var audio = new Audio();
+  audio.preload = 'auto';
+  audio.volume = currentVolume;
 
   function formatTime(sec) {
     if (!isFinite(sec) || sec < 0) return '0:00';
@@ -411,6 +416,13 @@
     var m = Math.floor(total / 60);
     var s = total % 60;
     return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  function getTrackDuration(track) {
+    if (isFinite(audio.duration) && audio.duration > 0) {
+      return audio.duration;
+    }
+    return track ? track.durationSec : 0;
   }
 
   function updateSeekVisual(pct) {
@@ -425,14 +437,10 @@
     playerVolume.style.setProperty('--vol-pct', clamped.toFixed(2) + '%');
   }
 
-  function applyVolumeToPool() {
+  function applyVolume() {
     var effective = isMuted ? 0 : currentVolume;
-    Object.keys(audioPool).forEach(function (id) {
-      if (audioPool[id]) {
-        audioPool[id].volume = effective;
-        audioPool[id].muted = isMuted;
-      }
-    });
+    audio.volume = effective;
+    audio.muted = isMuted;
     if (playerMuteIcon) {
       var silent = isMuted || currentVolume === 0;
       playerMuteIcon.classList.toggle('ph-speaker-slash', silent);
@@ -457,6 +465,46 @@
     }
   }
 
+  function seekToSeconds(sec) {
+    var track = TRACKS[currentIndex];
+    if (!track) return;
+    var dur = getTrackDuration(track);
+    var target = Math.max(0, dur > 0 ? Math.min(sec, dur - 0.25) : sec);
+
+    if (audio.readyState >= 1) {
+      try {
+        audio.currentTime = target;
+      } catch (e) {}
+      pendingSeekSec = null;
+    } else {
+      pendingSeekSec = target;
+    }
+
+    if (playerElapsed) {
+      playerElapsed.textContent = formatTime(target);
+    }
+    if (playerSeek && dur > 0) {
+      var pct = (target / dur) * 100;
+      playerSeek.value = String(pct);
+      updateSeekVisual(pct);
+    }
+    syncLyricsTime(target);
+  }
+
+  function scrollActiveLyricIntoView(smooth) {
+    if (!lyricsOpen || !playerLyricsList || activeLyricIndex < 0) return;
+    var activeEl = playerLyricsList.querySelector('[data-lyric-idx="' + activeLyricIndex + '"]');
+    if (!activeEl) return;
+    var listRect = playerLyricsList.getBoundingClientRect();
+    var elRect = activeEl.getBoundingClientRect();
+    var offsetInside = (elRect.top - listRect.top) + playerLyricsList.scrollTop;
+    var targetScroll = offsetInside - (playerLyricsList.clientHeight / 2) + (elRect.height / 2);
+    playerLyricsList.scrollTo({
+      top: Math.max(0, targetScroll),
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+  }
+
   function renderTrackLyrics(track) {
     if (!playerLyricsList || !track) return;
     if (renderedLyricsTrackId === track.id) return;
@@ -465,7 +513,7 @@
     playerLyricsList.innerHTML = '';
 
     if (playerLyricsBg && track.accent) {
-      playerLyricsBg.style.background = 'radial-gradient(circle at 20% 20%, ' + track.accent + ' 0%, rgba(10,10,12,0.96) 70%)';
+      playerLyricsBg.style.background = 'radial-gradient(circle at 20% 15%, ' + track.accent + ' 0%, rgba(8,8,10,0.98) 72%)';
     }
     if (playerLyricsCover) playerLyricsCover.src = track.cover;
     if (playerLyricsTitle) playerLyricsTitle.textContent = track.title;
@@ -479,23 +527,19 @@
       btn.className = 'spotify-lyric-line is-upcoming';
       btn.textContent = item.text;
       btn.addEventListener('click', function () {
-        var a = getAudio(currentIndex);
-        if (a) {
-          try {
-            a.currentTime = item.t;
-          } catch (e) {}
-          if (a.paused) {
-            togglePlay();
-          } else {
-            syncLyricsTime(item.t);
-          }
+        if (playerBar) {
+          playerBar.removeAttribute('hidden');
+        }
+        seekToSeconds(item.t);
+        if (audio.paused) {
+          playCurrent();
         }
       });
       playerLyricsList.appendChild(btn);
     });
 
     if (playerLyricPreview) {
-      playerLyricPreview.textContent = lines.length > 1 ? lines[1].text : (lines[0] ? lines[0].text : '');
+      playerLyricPreview.textContent = lines.length > 1 ? '♪ ' + lines[1].text : '';
     }
   }
 
@@ -518,31 +562,23 @@
     activeLyricIndex = idx;
 
     if (playerLyricPreview && lines[idx]) {
-      var previewText = lines[idx].text === '♪' && lines[1] ? '♪ ' + lines[1].text : lines[idx].text;
+      var previewText = idx === 0 && lines[1] ? '♪ ' + lines[1].text : lines[idx].text;
       playerLyricPreview.textContent = previewText;
     }
 
     if (playerLyricsList) {
       var buttons = playerLyricsList.querySelectorAll('[data-lyric-idx]');
-      var activeEl = null;
       for (var j = 0; j < buttons.length; j++) {
         buttons[j].classList.remove('is-past', 'is-current', 'is-upcoming');
         if (j < idx) {
           buttons[j].classList.add('is-past');
         } else if (j === idx) {
           buttons[j].classList.add('is-current');
-          activeEl = buttons[j];
         } else {
           buttons[j].classList.add('is-upcoming');
         }
       }
-      if (activeEl && lyricsOpen) {
-        var containerHeight = playerLyricsList.clientHeight;
-        var elTop = activeEl.offsetTop - playerLyricsList.offsetTop;
-        var elHeight = activeEl.offsetHeight;
-        var targetScroll = elTop - (containerHeight / 2) + (elHeight / 2);
-        playerLyricsList.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
-      }
+      scrollActiveLyricIntoView(true);
     }
   }
 
@@ -550,96 +586,85 @@
     lyricsOpen = !!open;
     if (playerLyricsPanel) {
       if (lyricsOpen) {
+        if (playerBar) {
+          playerBar.removeAttribute('hidden');
+        }
         playerLyricsPanel.removeAttribute('hidden');
+        document.documentElement.style.overflow = 'hidden';
       } else {
         playerLyricsPanel.setAttribute('hidden', '');
+        document.documentElement.style.overflow = '';
       }
     }
     if (playerLyricsBtn) {
       playerLyricsBtn.setAttribute('aria-expanded', lyricsOpen ? 'true' : 'false');
       playerLyricsBtn.classList.toggle('is-active', lyricsOpen);
     }
-    if (lyricsOpen && playerLyricsList && activeLyricIndex >= 0) {
-      var activeEl = playerLyricsList.querySelector('[data-lyric-idx="' + activeLyricIndex + '"]');
-      if (activeEl) {
-        var elTop = activeEl.offsetTop - playerLyricsList.offsetTop;
-        var targetScroll = elTop - (playerLyricsList.clientHeight / 2) + (activeEl.offsetHeight / 2);
-        playerLyricsList.scrollTop = Math.max(0, targetScroll);
+    if (lyricsOpen) {
+      window.requestAnimationFrame(function () {
+        scrollActiveLyricIntoView(false);
+      });
+    }
+  }
+
+  // ---- Audio Event Listeners ----
+  audio.addEventListener('loadedmetadata', function () {
+    var track = TRACKS[currentIndex];
+    var dur = getTrackDuration(track);
+    if (playerDuration && dur > 0) {
+      playerDuration.textContent = formatTime(dur);
+    }
+    if (pendingSeekSec !== null) {
+      try {
+        audio.currentTime = pendingSeekSec;
+      } catch (e) {}
+      pendingSeekSec = null;
+    }
+  });
+
+  audio.addEventListener('timeupdate', function () {
+    if (isSeeking) return;
+    var track = TRACKS[currentIndex];
+    var cur = audio.currentTime || 0;
+    var dur = getTrackDuration(track);
+    if (playerElapsed) {
+      playerElapsed.textContent = formatTime(cur);
+    }
+    if (playerDuration && dur > 0) {
+      playerDuration.textContent = formatTime(dur);
+    }
+    if (playerSeek && dur > 0) {
+      var pct = (cur / dur) * 100;
+      playerSeek.value = String(pct);
+      updateSeekVisual(pct);
+    }
+    syncLyricsTime(cur);
+  });
+
+  audio.addEventListener('play', function () {
+    isPlaying = true;
+    syncUI();
+  });
+
+  audio.addEventListener('pause', function () {
+    isPlaying = false;
+    syncUI();
+  });
+
+  audio.addEventListener('ended', function () {
+    if (isRepeat) {
+      seekToSeconds(0);
+      playCurrent();
+    } else if (isShuffle && TRACKS.length > 1) {
+      var nextIdx = currentIndex;
+      while (nextIdx === currentIndex) {
+        nextIdx = Math.floor(Math.random() * TRACKS.length);
       }
+      loadTrack(nextIdx, true);
+    } else {
+      loadTrack(currentIndex + 1, true);
     }
-  }
-
-  // Create and reuse a dedicated Audio instance per track so Safari/Chrome keep its decoded buffer ready
-  function getAudio(index) {
-    var track = TRACKS[index];
-    if (!track) return null;
-    if (!audioPool[track.id]) {
-      var a = new Audio();
-      a.preload = 'auto';
-      a.src = track.src;
-      a.volume = isMuted ? 0 : currentVolume;
-      a.muted = isMuted;
-      a.load();
-
-      a.addEventListener('timeupdate', function () {
-        if (currentIndex !== index || isSeeking) return;
-        var cur = a.currentTime || 0;
-        var dur = isFinite(a.duration) && a.duration > 0 ? a.duration : track.durationSec;
-        if (playerElapsed) {
-          playerElapsed.textContent = formatTime(cur);
-        }
-        if (playerDuration) {
-          playerDuration.textContent = isFinite(a.duration) && a.duration > 0 ? formatTime(a.duration) : track.duration;
-        }
-        if (playerSeek && dur > 0) {
-          var pct = (cur / dur) * 100;
-          playerSeek.value = String(pct);
-          updateSeekVisual(pct);
-        }
-        syncLyricsTime(cur);
-      });
-
-      a.addEventListener('play', function () {
-        if (currentIndex !== index) return;
-        isPlaying = true;
-        syncUI();
-      });
-
-      a.addEventListener('pause', function () {
-        if (currentIndex !== index) return;
-        isPlaying = false;
-        syncUI();
-      });
-
-      a.addEventListener('ended', function () {
-        if (currentIndex !== index) return;
-        if (isRepeat) {
-          try { a.currentTime = 0; } catch (e) {}
-          a.play();
-        } else if (isShuffle && TRACKS.length > 1) {
-          var nextIdx = currentIndex;
-          while (nextIdx === currentIndex) {
-            nextIdx = Math.floor(Math.random() * TRACKS.length);
-          }
-          loadTrack(nextIdx, true);
-        } else {
-          loadTrack(currentIndex + 1, true);
-        }
-      });
-
-      audioPool[track.id] = a;
-    }
-    return audioPool[track.id];
-  }
-
-  // Pre-buffer current page's default track immediately, then warm the other featured tracks
-  getAudio(currentIndex);
-  window.setTimeout(function () {
-    ['afterimage', 'bodytalk', 'velvet-plan', 'ephemeral'].forEach(function (id) {
-      var idx = findIndexById(id);
-      if (idx !== -1) getAudio(idx);
-    });
-  }, 300);
+  });
 
   function syncUI() {
     var track = TRACKS[currentIndex];
@@ -648,7 +673,7 @@
     if (playerCover) playerCover.src = track.cover;
     if (playerTitle) playerTitle.textContent = track.title;
     if (playerSubtitle) playerSubtitle.textContent = track.release;
-    if (playerDuration && (!audioPool[track.id] || !isFinite(audioPool[track.id].duration))) {
+    if (playerDuration && (!isFinite(audio.duration) || audio.duration <= 0)) {
       playerDuration.textContent = track.duration;
     }
 
@@ -707,19 +732,32 @@
     });
   }
 
+  function playCurrent() {
+    if (playerBar) {
+      playerBar.removeAttribute('hidden');
+    }
+    isPlaying = true;
+    syncUI();
+    var playPromise = audio.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(function () {
+        isPlaying = false;
+        syncUI();
+      });
+    }
+  }
+
   function loadTrack(index, autoplay) {
     if (index < 0) index = TRACKS.length - 1;
     if (index >= TRACKS.length) index = 0;
 
-    var prevAudio = getAudio(currentIndex);
-    if (prevAudio && currentIndex !== index) {
-      prevAudio.pause();
-      try { prevAudio.currentTime = 0; } catch (e) {}
-    }
-
     currentIndex = index;
     var track = TRACKS[index];
-    var a = getAudio(index);
+    pendingSeekSec = null;
+
+    audio.pause();
+    audio.src = track.src;
+    audio.load();
 
     if (playerElapsed) playerElapsed.textContent = '0:00';
     if (playerDuration) playerDuration.textContent = track.duration;
@@ -733,20 +771,10 @@
       playerBar.removeAttribute('hidden');
     }
 
-    // Warm the next track in queue
-    getAudio((index + 1) % TRACKS.length);
-
-    if (autoplay && a) {
-      isPlaying = true;
-      syncUI();
-      var playPromise = a.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(function () {
-          isPlaying = false;
-          syncUI();
-        });
-      }
+    if (autoplay) {
+      playCurrent();
     } else {
+      isPlaying = false;
       syncUI();
     }
   }
@@ -755,22 +783,10 @@
     if (playerBar) {
       playerBar.removeAttribute('hidden');
     }
-    var a = getAudio(currentIndex);
-    if (!a) return;
-
-    if (a.paused) {
-      isPlaying = true;
-      syncUI();
-      getAudio((currentIndex + 1) % TRACKS.length);
-      var playPromise = a.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(function () {
-          isPlaying = false;
-          syncUI();
-        });
-      }
+    if (audio.paused) {
+      playCurrent();
     } else {
-      a.pause();
+      audio.pause();
       isPlaying = false;
       syncUI();
     }
@@ -793,9 +809,8 @@
   }
   if (playerPrev) {
     playerPrev.addEventListener('click', function () {
-      var a = getAudio(currentIndex);
-      if (a && a.currentTime > 3) {
-        a.currentTime = 0;
+      if (audio.currentTime > 3) {
+        seekToSeconds(0);
       } else {
         loadTrack(currentIndex - 1, true);
       }
@@ -832,7 +847,7 @@
   if (playerMute) {
     playerMute.addEventListener('click', function () {
       isMuted = !isMuted;
-      applyVolumeToPool();
+      applyVolume();
     });
   }
   if (playerVolume) {
@@ -841,7 +856,7 @@
       if (isFinite(val)) {
         currentVolume = Math.max(0, Math.min(1, val / 100));
         isMuted = currentVolume === 0;
-        applyVolumeToPool();
+        applyVolume();
       }
     });
   }
@@ -879,8 +894,7 @@
       var pct = parseFloat(playerSeek.value) || 0;
       updateSeekVisual(pct);
       var track = TRACKS[currentIndex];
-      var a = getAudio(currentIndex);
-      var dur = a && isFinite(a.duration) && a.duration > 0 ? a.duration : track.durationSec;
+      var dur = getTrackDuration(track);
       if (dur > 0) {
         var seekSec = (pct / 100) * dur;
         if (playerElapsed) playerElapsed.textContent = formatTime(seekSec);
@@ -890,16 +904,11 @@
     playerSeek.addEventListener('change', function () {
       var pct = parseFloat(playerSeek.value) || 0;
       var track = TRACKS[currentIndex];
-      var a = getAudio(currentIndex);
-      var dur = a && isFinite(a.duration) && a.duration > 0 ? a.duration : track.durationSec;
-      if (a && dur > 0) {
-        var seekSec = (pct / 100) * dur;
-        try {
-          a.currentTime = seekSec;
-        } catch (e) {}
-        syncLyricsTime(seekSec);
-      }
+      var dur = getTrackDuration(track);
       isSeeking = false;
+      if (dur > 0) {
+        seekToSeconds((pct / 100) * dur);
+      }
     });
   }
 
@@ -934,14 +943,6 @@
     var firstId = btn.getAttribute('data-release-play');
     var group = btn.getAttribute('data-release-group');
 
-    var warm = function () {
-      var idx = findIndexById(firstId);
-      if (idx !== -1) getAudio(idx);
-    };
-    btn.addEventListener('mouseenter', warm, { passive: true });
-    btn.addEventListener('touchstart', warm, { passive: true });
-    btn.addEventListener('focus', warm, { passive: true });
-
     btn.addEventListener('click', function () {
       var currentTrack = TRACKS[currentIndex];
       if (group && currentTrack && currentTrack.group === group) {
@@ -955,14 +956,6 @@
   // ---- Tracklist rows (on midnight-blue.html) ----
   trackButtons.forEach(function (btn) {
     var id = btn.getAttribute('data-track-id');
-    var warm = function () {
-      var idx = findIndexById(id);
-      if (idx !== -1) getAudio(idx);
-    };
-    btn.addEventListener('mouseenter', warm, { passive: true });
-    btn.addEventListener('touchstart', warm, { passive: true });
-    btn.addEventListener('focus', warm, { passive: true });
-
     btn.addEventListener('click', function () {
       playTrackById(id);
     });
@@ -980,7 +973,13 @@
     }
   }
 
+  // Initialize default track source without autoplaying
+  if (TRACKS[currentIndex]) {
+    audio.src = TRACKS[currentIndex].src;
+    audio.load();
+  }
   syncUI();
+  syncLyricsTime(0);
   updateSeekVisual(0);
   updateVolumeVisual(currentVolume * 100);
 })();
