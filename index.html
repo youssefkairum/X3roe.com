@@ -60,9 +60,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/css/site.css?v=359633a72a">
+    <link rel="stylesheet" href="/assets/css/site.css?v=e5fc5a3f30">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
-    <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
+    <script src="/assets/js/site.js?v=ee30ff59fe" defer></script>
     <script src="/assets/js/contact-form.js?v=cb7e500834" defer></script>
 
     <style>
@@ -122,6 +122,51 @@
             scroll-margin-bottom: 2rem;
         }
 
+        /* Hero background architectural grid, ambient light plumes, and specular watermark */
+        .hero-bg-grid {
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+            -webkit-mask-image: radial-gradient(ellipse 75% 68% at 55% 50%, #000 15%, transparent 80%);
+            mask-image: radial-gradient(ellipse 75% 68% at 55% 50%, #000 15%, transparent 80%);
+        }
+        .hero-orb-1 {
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+            animation: heroOrbDrift1 16s ease-in-out infinite alternate;
+        }
+        .hero-orb-2 {
+            background: radial-gradient(circle, rgba(180, 200, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 45%, transparent 70%);
+            animation: heroOrbDrift2 22s ease-in-out infinite alternate;
+        }
+        .hero-watermark {
+            background: linear-gradient(
+                110deg,
+                rgba(255, 255, 255, 0.035) 30%,
+                rgba(255, 255, 255, 0.11) 48%,
+                rgba(255, 255, 255, 0.14) 50%,
+                rgba(255, 255, 255, 0.11) 52%,
+                rgba(255, 255, 255, 0.035) 70%
+            );
+            background-size: 240% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: heroWatermarkSweep 12s ease-in-out infinite;
+        }
+        @keyframes heroOrbDrift1 {
+            0% { transform: translate3d(-8%, -6%, 0) scale(1); }
+            100% { transform: translate3d(10%, 8%, 0) scale(1.15); }
+        }
+        @keyframes heroOrbDrift2 {
+            0% { transform: translate3d(10%, 8%, 0) scale(1.1); }
+            100% { transform: translate3d(-10%, -8%, 0) scale(0.95); }
+        }
+        @keyframes heroWatermarkSweep {
+            0%, 100% { background-position: 130% 50%; transform: translate3d(0, 0, 0); }
+            50% { background-position: -30% 50%; transform: translate3d(0, -6px, 0); }
+        }
+
         /* Short viewports (landscape phones, 200% zoom): slimmer header and section padding. */
         @media (max-height: 500px) {
             .site-header {
@@ -175,8 +220,14 @@
 
         <!-- Section 1: HERO -->
         <section id="hero" class="snap-section">
-            <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-5 pointer-events-none overflow-hidden" aria-hidden="true">
-                <div class="text-[20vw] font-black tracking-tighter text-white whitespace-nowrap leading-none">X3rœ</div>
+            <div class="absolute inset-0 -z-10 pointer-events-none overflow-hidden" aria-hidden="true">
+                <div class="hero-orb-1 absolute -top-24 left-1/4 w-[36rem] h-[36rem] rounded-full blur-3xl"></div>
+                <div class="hero-orb-2 absolute -bottom-24 right-1/6 w-[40rem] h-[40rem] rounded-full blur-3xl"></div>
+                <div class="hero-bg-grid absolute inset-0"></div>
+                <canvas id="hero-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="hero-watermark text-[20vw] font-black tracking-tighter whitespace-nowrap leading-none select-none">X3rœ</div>
+                </div>
             </div>
 
             <div class="max-w-6xl w-full px-6 sm:px-10">
