@@ -427,7 +427,8 @@
       if (!canvas.getContext) return;
       var type = canvas.getAttribute('data-project-canvas');
       var ctx = canvas.getContext('2d');
-      var section = canvas.closest('section') || canvas.parentElement;
+      var container = canvas.parentElement || canvas;
+      var section = canvas.closest('section') || container;
       var width = 0;
       var height = 0;
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -439,33 +440,33 @@
 
       var setupState = function () {
         if (type === 'ipasscoder') {
-          var colSpacing = 54;
+          var colSpacing = 44;
           var cols = Math.max(5, Math.floor(width / colSpacing));
           var streams = [];
           for (var c = 0; c < cols; c++) {
-            var count = 3;
+            var count = 2;
             for (var k = 0; k < count; k++) {
               streams.push({
                 x: (c + 0.5) * colSpacing,
                 y: Math.random() * height,
-                speed: 22 + Math.random() * 32,
+                speed: 18 + Math.random() * 24,
                 char: '0x' + hexChars[Math.floor(Math.random() * hexChars.length)] + hexChars[Math.floor(Math.random() * hexChars.length)],
-                alpha: 0.20 + Math.random() * 0.22,
+                alpha: 0.16 + Math.random() * 0.18,
                 nextSwap: Math.random() * 1.5
               });
             }
           }
           state.streams = streams;
         } else if (type === 'iprayer') {
-          var starCount = Math.min(64, Math.max(32, Math.floor((width * height) / 18000)));
+          var starCount = 28;
           var stars = [];
           for (var s = 0; s < starCount; s++) {
             stars.push({
               x: Math.random() * width,
               y: Math.random() * height,
-              vx: (Math.random() - 0.5) * 9,
-              vy: (Math.random() - 0.5) * 9,
-              r: 1.4 + Math.random() * 2.0,
+              vx: (Math.random() - 0.5) * 6,
+              vy: (Math.random() - 0.5) * 6,
+              r: 1.2 + Math.random() * 1.6,
               phase: Math.random() * Math.PI * 2,
               flare: s % 5 === 0
             });
@@ -473,11 +474,11 @@
           state.stars = stars;
         } else if (type === 'voxel') {
           var cubes = [];
-          for (var v = 0; v < 9; v++) {
+          for (var v = 0; v < 6; v++) {
             cubes.push({
-              nx: 0.08 + Math.random() * 0.84,
-              ny: 0.12 + Math.random() * 0.72,
-              size: 18 + Math.random() * 24,
+              nx: 0.16 + Math.random() * 0.68,
+              ny: 0.16 + Math.random() * 0.68,
+              size: 12 + Math.random() * 14,
               rx: Math.random() * Math.PI * 2,
               ry: Math.random() * Math.PI * 2,
               rz: Math.random() * Math.PI * 2,
@@ -492,32 +493,31 @@
           state.lastBounceSide = -1;
         } else if (type === 'slumber') {
           var motes = [];
-          for (var m = 0; m < 60; m++) {
+          for (var m = 0; m < 34; m++) {
             motes.push({
               x: Math.random() * width,
               y: Math.random() * height,
-              vx: (Math.random() - 0.5) * 14,
-              vy: -8 - Math.random() * 16,
-              r: 1.2 + Math.random() * 2.2,
-              alpha: 0.25 + Math.random() * 0.45
+              vx: (Math.random() - 0.5) * 10,
+              vy: -6 - Math.random() * 12,
+              r: 1.0 + Math.random() * 1.8,
+              alpha: 0.25 + Math.random() * 0.40
             });
           }
           state.motes = motes;
           state.pings = [
-            { x: width * 0.72, y: height * 0.48, born: 0, maxR: Math.min(width, height) * 0.42 },
-            { x: width * 0.28, y: height * 0.36, born: 0.9, maxR: Math.min(width, height) * 0.36 }
+            { x: width * 0.5, y: height * 0.44, born: 0, maxR: Math.min(width, height) * 0.46 }
           ];
           state.lastPing = 0;
         } else if (type === 'music') {
           var notes = [];
-          for (var n = 0; n < 40; n++) {
+          for (var n = 0; n < 24; n++) {
             notes.push({
               x: Math.random() * width,
               y: Math.random() * height,
-              vy: -12 - Math.random() * 20,
-              r: 1.5 + Math.random() * 2.5,
+              vy: -10 - Math.random() * 14,
+              r: 1.2 + Math.random() * 2.0,
               hue: n % 2 === 0 ? '99, 102, 241' : '56, 189, 248',
-              alpha: 0.30 + Math.random() * 0.40
+              alpha: 0.28 + Math.random() * 0.36
             });
           }
           state.notes = notes;
@@ -525,9 +525,9 @@
       };
 
       var resize = function () {
-        var rect = (section || canvas).getBoundingClientRect();
-        width = rect.width || window.innerWidth;
-        height = rect.height || window.innerHeight;
+        var rect = container.getBoundingClientRect();
+        width = rect.width || 360;
+        height = rect.height || 360;
         dpr = Math.min(window.devicePixelRatio || 1, 2);
         canvas.width = Math.round(width * dpr);
         canvas.height = Math.round(height * dpr);
@@ -537,85 +537,29 @@
 
       var drawIPasscoder = function (elapsed, dt) {
         // Horizontal cryptographic verification scanline
-        var scanY = ((elapsed * 75) % (height + 160)) - 80;
-        var scanGrad = ctx.createLinearGradient(0, scanY - 60, 0, scanY + 60);
+        var scanY = ((elapsed * 55) % (height + 100)) - 50;
+        var scanGrad = ctx.createLinearGradient(0, scanY - 36, 0, scanY + 36);
         scanGrad.addColorStop(0, 'rgba(245, 158, 11, 0)');
-        scanGrad.addColorStop(0.5, 'rgba(245, 158, 11, 0.22)');
+        scanGrad.addColorStop(0.5, 'rgba(245, 158, 11, 0.20)');
         scanGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
         ctx.fillStyle = scanGrad;
-        ctx.fillRect(0, scanY - 60, width, 120);
+        ctx.fillRect(0, scanY - 36, width, 72);
 
         ctx.beginPath();
         ctx.moveTo(0, scanY);
         ctx.lineTo(width, scanY);
-        ctx.strokeStyle = 'rgba(245, 158, 11, 0.55)';
-        ctx.lineWidth = 1.6;
-        ctx.stroke();
-
-        // Concentric cryptographic vault dial on the right side
-        var dialCx = width >= 768 ? width * 0.73 : width * 0.5;
-        var dialCy = height * 0.5;
-        var dialR = Math.min(width, height) * 0.36;
-
-        ctx.save();
-        ctx.translate(dialCx, dialCy);
-
-        // Rotating amber radar sector
-        ctx.save();
-        ctx.rotate(elapsed * 0.45);
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.arc(0, 0, dialR, -0.35, 0.35);
-        ctx.closePath();
-        var rGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, dialR);
-        rGrad.addColorStop(0, 'rgba(245, 158, 11, 0)');
-        rGrad.addColorStop(1, 'rgba(245, 158, 11, 0.18)');
-        ctx.fillStyle = rGrad;
-        ctx.fill();
-        ctx.restore();
-
-        // Stepped vault ring
-        var stepAngle = Math.floor(elapsed * 0.9) * (Math.PI / 12) + (elapsed * 0.08);
-        ctx.save();
-        ctx.rotate(stepAngle);
-        ctx.beginPath();
-        ctx.setLineDash([8, 14]);
-        ctx.arc(0, 0, dialR, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(245, 158, 11, 0.42)';
-        ctx.lineWidth = 1.8;
-        ctx.stroke();
-
-        for (var i = 0; i < 16; i++) {
-          var a = (i * Math.PI) / 8;
-          ctx.beginPath();
-          ctx.moveTo(Math.cos(a) * (dialR - 8), Math.sin(a) * (dialR - 8));
-          ctx.lineTo(Math.cos(a) * (dialR + 8), Math.sin(a) * (dialR + 8));
-          ctx.strokeStyle = i % 4 === 0 ? 'rgba(245, 158, 11, 0.65)' : 'rgba(255, 255, 255, 0.22)';
-          ctx.lineWidth = i % 4 === 0 ? 2 : 1.2;
-          ctx.setLineDash([]);
-          ctx.stroke();
-        }
-        ctx.restore();
-
-        // Counter-rotating inner tumbler
-        ctx.save();
-        ctx.rotate(-elapsed * 0.12);
-        ctx.beginPath();
-        ctx.arc(0, 0, dialR * 0.72, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(245, 158, 11, 0.25)';
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.50)';
         ctx.lineWidth = 1.4;
         ctx.stroke();
-        ctx.restore();
-        ctx.restore();
 
         // Falling hexadecimal cipher streams
-        ctx.font = '700 12px "JetBrains Mono", monospace';
+        ctx.font = '700 10px "JetBrains Mono", monospace';
         ctx.textAlign = 'center';
         var streams = state.streams || [];
         for (var s = 0; s < streams.length; s++) {
           var st = streams[s];
           st.y += st.speed * dt;
-          if (st.y > height + 24) st.y = -24;
+          if (st.y > height + 18) st.y = -18;
 
           if (elapsed > st.nextSwap) {
             st.char = '0x' + hexChars[Math.floor(Math.random() * hexChars.length)] + hexChars[Math.floor(Math.random() * hexChars.length)];
@@ -626,19 +570,75 @@
           var dx = pointer.x - st.x;
           var dy = pointer.y - st.y;
           var distPtr = Math.sqrt(dx * dx + dy * dy);
-          var locked = distScan < 38 || (pointer.active && distPtr < 130);
+          var locked = distScan < 24 || (pointer.active && distPtr < 85);
 
           if (locked) {
-            ctx.fillStyle = 'rgba(251, 191, 36, 0.92)';
+            ctx.fillStyle = 'rgba(251, 191, 36, 0.90)';
             ctx.fillText(st.char, st.x, st.y);
-            ctx.strokeStyle = 'rgba(245, 158, 11, 0.60)';
-            ctx.lineWidth = 1.2;
-            ctx.strokeRect(st.x - 20, st.y - 11, 40, 15);
+            ctx.strokeStyle = 'rgba(245, 158, 11, 0.55)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(st.x - 16, st.y - 9, 32, 12);
           } else {
             ctx.fillStyle = 'rgba(255, 255, 255, ' + st.alpha.toFixed(3) + ')';
             ctx.fillText(st.char, st.x, st.y);
           }
         }
+
+        // Centered concentric cryptographic vault dial framing the lock icon
+        var dialCx = width * 0.5;
+        var dialCy = height * 0.5;
+        var dialR = Math.min(width, height) * 0.40;
+
+        ctx.save();
+        ctx.translate(dialCx, dialCy);
+
+        // Rotating amber radar sector
+        ctx.save();
+        ctx.rotate(elapsed * 0.5);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, dialR, -0.35, 0.35);
+        ctx.closePath();
+        var rGrad = ctx.createRadialGradient(0, 0, dialR * 0.25, 0, 0, dialR);
+        rGrad.addColorStop(0, 'rgba(245, 158, 11, 0)');
+        rGrad.addColorStop(1, 'rgba(245, 158, 11, 0.22)');
+        ctx.fillStyle = rGrad;
+        ctx.fill();
+        ctx.restore();
+
+        // Stepped outer vault ring
+        var stepAngle = Math.floor(elapsed * 0.9) * (Math.PI / 12) + (elapsed * 0.08);
+        ctx.save();
+        ctx.rotate(stepAngle);
+        ctx.beginPath();
+        ctx.setLineDash([6, 10]);
+        ctx.arc(0, 0, dialR, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.50)';
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+
+        for (var i = 0; i < 16; i++) {
+          var a = (i * Math.PI) / 8;
+          ctx.beginPath();
+          ctx.moveTo(Math.cos(a) * (dialR - 6), Math.sin(a) * (dialR - 6));
+          ctx.lineTo(Math.cos(a) * (dialR + 6), Math.sin(a) * (dialR + 6));
+          ctx.strokeStyle = i % 4 === 0 ? 'rgba(245, 158, 11, 0.75)' : 'rgba(255, 255, 255, 0.25)';
+          ctx.lineWidth = i % 4 === 0 ? 1.8 : 1.1;
+          ctx.setLineDash([]);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Counter-rotating inner tumbler ring
+        ctx.save();
+        ctx.rotate(-elapsed * 0.14);
+        ctx.beginPath();
+        ctx.arc(0, 0, dialR * 0.72, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.32)';
+        ctx.lineWidth = 1.3;
+        ctx.stroke();
+        ctx.restore();
+        ctx.restore();
       };
 
       var drawIPrayer = function (elapsed, dt) {
@@ -663,10 +663,10 @@
             ctx.strokeStyle = 'rgba(153, 246, 228, ' + (twinkle * 0.65).toFixed(3) + ')';
             ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.moveTo(st.x - 6, st.y);
-            ctx.lineTo(st.x + 6, st.y);
-            ctx.moveTo(st.x, st.y - 6);
-            ctx.lineTo(st.x, st.y + 6);
+            ctx.moveTo(st.x - 5, st.y);
+            ctx.lineTo(st.x + 5, st.y);
+            ctx.moveTo(st.x, st.y - 5);
+            ctx.lineTo(st.x, st.y + 5);
             ctx.stroke();
           }
 
@@ -675,22 +675,22 @@
             var dx = st.x - st2.x;
             var dy = st.y - st2.y;
             var dSq = dx * dx + dy * dy;
-            if (dSq < 19000) {
-              var lineAlpha = (1 - Math.sqrt(dSq) / 138) * 0.28;
+            if (dSq < 9500) {
+              var lineAlpha = (1 - Math.sqrt(dSq) / 98) * 0.26;
               ctx.beginPath();
               ctx.moveTo(st.x, st.y);
               ctx.lineTo(st2.x, st2.y);
               ctx.strokeStyle = 'rgba(45, 212, 191, ' + lineAlpha.toFixed(3) + ')';
-              ctx.lineWidth = 1.1;
+              ctx.lineWidth = 1;
               ctx.stroke();
             }
           }
         }
 
-        // Sacred Geometric Astrolabe (Rub el Hizb 8-pointed star)
-        var cx = width >= 768 ? width * 0.28 : width * 0.5;
+        // Centered Sacred Geometric Astrolabe (Rub el Hizb 8-pointed star)
+        var cx = width * 0.5;
         var cy = height * 0.5;
-        var R = Math.min(width, height) * 0.36;
+        var R = Math.min(width, height) * 0.41;
 
         ctx.save();
         ctx.translate(cx, cy);
@@ -698,12 +698,12 @@
         // Expanding Qibla azimuth pulse rings
         for (var p = 0; p < 2; p++) {
           var pulseFrac = ((elapsed * 0.25) + p * 0.5) % 1;
-          var pulseR = R * (0.30 + pulseFrac * 0.95);
+          var pulseR = R * (0.35 + pulseFrac * 0.85);
           var pulseAlpha = (1 - pulseFrac) * 0.45;
           ctx.beginPath();
           ctx.arc(0, 0, pulseR, 0, Math.PI * 2);
           ctx.strokeStyle = 'rgba(45, 212, 191, ' + pulseAlpha.toFixed(3) + ')';
-          ctx.lineWidth = 1.5;
+          ctx.lineWidth = 1.4;
           ctx.stroke();
         }
 
@@ -712,26 +712,26 @@
         ctx.rotate(elapsed * 0.06);
         ctx.beginPath();
         ctx.arc(0, 0, R, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(45, 212, 191, 0.38)';
-        ctx.lineWidth = 1.6;
+        ctx.strokeStyle = 'rgba(45, 212, 191, 0.45)';
+        ctx.lineWidth = 1.5;
         ctx.stroke();
 
         for (var m = 0; m < 24; m++) {
           var ang = (m * Math.PI) / 12;
-          var inner = m % 3 === 0 ? R - 11 : R - 5;
+          var inner = m % 3 === 0 ? R - 9 : R - 4;
           ctx.beginPath();
           ctx.moveTo(Math.cos(ang) * inner, Math.sin(ang) * inner);
           ctx.lineTo(Math.cos(ang) * R, Math.sin(ang) * R);
-          ctx.strokeStyle = m % 3 === 0 ? 'rgba(45, 212, 191, 0.65)' : 'rgba(255, 255, 255, 0.24)';
-          ctx.lineWidth = m % 3 === 0 ? 1.8 : 1;
+          ctx.strokeStyle = m % 3 === 0 ? 'rgba(45, 212, 191, 0.72)' : 'rgba(255, 255, 255, 0.25)';
+          ctx.lineWidth = m % 3 === 0 ? 1.6 : 1;
           ctx.stroke();
         }
         ctx.restore();
 
-        // Rub el Hizb (two overlapping squares at 45 deg) + octagram
+        // Rub el Hizb (two overlapping squares at 45 deg)
         ctx.save();
         ctx.rotate(-elapsed * 0.08);
-        var sqR = R * 0.74;
+        var sqR = R * 0.76;
         for (var q = 0; q < 2; q++) {
           ctx.save();
           ctx.rotate((q * Math.PI) / 4);
@@ -742,60 +742,50 @@
             var vy = Math.sin(va) * sqR;
             if (v === 0) ctx.moveTo(vx, vy);
             else ctx.lineTo(vx, vy);
-            ctx.fillStyle = 'rgba(94, 234, 212, 0.85)';
-            ctx.fillRect(vx - 2.5, vy - 2.5, 5, 5);
+            ctx.fillStyle = 'rgba(94, 234, 212, 0.90)';
+            ctx.fillRect(vx - 2, vy - 2, 4, 4);
           }
           ctx.closePath();
-          ctx.strokeStyle = 'rgba(45, 212, 191, 0.42)';
-          ctx.lineWidth = 1.6;
+          ctx.strokeStyle = 'rgba(45, 212, 191, 0.48)';
+          ctx.lineWidth = 1.5;
           ctx.stroke();
           ctx.restore();
         }
-
-        // Inner astrolabe ring
-        ctx.beginPath();
-        ctx.arc(0, 0, R * 0.38, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(45, 212, 191, 0.30)';
-        ctx.lineWidth = 1.4;
-        ctx.stroke();
         ctx.restore();
-
         ctx.restore();
       };
 
       var drawVoxel = function (elapsed, dt) {
-        // Perspective 3D wireframe court floor in the lower half
+        // Perspective 3D wireframe court floor in the lower half of the circular arena
         var horizonY = height * 0.54;
         var bottomY = height;
         var vanishX = width * 0.5;
 
         ctx.save();
-        // Perspective longitudinal court lines
-        var numLines = 11;
+        var numLines = 9;
         for (var i = 0; i < numLines; i++) {
           var norm = (i / (numLines - 1)) - 0.5;
-          var topX = vanishX + norm * width * 0.42;
-          var botX = vanishX + norm * width * 1.25;
+          var topX = vanishX + norm * width * 0.46;
+          var botX = vanishX + norm * width * 1.3;
           ctx.beginPath();
           ctx.moveTo(topX, horizonY);
           ctx.lineTo(botX, bottomY);
-          ctx.strokeStyle = i === 5 ? 'rgba(52, 211, 153, 0.48)' : 'rgba(52, 211, 153, 0.18)';
-          ctx.lineWidth = i === 5 ? 1.8 : 1.1;
+          ctx.strokeStyle = i === 4 ? 'rgba(52, 211, 153, 0.50)' : 'rgba(52, 211, 153, 0.20)';
+          ctx.lineWidth = i === 4 ? 1.6 : 1;
           ctx.stroke();
         }
 
-        // Animated scrolling perspective transverse depth lines
-        var scrollOffset = (elapsed * 0.35) % (1 / 6);
-        for (var r = 0; r <= 6; r++) {
-          var t = Math.min(1, (r / 6) + scrollOffset);
+        var scrollOffset = (elapsed * 0.35) % (1 / 5);
+        for (var r = 0; r <= 5; r++) {
+          var t = Math.min(1, (r / 5) + scrollOffset);
           var easeT = t * t;
           var y = horizonY + easeT * (bottomY - horizonY);
-          var span = (0.42 + easeT * 0.83) * width * 0.5;
+          var span = (0.46 + easeT * 0.84) * width * 0.5;
           ctx.beginPath();
           ctx.moveTo(vanishX - span, y);
           ctx.lineTo(vanishX + span, y);
-          ctx.strokeStyle = r === 0 ? 'rgba(52, 211, 153, 0.50)' : 'rgba(52, 211, 153, ' + (0.14 + t * 0.26).toFixed(3) + ')';
-          ctx.lineWidth = 1.3;
+          ctx.strokeStyle = r === 0 ? 'rgba(52, 211, 153, 0.52)' : 'rgba(52, 211, 153, ' + (0.16 + t * 0.28).toFixed(3) + ')';
+          ctx.lineWidth = 1.2;
           ctx.stroke();
         }
         ctx.restore();
@@ -808,8 +798,8 @@
           cb.ry += cb.vry * dt;
           cb.rz += cb.vrz * dt;
 
-          var cx = cb.nx * width + Math.sin(elapsed * 0.6 + c) * 18;
-          var cy = cb.ny * height + Math.cos(elapsed * 0.5 + c) * 16;
+          var cx = cb.nx * width + Math.sin(elapsed * 0.6 + c) * 10;
+          var cy = cb.ny * height + Math.cos(elapsed * 0.5 + c) * 10;
           var s = cb.size;
 
           var cosX = Math.cos(cb.rx), sinX = Math.sin(cb.rx);
@@ -840,38 +830,37 @@
             ctx.moveTo(p1[0], p1[1]);
             ctx.lineTo(p2[0], p2[1]);
           }
-          ctx.strokeStyle = cb.accent ? 'rgba(52, 211, 153, 0.52)' : 'rgba(255, 255, 255, 0.28)';
-          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = cb.accent ? 'rgba(52, 211, 153, 0.50)' : 'rgba(255, 255, 255, 0.25)';
+          ctx.lineWidth = 1.3;
           ctx.stroke();
         }
 
-        // Autonomous parabolic rally ball + bounce ripples
-        var rallyDuration = 2.1;
+        // Autonomous parabolic rally ball + bounce ripples inside the circular court
+        var rallyDuration = 1.9;
         var cycle = elapsed / rallyDuration;
         var bounceIndex = Math.floor(cycle);
         var phase = cycle - bounceIndex;
         var goingRight = bounceIndex % 2 === 0;
 
-        var leftX = width * 0.20;
-        var rightX = width * 0.80;
-        var groundY = height * 0.72;
-        var arcHeight = Math.min(height * 0.38, 270);
+        var leftX = width * 0.16;
+        var rightX = width * 0.84;
+        var groundY = height * 0.74;
+        var arcHeight = height * 0.42;
 
         if (state.lastBounceSide !== bounceIndex) {
           state.lastBounceSide = bounceIndex;
           state.ripples.push({
             x: goingRight ? leftX : rightX,
             y: groundY,
-            r: 6,
+            r: 4,
             alpha: 0.85
           });
         }
 
-        // Draw expanding isometric voxel bounce ripples
         for (var rp = state.ripples.length - 1; rp >= 0; rp--) {
           var rip = state.ripples[rp];
-          rip.r += 70 * dt;
-          rip.alpha -= 0.48 * dt;
+          rip.r += 48 * dt;
+          rip.alpha -= 0.55 * dt;
           if (rip.alpha <= 0) {
             state.ripples.splice(rp, 1);
             continue;
@@ -880,22 +869,21 @@
           ctx.translate(rip.x, rip.y);
           ctx.scale(1.6, 0.55);
           ctx.strokeStyle = 'rgba(52, 211, 153, ' + rip.alpha.toFixed(3) + ')';
-          ctx.lineWidth = 2;
+          ctx.lineWidth = 1.8;
           ctx.strokeRect(-rip.r, -rip.r, rip.r * 2, rip.r * 2);
           ctx.restore();
         }
 
-        // Parabolic trail & glowing voxel ball
-        var steps = 14;
+        var steps = 12;
         for (var tr = steps; tr >= 0; tr--) {
-          var tp = Math.max(0, phase - tr * 0.022);
+          var tp = Math.max(0, phase - tr * 0.024);
           var bx = goingRight ? (leftX + (rightX - leftX) * tp) : (rightX - (rightX - leftX) * tp);
           var by = groundY - 4 * arcHeight * tp * (1 - tp);
           var tAlpha = (1 - tr / (steps + 1)) * 0.75;
-          var bSize = tr === 0 ? 11 : 6 * (1 - tr / (steps + 2));
+          var bSize = tr === 0 ? 9 : 5 * (1 - tr / (steps + 2));
           if (tr === 0) {
-            ctx.fillStyle = 'rgba(52, 211, 153, 0.28)';
-            ctx.fillRect(bx - 12, by - 12, 24, 24);
+            ctx.fillStyle = 'rgba(52, 211, 153, 0.30)';
+            ctx.fillRect(bx - 9, by - 9, 18, 18);
           }
           ctx.fillStyle = tr === 0 ? 'rgba(110, 231, 183, 0.98)' : 'rgba(52, 211, 153, ' + tAlpha.toFixed(3) + ')';
           ctx.fillRect(bx - bSize * 0.5, by - bSize * 0.5, bSize, bSize);
@@ -903,53 +891,50 @@
       };
 
       var drawSlumber = function (elapsed, dt) {
-        // Spawn periodic binaural acoustic sonar pings ("Entity Listening")
-        if (elapsed - state.lastPing > 1.9) {
+        // Spawn periodic binaural acoustic sonar pings inside the CRT monitor
+        if (elapsed - state.lastPing > 2.0) {
           state.lastPing = elapsed;
           state.pings.push({
-            x: width * (0.16 + Math.random() * 0.68),
-            y: height * (0.18 + Math.random() * 0.64),
+            x: width * (0.25 + Math.random() * 0.50),
+            y: height * (0.25 + Math.random() * 0.50),
             born: elapsed,
-            maxR: Math.min(width, height) * (0.36 + Math.random() * 0.16)
+            maxR: Math.min(width, height) * 0.46
           });
-          if (state.pings.length > 5) state.pings.shift();
+          if (state.pings.length > 4) state.pings.shift();
         }
 
-        // Draw acoustic sonar wave rings
         for (var p = state.pings.length - 1; p >= 0; p--) {
           var pg = state.pings[p];
           var age = elapsed - pg.born;
-          var duration = 3.8;
+          var duration = 3.4;
           if (age > duration) {
             state.pings.splice(p, 1);
             continue;
           }
 
-          // Crosshair + glowing dot at sound epicenter
-          var crossAlpha = Math.max(0, (1 - age / duration) * 0.75);
+          var crossAlpha = Math.max(0, (1 - age / duration) * 0.80);
           ctx.strokeStyle = 'rgba(239, 68, 68, ' + crossAlpha.toFixed(3) + ')';
-          ctx.lineWidth = 1.5;
+          ctx.lineWidth = 1.4;
           ctx.beginPath();
-          ctx.moveTo(pg.x - 8, pg.y);
-          ctx.lineTo(pg.x + 8, pg.y);
-          ctx.moveTo(pg.x, pg.y - 8);
-          ctx.lineTo(pg.x, pg.y + 8);
+          ctx.moveTo(pg.x - 6, pg.y);
+          ctx.lineTo(pg.x + 6, pg.y);
+          ctx.moveTo(pg.x, pg.y - 6);
+          ctx.lineTo(pg.x, pg.y + 6);
           ctx.stroke();
 
-          // 3 harmonic soundwave rings per ping
           for (var w = 0; w < 3; w++) {
-            var wAge = age - w * 0.42;
+            var wAge = age - w * 0.38;
             if (wAge <= 0) continue;
             var prog = wAge / duration;
             if (prog >= 1) continue;
             var r = prog * pg.maxR;
-            var alpha = (1 - prog) * 0.58;
+            var alpha = (1 - prog) * 0.62;
 
             ctx.beginPath();
-            var segments = 56;
+            var segments = 48;
             for (var s = 0; s <= segments; s++) {
               var a = (s / segments) * Math.PI * 2;
-              var jitter = Math.sin(a * 10 + elapsed * 12 + w) * 4.0 * (1 - prog);
+              var jitter = Math.sin(a * 10 + elapsed * 12 + w) * 3.0 * (1 - prog);
               var px = pg.x + Math.cos(a) * (r + jitter);
               var py = pg.y + Math.sin(a) * (r + jitter);
               if (s === 0) ctx.moveTo(px, py);
@@ -957,7 +942,7 @@
             }
             ctx.closePath();
             ctx.strokeStyle = 'rgba(239, 68, 68, ' + alpha.toFixed(3) + ')';
-            ctx.lineWidth = 1.6;
+            ctx.lineWidth = 1.5;
             ctx.stroke();
           }
         }
@@ -966,7 +951,7 @@
         var motes = state.motes || [];
         for (var m = 0; m < motes.length; m++) {
           var mt = motes[m];
-          mt.x += (mt.vx + Math.sin(elapsed + m) * 6) * dt;
+          mt.x += (mt.vx + Math.sin(elapsed + m) * 5) * dt;
           mt.y += mt.vy * dt;
           if (mt.y < -10) {
             mt.y = height + 10;
@@ -987,21 +972,21 @@
         var glitchTrigger = Math.sin(elapsed * 3.1) * Math.cos(elapsed * 5.7);
         if (glitchTrigger > 0.55) {
           var gy = (Math.sin(elapsed * 17) * 0.5 + 0.5) * height;
-          var gh = 10 + Math.random() * 24;
-          ctx.fillStyle = 'rgba(220, 38, 38, 0.16)';
+          var gh = 8 + Math.random() * 16;
+          ctx.fillStyle = 'rgba(220, 38, 38, 0.22)';
           ctx.fillRect(0, gy, width, gh);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
-          ctx.fillRect(0, gy + gh * 0.4, width, 2);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.14)';
+          ctx.fillRect(0, gy + gh * 0.4, width, 1.5);
         }
       };
 
       var drawMusic = function (elapsed, dt) {
-        var centerY = height * 0.54;
-        var mod = pointer.active ? ((pointer.y / Math.max(1, height)) - 0.5) * 0.7 : 0;
+        var centerY = height * 0.5;
+        var mod = pointer.active ? ((pointer.y / Math.max(1, height)) - 0.5) * 0.6 : 0;
 
-        // Stereo frequency-spectrum analyzer bars along the horizon
-        var barCount = 64;
-        var totalBarW = Math.min(width * 0.88, 1080);
+        // Stereo frequency-spectrum analyzer bars across the vinyl record
+        var barCount = 44;
+        var totalBarW = width * 0.86;
         var startX = (width - totalBarW) * 0.5;
         var stepX = totalBarW / barCount;
 
@@ -1012,26 +997,26 @@
             0.45 * Math.sin(elapsed * 2.6 + b * 0.28) +
             0.35 * Math.cos(elapsed * 3.8 - b * 0.42) +
             0.20 * Math.sin(elapsed * 5.5 + b * 0.15);
-          var barH = Math.max(6, (22 + Math.abs(energy) * 95) * env);
+          var barH = Math.max(4, (14 + Math.abs(energy) * (height * 0.22)) * env);
           var bx = startX + b * stepX;
 
-          ctx.fillStyle = b % 2 === 0 ? 'rgba(99, 102, 241, 0.34)' : 'rgba(56, 189, 248, 0.30)';
-          ctx.fillRect(bx, centerY - barH, 2.5, barH * 2);
+          ctx.fillStyle = b % 2 === 0 ? 'rgba(99, 102, 241, 0.42)' : 'rgba(56, 189, 248, 0.38)';
+          ctx.fillRect(bx, centerY - barH, 2.2, barH * 2);
         }
 
         // 5 flowing multi-harmonic analog synth waveforms
         var waves = [
-          { amp: 58, freq: 0.0055, speed: 1.3, color: 'rgba(99, 102, 241, 0.65)', width: 2.2 },
-          { amp: 44, freq: 0.0080, speed: -1.0, color: 'rgba(56, 189, 248, 0.55)', width: 1.8 },
-          { amp: 72, freq: 0.0040, speed: 0.8, color: 'rgba(255, 255, 255, 0.35)', width: 1.5 },
-          { amp: 32, freq: 0.0115, speed: 1.7, color: 'rgba(129, 140, 248, 0.45)', width: 1.4 },
-          { amp: 48, freq: 0.0068, speed: -1.35, color: 'rgba(56, 189, 248, 0.28)', width: 1.2 }
+          { amp: height * 0.13, freq: 0.012, speed: 1.4, color: 'rgba(99, 102, 241, 0.75)', width: 2.0 },
+          { amp: height * 0.10, freq: 0.017, speed: -1.1, color: 'rgba(56, 189, 248, 0.65)', width: 1.6 },
+          { amp: height * 0.16, freq: 0.009, speed: 0.9, color: 'rgba(255, 255, 255, 0.42)', width: 1.4 },
+          { amp: height * 0.08, freq: 0.022, speed: 1.8, color: 'rgba(129, 140, 248, 0.52)', width: 1.3 },
+          { amp: height * 0.11, freq: 0.014, speed: -1.4, color: 'rgba(56, 189, 248, 0.36)', width: 1.2 }
         ];
 
         for (var w = 0; w < waves.length; w++) {
           var wv = waves[w];
           ctx.beginPath();
-          for (var x = 0; x <= width; x += 10) {
+          for (var x = 0; x <= width; x += 6) {
             var nx = x / Math.max(1, width);
             var taper = Math.sin(nx * Math.PI);
             var y =
@@ -1051,7 +1036,7 @@
         for (var n = 0; n < notes.length; n++) {
           var nt = notes[n];
           nt.y += nt.vy * dt;
-          nt.x += Math.sin(elapsed * 1.1 + n) * 8 * dt;
+          nt.x += Math.sin(elapsed * 1.1 + n) * 6 * dt;
           if (nt.y < -10) {
             nt.y = height + 10;
             nt.x = Math.random() * width;
@@ -1065,7 +1050,7 @@
 
       var lastNow = performance.now();
       var render = function (now) {
-        if (section && (Math.abs(section.clientWidth - width) > 4 || Math.abs(section.clientHeight - height) > 4)) {
+        if (container && (Math.abs(container.clientWidth - width) > 2 || Math.abs(container.clientHeight - height) > 2)) {
           resize();
         }
         var dt = Math.min(0.05, Math.max(0.001, (now - lastNow) * 0.001));

@@ -60,9 +60,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/css/site.css?v=1abdebd576">
+    <link rel="stylesheet" href="/assets/css/site.css?v=7698a4c3cd">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
-    <script src="/assets/js/site.js?v=823c27b54a" defer></script>
+    <script src="/assets/js/site.js?v=ab7a5176d3" defer></script>
     <script src="/assets/js/contact-form.js?v=cb7e500834" defer></script>
 
     <style>
@@ -258,11 +258,6 @@
 
         <!-- Section 2: iPasscoder -->
         <section id="ipasscoder" class="snap-section bg-black border-t border-white/5">
-            <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                <div class="absolute top-1/4 -right-20 w-[36rem] h-[36rem] rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.16)_0%,rgba(245,158,11,0.04)_45%,transparent_70%)] blur-3xl"></div>
-                <div class="absolute -bottom-24 left-1/6 w-[30rem] h-[30rem] rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.08)_0%,transparent_70%)] blur-3xl"></div>
-                <canvas data-project-canvas="ipasscoder" class="absolute inset-0 w-full h-full"></canvas>
-            </div>
             <div class="relative z-10 max-w-7xl w-full px-6 sm:px-10 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
 
                 <div class="flex-1 reveal w-full text-center md:text-left">
@@ -288,9 +283,12 @@
                 <!-- Abstract UI Representation (decorative) -->
                 <div class="flex-1 w-full max-w-md reveal stagger-1" aria-hidden="true">
                     <div class="w-full aspect-[4/5] bg-[#050505] border border-white/10 rounded-[40px] p-8 flex flex-col gap-6 shadow-2xl overflow-hidden relative">
-                        <div class="w-full flex-1 border border-white/10 rounded-3xl flex items-center justify-center relative overflow-hidden bg-white/[0.02]">
-                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(245,158,11,0.1)_0%,transparent_50%)]"></div>
-                            <i class="ph-thin ph-lock-key text-7xl text-white/80" aria-hidden="true"></i>
+                        <div class="w-full flex-1 border border-white/10 rounded-3xl flex items-center justify-center relative overflow-hidden bg-black">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(245,158,11,0.16)_0%,transparent_65%)]"></div>
+                            <canvas data-project-canvas="ipasscoder" class="absolute inset-0 w-full h-full"></canvas>
+                            <div class="relative z-10 w-24 h-24 rounded-full bg-black/75 backdrop-blur-md border border-amber-500/30 flex items-center justify-center shadow-[0_0_35px_rgba(245,158,11,0.18)]">
+                                <i class="ph-thin ph-lock-key text-5xl text-white/90" aria-hidden="true"></i>
+                            </div>
                         </div>
 
                         <div class="flex gap-4">
@@ -309,11 +307,6 @@
 
         <!-- Section 2.5: iPrayer -->
         <section id="iprayer" class="snap-section bg-[#020202] border-t border-white/5">
-            <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                <div class="absolute top-1/3 left-1/6 w-[36rem] h-[36rem] rounded-full bg-[radial-gradient(circle,rgba(45,212,191,0.16)_0%,rgba(45,212,191,0.04)_45%,transparent_70%)] blur-3xl"></div>
-                <div class="absolute -bottom-20 right-1/4 w-[32rem] h-[32rem] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.10)_0%,transparent_70%)] blur-3xl"></div>
-                <canvas data-project-canvas="iprayer" class="absolute inset-0 w-full h-full"></canvas>
-            </div>
             <div class="relative z-10 max-w-7xl w-full px-6 sm:px-10 flex flex-col md:flex-row-reverse items-center justify-between gap-12 md:gap-20">
 
                 <div class="flex-1 reveal w-full text-center md:text-left">
@@ -339,10 +332,13 @@
                 <!-- Abstract UI Representation (decorative) -->
                 <div class="flex-1 w-full max-w-md reveal stagger-1" aria-hidden="true">
                     <div class="w-full aspect-[4/5] bg-black border border-white/10 rounded-[40px] p-8 flex flex-col gap-6 shadow-2xl overflow-hidden relative">
-                        <div class="w-full flex-1 border border-white/10 rounded-3xl flex flex-col items-center justify-center relative overflow-hidden bg-white/[0.02]">
-                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(45,212,191,0.1)_0%,transparent_50%)]"></div>
-                            <div class="text-[10px] font-bold text-teal-500 uppercase tracking-widest mb-4">Starts in</div>
-                            <div class="text-4xl font-mono font-bold text-white tracking-widest">00:58:21</div>
+                        <div class="w-full flex-1 border border-white/10 rounded-3xl flex flex-col items-center justify-center relative overflow-hidden bg-black">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(45,212,191,0.16)_0%,transparent_65%)]"></div>
+                            <canvas data-project-canvas="iprayer" class="absolute inset-0 w-full h-full"></canvas>
+                            <div class="relative z-10 px-6 py-4 rounded-2xl bg-black/75 backdrop-blur-md border border-teal-500/25 flex flex-col items-center shadow-[0_0_35px_rgba(45,212,191,0.15)]">
+                                <div class="text-[10px] font-bold text-teal-400 uppercase tracking-widest mb-2">Starts in</div>
+                                <div class="text-3xl sm:text-4xl font-mono font-bold text-white tracking-widest">00:58:21</div>
+                            </div>
                         </div>
 
                         <div class="flex gap-4">
@@ -361,10 +357,6 @@
 
         <!-- Section 3: Voxel Tennis (first game) -->
         <section id="voxel" class="snap-section bg-[#020202] border-t border-white/5">
-            <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                <div class="absolute top-1/4 left-1/4 w-[38rem] h-[38rem] rounded-full bg-[radial-gradient(circle,rgba(52,211,153,0.16)_0%,rgba(52,211,153,0.04)_45%,transparent_70%)] blur-3xl"></div>
-                <canvas data-project-canvas="voxel" class="absolute inset-0 w-full h-full"></canvas>
-            </div>
             <div class="relative z-10 max-w-7xl w-full px-6 sm:px-10 flex flex-col md:flex-row-reverse items-center justify-between gap-12 md:gap-20">
 
                 <div class="flex-1 reveal w-full text-center md:text-left">
@@ -383,10 +375,12 @@
 
                 <!-- Decorative spinning court -->
                 <div class="flex-1 w-full max-w-md reveal stagger-1" aria-hidden="true">
-                    <div class="w-full aspect-square bg-[#050505] border border-white/10 rounded-full flex items-center justify-center">
-                        <div class="w-2/3 h-2/3 border border-white/10 rounded-full border-dashed animate-[spin_20s_linear_infinite] flex items-center justify-center">
-                            <div class="w-1/2 h-1/2 border border-white/20 rounded-full animate-[spin_10s_linear_infinite_reverse] flex items-center justify-center">
-                                <i class="ph-fill ph-tennis-ball text-4xl text-white/80" aria-hidden="true"></i>
+                    <div class="w-full aspect-square bg-[#050505] border border-white/10 rounded-full flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(52,211,153,0.14)_0%,transparent_65%)]"></div>
+                        <canvas data-project-canvas="voxel" class="absolute inset-0 w-full h-full"></canvas>
+                        <div class="relative z-10 w-2/3 h-2/3 border border-white/10 rounded-full border-dashed animate-[spin_20s_linear_infinite] flex items-center justify-center">
+                            <div class="w-1/2 h-1/2 border border-white/20 rounded-full animate-[spin_10s_linear_infinite_reverse] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                                <i class="ph-fill ph-tennis-ball text-4xl text-emerald-400" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -397,10 +391,6 @@
 
         <!-- Section 3.5: Slumber Hell -->
         <section id="slumber" class="snap-section bg-black border-t border-white/5">
-            <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                <div class="absolute top-1/3 right-1/5 w-[40rem] h-[40rem] rounded-full bg-[radial-gradient(circle,rgba(220,38,38,0.18)_0%,rgba(153,27,27,0.05)_45%,transparent_70%)] blur-3xl"></div>
-                <canvas data-project-canvas="slumber" class="absolute inset-0 w-full h-full"></canvas>
-            </div>
             <div class="relative z-10 max-w-7xl w-full px-6 sm:px-10 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
 
                 <div class="flex-1 reveal w-full text-center md:text-left">
@@ -428,7 +418,8 @@
                     <div class="w-full aspect-[4/5] bg-[#050505] border border-white/10 rounded-[40px] p-6 flex flex-col justify-between shadow-2xl overflow-hidden relative">
                         <div class="w-full flex-1 border border-white/10 rounded-3xl overflow-hidden relative">
                             <img src="slumber_shot1.jpg" alt="Slumber Hell gameplay: a blood-stained figure standing in a dim hallway" width="1024" height="473" loading="lazy" decoding="async" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" aria-hidden="true"></div>
+                            <canvas data-project-canvas="slumber" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" aria-hidden="true"></div>
                             <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.4)_50%)] bg-[length:100%_4px] pointer-events-none" aria-hidden="true"></div>
                         </div>
 
@@ -447,10 +438,6 @@
 
         <!-- Section 4: Music -->
         <section id="music" class="snap-section bg-black border-t border-white/5">
-            <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                <div class="absolute top-1/3 left-1/3 w-[42rem] h-[42rem] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.18)_0%,rgba(56,189,248,0.06)_45%,transparent_70%)] blur-3xl"></div>
-                <canvas data-project-canvas="music" class="absolute inset-0 w-full h-full"></canvas>
-            </div>
             <div class="relative z-10 max-w-7xl w-full px-6 sm:px-10 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
 
                 <div class="flex-1 reveal w-full text-center md:text-left">
@@ -471,7 +458,8 @@
                     <!-- Minimal Player Record: a mouse/touch shortcut to the music page (the text link above is the accessible one) -->
                     <a href="music.html" tabindex="-1" aria-hidden="true" class="w-full aspect-square border border-white/10 rounded-full bg-[#050505] relative flex items-center justify-center group overflow-hidden">
                         <img src="cover_midnight.jpg" alt="" width="640" height="640" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale opacity-30 group-hover:opacity-70 group-hover:scale-105 transition-all duration-1000">
-                        <span class="w-32 h-32 bg-black rounded-full relative flex items-center justify-center border-4 border-[#050505] group-hover:scale-90 transition-transform duration-700">
+                        <canvas data-project-canvas="music" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+                        <span class="relative z-10 w-32 h-32 bg-black rounded-full flex items-center justify-center border-4 border-[#050505] group-hover:scale-90 transition-transform duration-700">
                             <i class="ph-fill ph-play text-white text-3xl ml-1" aria-hidden="true"></i>
                         </span>
                     </a>
