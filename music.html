@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="/assets/css/site.css?v=359633a72a">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
     <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
-    <script src="/assets/js/music.js?v=21dd0dfd07" defer></script>
+    <script src="/assets/js/music.js?v=f8c4d30d4c" defer></script>
 
     <style>
         /* The document scrolls; sections snap to the top of the viewport. */
@@ -108,6 +108,10 @@
         }
         #hero-vinyl.is-spinning .vinyl-disc {
             animation-play-state: running;
+        }
+        video:fullscreen,
+        video:-webkit-full-screen {
+            object-fit: contain !important;
         }
 
         /* Minimalist Catalog card play badge: subtle on hover, visible when playing */
@@ -386,10 +390,16 @@
                                 </h3>
                                 <p class="text-white/60 text-xs uppercase tracking-widest mt-1">Single • 2025</p>
                             </div>
-                            <a href="/bodytalk.html" aria-label="View BODYTALK release page" class="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white inline-flex items-center gap-1.5 transition-colors">
-                                <span>Explore</span>
-                                <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
-                            </a>
+                            <div class="flex items-center gap-4">
+                                <a href="#videos" data-watch-video="video-bodytalk" aria-label="Watch BODYTALK Official Visualizer" class="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white inline-flex items-center gap-1 transition-colors">
+                                    <i class="ph-fill ph-play-circle text-sm" aria-hidden="true"></i>
+                                    <span>Video</span>
+                                </a>
+                                <a href="/bodytalk.html" aria-label="View BODYTALK release page" class="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white inline-flex items-center gap-1.5 transition-colors">
+                                    <span>Explore</span>
+                                    <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
                     </li>
 
@@ -409,10 +419,16 @@
                                 </h3>
                                 <p class="text-white/60 text-xs uppercase tracking-widest mt-1">EP • 2025</p>
                             </div>
-                            <a href="/midnight-blue.html" aria-label="View Midnight Blue EP page" class="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white inline-flex items-center gap-1.5 transition-colors">
-                                <span>Explore</span>
-                                <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
-                            </a>
+                            <div class="flex items-center gap-4">
+                                <a href="#videos" data-watch-video="video-ephemeral" aria-label="Watch Ephemeral Official Visualizer" class="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white inline-flex items-center gap-1 transition-colors">
+                                    <i class="ph-fill ph-play-circle text-sm" aria-hidden="true"></i>
+                                    <span>Video</span>
+                                </a>
+                                <a href="/midnight-blue.html" aria-label="View Midnight Blue EP page" class="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white inline-flex items-center gap-1.5 transition-colors">
+                                    <span>Explore</span>
+                                    <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
                     </li>
 

@@ -1006,6 +1006,13 @@
     var video = videoId ? document.getElementById(videoId) : null;
     if (!video) return;
     link.addEventListener('click', function () {
+      var section = video.closest('section');
+      if (section) {
+        var reveals = section.querySelectorAll('.reveal');
+        for (var i = 0; i < reveals.length; i++) {
+          reveals[i].classList.add('active');
+        }
+      }
       var overlay = document.querySelector('[data-video-overlay="' + videoId + '"]');
       if (overlay) {
         overlay.setAttribute('hidden', '');
