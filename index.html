@@ -62,7 +62,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
     <link rel="stylesheet" href="/assets/css/site.css?v=7698a4c3cd">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
-    <script src="/assets/js/site.js?v=ab7a5176d3" defer></script>
+    <script src="/assets/js/site.js?v=6d4074c433" defer></script>
     <script src="/assets/js/contact-form.js?v=cb7e500834" defer></script>
 
     <style>
@@ -125,34 +125,34 @@
         /* Hero background architectural grid, ambient light plumes, and specular watermark */
         .hero-bg-grid {
             background-image:
-                linear-gradient(to right, rgba(255, 255, 255, 0.085) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.085) 1px, transparent 1px);
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 48px 48px;
-            -webkit-mask-image: radial-gradient(ellipse 82% 75% at 55% 50%, #000 25%, transparent 85%);
-            mask-image: radial-gradient(ellipse 82% 75% at 55% 50%, #000 25%, transparent 85%);
+            -webkit-mask-image: radial-gradient(ellipse 75% 68% at 55% 50%, #000 15%, transparent 80%);
+            mask-image: radial-gradient(ellipse 75% 68% at 55% 50%, #000 15%, transparent 80%);
         }
         .hero-orb-1 {
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 45%, transparent 70%);
-            animation: heroOrbDrift1 14s ease-in-out infinite alternate;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 45%, transparent 70%);
+            animation: heroOrbDrift1 16s ease-in-out infinite alternate;
         }
         .hero-orb-2 {
-            background: radial-gradient(circle, rgba(165, 195, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 45%, transparent 70%);
-            animation: heroOrbDrift2 18s ease-in-out infinite alternate;
+            background: radial-gradient(circle, rgba(180, 200, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 45%, transparent 70%);
+            animation: heroOrbDrift2 22s ease-in-out infinite alternate;
         }
         .hero-watermark {
             background: linear-gradient(
                 110deg,
-                rgba(255, 255, 255, 0.05) 30%,
-                rgba(255, 255, 255, 0.18) 48%,
-                rgba(255, 255, 255, 0.24) 50%,
-                rgba(255, 255, 255, 0.18) 52%,
-                rgba(255, 255, 255, 0.05) 70%
+                rgba(255, 255, 255, 0.03) 30%,
+                rgba(255, 255, 255, 0.075) 48%,
+                rgba(255, 255, 255, 0.095) 50%,
+                rgba(255, 255, 255, 0.075) 52%,
+                rgba(255, 255, 255, 0.03) 70%
             );
             background-size: 240% 100%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: heroWatermarkSweep 10s ease-in-out infinite;
+            animation: heroWatermarkSweep 12s ease-in-out infinite;
         }
         @keyframes heroOrbDrift1 {
             0% { transform: translate3d(-8%, -6%, 0) scale(1); }
