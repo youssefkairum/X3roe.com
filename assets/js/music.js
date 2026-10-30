@@ -350,6 +350,7 @@
   var playerBar = document.getElementById('player-bar');
   var playerCover = document.getElementById('player-cover');
   var playerCoverBtn = document.getElementById('player-cover-btn');
+  var playerInfoBtn = document.getElementById('player-info-btn');
   var playerTitle = document.getElementById('player-title');
   var playerSubtitle = document.getElementById('player-subtitle');
   var playerElapsed = document.getElementById('player-elapsed');
@@ -757,7 +758,9 @@
 
     audio.pause();
     audio.src = track.src;
-    audio.load();
+    if (!autoplay) {
+      audio.load();
+    }
 
     if (playerElapsed) playerElapsed.textContent = '0:00';
     if (playerDuration) playerDuration.textContent = track.duration;
@@ -868,6 +871,11 @@
   }
   if (playerCoverBtn) {
     playerCoverBtn.addEventListener('click', function () {
+      setLyricsOpen(!lyricsOpen);
+    });
+  }
+  if (playerInfoBtn) {
+    playerInfoBtn.addEventListener('click', function () {
       setLyricsOpen(!lyricsOpen);
     });
   }

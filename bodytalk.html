@@ -48,10 +48,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
-    <link rel="stylesheet" href="/assets/css/site.css?v=5e2a303b42">
+    <link rel="stylesheet" href="/assets/css/site.css?v=598ac4382b">
     <script src="/assets/js/head.js?v=ed7642216d"></script>
     <script src="/assets/js/site.js?v=3ccf1d9562" defer></script>
-    <script src="/assets/js/music.js?v=c6f7142cd8" defer></script>
+    <script src="/assets/js/music.js?v=ae77c2dee1" defer></script>
 
     <style>
         html {
@@ -100,13 +100,13 @@
             }
         }
 
-        #hero-vinyl {
-            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        /* Hero vinyl spin synced with playback */
+        .vinyl-disc {
+            animation: spin 10s linear infinite;
+            animation-play-state: paused;
         }
-        #hero-vinyl.is-spinning {
-            transform: scale(1.02);
-            border-color: rgba(255, 255, 255, 0.35);
-            box-shadow: 0 25px 70px -15px rgba(130, 90, 210, 0.35);
+        #hero-vinyl.is-spinning .vinyl-disc {
+            animation-play-state: running;
         }
 
         /* Ensure HTML [hidden] always wins over flex/grid utilities */
@@ -128,6 +128,7 @@
             height: 4px;
             border-radius: 9999px;
             cursor: pointer;
+            touch-action: none;
             transition: height 0.15s ease;
         }
         .spotify-range:hover,
@@ -169,6 +170,21 @@
         .spotify-range:focus-visible::-moz-range-thumb {
             opacity: 1;
         }
+        @media (hover: none) {
+            .spotify-range {
+                height: 5px;
+            }
+            .spotify-range::-webkit-slider-thumb {
+                width: 14px;
+                height: 14px;
+                opacity: 1;
+            }
+            .spotify-range::-moz-range-thumb {
+                width: 14px;
+                height: 14px;
+                opacity: 1;
+            }
+        }
 
         /* Spotify active toggle button (green + dot indicator) */
         .spotify-toggle-btn.is-active {
@@ -192,12 +208,13 @@
             display: block;
             width: 100%;
             text-align: left;
-            padding: 0.5rem 0;
-            font-size: clamp(1.35rem, 3.2vw, 2.5rem);
+            padding: 0.45rem 0;
+            font-size: clamp(1.25rem, 4.8vw, 2.5rem);
             font-weight: 800;
             line-height: 1.25;
             letter-spacing: -0.025em;
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
             transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
             transform-origin: left center;
         }
@@ -276,22 +293,22 @@
                 <div class="absolute inset-0 bg-black/80"></div>
             </div>
 
-            <div class="max-w-7xl w-full px-6 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
+            <div class="max-w-7xl w-full px-6 flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-12 md:gap-20">
 
                 <div class="flex-1 reveal w-full text-center md:text-left">
-                    <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-6 inline-block">
+                    <span class="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 rounded-full text-white/70 mb-5 sm:mb-6 inline-block">
                         Single • 2025
                     </span>
-                    <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter leading-[0.9] text-white">
+                    <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.9] text-white">
                         <span class="sr-only">BODYTALK</span>
                         <span aria-hidden="true">BODY<br>TALK.</span>
                     </h1>
-                    <p class="text-sm sm:text-base text-white/50 mt-5 font-mono uppercase tracking-widest">
+                    <p class="text-sm sm:text-base text-white/50 mt-4 sm:mt-5 font-mono uppercase tracking-widest">
                         X3RŒ • 2:58
                     </p>
 
-                    <div class="mt-12 flex flex-wrap items-center justify-center md:justify-start gap-6 reveal stagger-1">
-                        <button type="button" id="hero-play-btn" data-hero-track="bodytalk" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform flex items-center gap-2 cursor-pointer">
+                    <div class="mt-8 sm:mt-12 flex flex-wrap items-center justify-center md:justify-start gap-6 reveal stagger-1">
+                        <button type="button" id="hero-play-btn" data-hero-track="bodytalk" class="px-8 py-4 bg-white text-black text-sm font-bold uppercase tracking-widest rounded-full hover:scale-105 active:scale-95 transition-transform flex items-center gap-2 cursor-pointer touch-manipulation">
                             <i id="hero-play-icon" class="ph-fill ph-play text-lg" aria-hidden="true"></i>
                             <span id="hero-play-label">Listen Now</span>
                         </button>
@@ -302,10 +319,13 @@
                     </div>
                 </div>
 
-                <!-- Cover Art Showcase -->
-                <div class="flex-1 w-full max-w-md reveal stagger-2">
-                    <button type="button" id="hero-vinyl" data-hero-track="bodytalk" aria-label="Toggle BODYTALK playback" class="group w-full aspect-square bg-[#050505] border border-white/15 rounded-3xl p-0 overflow-hidden relative block cursor-pointer shadow-2xl">
-                        <img id="hero-vinyl-art" src="cover_bodytalk.jpg" alt="BODYTALK cover art" width="640" height="640" decoding="async" class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700">
+                <!-- Record Player UI -->
+                <div class="flex-1 w-full max-w-[260px] sm:max-w-md mx-auto reveal stagger-2">
+                    <button type="button" id="hero-vinyl" data-hero-track="bodytalk" aria-label="Toggle BODYTALK playback" class="relative w-full aspect-square bg-[#050505] border border-white/15 rounded-full p-0 overflow-hidden block cursor-pointer shadow-2xl touch-manipulation">
+                        <span class="vinyl-disc absolute inset-0 w-full h-full rounded-full bg-black overflow-hidden flex items-center justify-center">
+                            <img id="hero-vinyl-art" src="cover_bodytalk.jpg" alt="" width="640" height="640" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                            <span class="w-16 h-16 sm:w-24 sm:h-24 bg-black rounded-full border-4 border-[#050505] relative"></span>
+                        </span>
                     </button>
                 </div>
 
@@ -329,7 +349,7 @@
                     <div class="space-y-8 reveal stagger-1">
                         <div>
                             <h3 class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-3">Verse I</h3>
-                            <p class="text-base sm:text-lg font-light space-y-1">
+                            <p class="text-base sm:text-lg font-light">
                                 You walk in like a midnight sin,<br>
                                 Perfume mixed with smoke and gin.<br>
                                 Every curve you’ve got’s a crime,<br>
@@ -351,7 +371,7 @@
 
                         <div>
                             <h3 class="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40 mb-3">Chorus</h3>
-                            <p class="text-base sm:text-lg font-medium text-white">
+                            <p class="text-base sm:text-lg font-light">
                                 Your body never lies to me,<br>
                                 But your soul’s a mystery.<br>
                                 You taste like heaven, talk like pain,<br>
@@ -429,7 +449,7 @@
                 </ul>
             </div>
 
-            <footer class="w-full max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-20 text-center reveal stagger-2">
+            <footer class="w-full max-w-4xl mx-auto px-6 pt-12 sm:pt-16 pb-28 sm:pb-32 text-center reveal stagger-2">
                 <nav aria-label="Legal" class="flex flex-wrap justify-center gap-x-8 gap-y-4">
                     <a href="/" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Home</a>
                     <a href="/music.html" class="text-sm font-bold text-white/60 hover:text-white uppercase tracking-widest transition-colors">Music</a>
@@ -444,69 +464,69 @@
     </main>
 
     <!-- Spotify-Style Full-Screen Synced Lyrics View -->
-    <section id="player-lyrics-panel" hidden aria-label="Synced lyrics" class="fixed inset-x-0 top-0 bottom-[6rem] sm:bottom-[6.25rem] z-[60] flex flex-col overflow-hidden bg-[#0a0a0c]">
+    <section id="player-lyrics-panel" hidden aria-label="Synced lyrics" class="fixed inset-0 pb-[calc(5.75rem+env(safe-area-inset-bottom))] sm:pb-[6.25rem] z-[60] flex flex-col overflow-hidden bg-[#0a0a0c]">
         <div id="player-lyrics-bg" class="absolute inset-0 -z-10 transition-all duration-700" aria-hidden="true"></div>
 
-        <div class="max-w-5xl w-full mx-auto px-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-4 flex items-center justify-between gap-4 border-b border-white/10">
+        <div class="max-w-5xl w-full mx-auto px-5 sm:px-6 pt-[max(1.25rem,env(safe-area-inset-top))] pb-3.5 sm:pb-4 flex items-center justify-between gap-4 border-b border-white/10">
             <div class="flex items-center gap-3.5 min-w-0">
-                <img id="player-lyrics-cover" src="/cover_bodytalk.jpg" alt="" width="44" height="44" decoding="async" class="w-11 h-11 rounded-md object-cover shadow-lg border border-white/10 shrink-0">
+                <img id="player-lyrics-cover" src="/cover_bodytalk.jpg" alt="" width="44" height="44" decoding="async" class="w-10 h-10 sm:w-11 sm:h-11 rounded-md object-cover shadow-lg border border-white/10 shrink-0">
                 <div class="min-w-0">
                     <div id="player-lyrics-title" class="text-sm sm:text-base font-bold text-white truncate">BODYTALK</div>
                     <div id="player-lyrics-sub" class="text-xs text-white/60 truncate">X3rœ • Single</div>
                 </div>
             </div>
-            <button type="button" id="player-lyrics-close" aria-label="Close lyrics view" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer shrink-0">
+            <button type="button" id="player-lyrics-close" aria-label="Close lyrics view" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer shrink-0 touch-manipulation">
                 <i class="ph-bold ph-caret-down text-lg" aria-hidden="true"></i>
             </button>
         </div>
 
-        <div id="player-lyrics-list" class="relative max-w-5xl w-full mx-auto px-6 py-16 sm:py-24 flex-1 overflow-y-auto overscroll-contain space-y-2 scroll-smooth"></div>
+        <div id="player-lyrics-list" class="relative max-w-5xl w-full mx-auto px-5 sm:px-6 py-10 sm:py-20 flex-1 overflow-y-auto overscroll-contain space-y-1.5 sm:space-y-2 scroll-smooth"></div>
     </section>
 
     <!-- Spotify-Style Bottom Now Playing Bar -->
-    <aside id="player-bar" data-default-track="bodytalk" hidden aria-label="Music player" class="fixed bottom-0 left-0 right-0 z-[70] bg-[#090909]/95 backdrop-blur-2xl border-t border-white/10 px-4 sm:px-6 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+    <aside id="player-bar" data-default-track="bodytalk" hidden aria-label="Music player" class="fixed bottom-0 left-0 right-0 z-[70] bg-[#090909]/95 backdrop-blur-2xl border-t border-white/10 px-3.5 sm:px-6 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div class="max-w-[1400px] mx-auto flex flex-col gap-2">
             <div class="grid grid-cols-12 items-center gap-2 sm:gap-4">
 
                 <!-- Left: Track Artwork & Info -->
-                <div class="col-span-6 sm:col-span-4 lg:col-span-3 flex items-center gap-3 min-w-0">
-                    <button type="button" id="player-cover-btn" aria-label="Toggle full-screen lyrics" class="relative group shrink-0 cursor-pointer rounded-md overflow-hidden">
-                        <img id="player-cover" src="/cover_bodytalk.jpg" alt="" width="52" height="52" decoding="async" class="w-11 h-11 sm:w-12 sm:h-12 rounded-md object-cover border border-white/10">
+                <div class="col-span-6 sm:col-span-4 lg:col-span-3 flex items-center gap-2.5 sm:gap-3 min-w-0">
+                    <button type="button" id="player-cover-btn" aria-label="Toggle full-screen lyrics" class="relative group shrink-0 cursor-pointer rounded-md overflow-hidden touch-manipulation">
+                        <img id="player-cover" src="/cover_bodytalk.jpg" alt="" width="52" height="52" decoding="async" class="w-10 h-10 sm:w-12 sm:h-12 rounded-md object-cover border border-white/10">
                     </button>
-                    <div class="min-w-0 flex-1">
+                    <button type="button" id="player-info-btn" aria-label="Toggle full-screen lyrics" class="min-w-0 flex-1 text-left cursor-pointer touch-manipulation">
                         <div id="player-title" class="text-xs sm:text-sm font-semibold text-white truncate">BODYTALK</div>
                         <div id="player-subtitle" class="text-[11px] text-white/55 truncate mt-0.5">X3rœ • Single</div>
-                    </div>
+                    </button>
                 </div>
 
                 <!-- Center: Transport Controls -->
                 <div class="col-span-4 sm:col-span-5 lg:col-span-6 flex flex-col items-center justify-center">
-                    <div class="flex items-center gap-1.5 sm:gap-5">
-                        <button type="button" id="player-shuffle" aria-pressed="false" aria-label="Shuffle" class="spotify-toggle-btn hidden sm:flex w-8 h-8 items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer">
+                    <div class="flex items-center gap-1 sm:gap-5">
+                        <button type="button" id="player-shuffle" aria-pressed="false" aria-label="Shuffle" class="spotify-toggle-btn hidden sm:flex w-8 h-8 items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer touch-manipulation">
                             <i class="ph-bold ph-shuffle text-base" aria-hidden="true"></i>
                         </button>
-                        <button type="button" id="player-prev" aria-label="Previous track" class="w-8 h-8 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer">
+                        <button type="button" id="player-prev" aria-label="Previous track" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer touch-manipulation">
                             <i class="ph-fill ph-skip-back text-base" aria-hidden="true"></i>
                         </button>
-                        <button type="button" id="player-toggle" aria-label="Pause" class="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer shadow">
+                        <button type="button" id="player-toggle" aria-label="Pause" class="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer shadow touch-manipulation">
                             <i id="player-toggle-icon" class="ph-fill ph-play text-base" aria-hidden="true"></i>
                         </button>
-                        <button type="button" id="player-next" aria-label="Next track" class="w-8 h-8 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer">
+                        <button type="button" id="player-next" aria-label="Next track" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer touch-manipulation">
                             <i class="ph-fill ph-skip-forward text-base" aria-hidden="true"></i>
                         </button>
-                        <button type="button" id="player-repeat" aria-pressed="false" aria-label="Repeat" class="spotify-toggle-btn hidden sm:flex w-8 h-8 items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer">
+                        <button type="button" id="player-repeat" aria-pressed="false" aria-label="Repeat" class="spotify-toggle-btn hidden sm:flex w-8 h-8 items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer touch-manipulation">
                             <i class="ph-bold ph-repeat text-base" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
 
                 <!-- Right: Lyrics Mic Button & Volume Bar -->
-                <div class="col-span-2 sm:col-span-3 flex items-center justify-end gap-2 sm:gap-3">
-                    <button type="button" id="player-lyrics-btn" aria-expanded="false" aria-controls="player-lyrics-panel" aria-label="Toggle lyrics view" class="spotify-toggle-btn px-2 sm:px-2.5 h-8 rounded-full flex items-center gap-1.5 text-white/70 hover:text-white transition-colors cursor-pointer text-xs font-semibold">
+                <div class="col-span-2 sm:col-span-3 flex items-center justify-end gap-1.5 sm:gap-3">
+                    <button type="button" id="player-lyrics-btn" aria-expanded="false" aria-controls="player-lyrics-panel" aria-label="Toggle lyrics view" class="spotify-toggle-btn px-2 sm:px-2.5 h-8 sm:h-9 rounded-full flex items-center gap-1.5 text-white/70 hover:text-white transition-colors cursor-pointer text-xs font-semibold touch-manipulation">
                         <i class="ph-bold ph-microphone-stage text-base" aria-hidden="true"></i>
                         <span class="hidden md:inline">Lyrics</span>
                     </button>
-                    <button type="button" id="player-mute" aria-label="Mute or unmute" class="hidden sm:flex w-8 h-8 items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer">
+                    <button type="button" id="player-mute" aria-label="Mute or unmute" class="hidden sm:flex w-8 h-8 items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer touch-manipulation">
                         <i id="player-mute-icon" class="ph-fill ph-speaker-high text-base" aria-hidden="true"></i>
                     </button>
                     <label for="player-volume" class="sr-only">Volume</label>
